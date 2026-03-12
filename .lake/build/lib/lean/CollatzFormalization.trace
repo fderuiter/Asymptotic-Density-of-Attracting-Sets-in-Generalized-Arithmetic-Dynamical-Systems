@@ -1,0 +1,33 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["4aa716171e365e1d.olean"],
+  "i": "e6ead0ba4993eb18.ilean",
+  "c": "90049bc76951dfec.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=/app/.lake/packages/Cli/.lake/build/lib/lean:/app/.lake/packages/batteries/.lake/build/lib/lean:/app/.lake/packages/Qq/.lake/build/lib/lean:/app/.lake/packages/aesop/.lake/build/lib/lean:/app/.lake/packages/proofwidgets/.lake/build/lib/lean:/app/.lake/packages/importGraph/.lake/build/lib/lean:/app/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/app/.lake/packages/plausible/.lake/build/lib/lean:/app/.lake/packages/mathlib/.lake/build/lib/lean:/app/.lake/build/lib/lean /home/jules/.elan/toolchains/leanprover--lean4---v4.29.0-rc6/bin/lean /app/CollatzFormalization.lean -o /app/.lake/build/lib/lean/CollatzFormalization.olean -i /app/.lake/build/lib/lean/CollatzFormalization.ilean -c /app/.lake/build/ir/CollatzFormalization.c --setup /app/.lake/build/ir/CollatzFormalization.setup.json --json",
+   "level": "trace"}],
+ "inputs":
+ [["CollatzFormalization:deps",
+   [["deps",
+     [["collatz_formalization/CollatzFormalization:extraDep",
+       [["@collatz_formalization:extraDep", "00000000000006bb"]]],
+      ["imports",
+       [["CollatzFormalization.Basic transitive imports (legacy)",
+         "14383f439baff117"],
+        ["CollatzFormalization.Basic:importAllArts", "82db434468ad3d37"]]]]],
+    ["libs",
+     [["import dynlibs", "00000000000006bb"],
+      ["package external libraries", "00000000000006bb"],
+      ["module dynlibs", "00000000000006bb"],
+      ["module plugins", "00000000000006bb"]]]]],
+  ["Lean 4.29.0, commit 00659f8e6071d7e46131ed643bf8003b99b044e9",
+   "d4ef66a63896cd60"],
+  ["/app/CollatzFormalization.lean", "6cdf16126d069717"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: CollatzFormalization", "1c763dd3cba9e14d"],
+  ["Package.id?: (some collatz_formalization)", "b63bc6785665ca69"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "c1b02e6991a04784"}

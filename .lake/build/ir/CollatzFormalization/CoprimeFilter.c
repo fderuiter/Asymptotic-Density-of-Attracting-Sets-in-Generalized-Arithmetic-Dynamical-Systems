@@ -1,6 +1,6 @@
 // Lean compiler output
-// Module: CollatzFormalization
-// Imports: public import Init public import CollatzFormalization.Basic public import CollatzFormalization.CoprimeFilter
+// Module: CollatzFormalization.CoprimeFilter
+// Imports: public import Init public import Mathlib.Data.ZMod.Basic public import CollatzFormalization.Basic public import Mathlib.Tactic
 #include <lean/lean.h>
 #if defined(__clang__)
 #pragma clang diagnostic ignored "-Wunused-parameter"
@@ -14,20 +14,24 @@
 extern "C" {
 #endif
 lean_object* initialize_Init(uint8_t builtin);
+lean_object* initialize_mathlib_Mathlib_Data_ZMod_Basic(uint8_t builtin);
 lean_object* initialize_collatz__formalization_CollatzFormalization_Basic(uint8_t builtin);
-lean_object* initialize_collatz__formalization_CollatzFormalization_CoprimeFilter(uint8_t builtin);
+lean_object* initialize_mathlib_Mathlib_Tactic(uint8_t builtin);
 static bool _G_initialized = false;
-LEAN_EXPORT lean_object* initialize_collatz__formalization_CollatzFormalization(uint8_t builtin) {
+LEAN_EXPORT lean_object* initialize_collatz__formalization_CollatzFormalization_CoprimeFilter(uint8_t builtin) {
 lean_object * res;
 if (_G_initialized) return lean_io_result_mk_ok(lean_box(0));
 _G_initialized = true;
 res = initialize_Init(builtin);
 if (lean_io_result_is_error(res)) return res;
 lean_dec_ref(res);
+res = initialize_mathlib_Mathlib_Data_ZMod_Basic(builtin);
+if (lean_io_result_is_error(res)) return res;
+lean_dec_ref(res);
 res = initialize_collatz__formalization_CollatzFormalization_Basic(builtin);
 if (lean_io_result_is_error(res)) return res;
 lean_dec_ref(res);
-res = initialize_collatz__formalization_CollatzFormalization_CoprimeFilter(builtin);
+res = initialize_mathlib_Mathlib_Tactic(builtin);
 if (lean_io_result_is_error(res)) return res;
 lean_dec_ref(res);
 return lean_io_result_mk_ok(lean_box(0));

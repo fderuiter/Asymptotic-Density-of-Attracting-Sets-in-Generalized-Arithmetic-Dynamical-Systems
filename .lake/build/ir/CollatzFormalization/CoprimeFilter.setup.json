@@ -1,7 +1,7 @@
 {"plugins": [],
  "package": "collatz_formalization",
  "options": {},
- "name": "CollatzFormalization",
+ "name": "CollatzFormalization.CoprimeFilter",
  "isModule": false,
  "importArts":
  {"Qq.Typ":
@@ -15134,8 +15134,6 @@
    "/app/.lake/packages/importGraph/.lake/build/lib/lean/ImportGraph/Graph/TransitiveClosure.ir",
    "/app/.lake/packages/importGraph/.lake/build/lib/lean/ImportGraph/Graph/TransitiveClosure.olean.server",
    "/app/.lake/packages/importGraph/.lake/build/lib/lean/ImportGraph/Graph/TransitiveClosure.olean.private"],
-  "CollatzFormalization.CoprimeFilter":
-  ["/app/.lake/build/lib/lean/CollatzFormalization/CoprimeFilter.olean"],
   "CollatzFormalization.Basic":
   ["/app/.lake/build/lib/lean/CollatzFormalization/Basic.olean"],
   "Batteries.Util.ProofWanted":

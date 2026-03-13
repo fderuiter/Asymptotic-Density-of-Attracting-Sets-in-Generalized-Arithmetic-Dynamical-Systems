@@ -26,6 +26,29 @@ def transition_prob (i j : Fin d) : ℚ :=
 def transition_matrix : Matrix (Fin d) (Fin d) ℚ :=
   transition_prob M
 
+
+/--
+Helper Lemma: Matrix Non-Negativity.
+Proves that all transition probabilities are valid non-negative rational numbers.
+-/
+lemma transition_matrix_nonneg (i j : Fin d) :
+  transition_matrix M i j ≥ 0 := by
+
+  -- STEP 1: Unfold definitions to expose the underlying division of Finset cardinality by modulus d
+  unfold transition_matrix transition_prob
+
+  -- STEP 2: Apply Mathlib's division non-negativity theorem.
+  -- If a ≥ 0 and b ≥ 0, then a / b ≥ 0. This splits the goal into two sub-goals.
+  apply div_nonneg
+
+  -- STEP 3: Prove the numerator (cardinality of the filtered set) is non-negative.
+  -- Since cardinality is a natural number (Nat), its cast to a rational (ℚ) is always ≥ 0.
+  · exact Nat.cast_nonneg _
+
+  -- STEP 4: Prove the denominator (modulus d) is non-negative.
+  -- Similarly, d is a Nat, so its cast is ≥ 0.
+  · exact Nat.cast_nonneg _
+
 /--
 Helper Lemma: The Conservation of States.
 Proves that summing the number of matching k's across all possible destination states j

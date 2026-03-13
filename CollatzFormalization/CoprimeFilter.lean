@@ -64,8 +64,7 @@ required to simulate a Turing Machine, rendering it decidable.
 -/
 theorem coprime_safe_from_turing_completeness :
   IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (apply_map M) := by
-  intro h_coprime
-  intro h_is_utm
+  intro h_coprime h_is_utm
 
   -- 1. If it is a UTM, it must possess destructive reads.
   have h_has_reads : HasConditionalDestructiveReads (apply_map M) :=

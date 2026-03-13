@@ -3,6 +3,8 @@ import CollatzFormalization.Basic
 import CollatzFormalization.ComputabilityAxioms
 import Mathlib.Tactic
 
+open CollatzFormalization.ComputabilityAxioms
+
 namespace GenCollatzMap
 
 variable {d : ℕ} [NeZero d]
@@ -24,13 +26,18 @@ theorem coprime_implies_bijective_mod_d (h_safe : IsCoprimeConstrained M) (i : F
   exact IsUnit.isUnit_iff_mulLeft_bijective.mp h_unit
 
 -----------------------------------------------------------------------------
--- COMPLETED DELIVERABLE THEOREM
+-- DELIVERABLE THEOREM (conditional on ComputabilityAxioms)
 -----------------------------------------------------------------------------
 
 /--
 The Deliverable Theorem for 1.1.2a:
 A bijective piecewise map cannot execute the conditional destructive reads
-required to simulate a Turing Machine, rendering it decidable.
+required to simulate a Turing Machine.
+
+**Note:** This result is conditional on the axioms in
+`CollatzFormalization.ComputabilityAxioms` (specifically
+`utm_requires_destructive_reads` and `bijective_map_lacks_destructive_reads`).
+It is not an unconditional computability-theoretic claim.
 -/
 theorem coprime_safe_from_turing_completeness :
   IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (apply_map M) := by

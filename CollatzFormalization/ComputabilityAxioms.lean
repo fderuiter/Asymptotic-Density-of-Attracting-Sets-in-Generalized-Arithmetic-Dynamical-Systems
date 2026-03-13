@@ -1,5 +1,4 @@
 import CollatzFormalization.Basic
-import Mathlib.Data.ZMod.Basic
 
 /-!
 # Computability Axioms
@@ -7,7 +6,12 @@ import Mathlib.Data.ZMod.Basic
 Foundational assumptions connecting the arithmetic structure of generalized
 Collatz maps to computability-theoretic notions. These axioms are isolated
 here to avoid polluting unrelated developments.
+
+All declarations are in the `CollatzFormalization.ComputabilityAxioms` namespace
+so they do not introduce unqualified names into the global environment.
 -/
+
+namespace CollatzFormalization.ComputabilityAxioms
 
 /-- Foundational placeholder: `f` can simulate a Universal Turing Machine. -/
 axiom IsUniversalTuringMachine (f : ℕ → ℤ) : Prop
@@ -35,3 +39,5 @@ information and inherently lacks the capacity for destructive reads.
 axiom bijective_map_lacks_destructive_reads {d : ℕ} [NeZero d] (M : GenCollatzMap d) :
   (∀ i : Fin d, Function.Bijective (fun (x : ZMod d) ↦ (M.a i : ZMod d) * x)) →
   ¬ HasConditionalDestructiveReads (M.apply_map)
+
+end CollatzFormalization.ComputabilityAxioms

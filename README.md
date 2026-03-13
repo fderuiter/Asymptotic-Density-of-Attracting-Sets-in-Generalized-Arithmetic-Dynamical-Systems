@@ -22,7 +22,7 @@ The research pipeline is structured into four sequential phases, progressing fro
 ### Chapter 1: Structural Prerequisites (The Filter) *[In Progress]*
 Establishes the absolute topological and computational floor of the dynamical systems. 
 * **Computability Bounds (`CoprimeFilter.lean`):** Formalizes the prime signature constraints required to prevent Minsky/FRACTRAN machine simulation, neutralizing the Halting Problem via $p$-adic destruction.
-* **Ergodic Translation (`MarkovTranslation.lean`):** Maps the deterministic arithmetic rules into finite-state Markov chains, utilizing Mathlib's spectral theory to formally prove stationary measures via the Perron-Frobenius theorem.
+* **Ergodic Translation (`MarkovTranslation.lean`):** Maps the deterministic arithmetic rules into finite-state Markov chains. The existence of stationary measures is currently axiomatized as a placeholder (the Perron-Frobenius theorem is not yet available in this version of Mathlib); the result will be formally derived once spectral theory support is complete.
 * **Algebraic Cycle Limits (`CycleBounds.lean`):** Caps the maximum orbit length of invariant subspaces using Euler's Totient function $\phi(d^k)$ and $p$-adic monotonic growth rates.
 
 ### Chapter 2: The Analytic Translation *[Planned]*

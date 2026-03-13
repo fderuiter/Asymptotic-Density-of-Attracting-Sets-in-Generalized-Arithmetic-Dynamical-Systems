@@ -66,7 +66,7 @@ It perfectly preserves information and inherently lacks the capacity for destruc
 -/
 axiom bijective_map_lacks_destructive_reads (M : GenCollatzMap d) :
   (∀ i : Fin d, Function.Bijective (fun (x : ZMod d) ↦ (M.a i : ZMod d) * x)) →
-  ¬ HasConditionalDestructiveReads (fun x => (apply_map M x).toNat)
+  ¬ HasConditionalDestructiveReads (fun x => (apply_map M x).natAbs)
 
 
 -----------------------------------------------------------------------------
@@ -90,12 +90,12 @@ Proof strategy (modus tollens):
 -/
 lemma bijective_implies_no_destructive_read
     (h_bij : ∀ i : Fin d, Function.Bijective (fun (x : ZMod d) ↦ (M.a i : ZMod d) * x)) :
-    ¬ CanExecuteDestructiveRead (fun x => (apply_map M x).toNat) := by
+    ¬ CanExecuteDestructiveRead (fun x => (apply_map M x).natAbs) := by
   -- Unfold CanExecuteDestructiveRead and assume it holds for contradiction.
   intro h_cdr
   -- A destructive read means the map is a UTM, which requires conditional
   -- destructive reads. Apply Axiom 1 to obtain `HasConditionalDestructiveReads`.
-  have h_has_reads : HasConditionalDestructiveReads (fun x => (apply_map M x).toNat) :=
+  have h_has_reads : HasConditionalDestructiveReads (fun x => (apply_map M x).natAbs) :=
     utm_requires_destructive_reads h_cdr
   -- Apply Axiom 2: bijective branches structurally forbid destructive reads.
   -- The injectivity inherent in each bijective branch (is defined as a permutation
@@ -118,7 +118,7 @@ This lemma creates a clean single-step bridge from the algebraic coprime
 constraint to the computability-theoretic consequence of non-destruction.
 -/
 lemma coprime_forbids_destructive_read (h_coprime : IsCoprimeConstrained M) :
-    ¬ CanExecuteDestructiveRead (fun x => (apply_map M x).toNat) :=
+    ¬ CanExecuteDestructiveRead (fun x => (apply_map M x).natAbs) :=
   -- Apply bijective_implies_no_destructive_read with the bijection hypothesis
   -- satisfied simultaneously by coprime_implies_bijective_mod_d.
   bijective_implies_no_destructive_read M (coprime_implies_bijective_mod_d M h_coprime)
@@ -138,7 +138,7 @@ The logic is absolute (modus tollens):
   3. Therefore, the system is not a Universal Turing Machine.
 -/
 theorem coprime_safe_from_turing_completeness :
-    IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (fun x => (apply_map M x).toNat) :=
+    IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (fun x => (apply_map M x).natAbs) :=
   -- Unfold IsUniversalTuringMachine (which equals CanExecuteDestructiveRead),
   -- then apply coprime_forbids_destructive_read directly.
   coprime_forbids_destructive_read M

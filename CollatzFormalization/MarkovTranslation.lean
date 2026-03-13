@@ -1,10 +1,6 @@
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Data.Rat.Defs
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
--- Required for real-valued spectral analysis; included per the blueprint for
--- future eigenvalue computations when Perron-Frobenius is formalized over ℝ.
-import Mathlib.Analysis.SpecialFunctions.Pow.Real
-import Mathlib.LinearAlgebra.Matrix.Stochastic
 import CollatzFormalization.Basic
 
 namespace GenCollatzMap

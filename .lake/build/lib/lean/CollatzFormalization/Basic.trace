@@ -1,7 +1,7 @@
 {"synthetic": false,
  "schemaVersion": "2025-09-10",
  "outputs":
- {"o": ["8e731b4472e8b135.olean"],
+ {"o": ["f2998fa2d6b36985.olean"],
   "i": "41310c852f51a4c8.ilean",
   "c": "18f7d09643025324.c"},
  "log":
@@ -36,10 +36,10 @@
       ["module plugins", "00000000000006bb"]]]]],
   ["Lean 4.29.0, commit 00659f8e6071d7e46131ed643bf8003b99b044e9",
    "d4ef66a63896cd60"],
-  ["/app/CollatzFormalization/Basic.lean", "ab218a7c169b0d58"],
+  ["/app/CollatzFormalization/Basic.lean", "32ec16b01335f3ba"],
   ["options", "00000000000006bb"],
   ["isModule: false", "feefd2a0d3a1847e"],
   ["Module.name: CollatzFormalization.Basic", "3565c07f0ba93096"],
   ["Package.id?: (some collatz_formalization)", "b63bc6785665ca69"],
   ["Module.leanArgs: #[]", "00000000000006bb"]],
- "depHash": "afb4e3dec567fce0"}
+ "depHash": "d57b3430915175e1"}

@@ -1,1 +1,1 @@
-{"decls":{},"directImports":[["CollatzFormalization.Basic",false,false,false],["CollatzFormalization.CoprimeFilter",false,false,false]],"module":"CollatzFormalization","references":{},"version":5}
+{"decls":{},"directImports":[["CollatzFormalization.Basic",false,false,false],["CollatzFormalization.CoprimeFilter",false,false,false],["CollatzFormalization.PeriodicCycles",false,false,false],["CollatzFormalization.MarkovTranslation",false,false,false]],"module":"CollatzFormalization","references":{},"version":5}

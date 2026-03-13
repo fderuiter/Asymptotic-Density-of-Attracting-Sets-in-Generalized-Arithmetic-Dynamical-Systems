@@ -1,6 +1,6 @@
 // Lean compiler output
 // Module: CollatzFormalization
-// Imports: public import Init public import CollatzFormalization.Basic public import CollatzFormalization.CoprimeFilter
+// Imports: public import Init public import CollatzFormalization.Basic public import CollatzFormalization.CoprimeFilter public import CollatzFormalization.PeriodicCycles public import CollatzFormalization.MarkovTranslation
 #include <lean/lean.h>
 #if defined(__clang__)
 #pragma clang diagnostic ignored "-Wunused-parameter"
@@ -16,6 +16,8 @@ extern "C" {
 lean_object* initialize_Init(uint8_t builtin);
 lean_object* initialize_collatz__formalization_CollatzFormalization_Basic(uint8_t builtin);
 lean_object* initialize_collatz__formalization_CollatzFormalization_CoprimeFilter(uint8_t builtin);
+lean_object* initialize_collatz__formalization_CollatzFormalization_PeriodicCycles(uint8_t builtin);
+lean_object* initialize_collatz__formalization_CollatzFormalization_MarkovTranslation(uint8_t builtin);
 static bool _G_initialized = false;
 LEAN_EXPORT lean_object* initialize_collatz__formalization_CollatzFormalization(uint8_t builtin) {
 lean_object * res;
@@ -28,6 +30,12 @@ res = initialize_collatz__formalization_CollatzFormalization_Basic(builtin);
 if (lean_io_result_is_error(res)) return res;
 lean_dec_ref(res);
 res = initialize_collatz__formalization_CollatzFormalization_CoprimeFilter(builtin);
+if (lean_io_result_is_error(res)) return res;
+lean_dec_ref(res);
+res = initialize_collatz__formalization_CollatzFormalization_PeriodicCycles(builtin);
+if (lean_io_result_is_error(res)) return res;
+lean_dec_ref(res);
+res = initialize_collatz__formalization_CollatzFormalization_MarkovTranslation(builtin);
 if (lean_io_result_is_error(res)) return res;
 lean_dec_ref(res);
 return lean_io_result_mk_ok(lean_box(0));

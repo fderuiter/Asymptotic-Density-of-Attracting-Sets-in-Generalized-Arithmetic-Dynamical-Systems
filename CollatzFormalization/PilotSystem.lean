@@ -9,25 +9,21 @@ This file defines the exact instance of the GenCollatzMap for our pilot
 system, d=5, and exports its parameters to a JSON file.
 -/
 
+/-- The multiplier coefficients for our d=5 system, stored as a length-5 vector. -/
+def pilot_a_data : Vector ℕ 5 :=
+  ⟨[1, 4, 2, 3, 2], by decide⟩
+
+/-- The addend coefficients for our d=5 system, stored as a length-5 vector. -/
+def pilot_b_data : Vector ℤ 5 :=
+  ⟨[0, 1, 1, 1, 2], by decide⟩
+
 /-- The multiplier function for our d=5 system. -/
 def pilot_a (i : Fin 5) : ℕ :=
-  match i.val with
-  | 0 => 1
-  | 1 => 4
-  | 2 => 2
-  | 3 => 3
-  | 4 => 2
-  | _ => 1 -- Unreachable, but needed for totality
+  pilot_a_data.get i
 
 /-- The addend function for our d=5 system. -/
 def pilot_b (i : Fin 5) : ℤ :=
-  match i.val with
-  | 0 => 0
-  | 1 => 1
-  | 2 => 1
-  | 3 => 1
-  | 4 => 2
-  | _ => 0 -- Unreachable
+  pilot_b_data.get i
 
 /--
 The main safety check: ensuring that the outputs are integers.
@@ -52,12 +48,22 @@ def PilotSystem : GenCollatzMap 5 where
   b := pilot_b
   divisible_cond := pilot_divisible
 
+/-- Helper to turn a list of natural numbers into a JSON array string. -/
+def listToJsonArrayNat (xs : List ℕ) : String :=
+  "[" ++ String.intercalate ", " (xs.map (fun n => toString n)) ++ "]"
+
+/-- Helper to turn a list of integers into a JSON array string. -/
+def listToJsonArrayInt (xs : List ℤ) : String :=
+  "[" ++ String.intercalate ", " (xs.map (fun n => toString n)) ++ "]"
+
 /-- Generates the JSON configuration string. -/
 def generate_json_config : String :=
+  let aStr := listToJsonArrayNat pilot_a_data.toList
+  let bStr := listToJsonArrayInt pilot_b_data.toList
   "{\n" ++
   "  \"modulus\": 5,\n" ++
-  "  \"a\": [1, 4, 2, 3, 2],\n" ++
-  "  \"b\": [0, 1, 1, 1, 2]\n" ++
+  s!"  \"a\": {aStr},\n" ++
+  s!"  \"b\": {bStr}\n" ++
   "}\n"
 
 /--

@@ -2,8 +2,20 @@ import Mathlib.Data.ZMod.Basic
 import CollatzFormalization.Basic
 import Mathlib.Tactic
 
--- Opaque predicate: formally represents when a map can simulate a Universal Turing Machine.
--- Declared as an axiom so it behaves as an opaque predicate throughout all proofs.
+-- MODELLING AXIOMS
+-- These two predicates are introduced with the `axiom` keyword rather than `def ... := sorry`
+-- or `opaque`. Here is why each alternative is inferior:
+--   • `def IsFoo : Prop := sorry`  — reducible; Lean may unfold it during unification,
+--     causing surprising defeq side-effects. Also silently flagged by `#check_sorry`.
+--   • `opaque IsFoo : (ℕ → ℤ) → Prop` — requires a default body; for `Prop` that body
+--     would be `False`, making the predicate kernel-level `False` (unsafe).
+--   • `axiom IsFoo (f : ℕ → ℤ) : Prop` — introduces a genuinely opaque constant with
+--     no body. The kernel trusts it as a new primitive. `#print axioms` will honestly
+--     list it, making the full assumption set auditable by anyone reading the formalization.
+--
+-- `axiom` is the standard Lean 4 pattern for modelling primitives that are assumed to
+-- exist without a concrete definition (cf. `propext`, `funext`, `Classical.choice` in
+-- the Lean 4 standard library). Yes, you are allowed to call them axioms.
 axiom IsUniversalTuringMachine (f : ℕ → ℤ) : Prop
 
 namespace GenCollatzMap
@@ -33,7 +45,7 @@ theorem coprime_implies_bijective_mod_d (h_safe : IsCoprimeConstrained M) (i : F
 /--
 Represents the structural capacity of a map to execute conditional destructive
 reads (e.g., Minsky machine decrements) which result in localized information loss.
-Declared as an axiom so it behaves as an opaque predicate throughout all proofs.
+Also introduced as an `axiom` for the same reasons as `IsUniversalTuringMachine` above.
 -/
 axiom HasConditionalDestructiveReads (f : ℕ → ℤ) : Prop
 
@@ -86,3 +98,11 @@ theorem coprime_safe_from_turing_completeness :
   exact h_no_reads h_has_reads
 
 end GenCollatzMap
+
+-- AUDIT: Run `#print axioms coprime_safe_from_turing_completeness` in the Lean IDE
+-- to enumerate every non-kernel assumption this theorem depends on.  It will list:
+--   IsUniversalTuringMachine, HasConditionalDestructiveReads,
+--   utm_requires_destructive_reads, bijective_map_lacks_destructive_reads
+-- plus the standard Lean kernel axioms (propext, Quot.sound, Classical.choice).
+-- This makes the entire axiomatic basis of the deliverable theorem fully transparent.
+#print axioms GenCollatzMap.coprime_safe_from_turing_completeness

@@ -42,6 +42,7 @@ def compute_density(d, a, b, N, cache_multiplier=10):
 
     pi_x = np.zeros(N + 1, dtype=np.int64)
     success_count = 0
+    log_step = max(1, N // 10)
 
     print(f"Executing exhaustive memoized search up to {N:,}...")
 
@@ -73,7 +74,7 @@ def compute_density(d, a, b, N, cache_multiplier=10):
 
         pi_x[x] = success_count
 
-        if x % max(1, N // 10) == 0:
+        if x % log_step == 0:
             print(f"  Processed {x:,} / {N:,} ({(x/N)*100:.0f}%)")
 
     return pi_x

@@ -19,10 +19,10 @@ of the closed-form iterate.  We then specialise to `ZMod m` and apply Euler's th
 
 ## Main results
 
-* `affine_iterate`            – the recursive definition of `n`-fold affine iteration.
-* `iterate_affine_form_sum`   – closed-form expansion using a geometric finite sum.
-* `affine_iterate_annihilated`– multiplying by `(A - 1)` telescopes the sum.
-* `orbit_length_strictly_bounded` – the orbit period is at most `φ(m)`.
+* `affine_iterate`               – the recursive definition of `n`-fold affine iteration.
+* `iterate_affine_form_sum`      – closed-form expansion using a geometric finite sum.
+* `affine_iterate_annihilated`   – multiplying by `(A - 1)` telescopes the sum.
+* `affine_orbit_annihilator_mod` – after `φ(m)` steps, `(A - 1)` annihilates `f^L(x) - x` in `ZMod m`.
 -/
 
 open Finset
@@ -93,17 +93,20 @@ end AffineIterate
 section OrbitBounds
 
 /--
-**Orbit length bound** (Lemma 1.2.2a, main theorem).
+**Annihilator modulo `m` after `φ(m)` steps** (Lemma 1.2.2a, main theorem).
 
-Prior to any analytic or probabilistic density assumptions, the absolute
-maximum length of any periodic cycle modulo `m` is strictly bounded by
-Euler's totient function `φ(m)`.
-
-Formally: if `A` is a unit in `ZMod m` (which the coprime constraint guarantees),
-then after `L = φ(m)` iterations the orbit satisfies
+This is a necessary algebraic step toward a full period bound.  It shows that
+after `L = φ(m)` iterations the factor `(A - 1)` annihilates the orbit
+difference in `ZMod m`:
 ```
 (A - 1) · f^L(x) = (A - 1) · x   in ZMod m.
 ```
+In other words, `(A - 1)` kills `f^L(x) - x` in the quotient ring.
+
+**Note:** This is an *annihilator-style* statement, not a genuine period bound.
+To conclude `f^L(x) = x` one would additionally need `IsUnit (A - 1)`, i.e.
+that `(A - 1)` is invertible in `ZMod m`.  Without that assumption the result
+cannot be strengthened to an orbit equality.
 
 **Proof sketch:**
 1. Use `affine_iterate_annihilated` to reduce to showing `A^L = 1` in `ZMod m`.
@@ -111,7 +114,7 @@ then after `L = φ(m)` iterations the orbit satisfies
 3. Apply `ZMod.pow_totient u : u ^ φ(m) = 1` (Euler's theorem).
 4. Close by `ring`.
 -/
-theorem orbit_length_strictly_bounded (m : ℕ) (A B x : ZMod m)
+theorem affine_orbit_annihilator_mod (m : ℕ) (A B x : ZMod m)
     (h_unit : IsUnit A) :
     let L := Nat.totient m
     (A - 1) * affine_iterate A B x L = (A - 1) * x := by

@@ -31,8 +31,9 @@ def transition_matrix : Matrix (Fin d) (Fin d) ℚ :=
 Helper Lemma: Matrix Non-Negativity.
 Proves that all transition probabilities are valid non-negative rational numbers.
 -/
-lemma transition_matrix_nonneg (i j : Fin d) :
-  transition_matrix M i j ≥ 0 := by
+lemma transition_matrix_nonneg :
+  ∀ i j : Fin d, transition_matrix M i j ≥ 0 := by
+  intro i j
 
   -- STEP 1: Unfold definitions to expose the underlying division of Finset cardinality by modulus d
   unfold transition_matrix transition_prob
@@ -165,6 +166,18 @@ lemma stochastic_right_eigenvector_one :
   exact is_stochastic_matrix M i
 
 /--
+Lemma: The all-ones vector is a right eigenvector with eigenvalue 1.
+This translates the row-stochastic property into the `Matrix.mulVec` formulation
+needed for spectral/Perron-Frobenius arguments.
+-/
+lemma transition_matrix_has_eigenvalue_one :
+    Matrix.mulVec (transition_matrix M) (fun _ => (1 : ℚ)) = (fun _ => 1) := by
+  -- Use funext to reduce to showing each coordinate matches
+  funext i
+  -- Unfold mulVec and dotProduct, then use the row-stochastic property
+  simp [Matrix.mulVec, Matrix.dotProduct, is_stochastic_matrix M i]
+
+/--
 Intermediate Lemma 2: Existence of a rational left-eigenvector.
 Because 1 is a right eigenvalue, (P - I) has a non-trivial kernel.
 Therefore, (P^T - I) also has a non-trivial kernel over ℚ, meaning
@@ -186,8 +199,34 @@ axiom rational_stochastic_has_rational_stationary_dist
   ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧ (∀ j, ∑ i, π i * P i j = π j)
 
 /--
+Lemma: Existence of a non-negative left eigenvector (stationary vector).
+Because the transition matrix is non-negative (Step 2) and has a right eigenvalue of 1
+(Step 3), the Perron-Frobenius theorem guarantees a non-negative left eigenvector π.
+
+**Note:** The Perron-Frobenius theorem (`Mathlib.LinearAlgebra.Matrix.PerronFrobenius`)
+is not yet formalized in this version of Mathlib. The result here follows from the
+polyhedral rationality axiom `rational_stochastic_has_rational_stationary_dist`.
+-/
+lemma exists_left_eigenvector_pi :
+    ∃ (π : Fin d → ℚ), (∀ i, π i ≥ 0) ∧ (∑ i, π i = 1) ∧
+    Matrix.vecMul π (transition_matrix M) = π := by
+  -- Extract the stationary distribution using the polyhedral rationality axiom
+  obtain ⟨π, hnn, hsum, hstat⟩ :=
+    rational_stochastic_has_rational_stationary_dist
+      (transition_matrix M)
+      (is_stochastic_matrix M)
+      (transition_matrix_nonneg M)
+  -- Convert the pointwise form to Matrix.vecMul using funext
+  exact ⟨π, hnn, hsum, funext fun j => by
+    simp [Matrix.vecMul, Matrix.dotProduct, hstat j]⟩
+
+/--
 Lemma 1.3.1b: The Ergodic Measure Construction.
 We fulfill the main theorem by applying the structured intermediate lemmas.
+The stationary distribution π satisfies:
+  - Non-negativity: π i ≥ 0 for all i
+  - Normalization:  ∑ i, π i = 1
+  - Stationarity:   π ᵥ* P = π  (left eigenvector with eigenvalue 1)
 
 **Note:** This result depends on the axiom `rational_stochastic_has_rational_stationary_dist`,
 which is a placeholder for the polyhedral rationality argument (the ℚ vs ℝ gap).
@@ -195,15 +234,15 @@ It should not be mistaken for a fully derived result.
 -/
 theorem admits_stationary_distribution :
   ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧
-  (∀ j, ∑ i, π i * transition_matrix M i j = π j) := by
-  -- We invoke the generalized rational stochastic matrix lemma
-  apply rational_stochastic_has_rational_stationary_dist
-  · exact is_stochastic_matrix M
-  · intro i j
-    -- Proof that transition probabilities are non-negative
-    unfold transition_matrix transition_prob
-    apply div_nonneg
-    · exact Nat.cast_nonneg _
-    · exact Nat.cast_nonneg _
+  Matrix.vecMul π (transition_matrix M) = π := by
+  -- Extract π, non-negativity, normalization, and stationarity from the axiom
+  obtain ⟨π, hnn, hsum, hstat⟩ :=
+    rational_stochastic_has_rational_stationary_dist
+      (transition_matrix M)
+      (is_stochastic_matrix M)
+      (transition_matrix_nonneg M)
+  -- Convert the pointwise stationarity to the Matrix.vecMul form
+  exact ⟨π, hnn, hsum, funext fun j => by
+    simp [Matrix.vecMul, Matrix.dotProduct, hstat j]⟩
 
 end GenCollatzMap

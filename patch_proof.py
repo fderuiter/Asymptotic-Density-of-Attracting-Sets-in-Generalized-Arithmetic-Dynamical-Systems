@@ -1,32 +1,9 @@
-import Mathlib.Data.Matrix.Basic
-import Mathlib.Data.Rat.Defs
-import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-import CollatzFormalization.Basic
+import re
 
-namespace GenCollatzMap
+with open("CollatzFormalization/MarkovTranslation.lean", "r") as f:
+    content = f.read()
 
-variable {d : ℕ} [NeZero d]
-variable (M : GenCollatzMap d)
-
-open Finset
-
-/--
-In a generalized Collatz map, an integer x ≡ i (mod d) transitions to
-a new residue class j (mod d). Because x = i + k*d, the output modulo d
-depends perfectly on k (mod d). Assuming the next d-adic digit k is
-uniformly distributed, we define the probability of transitioning from i to j.
--/
-def transition_prob (i j : Fin d) : ℚ :=
-  let valid_k := (univ : Finset (Fin d)).filter (fun k =>
-    (M.apply_map (i.val + k.val * d)) % (d : ℤ) = (j.val : ℤ)
-  )
-  (valid_k.card : ℚ) / (d : ℚ)
-
-/-- The Markov Transition Matrix P for the dynamical system. -/
-def transition_matrix : Matrix (Fin d) (Fin d) ℚ :=
-  transition_prob M
-
-/--
+proof = """/--
 Helper Lemma: The Conservation of States.
 Proves that summing the number of matching k's across all possible destination states j
 exactly equals the total number of available k's (which is d).
@@ -96,49 +73,10 @@ lemma sum_transition_counts (i : Fin d) :
     rw [h3]
     exact (card_eq_sum_ones _).symm
 
-  rw [h_fiber, card_univ, Fintype.card_fin]
+  rw [h_fiber, card_univ, Fintype.card_fin]"""
 
-/--
-Lemma 1.3.1a: Row-Stochastic Validation.
-Every valid transition matrix in ergodic theory must conserve probability mass.
--/
-theorem is_stochastic_matrix (i : Fin d) :
-  ∑ j : Fin d, transition_matrix M i j = 1 := by
+pattern = r"/-- \nHelper Lemma: The Conservation of States\..*?lemma sum_transition_counts.*?sorry"
+new_content = re.sub(pattern, proof, content, flags=re.DOTALL)
 
-  -- STEP 1: Unfold Definitions
-  -- Unfold `transition_matrix` and `transition_prob` to expose the sum and the division.
-  unfold transition_matrix transition_prob
-
-  -- STEP 2: Factor out the Division
-  -- Use `Finset.sum_div` to pull the division by `(d : ℚ)` outside of the summation.
-  rw [← Finset.sum_div]
-
-  -- STEP 3: Factor out the Cast
-  -- Use `Nat.cast_sum` (or `push_cast`) to move the `( : ℚ)` coercion outside the sum,
-  -- allowing you to apply your helper lemma to the inner `Nat` summation.
-  rw [← Nat.cast_sum]
-
-  -- STEP 4: Apply the Helper Lemma
-  -- Rewrite the inner summation using `sum_transition_counts M i`.
-  -- Your goal state will collapse to `(d : ℚ) / (d : ℚ) = 1`.
-  rw [sum_transition_counts M i]
-
-  -- STEP 5: Division by Self
-  -- Apply `div_self`. Lean will require a proof that the denominator is not zero.
-  -- You will satisfy this using `Nat.cast_ne_zero.mpr (NeZero.ne d)`.
-  exact div_self (Nat.cast_ne_zero.mpr (NeZero.ne d))
-
-/--
-Lemma 1.3.1b: The Ergodic Measure Construction.
-A placeholder theorem indicating that because the matrix is stochastic,
-it admits a stationary distribution π (a left eigenvector with eigenvalue 1).
-This formally connects the system to Mathlib's Perron-Frobenius spectral theory.
--/
-theorem admits_stationary_distribution :
-  ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧
-  (∀ j, ∑ i, π i * transition_matrix M i j = π j) := by
-  -- This will eventually be proven by invoking Mathlib's Perron-Frobenius
-  -- theorems for non-negative matrices.
-  sorry
-
-end GenCollatzMap
+with open("CollatzFormalization/MarkovTranslation.lean", "w") as f:
+    f.write(new_content)

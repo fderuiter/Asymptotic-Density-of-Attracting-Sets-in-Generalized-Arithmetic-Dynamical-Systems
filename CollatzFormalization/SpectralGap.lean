@@ -1,0 +1,5 @@
+import CollatzFormalization.Basic
+import CollatzFormalization.MarkovTranslation
+import Mathlib.Analysis.Matrix.Spectrum
+import Mathlib.LinearAlgebra.Matrix.Stochastic
+import Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected

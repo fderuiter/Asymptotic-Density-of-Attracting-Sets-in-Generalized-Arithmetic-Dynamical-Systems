@@ -3,3 +3,4 @@ import CollatzFormalization.CoprimeFilter
 import CollatzFormalization.MarkovTranslation
 import CollatzFormalization.PeriodicCycles
 import CollatzFormalization.PilotSystem
+import CollatzFormalization.SpectralGap

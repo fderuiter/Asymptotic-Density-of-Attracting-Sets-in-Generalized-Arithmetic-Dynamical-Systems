@@ -1,3 +1,4 @@
+import Mathlib.Data.Matrix.Mul
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Data.Rat.Defs
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
@@ -175,7 +176,7 @@ lemma transition_matrix_has_eigenvalue_one :
   -- Use funext to reduce to showing each coordinate matches
   funext i
   -- Unfold mulVec and dotProduct, then use the row-stochastic property
-  simp [Matrix.mulVec, Matrix.dotProduct, is_stochastic_matrix M i]
+  simp [Matrix.mulVec, dotProduct, is_stochastic_matrix M i]
 
 /--
 Intermediate Lemma 2: Existence of a rational left-eigenvector.
@@ -218,7 +219,7 @@ lemma exists_left_eigenvector_pi :
       (transition_matrix_nonneg M)
   -- Convert the pointwise form to Matrix.vecMul using funext
   exact ⟨π, hnn, hsum, funext fun j => by
-    simp [Matrix.vecMul, Matrix.dotProduct, hstat j]⟩
+    simp [Matrix.vecMul, dotProduct, hstat j]⟩
 
 /--
 Lemma 1.3.1b: The Ergodic Measure Construction.
@@ -243,6 +244,6 @@ theorem admits_stationary_distribution :
       (transition_matrix_nonneg M)
   -- Convert the pointwise stationarity to the Matrix.vecMul form
   exact ⟨π, hnn, hsum, funext fun j => by
-    simp [Matrix.vecMul, Matrix.dotProduct, hstat j]⟩
+    simp [Matrix.vecMul, dotProduct, hstat j]⟩
 
 end GenCollatzMap

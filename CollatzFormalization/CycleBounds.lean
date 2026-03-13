@@ -119,18 +119,20 @@ theorem affine_orbit_annihilator_mod (m : ℕ) (A B x : ZMod m)
     let L := Nat.totient m
     (A - 1) * affine_iterate A B x L = (A - 1) * x := by
   -- Let L denote Euler's totient
-  let L := Nat.totient m
   -- Decompose A as the coercion of a unit u
   obtain ⟨u, rfl⟩ := h_unit
+  -- clear the let binding L so we can match L as Nat.totient m
+  dsimp only
   -- Expand the iterate using the annihilator lemma
-  rw [affine_iterate_annihilated]
+  rw [affine_iterate_annihilated (u : ZMod m) B x (Nat.totient m)]
   -- Euler's theorem: u^L = 1 as a unit in ZMod m
-  have hpow : (u : ZMod m) ^ L = 1 := by
-    have hunit_pow : u ^ L = 1 := ZMod.pow_totient u
+  have hpow : (u : ZMod m) ^ (Nat.totient m) = 1 := by
+    have hunit_pow : u ^ (Nat.totient m) = 1 := ZMod.pow_totient u
     -- Convert the unit equality to a ZMod m equality via norm_cast lemmas
     -- Units.val_pow_eq_pow_val: ↑(u^n) = (u : ZMod m)^n
     -- Units.val_one: ↑(1 : (ZMod m)ˣ) = 1
-    simpa using congrArg Units.val hunit_pow
+    have h1 := congrArg Units.val hunit_pow
+    exact h1
   -- Substitute A^L = 1 and simplify
   rw [hpow]
   ring

@@ -1,4 +1,7 @@
+import argparse
 import json
+import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -10,7 +13,7 @@ def load_system():
         return data["modulus"], np.array(data["a"], dtype=np.int64), np.array(data["b"], dtype=np.int64)
     except FileNotFoundError:
         print("ERROR: matrix_data.json not found. Ensure the Lean script has exported it.")
-        exit(1)
+        sys.exit(1)
 
 def find_primary_attractor(d, a, b):
     """Dynamically discovers the primary periodic cycle (the attractor)."""
@@ -23,18 +26,19 @@ def find_primary_attractor(d, a, b):
     cycle_start = seen.index(x)
     return tuple(seen[cycle_start:])
 
-def compute_density(d, a, b, N):
+def compute_density(d, a, b, N, cache_multiplier=10):
     """Exhaustively computes orbits using a high-performance numpy cache."""
     attractor = find_primary_attractor(d, a, b)
     print(f"Primary Attracting Set Discovered: {attractor}")
 
-    # Allocate a massive memory cache to prevent OOB errors during expansion
-    CACHE_SIZE = int(N * 10)
+    # Cache size is configurable; defaults to N * cache_multiplier
+    CACHE_SIZE = int(N * cache_multiplier)
     cache = np.zeros(CACHE_SIZE, dtype=np.int8)
 
-    # Pre-seed the cache with the known attractor
+    # Pre-seed the cache with the known attractor nodes that fall within the cache
     for node in attractor:
-        cache[node] = 1
+        if 0 <= node < CACHE_SIZE:
+            cache[node] = 1
 
     pi_x = np.zeros(N + 1, dtype=np.int64)
     success_count = 0
@@ -46,7 +50,7 @@ def compute_density(d, a, b, N):
         current = x
 
         while True:
-            if current < CACHE_SIZE and cache[current] != 0:
+            if current >= 0 and current < CACHE_SIZE and cache[current] != 0:
                 result = cache[current]
                 break
 
@@ -54,14 +58,14 @@ def compute_density(d, a, b, N):
             res = current % d
             current = (a[res] * current + b[res]) // d
 
-            # Failsafe for integer escape
-            if current >= CACHE_SIZE:
+            # Failsafe: trajectory escaped the cache bounds or went negative
+            if current < 0 or current >= CACHE_SIZE:
                 result = -1
                 break
 
-        # Backpropagate
+        # Backpropagate only for nodes in the valid cache range
         for node in path:
-            if node < CACHE_SIZE:
+            if 0 <= node < CACHE_SIZE:
                 cache[node] = result
 
         if result == 1:
@@ -69,7 +73,7 @@ def compute_density(d, a, b, N):
 
         pi_x[x] = success_count
 
-        if x % (N // 10) == 0:
+        if x % max(1, N // 10) == 0:
             print(f"  Processed {x:,} / {N:,} ({(x/N)*100:.0f}%)")
 
     return pi_x
@@ -97,15 +101,15 @@ def evaluate_and_plot(N, pi_x):
 
     # Generate the log-log plot for the dissertation
     plt.figure(figsize=(10, 6))
-    plt.plot(x_vals, x_vals, 'k--', alpha=0.3, label='Theoretical Maximum ($\pi(x) = x$)')
-    plt.plot(x_vals, y_empirical, 'b-', linewidth=2, label='Empirical Convergence $\pi_{\mathcal{A}}(x)$')
+    plt.plot(x_vals, x_vals, 'k--', alpha=0.3, label=r'Theoretical Maximum ($\pi(x) = x$)')
+    plt.plot(x_vals, y_empirical, 'b-', linewidth=2, label=r'Empirical Convergence $\pi_{\mathcal{A}}(x)$')
     plt.plot(x_vals, y_target, 'r--', linewidth=2, label=f'Target Bound ($0.5 x^{{0.95}}$)')
 
     plt.xscale('log')
     plt.yscale('log')
-    plt.xlabel('Integer $x$ (Log Scale)')
+    plt.xlabel(r'Integer $x$ (Log Scale)')
     plt.ylabel('Count of Convergent Orbits (Log Scale)')
-    plt.title('Asymptotic Density of the $d=5$ Pilot System')
+    plt.title(r'Asymptotic Density of the $d=5$ Pilot System')
     plt.legend()
     plt.grid(True, which="both", ls="--", alpha=0.5)
 
@@ -113,8 +117,27 @@ def evaluate_and_plot(N, pi_x):
     plt.savefig('Density_Bound_Proof.png', dpi=300)
     print("Visual proof saved as 'Density_Bound_Proof.png'.")
 
+def _env_int(name: str, default: int) -> int:
+    """Read an integer from an environment variable, falling back to *default* on error."""
+    raw = os.environ.get(name)
+    if raw is None:
+        return default
+    try:
+        return int(raw)
+    except ValueError:
+        print(f"WARNING: Environment variable {name}={raw!r} is not a valid integer; using default {default}.")
+        return default
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Empirical density analysis for generalized Collatz maps.")
+    parser.add_argument("--N", type=int,
+                        default=_env_int("DENSITY_N", 10_000_000),
+                        help="Upper bound for the orbit search (default: 10,000,000 or DENSITY_N env var).")
+    parser.add_argument("--cache-multiplier", type=int,
+                        default=_env_int("DENSITY_CACHE_MULT", 10),
+                        help="Cache size as a multiple of N (default: 10 or DENSITY_CACHE_MULT env var).")
+    args = parser.parse_args()
+
     d, a, b = load_system()
-    N = 10_000_000
-    pi_x = compute_density(d, a, b, N)
-    evaluate_and_plot(N, pi_x)
+    pi_x = compute_density(d, a, b, args.N, cache_multiplier=args.cache_multiplier)
+    evaluate_and_plot(args.N, pi_x)

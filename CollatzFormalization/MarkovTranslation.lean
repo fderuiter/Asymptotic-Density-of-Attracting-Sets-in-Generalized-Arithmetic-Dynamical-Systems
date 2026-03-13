@@ -194,6 +194,9 @@ lemma rational_stochastic_has_rational_stationary_dist
 /--
 Lemma 1.3.1b: The Ergodic Measure Construction.
 We now fulfill the main theorem by applying the structured intermediate lemmas.
+NOTE: This theorem currently depends on `rational_stochastic_has_rational_stationary_dist`,
+which is marked `sorry`. The full formal proof requires the Farkas' Lemma /
+Polyhedral extreme-point argument to close the gap.
 -/
 theorem admits_stationary_distribution :
   ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧
@@ -202,10 +205,7 @@ theorem admits_stationary_distribution :
   apply rational_stochastic_has_rational_stationary_dist
   · exact is_stochastic_matrix M
   · intro i j
-    -- Proof that transition probabilities are non-negative
-    unfold transition_matrix transition_prob
-    apply div_nonneg
-    · exact Nat.cast_nonneg _
-    · exact Nat.cast_nonneg _
+    -- Reuse the centralized non-negativity proof
+    exact transition_matrix_nonneg M i j
 
 end GenCollatzMap

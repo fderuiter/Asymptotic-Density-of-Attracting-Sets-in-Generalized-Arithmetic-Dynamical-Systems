@@ -2,8 +2,9 @@ import Mathlib.Data.ZMod.Basic
 import CollatzFormalization.Basic
 import Mathlib.Tactic
 
--- Placeholder for full computability formalization
-def IsUniversalTuringMachine (f : ℕ → ℤ) : Prop := sorry
+-- Opaque predicate: formally represents when a map can simulate a Universal Turing Machine.
+-- Declared as an axiom so it behaves as an opaque predicate throughout all proofs.
+axiom IsUniversalTuringMachine (f : ℕ → ℤ) : Prop
 
 namespace GenCollatzMap
 
@@ -32,8 +33,9 @@ theorem coprime_implies_bijective_mod_d (h_safe : IsCoprimeConstrained M) (i : F
 /--
 Represents the structural capacity of a map to execute conditional destructive
 reads (e.g., Minsky machine decrements) which result in localized information loss.
+Declared as an axiom so it behaves as an opaque predicate throughout all proofs.
 -/
-def HasConditionalDestructiveReads (f : ℕ → ℤ) : Prop := sorry
+axiom HasConditionalDestructiveReads (f : ℕ → ℤ) : Prop
 
 /--
 Axiom 1: In this arithmetic framework, any Universal Turing Machine encoding
@@ -60,7 +62,8 @@ axiom bijective_map_lacks_destructive_reads (M : GenCollatzMap d) :
 /--
 The Deliverable Theorem for 1.1.2a:
 A bijective piecewise map cannot execute the conditional destructive reads
-required to simulate a Turing Machine, rendering it decidable.
+required to simulate a Turing Machine. Concretely, it cannot be a Universal
+Turing Machine (the map is `¬ IsUniversalTuringMachine`).
 -/
 theorem coprime_safe_from_turing_completeness :
   IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (apply_map M) := by

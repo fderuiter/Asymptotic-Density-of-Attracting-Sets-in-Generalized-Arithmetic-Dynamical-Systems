@@ -1,0 +1,1 @@
+Winning values: c=0.5, epsilon=0.05

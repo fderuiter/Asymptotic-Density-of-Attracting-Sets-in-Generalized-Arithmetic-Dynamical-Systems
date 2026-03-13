@@ -1,14 +1,40 @@
+import argparse
 import json
 import numpy as np
 import scipy.linalg as la
 
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Monte Carlo simulation of transition matrix eigenvalues."
+    )
+    parser.add_argument(
+        "--input",
+        default="data/matrix_data.json",
+        help="Path to the JSON file with system parameters (default: data/matrix_data.json)",
+    )
+    parser.add_argument(
+        "--output",
+        default="results/phase1_results.txt",
+        help="Path to write simulation results (default: results/phase1_results.txt)",
+    )
+    parser.add_argument(
+        "--samples",
+        type=int,
+        default=100_000_000,
+        help="Number of random large integer orbits to simulate (default: 100000000)",
+    )
+    return parser.parse_args()
+
+
 def main():
-    print("Loading Lean 4 parameters from matrix_data.json...")
+    args = parse_args()
+    print(f"Loading Lean 4 parameters from {args.input}...")
     try:
-        with open("matrix_data.json", "r") as f:
+        with open(args.input, "r") as f:
             data = json.load(f)
     except FileNotFoundError:
-        print("Error: matrix_data.json not found. Did you run the Lean export?")
+        print(f"Error: {args.input} not found. Did you run the Lean export?")
         return
 
     d = data["modulus"]
@@ -19,7 +45,7 @@ def main():
     print(f"Multipliers (a): {a}")
     print(f"Addends (b):     {b}")
 
-    N = 100_000_000
+    N = args.samples
     print(f"Simulating {N} random large integer orbits...")
 
     # Generate N random very large integers
@@ -77,11 +103,19 @@ def main():
         print(f"\nEstimated Empirical Spectral Gap (1 - |λ_2|): {spectral_gap:.6f}")
 
         if spectral_gap > 0 and spectral_gap < 1.0:
-            print("SUCCESS: Empirically observed strict spectral gap. "
-                  "This Monte Carlo estimate provides evidence (not a mathematical proof) "
-                  "that the system may be rapidly mixing.")
+            msg = (
+                "SUCCESS: Empirically observed strict spectral gap. "
+                "This Monte Carlo estimate provides evidence (not a mathematical proof) "
+                "that the system may be rapidly mixing."
+            )
         else:
-            print("WARNING: No empirical spectral gap found in this estimate.")
+            msg = "WARNING: No empirical spectral gap found in this estimate."
+        print(msg)
+        with open(args.output, "w") as out:
+            out.write(f"Dominant Eigenvalue (lambda_1): {np.abs(lambda_1):.6f}\n")
+            out.write(f"Second Largest Eigenvalue (lambda_2): {np.abs(lambda_2):.6f}\n")
+            out.write(f"Estimated Empirical Spectral Gap (1 - |lambda_2|): {spectral_gap:.6f}\n")
+            out.write(msg + "\n")
     else:
         print("Not enough eigenvalues to calculate spectral gap.")
 

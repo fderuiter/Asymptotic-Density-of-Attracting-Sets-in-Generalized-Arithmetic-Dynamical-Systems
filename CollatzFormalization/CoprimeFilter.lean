@@ -4,6 +4,21 @@ import Mathlib.Tactic
 import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.NumberTheory.Padic.PadicVal
 
+/-!
+# Coprime Filter: Turing Completeness and Structural Constraints
+
+This file formalizes the **Coprime Filter** criterion (Chapter 1.1).
+It establishes that constraining all multipliers `a_i` to be coprime to the modulus `d`
+prevents the resulting map from exhibiting Turing-complete unpredictability,
+making the system amenable to analytic density frameworks.
+
+## Main Results
+
+- `IsCoprimeConstrained`: The algebraic predicate requiring all `a_i` coprime to `d`.
+- `coprime_safe_from_turing_completeness`: Coprime-constrained maps cannot execute
+  destructive reads, precluding Turing completeness.
+-/
+
 namespace GenCollatzMap
 
 variable {d : ℕ} [NeZero d]

@@ -4,3 +4,12 @@
 __pycache__
 
 .lake
+
+# Auto-generated simulation results
+results/
+
+# Scratch / temporary Lean files
+scratch/
+
+# Generated images (re-created by scripts)
+assets/density_bound_proof.png

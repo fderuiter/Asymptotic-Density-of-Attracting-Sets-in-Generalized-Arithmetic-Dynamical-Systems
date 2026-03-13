@@ -1,7 +1,7 @@
 import CollatzFormalization.Basic
 import CollatzFormalization.CoprimeFilter
+import CollatzFormalization.CycleBounds
 import CollatzFormalization.MarkovTranslation
 import CollatzFormalization.PeriodicCycles
 import CollatzFormalization.PilotSystem
-import CollatzFormalization.CycleBounds
 import CollatzFormalization.SpectralGap

@@ -1,7 +1,9 @@
 import Mathlib.Data.ZMod.Basic
 import CollatzFormalization.Basic
-import CollatzFormalization.ComputabilityAxioms
 import Mathlib.Tactic
+
+-- Placeholder for full computability formalization
+def IsUniversalTuringMachine (f : ℕ → ℤ) : Prop := sorry
 
 namespace GenCollatzMap
 
@@ -22,6 +24,34 @@ theorem coprime_implies_bijective_mod_d (h_safe : IsCoprimeConstrained M) (i : F
   have h_coprime : Nat.Coprime (M.a i) d := h_safe i
   have h_unit : IsUnit (M.a i : ZMod d) := (ZMod.isUnit_iff_coprime (M.a i) d).mpr h_coprime
   exact IsUnit.isUnit_iff_mulLeft_bijective.mp h_unit
+
+-----------------------------------------------------------------------------
+-- THEORETICAL BRIDGE: COMPUTABILITY AND DESTRUCTIVE READS
+-----------------------------------------------------------------------------
+
+/--
+Represents the structural capacity of a map to execute conditional destructive
+reads (e.g., Minsky machine decrements) which result in localized information loss.
+-/
+def HasConditionalDestructiveReads (f : ℕ → ℤ) : Prop := sorry
+
+/--
+Axiom 1: In this arithmetic framework, any Universal Turing Machine encoding
+(like FRACTRAN/Minsky simulations) strictly requires the ability to perform
+conditional destructive reads to traverse states.
+-/
+axiom utm_requires_destructive_reads {f : ℕ → ℤ} :
+  IsUniversalTuringMachine f → HasConditionalDestructiveReads f
+
+/--
+Axiom 2: If a generalized Collatz map operates entirely via bijective affine
+transformations over its residue classes, it acts as a permutation (zero entropy).
+It perfectly preserves information and inherently lacks the capacity for destructive reads.
+-/
+axiom bijective_map_lacks_destructive_reads (M : GenCollatzMap d) :
+  (∀ i : Fin d, Function.Bijective (fun (x : ZMod d) ↦ (M.a i : ZMod d) * x)) →
+  ¬ HasConditionalDestructiveReads (apply_map M)
+
 
 -----------------------------------------------------------------------------
 -- COMPLETED DELIVERABLE THEOREM

@@ -1,10 +1,6 @@
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Data.Rat.Defs
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
--- Required for real-valued spectral analysis; included per the blueprint for
--- future eigenvalue computations when Perron-Frobenius is formalized over ℝ.
-import Mathlib.Analysis.SpecialFunctions.Pow.Real
-import Mathlib.LinearAlgebra.Matrix.Stochastic
 import CollatzFormalization.Basic
 
 namespace GenCollatzMap
@@ -238,15 +234,7 @@ It should not be mistaken for a fully derived result.
 -/
 theorem admits_stationary_distribution :
   ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧
-  Matrix.vecMul π (transition_matrix M) = π := by
-  -- Extract π, non-negativity, normalization, and stationarity from the axiom
-  obtain ⟨π, hnn, hsum, hstat⟩ :=
-    rational_stochastic_has_rational_stationary_dist
-      (transition_matrix M)
-      (is_stochastic_matrix M)
-      (transition_matrix_nonneg M)
-  -- Convert the pointwise stationarity to the Matrix.vecMul form
-  exact ⟨π, hnn, hsum, funext fun j => by
-    simp [Matrix.vecMul, Matrix.dotProduct, hstat j]⟩
+  Matrix.vecMul π (transition_matrix M) = π :=
+  exists_left_eigenvector_pi M
 
 end GenCollatzMap

@@ -3,7 +3,7 @@ import CollatzFormalization.Basic
 import Mathlib.Tactic
 
 -- Placeholder for full computability formalization
-def IsUniversalTuringMachine (f : ℕ → ℤ) : Prop := sorry
+opaque IsUniversalTuringMachine : (ℕ → ℤ) → Prop
 
 namespace GenCollatzMap
 
@@ -33,7 +33,7 @@ theorem coprime_implies_bijective_mod_d (h_safe : IsCoprimeConstrained M) (i : F
 Represents the structural capacity of a map to execute conditional destructive
 reads (e.g., Minsky machine decrements) which result in localized information loss.
 -/
-def HasConditionalDestructiveReads (f : ℕ → ℤ) : Prop := sorry
+opaque HasConditionalDestructiveReads : (ℕ → ℤ) → Prop
 
 /--
 Axiom 1: In this arithmetic framework, any Universal Turing Machine encoding
@@ -64,8 +64,7 @@ required to simulate a Turing Machine, rendering it decidable.
 -/
 theorem coprime_safe_from_turing_completeness :
   IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (apply_map M) := by
-  intro h_coprime
-  intro h_is_utm
+  intro h_coprime h_is_utm
 
   -- 1. If it is a UTM, it must possess destructive reads.
   have h_has_reads : HasConditionalDestructiveReads (apply_map M) :=

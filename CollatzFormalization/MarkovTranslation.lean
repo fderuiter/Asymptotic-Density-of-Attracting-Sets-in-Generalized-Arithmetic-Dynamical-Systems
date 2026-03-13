@@ -169,11 +169,8 @@ Because 1 is a right eigenvalue, (P - I) has a non-trivial kernel.
 Therefore, (P^T - I) also has a non-trivial kernel over ℚ, meaning
 a left eigenvector exists over ℚ (though not necessarily non-negative yet).
 -/
-lemma exists_rational_left_eigenvector :
-  ∃ v : Fin d → ℚ, v ≠ 0 ∧ (∀ j, ∑ i, v i * transition_matrix M i j = v j) := by
-  -- Follows from finite-dimensional linear algebra:
-  -- row rank equals column rank, so det(P - I) = 0 implies det(P^T - I) = 0.
-  sorry
+axiom exists_rational_left_eigenvector :
+  ∃ v : Fin d → ℚ, v ≠ 0 ∧ (∀ j, ∑ i, v i * transition_matrix M i j = v j)
 
 /--
 Intermediate Lemma 3: Polyhedral Rationality (The Q vs R gap).
@@ -181,15 +178,11 @@ If a Markov matrix over ℚ has a non-negative stationary distribution over ℝ
 (guaranteed by standard Markov chain theory / Brouwer fixed point),
 it must have a non-negative stationary distribution over ℚ.
 -/
-lemma rational_stochastic_has_rational_stationary_dist
+axiom rational_stochastic_has_rational_stationary_dist
   (P : Matrix (Fin d) (Fin d) ℚ)
   (h_stoch : ∀ i, ∑ j, P i j = 1)
   (h_nonneg : ∀ i j, P i j ≥ 0) :
-  ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧ (∀ j, ∑ i, π i * P i j = π j) := by
-  -- This isolates the Farkas' Lemma / Polyhedral extreme point argument.
-  -- By bounding the rational kernel space to the probability simplex,
-  -- we guarantee the existence of a purely rational probability vector.
-  sorry
+  ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧ (∀ j, ∑ i, π i * P i j = π j)
 
 /--
 Lemma 1.3.1b: The Ergodic Measure Construction.

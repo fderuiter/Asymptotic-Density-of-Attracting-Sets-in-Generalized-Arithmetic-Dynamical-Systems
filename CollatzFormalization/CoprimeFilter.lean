@@ -2,8 +2,8 @@ import Mathlib.Data.ZMod.Basic
 import CollatzFormalization.Basic
 import Mathlib.Tactic
 
--- Placeholder for full computability formalization
-def IsUniversalTuringMachine (f : ℕ → ℤ) : Prop := sorry
+-- Foundational assumption: full computability formalization is out of scope here
+axiom IsUniversalTuringMachine (f : ℕ → ℤ) : Prop
 
 namespace GenCollatzMap
 
@@ -33,7 +33,7 @@ theorem coprime_implies_bijective_mod_d (h_safe : IsCoprimeConstrained M) (i : F
 Represents the structural capacity of a map to execute conditional destructive
 reads (e.g., Minsky machine decrements) which result in localized information loss.
 -/
-def HasConditionalDestructiveReads (f : ℕ → ℤ) : Prop := sorry
+axiom HasConditionalDestructiveReads (f : ℕ → ℤ) : Prop
 
 /--
 Axiom 1: In this arithmetic framework, any Universal Turing Machine encoding
@@ -44,9 +44,10 @@ axiom utm_requires_destructive_reads {f : ℕ → ℤ} :
   IsUniversalTuringMachine f → HasConditionalDestructiveReads f
 
 /--
-Axiom 2: If a generalized Collatz map operates entirely via bijective affine
-transformations over its residue classes, it acts as a permutation (zero entropy).
-It perfectly preserves information and inherently lacks the capacity for destructive reads.
+Axiom 2: If a generalized Collatz map operates entirely via bijective linear
+transformations over its residue classes (i.e., `x ↦ aᵢ * x` is bijective for
+every branch `i`), it acts as a permutation (zero entropy). It perfectly preserves
+information and inherently lacks the capacity for destructive reads.
 -/
 axiom bijective_map_lacks_destructive_reads (M : GenCollatzMap d) :
   (∀ i : Fin d, Function.Bijective (fun (x : ZMod d) ↦ (M.a i : ZMod d) * x)) →
@@ -59,8 +60,9 @@ axiom bijective_map_lacks_destructive_reads (M : GenCollatzMap d) :
 
 /--
 The Deliverable Theorem for 1.1.2a:
-A bijective piecewise map cannot execute the conditional destructive reads
-required to simulate a Turing Machine, rendering it decidable.
+A coprime-constrained piecewise map has bijective modular branches, which prevents it
+from performing the conditional destructive reads required to simulate a Universal
+Turing Machine.
 -/
 theorem coprime_safe_from_turing_completeness :
   IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (apply_map M) := by

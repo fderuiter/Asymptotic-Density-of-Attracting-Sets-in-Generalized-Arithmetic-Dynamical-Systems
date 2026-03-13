@@ -1,4 +1,5 @@
 import json
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -10,18 +11,21 @@ def load_system():
         return data["modulus"], np.array(data["a"], dtype=np.int64), np.array(data["b"], dtype=np.int64)
     except FileNotFoundError:
         print("ERROR: matrix_data.json not found. Ensure the Lean script has exported it.")
-        exit(1)
+        sys.exit(1)
 
 def find_primary_attractor(d, a, b):
     """Dynamically discovers the primary periodic cycle (the attractor)."""
     x = 1
-    seen = []
+    seen = {}  # dict: value -> insertion index for O(1) lookup
+    idx = 0
     while x not in seen:
-        seen.append(x)
+        seen[x] = idx
         res = x % d
-        x = (a[res] * x + b[res]) // d
-    cycle_start = seen.index(x)
-    return tuple(seen[cycle_start:])
+        x = (int(a[res]) * x + int(b[res])) // d
+        idx += 1
+    cycle_start = seen[x]
+    seen_list = list(seen.keys())
+    return tuple(seen_list[cycle_start:])
 
 def compute_density(d, a, b, N):
     """Exhaustively computes orbits using a high-performance numpy cache."""
@@ -34,7 +38,8 @@ def compute_density(d, a, b, N):
 
     # Pre-seed the cache with the known attractor
     for node in attractor:
-        cache[node] = 1
+        if node < CACHE_SIZE:
+            cache[node] = 1
 
     pi_x = np.zeros(N + 1, dtype=np.int64)
     success_count = 0
@@ -52,7 +57,7 @@ def compute_density(d, a, b, N):
 
             path.append(current)
             res = current % d
-            current = (a[res] * current + b[res]) // d
+            current = (int(a[res]) * current + int(b[res])) // d
 
             # Failsafe for integer escape
             if current >= CACHE_SIZE:
@@ -69,7 +74,7 @@ def compute_density(d, a, b, N):
 
         pi_x[x] = success_count
 
-        if x % (N // 10) == 0:
+        if x % max(1, N // 10) == 0:
             print(f"  Processed {x:,} / {N:,} ({(x/N)*100:.0f}%)")
 
     return pi_x

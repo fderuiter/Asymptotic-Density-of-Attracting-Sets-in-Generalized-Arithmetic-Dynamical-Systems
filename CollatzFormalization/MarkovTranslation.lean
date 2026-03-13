@@ -159,8 +159,9 @@ lemma stochastic_right_eigenvector_one :
   let P := transition_matrix M
   let ones : Fin d → ℚ := fun _ => 1
   ∀ i, ∑ j, P i j * ones j = ones i := by
-  intro P ones i
-  simp only [ones, mul_one]
+  dsimp only
+  intro i
+  simp only [mul_one]
   exact is_stochastic_matrix M i
 
 /--
@@ -186,7 +187,11 @@ axiom rational_stochastic_has_rational_stationary_dist
 
 /--
 Lemma 1.3.1b: The Ergodic Measure Construction.
-We now fulfill the main theorem by applying the structured intermediate lemmas.
+We fulfill the main theorem by applying the structured intermediate lemmas.
+
+**Note:** This result depends on the axiom `rational_stochastic_has_rational_stationary_dist`,
+which is a placeholder for the polyhedral rationality argument (the ℚ vs ℝ gap).
+It should not be mistaken for a fully derived result.
 -/
 theorem admits_stationary_distribution :
   ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧

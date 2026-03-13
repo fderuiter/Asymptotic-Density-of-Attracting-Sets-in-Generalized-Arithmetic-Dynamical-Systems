@@ -3,6 +3,19 @@ import Mathlib.Data.Rat.Defs
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import CollatzFormalization.Basic
 
+/-!
+# Markov Translation: Residue-Class Transition Matrices
+
+This file constructs the **stochastic transition matrix** that encodes the residue-class
+dynamics of a generalized Collatz-type map as a Markov chain.
+
+## Main Results
+
+- `transition_prob`: The rational transition probability from residue `i` to residue `j`.
+- `transition_matrix`: The `d × d` rational matrix encoding all transition probabilities.
+- `transition_matrix_stochastic`: Each row of the transition matrix sums to 1.
+-/
+
 namespace GenCollatzMap
 
 variable {d : ℕ} [NeZero d]

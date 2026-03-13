@@ -2,6 +2,20 @@ import Mathlib.Data.ZMod.Basic
 import CollatzFormalization.Basic
 import CollatzFormalization.CoprimeFilter
 
+/-!
+# Periodic Cycles: Orbit Equations and Hensel Lifting
+
+This file formalizes the algebraic theory of periodic cycles in coprime-constrained
+generalized Collatz maps. It introduces `OrbitEq` — a compact representation of a
+k-step orbit — and proves existence of periodic points via a Hensel-lift argument.
+
+## Main Results
+
+- `OrbitEq`: Algebraic structure encoding a k-step Collatz orbit reduction.
+- `cycle_exists_of_coprime`: Every coprime-constrained system admits at least one
+  periodic cycle, established via a fixed-point / Hensel-lift argument.
+-/
+
 namespace GenCollatzMap
 
 variable {d : ℕ} [NeZero d]

@@ -3,6 +3,7 @@ import CollatzFormalization.MarkovTranslation
 import CollatzFormalization.PilotSystem
 import CollatzFormalization.CoprimeFilter
 import Mathlib.Analysis.Matrix.Spectrum
+import Mathlib.Data.Complex.Basic
 import Mathlib.LinearAlgebra.Matrix.Stochastic
 import Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
@@ -255,3 +256,67 @@ lemma transition_matrix_aperiodic (M : GenCollatzMap d)
   exact ⟨1, fun i j => by rw [pow_one]; exact transition_prob_strictly_positive M h_coprime i j⟩
 
 end SpectralGap
+
+-- ============================================================
+-- Action 4.3.1 — The Complex Spectrum Embedding
+-- ============================================================
+
+/-!
+## Action 4.3.1: The Complex Spectrum Embedding
+
+To formally evaluate the full spectrum of the transition matrix, we embed
+the ℚ-valued matrix into ℂ. The two bridge lemmas here ensure that:
+1. Lean's `simp` tactic can transparently reduce complex matrix entries to their
+   rational originals (preventing type-mismatch errors in downstream proofs).
+2. Row-stochasticity is conserved across the ℚ → ℂ cast, which is required
+   when invoking spectral arguments in Task 4.3.2.
+-/
+
+namespace GenCollatzMap
+
+variable {d : ℕ} [NeZero d]
+variable (M : GenCollatzMap d)
+
+/--
+The transition matrix embedded into the complex field ℂ.
+
+Every entry is the explicit ℚ → ℂ cast of the corresponding rational entry,
+so that the full spectrum (all roots of the characteristic polynomial, including
+non-real ones) can be formally accessed via `Matrix.spectrum`.
+
+This definition is `noncomputable` because `ℂ = ℝ × ℝ` and `ℝ` is a
+noncomputable type in Mathlib's axiom system.
+-/
+noncomputable def transition_matrix_complex : Matrix (Fin d) (Fin d) ℂ :=
+  fun i j ↦ (transition_matrix M i j : ℂ)
+
+/--
+Bridge Lemma 1 (Action 4.3.1): Entry evaluation in ℂ.
+
+A `@[simp]` rule that unfolds `transition_matrix_complex` to an explicit cast,
+allowing subsequent `simp` calls to bridge ℂ-level goals back to ℚ-level facts.
+Without this lemma, downstream proofs that unfold the complex matrix would
+encounter an opaque definition and fail with type-mismatch errors.
+-/
+@[simp]
+lemma transition_matrix_complex_apply (i j : Fin d) :
+    transition_matrix_complex M i j = (transition_matrix M i j : ℂ) := rfl
+
+/--
+Bridge Lemma 2 (Action 4.3.1): Row-stochasticity is preserved under ℚ → ℂ.
+
+Because the rational transition matrix already satisfies `∑ j, P_ij = 1` (over ℚ),
+the complex embedding satisfies `∑ j, P_ij = (1 : ℂ)`.
+
+**Proof**: After unfolding via Bridge Lemma 1, the goal is
+  `∑ j, (transition_matrix M i j : ℂ) = (1 : ℂ)`.
+The `exact_mod_cast` tactic recognises this as the ℚ stochasticity statement
+`∑ j, transition_matrix M i j = 1` pushed through the injective ring map ℚ → ℂ,
+and closes the goal automatically.
+-/
+lemma is_stochastic_matrix_complex (i : Fin d) :
+    ∑ j : Fin d, transition_matrix_complex M i j = (1 : ℂ) := by
+  simp only [transition_matrix_complex_apply]
+  exact_mod_cast is_stochastic_matrix M i
+
+end GenCollatzMap

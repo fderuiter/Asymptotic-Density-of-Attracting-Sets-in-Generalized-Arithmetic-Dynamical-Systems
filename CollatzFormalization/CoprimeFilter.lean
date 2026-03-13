@@ -1,9 +1,8 @@
 import Mathlib.Data.ZMod.Basic
 import CollatzFormalization.Basic
 import Mathlib.Tactic
-
--- Placeholder for full computability formalization
-opaque IsUniversalTuringMachine : (ℕ → ℤ) → Prop
+import Mathlib.Data.Nat.Prime.Basic
+import Mathlib.NumberTheory.Padic.PadicVal
 
 namespace GenCollatzMap
 
@@ -33,14 +32,30 @@ theorem coprime_implies_bijective_mod_d (h_safe : IsCoprimeConstrained M) (i : F
 Represents the structural capacity of a map to execute conditional destructive
 reads (e.g., Minsky machine decrements) which result in localized information loss.
 -/
-opaque HasConditionalDestructiveReads : (ℕ → ℤ) → Prop
+opaque HasConditionalDestructiveReads : (ℕ → ℕ) → Prop
+
+/--
+A function possesses the capacity for a destructive read if it can
+strictly decrease the p-adic valuation (the exponent of prime p)
+for some input x. This is the arithmetic equivalent of a Minsky DECREMENT.
+-/
+def CanExecuteDestructiveRead (f : ℕ → ℕ) : Prop :=
+  ∃ (x p : ℕ), p.Prime ∧ (p ∣ x) ∧ (padicValNat p (f x) < padicValNat p x)
+
+/--
+In the context of generalized arithmetic dynamics, a system cannot simulate
+a Universal Turing Machine (via FRACTRAN/Minsky reduction) unless it
+possesses the baseline capacity to execute conditional destructive reads.
+-/
+def IsUniversalTuringMachine (f : ℕ → ℕ) : Prop :=
+  CanExecuteDestructiveRead f
 
 /--
 Axiom 1: In this arithmetic framework, any Universal Turing Machine encoding
 (like FRACTRAN/Minsky simulations) strictly requires the ability to perform
 conditional destructive reads to traverse states.
 -/
-axiom utm_requires_destructive_reads {f : ℕ → ℤ} :
+axiom utm_requires_destructive_reads {f : ℕ → ℕ} :
   IsUniversalTuringMachine f → HasConditionalDestructiveReads f
 
 /--
@@ -51,7 +66,7 @@ It perfectly preserves information and inherently lacks the capacity for destruc
 -/
 axiom bijective_map_lacks_destructive_reads (M : GenCollatzMap d) :
   (∀ i : Fin d, Function.Bijective (fun (x : ZMod d) ↦ (M.a i : ZMod d) * x)) →
-  ¬ HasConditionalDestructiveReads (apply_map M)
+  ¬ HasConditionalDestructiveReads (fun x => (apply_map M x).toNat)
 
 
 -----------------------------------------------------------------------------
@@ -66,11 +81,11 @@ Note: this result establishes non-UTM status. A separate decidability result
 would require an additional argument connecting non-UTM to decidability.
 -/
 theorem coprime_safe_from_turing_completeness :
-  IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (apply_map M) := by
+  IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (fun x => (apply_map M x).toNat) := by
   intro h_coprime h_is_utm
 
   -- 1. If it is a UTM, it must possess destructive reads.
-  have h_has_reads : HasConditionalDestructiveReads (apply_map M) :=
+  have h_has_reads : HasConditionalDestructiveReads (fun x => (apply_map M x).toNat) :=
     utm_requires_destructive_reads h_is_utm
 
   -- 2. Because it is coprime constrained, its modular branches are perfectly bijective.
@@ -78,7 +93,7 @@ theorem coprime_safe_from_turing_completeness :
     coprime_implies_bijective_mod_d M h_coprime
 
   -- 3. Because the branches are bijective, the map cannot perform destructive reads.
-  have h_no_reads : ¬ HasConditionalDestructiveReads (apply_map M) :=
+  have h_no_reads : ¬ HasConditionalDestructiveReads (fun x => (apply_map M x).toNat) :=
     bijective_map_lacks_destructive_reads M h_branches_bijective
 
   -- 4. Contradiction between the requirements of UTM and the topology of the map.

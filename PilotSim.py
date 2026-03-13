@@ -74,12 +74,14 @@ def main():
         print(f"Second Largest Eigenvalue (λ_2): {np.abs(lambda_2):.6f}")
 
         spectral_gap = 1.0 - np.abs(lambda_2)
-        print(f"\nEmpirical Spectral Gap (1 - |λ_2|): {spectral_gap:.6f}")
+        print(f"\nEstimated Empirical Spectral Gap (1 - |λ_2|): {spectral_gap:.6f}")
 
         if spectral_gap > 0 and spectral_gap < 1.0:
-            print("SUCCESS: A strict spectral gap exists! The system is rapidly mixing.")
+            print("SUCCESS: Empirically observed strict spectral gap. "
+                  "This Monte Carlo estimate provides evidence (not a mathematical proof) "
+                  "that the system may be rapidly mixing.")
         else:
-            print("WARNING: No strict spectral gap found.")
+            print("WARNING: No empirical spectral gap found in this estimate.")
     else:
         print("Not enough eigenvalues to calculate spectral gap.")
 

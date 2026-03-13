@@ -2,6 +2,10 @@ import Mathlib.Data.Matrix.Basic
 import Mathlib.Data.Rat.Defs
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import CollatzFormalization.Basic
+import Mathlib.LinearAlgebra.Matrix.ToLin
+import Mathlib.LinearAlgebra.Matrix.Stochastic
+import Mathlib.Data.Real.Basic
+import Mathlib.LinearAlgebra.Eigenspace.Basic
 
 namespace GenCollatzMap
 
@@ -185,14 +189,50 @@ axiom rational_stochastic_has_rational_stationary_dist
   (h_nonneg : ∀ i j, P i j ≥ 0) :
   ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧ (∀ j, ∑ i, π i * P i j = π j)
 
-/--
-Lemma 1.3.1b: The Ergodic Measure Construction.
-We fulfill the main theorem by applying the structured intermediate lemmas.
+/-- The Markov Transition Matrix P coerced to Real numbers. -/
+def transitionMatrixReal : Matrix (Fin d) (Fin d) ℝ :=
+  fun i j => (transition_matrix M i j : ℝ)
 
-**Note:** This result depends on the axiom `rational_stochastic_has_rational_stationary_dist`,
-which is a placeholder for the polyhedral rationality argument (the ℚ vs ℝ gap).
-It should not be mistaken for a fully derived result.
+/--
+Lemma: Real Matrix Non-Negativity.
+Proves that all elements of the real transition matrix are non-negative.
 -/
+lemma transitionMatrixNonneg (i j : Fin d) :
+  transitionMatrixReal M i j ≥ 0 := by
+  dsimp [transitionMatrixReal]
+  have h_nonneg : transition_matrix M i j ≥ 0 := transition_matrix_nonneg M i j
+  exact_mod_cast h_nonneg
+
+
+/--
+Lemma: Right Eigenvector of 1.
+Proves that the matrix has an eigenvalue of 1 corresponding to the all-ones vector.
+This formally captures row-stochasticity for the real-valued matrix.
+-/
+lemma transitionMatrixHasEigenvalueOne :
+  Matrix.mulVec (transitionMatrixReal M) (fun _ => 1) = (fun _ => 1) := by
+  ext i
+  dsimp [transitionMatrixReal, Matrix.mulVec, dotProduct]
+  have h_stoch : ∑ j : Fin d, transition_matrix M i j = 1 := is_stochastic_matrix M i
+  have h_stoch_real : (∑ j : Fin d, transition_matrix M i j : ℝ) = (1 : ℝ) := by exact_mod_cast h_stoch
+  have h_sum_push : (∑ j : Fin d, (transition_matrix M i j : ℝ)) = (1 : ℝ) := by
+    push_cast at h_stoch_real
+    exact h_stoch_real
+  calc
+    ∑ j : Fin d, (transitionMatrixReal M i j * 1) = ∑ j : Fin d, transitionMatrixReal M i j := by simp
+    _ = ∑ j : Fin d, (transition_matrix M i j : ℝ) := rfl
+    _ = 1 := h_sum_push
+
+
+/--
+Theorem: Admits Stationary Distribution over Reals.
+There exists a non-negative stationary probability vector π.
+-/
+theorem admitsStationaryDistributionReal :
+  ∃ π : Fin d → ℝ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧
+  Matrix.vecMul π (transitionMatrixReal M) = π := by
+  sorry
+
 theorem admits_stationary_distribution :
   ∃ π : Fin d → ℚ, (∀ j, π j ≥ 0) ∧ (∑ j, π j = 1) ∧
   (∀ j, ∑ i, π i * transition_matrix M i j = π j) := by

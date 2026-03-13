@@ -1,5 +1,6 @@
 import Mathlib.Algebra.Ring.GeomSum
 import Mathlib.FieldTheory.Finite.Basic
+import Mathlib.NumberTheory.Padics.PadicVal.Basic
 import CollatzFormalization.Basic
 
 /-!
@@ -132,3 +133,149 @@ theorem orbit_length_strictly_bounded (m : ℕ) (A B x : ZMod m)
   ring
 
 end OrbitBounds
+
+/-!
+### Section 3: Valuation Growth Rate (Lemma 1.2.2b)
+
+We tighten the totient upper bound from Section 2 by providing an exact
+**lower bound** on how quickly the orbit difference accumulates `p`-adic
+divisibility.  The key chain is:
+
+```
+(A - 1) · (f^n(x) - x) = (A^n - 1) · ((A - 1)·x + B)   [integer ring]
+⟹   vₚ(f^n(x) - x) ≥ vₚ(Aⁿ - 1) - vₚ(A - 1)
+```
+
+where `vₚ` is the `p`-adic valuation `padicValInt p` (where `p : ℕ` is prime).
+
+Because `padicValInt : ℕ → ℤ → ℕ` takes a natural-number prime, all three
+lemmas below use `p : ℕ` with `[Fact p.Prime]`, correcting the pseudo-code in
+the blueprint which incorrectly typed `p : ℤ`.
+-/
+
+section ValuationGrowth
+
+/-!
+#### Step 1: Integer ring translation
+-/
+
+/--
+**Annihilator difference over ℤ** (integer specialisation).
+
+Over the integers, the difference `f^n(x) - x` satisfies the exact factorisation:
+```
+(A - 1) · (f^n(x) - x) = (A^n - 1) · ((A - 1)·x + B)
+```
+This isolates `A^n - 1`, the term governed by the Lifting-the-Exponent Lemma,
+and is the arithmetic engine of the growth-rate bound.
+
+The proof is a one-step ring computation after substituting
+`affine_iterate_annihilated` (which holds for any `CommRing`, hence for `ℤ`).
+-/
+lemma affine_iterate_Z_diff (A B x : ℤ) (n : ℕ) :
+    (A - 1) * (affine_iterate A B x n - x) = (A ^ n - 1) * ((A - 1) * x + B) := by
+  have h := affine_iterate_annihilated A B x n
+  calc (A - 1) * (affine_iterate A B x n - x)
+      = (A - 1) * affine_iterate A B x n - (A - 1) * x := by ring
+    _ = (A - 1) * A ^ n * x + B * (A ^ n - 1) - (A - 1) * x := by rw [h]
+    _ = (A ^ n - 1) * ((A - 1) * x + B) := by ring
+
+/-!
+#### Step 2: Multiplicative valuation split
+-/
+
+/--
+**Additive valuation split** (logarithmic decomposition).
+
+Because `padicValInt p` is additive on non-zero products:
+```
+vₚ(X · Y) = vₚ(X) + vₚ(Y)   when X, Y ≠ 0
+```
+the `affine_iterate_Z_diff` identity translates the product on each side into
+an *additive* equation of valuations:
+```
+vₚ(A - 1) + vₚ(f^n(x) - x) = vₚ(A^n - 1) + vₚ((A-1)·x + B)
+```
+
+**Hypotheses:**
+- `p : ℕ` with `[Fact p.Prime]` — the prime at which we measure divisibility.
+- `h_lhs_ne` — the LHS product `(A - 1) · (f^n(x) - x) ≠ 0`, which forces all
+  four factors to be non-zero (via `affine_iterate_Z_diff`).
+-/
+lemma padic_val_Z_split (p : ℕ) [Fact p.Prime] (A B x : ℤ) (n : ℕ)
+    (h_lhs_ne : (A - 1) * (affine_iterate A B x n - x) ≠ 0) :
+    padicValInt p (A - 1) + padicValInt p (affine_iterate A B x n - x) =
+    padicValInt p (A ^ n - 1) + padicValInt p ((A - 1) * x + B) := by
+  -- Extract non-zero conditions for both LHS factors
+  have h1 : A - 1 ≠ 0 := left_ne_zero_of_mul h_lhs_ne
+  have h2 : affine_iterate A B x n - x ≠ 0 := right_ne_zero_of_mul h_lhs_ne
+  -- Since LHS product = RHS product (affine_iterate_Z_diff), RHS product ≠ 0
+  have hfact : (A - 1) * (affine_iterate A B x n - x) = (A ^ n - 1) * ((A - 1) * x + B) :=
+    affine_iterate_Z_diff A B x n
+  have h_rhs_ne : (A ^ n - 1) * ((A - 1) * x + B) ≠ 0 := hfact ▸ h_lhs_ne
+  have h3 : A ^ n - 1 ≠ 0 := left_ne_zero_of_mul h_rhs_ne
+  have h4 : (A - 1) * x + B ≠ 0 := right_ne_zero_of_mul h_rhs_ne
+  -- Apply padicValInt.mul to collapse each product to a sum of valuations,
+  -- then the two products are equal by hfact
+  rw [← padicValInt.mul h1 h2, ← padicValInt.mul h3 h4, hfact]
+
+/-!
+#### Step 3: Valuation growth rate theorem
+-/
+
+/--
+**p-adic valuation growth rate** (Lemma 1.2.2b).
+
+The `p`-adic valuation of the orbit difference grows at least as fast as the
+valuation of `A^n - 1` modulo the "baseline" valuation of `A - 1`:
+```
+vₚ(f^n(x) - x)  ≥  vₚ(A^n - 1) - vₚ(A - 1)
+```
+(all arithmetic in `ℕ`, so the RHS subtraction truncates at zero).
+
+**Proof strategy:**
+1. If `f^n(x) - x = 0`:  the identity `affine_iterate_Z_diff` forces `A^n - 1 = 0`
+   (using `hA` and `hx`), so both sides vanish.
+2. If `f^n(x) - x ≠ 0`:  apply `padic_val_Z_split` to obtain the exact additive
+   equality `vₚ(A-1) + vₚ(diff) = vₚ(A^n-1) + vₚ(linear)`.  Since
+   `vₚ(linear) ≥ 0` (it is a natural number), `vₚ(A-1) + vₚ(diff) ≥ vₚ(A^n-1)`,
+   i.e. `vₚ(diff) ≥ vₚ(A^n-1) - vₚ(A-1)`.  This last step is discharged by
+   `omega`.
+
+**Note on types:** `padicValInt p : ℤ → ℕ` takes a *natural-number* prime
+`p : ℕ` (with `[Fact p.Prime]`).  The `≥` is therefore `ℕ`-inequality, and
+the right-hand subtraction is `ℕ`-truncating subtraction.
+-/
+theorem padic_valuation_growth_rate (p : ℕ) [Fact p.Prime] (A B x : ℤ) (n : ℕ)
+    (hA : A > 1) (hx : (A - 1) * x + B ≠ 0) :
+    padicValInt p (affine_iterate A B x n - x) ≥
+    padicValInt p (A ^ n - 1) - padicValInt p (A - 1) := by
+  -- A - 1 ≠ 0 since A > 1
+  have hA1 : A - 1 ≠ 0 := by omega
+  -- Case split on whether the orbit difference is zero
+  by_cases hdiff : affine_iterate A B x n - x = 0
+  · -- Case 1: orbit is already at a fixed point.
+    -- The identity (A-1)·diff = (A^n-1)·linear with diff = 0 and linear ≠ 0
+    -- forces A^n - 1 = 0.
+    have hfact : (A - 1) * (affine_iterate A B x n - x) = (A ^ n - 1) * ((A - 1) * x + B) :=
+      affine_iterate_Z_diff A B x n
+    rw [hdiff, mul_zero] at hfact
+    have hpow : A ^ n - 1 = 0 := by
+      rcases mul_eq_zero.mp hfact.symm with h | h
+      · exact h
+      · exact absurd h hx
+    -- Both valuation terms are 0; the inequality 0 ≥ 0 - anything = 0 holds.
+    have lhs_zero : padicValInt p (affine_iterate A B x n - x) = 0 := by
+      rw [hdiff]; exact padicValInt.zero
+    have rhs_zero : padicValInt p (A ^ n - 1) = 0 := by
+      rw [hpow]; exact padicValInt.zero
+    omega
+  · -- Case 2: orbit difference is non-zero; apply the valuation split.
+    have h_lhs_ne : (A - 1) * (affine_iterate A B x n - x) ≠ 0 :=
+      mul_ne_zero hA1 hdiff
+    have hsplit := padic_val_Z_split p A B x n h_lhs_ne
+    -- hsplit : vₚ(A-1) + vₚ(diff) = vₚ(A^n-1) + vₚ(linear)
+    -- omega sees the ℕ-arithmetic: a + b = c + d and d ≥ 0 ⟹ b ≥ c - a
+    omega
+
+end ValuationGrowth

@@ -44,8 +44,9 @@ axiom utm_requires_destructive_reads {f : ℕ → ℤ} :
   IsUniversalTuringMachine f → HasConditionalDestructiveReads f
 
 /--
-Axiom 2: If a generalized Collatz map operates entirely via bijective affine
-transformations over its residue classes, it acts as a permutation (zero entropy).
+Axiom 2: If a generalized Collatz map operates entirely via bijective multiplicative
+maps over its residue classes (i.e., the multiplier `a_i` acts bijectively on `ZMod d`),
+it acts as a permutation (zero entropy).
 It perfectly preserves information and inherently lacks the capacity for destructive reads.
 -/
 axiom bijective_map_lacks_destructive_reads (M : GenCollatzMap d) :
@@ -60,7 +61,9 @@ axiom bijective_map_lacks_destructive_reads (M : GenCollatzMap d) :
 /--
 The Deliverable Theorem for 1.1.2a:
 A bijective piecewise map cannot execute the conditional destructive reads
-required to simulate a Turing Machine, rendering it decidable.
+required to simulate a Turing Machine; it is therefore not a Universal Turing Machine.
+Note: this result establishes non-UTM status. A separate decidability result
+would require an additional argument connecting non-UTM to decidability.
 -/
 theorem coprime_safe_from_turing_completeness :
   IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (apply_map M) := by

@@ -1,9 +1,9 @@
 {"synthetic": false,
  "schemaVersion": "2025-09-10",
  "outputs":
- {"o": ["050ded1788e67882.olean"],
-  "i": "910ac5607fb51266.ilean",
-  "c": "6729f0cf506e689e.c"},
+ {"o": ["0165e5e88210a259.olean"],
+  "i": "0babe5900d616827.ilean",
+  "c": "e4d306da2de24a20.c"},
  "log":
  [{"message":
    ".> LEAN_PATH=/app/.lake/packages/Cli/.lake/build/lib/lean:/app/.lake/packages/batteries/.lake/build/lib/lean:/app/.lake/packages/Qq/.lake/build/lib/lean:/app/.lake/packages/aesop/.lake/build/lib/lean:/app/.lake/packages/proofwidgets/.lake/build/lib/lean:/app/.lake/packages/importGraph/.lake/build/lib/lean:/app/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/app/.lake/packages/plausible/.lake/build/lib/lean:/app/.lake/packages/mathlib/.lake/build/lib/lean:/app/.lake/build/lib/lean /home/jules/.elan/toolchains/leanprover--lean4---v4.29.0-rc6/bin/lean /app/CollatzFormalization.lean -o /app/.lake/build/lib/lean/CollatzFormalization.olean -i /app/.lake/build/lib/lean/CollatzFormalization.ilean -c /app/.lake/build/ir/CollatzFormalization.c --setup /app/.lake/build/ir/CollatzFormalization.setup.json --json",
@@ -20,7 +20,15 @@
         ["CollatzFormalization.CoprimeFilter transitive imports (legacy)",
          "94cc0a257c4f6300"],
         ["CollatzFormalization.CoprimeFilter:importAllArts",
-         "9a18efafefb38c7f"]]]]],
+         "e50c8bcebac3f9c8"],
+        ["CollatzFormalization.PeriodicCycles transitive imports (legacy)",
+         "aa6452c2e498fd00"],
+        ["CollatzFormalization.PeriodicCycles:importAllArts",
+         "192a201639d888a8"],
+        ["CollatzFormalization.MarkovTranslation transitive imports (legacy)",
+         "e426a1c14b10591d"],
+        ["CollatzFormalization.MarkovTranslation:importAllArts",
+         "1d16e42b56e8fede"]]]]],
     ["libs",
      [["import dynlibs", "00000000000006bb"],
       ["package external libraries", "00000000000006bb"],
@@ -28,10 +36,10 @@
       ["module plugins", "00000000000006bb"]]]]],
   ["Lean 4.29.0, commit 00659f8e6071d7e46131ed643bf8003b99b044e9",
    "d4ef66a63896cd60"],
-  ["/app/CollatzFormalization.lean", "7c54380d08146302"],
+  ["/app/CollatzFormalization.lean", "e2bc85d4781e6845"],
   ["options", "00000000000006bb"],
   ["isModule: false", "feefd2a0d3a1847e"],
   ["Module.name: CollatzFormalization", "1c763dd3cba9e14d"],
   ["Package.id?: (some collatz_formalization)", "b63bc6785665ca69"],
   ["Module.leanArgs: #[]", "00000000000006bb"]],
- "depHash": "0abdea74368dedbf"}
+ "depHash": "dadf0bc07c183f45"}

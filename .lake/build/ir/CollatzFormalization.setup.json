@@ -15134,6 +15134,10 @@
    "/app/.lake/packages/importGraph/.lake/build/lib/lean/ImportGraph/Graph/TransitiveClosure.ir",
    "/app/.lake/packages/importGraph/.lake/build/lib/lean/ImportGraph/Graph/TransitiveClosure.olean.server",
    "/app/.lake/packages/importGraph/.lake/build/lib/lean/ImportGraph/Graph/TransitiveClosure.olean.private"],
+  "CollatzFormalization.PeriodicCycles":
+  ["/app/.lake/build/lib/lean/CollatzFormalization/PeriodicCycles.olean"],
+  "CollatzFormalization.MarkovTranslation":
+  ["/app/.lake/build/lib/lean/CollatzFormalization/MarkovTranslation.olean"],
   "CollatzFormalization.CoprimeFilter":
   ["/app/.lake/build/lib/lean/CollatzFormalization/CoprimeFilter.olean"],
   "CollatzFormalization.Basic":

@@ -1,7 +1,7 @@
 {"synthetic": false,
  "schemaVersion": "2025-09-10",
  "outputs":
- {"o": ["ea699fbe4cc03f44.olean"],
+ {"o": ["cd187baa1efe0ca0.olean"],
   "i": "9ef064a695c73cf1.ilean",
   "c": "0f6439a592fc44b4.c"},
  "log":
@@ -35,10 +35,10 @@
       ["module plugins", "00000000000006bb"]]]]],
   ["Lean 4.29.0, commit 00659f8e6071d7e46131ed643bf8003b99b044e9",
    "d4ef66a63896cd60"],
-  ["/app/CollatzFormalization/CoprimeFilter.lean", "0423d81549f472bc"],
+  ["/app/CollatzFormalization/CoprimeFilter.lean", "c00f09e723db09f7"],
   ["options", "00000000000006bb"],
   ["isModule: false", "feefd2a0d3a1847e"],
   ["Module.name: CollatzFormalization.CoprimeFilter", "39562ddba171ca02"],
   ["Package.id?: (some collatz_formalization)", "b63bc6785665ca69"],
   ["Module.leanArgs: #[]", "00000000000006bb"]],
- "depHash": "eb93351a5c449bfe"}
+ "depHash": "0366ed62cbf4f7d6"}

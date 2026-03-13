@@ -14,7 +14,7 @@ if ! command -v elan &> /dev/null; then
     # WARNING: Always verify the integrity of remote scripts before running them.
     ELAN_INIT=$(mktemp)
     curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o "$ELAN_INIT"
-    sh "$ELAN_INIT" -- -y
+    sh "$ELAN_INIT" -y
     rm -f "$ELAN_INIT"
     source $HOME/.elan/env
 else

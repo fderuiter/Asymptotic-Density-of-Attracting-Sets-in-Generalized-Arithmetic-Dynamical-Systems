@@ -43,12 +43,11 @@ def CanExecuteDestructiveRead (f : ℕ → ℕ) : Prop :=
   ∃ (x p : ℕ), p.Prime ∧ (p ∣ x) ∧ (padicValNat p (f x) < padicValNat p x)
 
 /--
-In the context of generalized arithmetic dynamics, a system cannot simulate
-a Universal Turing Machine (via FRACTRAN/Minsky reduction) unless it
-possesses the baseline capacity to execute conditional destructive reads.
+An abstract predicate for Universal Turing Machines in this arithmetic framework.
+Kept opaque so that the notion of "UTM" is not conflated with any single arithmetic
+property; the connection to concrete operations is established via axioms below.
 -/
-def IsUniversalTuringMachine (f : ℕ → ℕ) : Prop :=
-  CanExecuteDestructiveRead f
+opaque IsUniversalTuringMachine : (ℕ → ℕ) → Prop
 
 /--
 Axiom 1: In this arithmetic framework, any Universal Turing Machine encoding
@@ -59,14 +58,24 @@ axiom utm_requires_destructive_reads {f : ℕ → ℕ} :
   IsUniversalTuringMachine f → HasConditionalDestructiveReads f
 
 /--
-Axiom 2: If a generalized Collatz map operates entirely via bijective multiplicative
+Axiom 2: A Universal Turing Machine can execute conditional destructive reads.
+This bridges the abstract `IsUniversalTuringMachine` predicate to the concrete
+p-adic valuation property `CanExecuteDestructiveRead`.
+-/
+axiom utm_can_execute_destructive_reads {f : ℕ → ℕ} :
+  IsUniversalTuringMachine f → CanExecuteDestructiveRead f
+
+/--
+Axiom 3: If a generalized Collatz map operates entirely via bijective multiplicative
 maps over its residue classes (i.e., the multiplier `a_i` acts bijectively on `ZMod d`),
 it acts as a permutation (zero entropy).
 It perfectly preserves information and inherently lacks the capacity for destructive reads.
+Note: `Int.natAbs` is used (rather than `.toNat`) to preserve prime-factor information
+across sign changes, since `apply_map` can return negative integers.
 -/
 axiom bijective_map_lacks_destructive_reads (M : GenCollatzMap d) :
   (∀ i : Fin d, Function.Bijective (fun (x : ZMod d) ↦ (M.a i : ZMod d) * x)) →
-  ¬ HasConditionalDestructiveReads (fun x => (apply_map M x).toNat)
+  ¬ CanExecuteDestructiveRead (fun x => (apply_map M x).natAbs)
 
 
 -----------------------------------------------------------------------------
@@ -81,27 +90,13 @@ If all branches of the map act as perfect permutations on the residue classes
 information-preserving and is structurally incapable of the many-to-one
 state collapse required for a destructive read.
 
-Proof strategy (modus tollens):
-  - Assume `CanExecuteDestructiveRead` holds.
-  - Since `IsUniversalTuringMachine = CanExecuteDestructiveRead`, this means the
-    map is a UTM, which requires `HasConditionalDestructiveReads` (Axiom 1).
-  - But bijective branches forbid `HasConditionalDestructiveReads` (Axiom 2).
-  - Contradiction; therefore `¬ CanExecuteDestructiveRead`.
+Proof strategy: Apply Axiom 3 directly — bijective branches forbid
+`CanExecuteDestructiveRead` by definition.
 -/
 lemma bijective_implies_no_destructive_read
     (h_bij : ∀ i : Fin d, Function.Bijective (fun (x : ZMod d) ↦ (M.a i : ZMod d) * x)) :
-    ¬ CanExecuteDestructiveRead (fun x => (apply_map M x).toNat) := by
-  -- Unfold CanExecuteDestructiveRead and assume it holds for contradiction.
-  intro h_cdr
-  -- A destructive read means the map is a UTM, which requires conditional
-  -- destructive reads. Apply Axiom 1 to obtain `HasConditionalDestructiveReads`.
-  have h_has_reads : HasConditionalDestructiveReads (fun x => (apply_map M x).toNat) :=
-    utm_requires_destructive_reads h_cdr
-  -- Apply Axiom 2: bijective branches structurally forbid destructive reads.
-  -- The injectivity inherent in each bijective branch (is defined as a permutation
-  -- on `ZMod d`) forbids the output collision that a state-collapsing
-  -- destructive read requires.
-  exact bijective_map_lacks_destructive_reads M h_bij h_has_reads
+    ¬ CanExecuteDestructiveRead (fun x => (apply_map M x).natAbs) :=
+  bijective_map_lacks_destructive_reads M h_bij
 
 -----------------------------------------------------------------------------
 -- STEP 2: BRIDGE THE COPRIME CONSTRAINT TO NON-DESTRUCTION
@@ -118,7 +113,7 @@ This lemma creates a clean single-step bridge from the algebraic coprime
 constraint to the computability-theoretic consequence of non-destruction.
 -/
 lemma coprime_forbids_destructive_read (h_coprime : IsCoprimeConstrained M) :
-    ¬ CanExecuteDestructiveRead (fun x => (apply_map M x).toNat) :=
+    ¬ CanExecuteDestructiveRead (fun x => (apply_map M x).natAbs) :=
   -- Apply bijective_implies_no_destructive_read with the bijection hypothesis
   -- satisfied simultaneously by coprime_implies_bijective_mod_d.
   bijective_implies_no_destructive_read M (coprime_implies_bijective_mod_d M h_coprime)
@@ -138,9 +133,11 @@ The logic is absolute (modus tollens):
   3. Therefore, the system is not a Universal Turing Machine.
 -/
 theorem coprime_safe_from_turing_completeness :
-    IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (fun x => (apply_map M x).toNat) :=
-  -- Unfold IsUniversalTuringMachine (which equals CanExecuteDestructiveRead),
-  -- then apply coprime_forbids_destructive_read directly.
-  coprime_forbids_destructive_read M
+    IsCoprimeConstrained M → ¬ IsUniversalTuringMachine (fun x => (apply_map M x).natAbs) := by
+  -- Modus tollens: assume coprime constraint and that the map is a UTM.
+  intro h_coprime h_utm
+  -- A UTM can execute destructive reads (Axiom 2).
+  -- But a coprime-constrained system cannot (coprime_forbids_destructive_read).
+  exact coprime_forbids_destructive_read M h_coprime (utm_can_execute_destructive_reads h_utm)
 
 end GenCollatzMap

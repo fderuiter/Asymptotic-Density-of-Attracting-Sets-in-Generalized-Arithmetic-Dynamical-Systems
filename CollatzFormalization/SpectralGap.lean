@@ -1,6 +1,7 @@
 import CollatzFormalization.Basic
 import CollatzFormalization.MarkovTranslation
 import CollatzFormalization.PilotSystem
+import CollatzFormalization.CoprimeFilter
 import Mathlib.Analysis.Matrix.Spectrum
 import Mathlib.LinearAlgebra.Matrix.Stochastic
 import Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected
@@ -9,13 +10,16 @@ import Mathlib.Algebra.Order.BigOperators.Group.Finset
 /-!
 # Spectral Gap: Bridging Discrete Graph Theory and Continuous Matrix Algebra
 
-This file implements Action 4.2.1: connecting the Markov matrix framework
-(Phase 2) to the spectral calculus required for Chapter 2's density bounds.
+This file implements Actions 4.2.1 and 4.2.2.
 
-The central result is the `path_implies_pow_pos` bridge lemma, which proves
-that graph connectivity (encoded by `HasPath`) implies positivity of the
-corresponding entry in a power of the transition matrix. This is the key
-prerequisite for applying Perron-Frobenius-type arguments.
+**Action 4.2.1** connects the Markov matrix framework (Phase 2) to the spectral
+calculus required for Chapter 2's density bounds. The central result is the
+`path_implies_pow_pos` bridge lemma.
+
+**Action 4.2.2** implements the Uniformity Bypass: because each multiplier
+`a_i` is coprime to `d`, the branch map `k ↦ apply_map(i + k*d) mod d` is a
+bijection on `Fin d`. This forces every transition probability `P_ij > 0`,
+making the matrix simultaneously irreducible and aperiodic at `N = 1`.
 -/
 
 namespace SpectralGap
@@ -115,5 +119,139 @@ theorem pilot_system_irreducible :
   refine ⟨1, ?_⟩
   rw [pow_one]
   fin_cases i <;> fin_cases j <;> native_decide
+
+-- ============================================================
+-- Action 4.2.2 — The Uniformity Bypass
+-- ============================================================
+
+/-!
+## The Uniformity Bypass (Action 4.2.2)
+
+Because each multiplier `a_i` is coprime to `d`, the branch map
+`k ↦ apply_map(i + k*d) mod d` is a bijection on `Fin d`.
+Concretely, for every starting residue `i` and every target residue `j`,
+there is a unique `k ∈ Fin d` that witnesses the transition `i → j`
+in exactly one step. This forces `P_ij > 0` for all `(i, j)`.
+-/
+
+/--
+Private helper: Casting `k.val : ℕ` to `ZMod d` yields back `k` itself.
+
+For `ZMod d = Fin d`, the natural number cast `ℕ → ZMod d` applied to `k.val < d`
+simply gives `⟨k.val % d, _⟩ = ⟨k.val, _⟩ = k`.
+-/
+private lemma fin_val_natCast_eq {d : ℕ} [NeZero d] (k : Fin d) :
+    ((k.val : ℕ) : ZMod d) = k :=
+  Fin.ext (ZMod.val_natCast_of_lt k.isLt)
+
+/--
+Private helper: The integer cast of `j.val` through ℤ to `ZMod d` equals `j`.
+
+For `ZMod d = Fin d` (when `d > 0`), the coercion `ℕ → ℤ → ZMod d` applied
+to `j.val < d` simply returns the same element because `j.val % d = j.val`.
+-/
+private lemma fin_val_intCast_eq {d : ℕ} [NeZero d] (j : Fin d) :
+    ((j.val : ℤ) : ZMod d) = j := by
+  rw [Int.cast_natCast]
+  exact fin_val_natCast_eq j
+
+/--
+Private helper: Affine formula for `apply_map` at inputs of the form `i + k*d`.
+
+For `i k : Fin d`, the output decomposes as a base value plus `a_i * k`:
+  `apply_map(i + k*d) = apply_map(i) + a_i * k`.
+
+**Proof**: Multiply both sides by `d` and use `apply_map_exact` twice:
+  `d * apply_map(i + k*d) = a_i*(i + k*d) + b_i = d * apply_map(i) + a_i*k*d`.
+Cancel `d` (which is non-zero) to conclude.
+-/
+private lemma apply_map_at_step (M : GenCollatzMap d) (i k : Fin d) :
+    M.apply_map (i.val + k.val * d) = M.apply_map i.val + (M.a i : ℤ) * k.val := by
+  apply mul_left_cancel₀ (show (d : ℤ) ≠ 0 from by exact_mod_cast NeZero.ne d)
+  have hi_step : (⟨(i.val + k.val * d) % d, Nat.mod_lt _ (NeZero.pos d)⟩ : Fin d) = i := by
+    apply Fin.ext; omega
+  have hi_self : (⟨i.val % d, Nat.mod_lt _ (NeZero.pos d)⟩ : Fin d) = i := by
+    apply Fin.ext; omega
+  have h1 := M.apply_map_exact (i.val + k.val * d)
+  have h2 := M.apply_map_exact i.val
+  simp only [hi_step, hi_self] at h1 h2
+  push_cast at h1 h2 ⊢
+  linear_combination h1 - h2
+
+/--
+The Uniformity Bypass (Action 4.2.2): Every transition probability is strictly
+positive for coprime-constrained maps.
+
+**Mathematical content**: Because `gcd(a_i, d) = 1`, the map
+  `k ↦ a_i * k  (mod d)`
+is a bijection on `ZMod d`. Adding the constant offset `apply_map(i) mod d`
+gives an affine bijection, so every residue class `j` has exactly one
+preimage `k`. The `valid_k` filter is therefore non-empty, its cardinality
+is ≥ 1, and `P_ij = card / d ≥ 1/d > 0`.
+-/
+lemma transition_prob_strictly_positive (M : GenCollatzMap d)
+    (h_coprime : IsCoprimeConstrained M) (i j : Fin d) :
+    transition_matrix M i j > 0 := by
+  unfold transition_matrix transition_prob
+  apply div_pos
+  · -- Show valid_k.card > 0 (i.e. the filter is non-empty)
+    apply Nat.cast_pos.mpr
+    rw [Finset.card_pos]
+    -- Obtain a witness k₀ via ZMod surjectivity.
+    -- coprime_implies_bijective_mod_d gives: (fun x => a_i * x) is bijective on ZMod d.
+    obtain ⟨k₀, hk₀⟩ :=
+      (coprime_implies_bijective_mod_d M h_coprime i).2
+        ((j : ZMod d) - (M.apply_map i.val : ZMod d))
+    -- k₀ : ZMod d = Fin d (for d > 0); hk₀ : a_i * k₀ = j - apply_map(i) in ZMod d
+    refine ⟨k₀, Finset.mem_filter.mpr ⟨Finset.mem_univ _, ?_⟩⟩
+    -- Goal: (apply_map(i + k₀*d)) % d = j.val
+    rw [apply_map_at_step M i k₀]
+    -- Goal: (apply_map(i) + a_i * k₀.val) % d = j.val
+    -- Step 1: establish the equality in ZMod d
+    have h_zmod : (M.apply_map i.val + (M.a i : ℤ) * (k₀.val : ℤ) : ZMod d) = j := by
+      simp only [Int.cast_add, Int.cast_mul, Int.cast_natCast]
+      -- Goal: apply_map(i) + a_i * (k₀.val : ZMod d) = j
+      rw [show ((k₀.val : ℕ) : ZMod d) = k₀ from fin_val_natCast_eq k₀]
+      -- Goal: apply_map(i) + a_i * k₀ = j
+      rw [hk₀]
+      ring
+    -- Step 2: rewrite with the integer cast of j so we can use intCast_eq_intCast_iff'
+    have h_zmod' : (M.apply_map i.val + (M.a i : ℤ) * (k₀.val : ℤ) : ZMod d) =
+                   ((j.val : ℤ) : ZMod d) := by
+      rw [h_zmod, fin_val_intCast_eq]
+    -- Step 3: extract the integer mod equality using intCast_eq_intCast_iff'
+    -- which directly gives (a % c = b % c) without unfolding Int.ModEq
+    have h_modEq := (ZMod.intCast_eq_intCast_iff' _ _ d).mp h_zmod'
+    -- h_modEq : (apply_map(i) + a_i * k₀.val) % d = (j.val : ℤ) % d
+    have h_jmod : (j.val : ℤ) % (d : ℤ) = (j.val : ℤ) :=
+      Int.emod_eq_of_lt (by positivity) (by exact_mod_cast j.isLt)
+    exact h_modEq.trans h_jmod
+  · -- Denominator: d > 0 as a rational
+    exact_mod_cast NeZero.pos d
+
+/--
+The transition matrix is irreducible for coprime-constrained maps
+(Action 4.2.2, Instant Irreducibility).
+
+Every state connects to every other state in exactly `n = 1` step,
+because `P_ij > 0` for all `(i, j)` by the Uniformity Bypass.
+-/
+lemma transition_matrix_irreducible (M : GenCollatzMap d)
+    (h_coprime : IsCoprimeConstrained M) :
+    ∀ (i j : Fin d), ∃ (n : ℕ), (transition_matrix M ^ n) i j > 0 := by
+  intro i j
+  exact ⟨1, by rw [pow_one]; exact transition_prob_strictly_positive M h_coprime i j⟩
+
+/--
+The transition matrix is aperiodic (primitive) for coprime-constrained maps
+(Action 4.2.2, Instant Aperiodicity).
+
+The uniform mixing exponent is `N = 1`: the base matrix `P^1 = P` is already
+strictly positive everywhere, so there are no bipartite oscillations.
+-/
+lemma transition_matrix_aperiodic (M : GenCollatzMap d)
+    (h_coprime : IsCoprimeConstrained M) :
+    ∃ (N : ℕ), ∀ (i j : Fin d), (transition_matrix M ^ N) i j > 0 := by
+  exact ⟨1, fun i j => by rw [pow_one]; exact transition_prob_strictly_positive M h_coprime i j⟩
 
 end SpectralGap

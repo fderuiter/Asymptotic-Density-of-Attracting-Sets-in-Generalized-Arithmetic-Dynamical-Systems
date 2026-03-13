@@ -1,7 +1,6 @@
 import json
 import numpy as np
 import scipy.linalg as la
-import argparse
 
 def main():
     print("Loading Lean 4 parameters from matrix_data.json...")
@@ -20,53 +19,31 @@ def main():
     print(f"Multipliers (a): {a}")
     print(f"Addends (b):     {b}")
 
-    parser = argparse.ArgumentParser(description="Simulate empirical transition matrix and spectral gap.")
-    parser.add_argument(
-        "-N",
-        "--num-samples",
-        type=int,
-        default=1_000_000,
-        help="Number of random large integer orbits to simulate (default: 1_000_000).",
-    )
-    parser.add_argument(
-        "--chunk-size",
-        type=int,
-        default=1_000_000,
-        help="Chunk size for streaming simulation to limit peak memory usage (default: 1_000_000).",
-    )
-    args = parser.parse_args()
+    N = 100_000_000
+    print(f"Simulating {N} random large integer orbits...")
 
-    N = max(1, args.num_samples)
-    chunk_size = max(1, args.chunk_size)
-    print(f"Simulating {N} random large integer orbits (chunk size {chunk_size})...")
-
-    # Build the transition matrix P_empirical
-    P_empirical = np.zeros((d, d), dtype=np.float64)
-
-    # Generate random very large integers in chunks and accumulate transitions
+    # Generate N random very large integers
     # We use a large high boundary to simulate the asymptotic uniform distribution
     # np.random.randint's max bound for int64 is 2**63 - 1
     # We will just generate random int64s.
     # To ensure they are positive we use high=2**62
-    remaining = N
-    while remaining > 0:
-        current_chunk = min(remaining, chunk_size)
-        x = np.random.randint(0, 2**62, size=current_chunk, dtype=np.int64)
+    x = np.random.randint(0, 2**62, size=N, dtype=np.int64)
 
-        # Calculate starting residue class
-        i_vals = x % d
+    # Calculate starting residue class
+    i_vals = x % d
 
-        # Apply the corresponding map branch: f(x) = (a[i]*x + b[i]) // d
-        # Since numpy arrays can be indexed by another array, we can vectorize this
-        fx = (a[i_vals] * x + b[i_vals]) // d
+    # Apply the corresponding map branch: f(x) = (a[i]*x + b[i]) // d
+    # Since numpy arrays can be indexed by another array, we can vectorize this
+    fx = (a[i_vals] * x + b[i_vals]) // d
 
-        # Calculate destination residue class
-        j_vals = fx % d
+    # Calculate destination residue class
+    j_vals = fx % d
 
-        # Use np.add.at for unbuffered in-place addition
-        np.add.at(P_empirical, (i_vals, j_vals), 1.0)
+    # Build the transition matrix P_empirical
+    P_empirical = np.zeros((d, d), dtype=np.float64)
 
-        remaining -= current_chunk
+    # Use np.add.at for unbuffered in-place addition
+    np.add.at(P_empirical, (i_vals, j_vals), 1.0)
 
     print("\nRaw Transition Counts:")
     print(P_empirical)

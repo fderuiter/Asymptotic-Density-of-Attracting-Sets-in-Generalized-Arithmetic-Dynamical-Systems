@@ -123,7 +123,7 @@ theorem affine_orbit_annihilator_mod (m : ℕ) (A B x : ZMod m)
   -- Decompose A as the coercion of a unit u
   obtain ⟨u, rfl⟩ := h_unit
   -- Expand the iterate using the annihilator lemma
-  rw [affine_iterate_annihilated]
+  dsimp only [L]; rw [affine_iterate_annihilated]
   -- Euler's theorem: u^L = 1 as a unit in ZMod m
   have hpow : (u : ZMod m) ^ L = 1 := by
     have hunit_pow : u ^ L = 1 := ZMod.pow_totient u

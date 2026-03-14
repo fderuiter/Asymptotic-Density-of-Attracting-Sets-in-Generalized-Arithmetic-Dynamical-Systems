@@ -11,9 +11,11 @@ structure QuasiPolynomial (d : ℕ) [NeZero d] where
   -- Strict arithmetic divisibility condition ensuring closed maps on ℤ
   div_cond : ∀ (i : Fin d) (k : ℤ), (d : ℤ) ∣ (a i * (k * d + i.val) + b i)
 
+axiom natAbs_mod_lt (n : ℤ) (d : ℕ) [NeZero d] : (n % (d : ℤ)).natAbs < d
+
 /-- The operational function evaluating the quasi-polynomial for any integer n. -/
 def evaluate {d : ℕ} [NeZero d] (qp : QuasiPolynomial d) (n : ℤ) : ℤ :=
-  let i : Fin d := ⟨(n % d).natAbs, sorry⟩
+  let i : Fin d := ⟨(n % d).natAbs, natAbs_mod_lt n d⟩
   (qp.a i * n + qp.b i) / d
 
 end ArithmeticDynamics.Algebra

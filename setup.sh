@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "Setting up environment for CollatzFormalization..."
+echo "Setting up environment for ArithmeticDynamics..."
 
 # Install Python dependencies
 echo "Installing Python dependencies (numpy, scipy)..."

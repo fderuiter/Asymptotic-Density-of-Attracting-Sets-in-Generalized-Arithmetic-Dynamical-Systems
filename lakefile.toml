@@ -1,8 +1,11 @@
 name = "collatz_formalization"
-defaultTargets = ["CollatzFormalization"]
+defaultTargets = ["CollatzFormalization", "ArithmeticDynamics"]
 
 [[lean_lib]]
 name = "CollatzFormalization"
+
+[[lean_lib]]
+name = "ArithmeticDynamics"
 
 [[lean_exe]]
 name = "pilot_system"

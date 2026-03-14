@@ -1,0 +1,3 @@
+namespace ArithmeticDynamics.Algebra
+
+end ArithmeticDynamics.Algebra

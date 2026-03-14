@@ -1,0 +1,3 @@
+namespace ArithmeticDynamics.ErgodicTheory
+
+end ArithmeticDynamics.ErgodicTheory

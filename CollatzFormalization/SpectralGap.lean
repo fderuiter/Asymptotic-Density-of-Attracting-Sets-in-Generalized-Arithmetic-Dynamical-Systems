@@ -173,7 +173,20 @@ For `i k : Fin d`, the output decomposes as a base value plus `a_i * k`:
 Cancel `d` (which is non-zero) to conclude.
 -/
 private lemma apply_map_at_step (M : GenCollatzMap d) (i k : Fin d) :
-    M.apply_map (i.val + k.val * d) = M.apply_map i.val + (M.a i : ℤ) * k.val := sorry
+    M.apply_map (i.val + k.val * d) = M.apply_map i.val + (M.a i : ℤ) * k.val := by
+  apply mul_left_cancel₀ (show (d : ℤ) ≠ 0 from by exact_mod_cast NeZero.ne d)
+  have hi_step : (⟨(i.val + k.val * d) % d, Nat.mod_lt _ (NeZero.pos d)⟩ : Fin d) = i := by
+    apply Fin.ext
+    simp [Nat.add_mul_mod_self_right]
+    exact Nat.mod_eq_of_lt i.isLt
+  have hi_self : (⟨i.val % d, Nat.mod_lt _ (NeZero.pos d)⟩ : Fin d) = i := by
+    apply Fin.ext
+    exact Nat.mod_eq_of_lt i.isLt
+  have h1 := M.apply_map_exact (i.val + k.val * d)
+  have h2 := M.apply_map_exact i.val
+  simp only [hi_step, hi_self] at h1 h2
+  push_cast at h1 h2 ⊢
+  linear_combination h1 - h2
 
 /--
 The Uniformity Bypass (Action 4.2.2): Every transition probability is strictly

@@ -41,3 +41,4 @@ jobs:
           build: true
           lint: false
           mk_all-check: false
+          use-mathlib-cache: true

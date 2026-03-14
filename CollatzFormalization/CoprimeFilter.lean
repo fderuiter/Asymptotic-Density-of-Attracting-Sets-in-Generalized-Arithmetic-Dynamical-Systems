@@ -2,7 +2,7 @@ import Mathlib.Data.ZMod.Basic
 import CollatzFormalization.Basic
 import Mathlib.Tactic
 import Mathlib.Data.Nat.Prime.Basic
-import Mathlib.NumberTheory.Padic.PadicVal
+import Mathlib.NumberTheory.Padics.PadicVal.Basic
 
 /-!
 # Coprime Filter: Turing Completeness and Structural Constraints

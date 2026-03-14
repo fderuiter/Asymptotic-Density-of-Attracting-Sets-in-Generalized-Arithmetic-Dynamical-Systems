@@ -31,7 +31,7 @@ every eigenvalue λ ≠ 1 of the complex transition matrix satisfies |λ| < 1,
 formally establishing a positive spectral gap and exponentially fast mixing.
 -/
 
-namespace SpectralGap
+namespace GenCollatzMap.SpectralGap
 
 open GenCollatzMap Finset
 
@@ -263,7 +263,7 @@ lemma transition_matrix_aperiodic (M : GenCollatzMap d)
     ∃ (N : ℕ), ∀ (i j : Fin d), (transition_matrix M ^ N) i j > 0 := by
   exact ⟨1, fun i j => by rw [pow_one]; exact transition_prob_strictly_positive M h_coprime i j⟩
 
-end SpectralGap
+end GenCollatzMap.SpectralGap
 
 -- ============================================================
 -- Action 4.3.1 — The Complex Spectrum Embedding

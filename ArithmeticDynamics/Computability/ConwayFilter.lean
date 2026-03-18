@@ -84,7 +84,11 @@ theorem coprime_invertibility {d : ℕ} [NeZero d] (a c : ℤ) (h_coprime : IsCo
       _ = y                                                                 := by ring
 
 /-- `PrimeSignatureSupportsTC k` means that a system whose integer encoding uses
-`k` independent prime-register channels can sustain Turing-complete control flow. -/
+`k` independent prime-register channels can sustain Turing-complete control flow.
+
+Concretely, "independent prime-register channels" means an encoding of the form
+`N = ∏ pᵢ^(cᵢ)` with pairwise distinct primes `pᵢ`, where each `cᵢ` can be
+incremented/decremented and tested for zero without conflating with the others. -/
 opaque PrimeSignatureSupportsTC : ℕ → Prop
 
 /-- A 0-prime signature has no unbounded register memory. -/
@@ -93,7 +97,9 @@ axiom prime_signature_zero_not_universal : ¬ PrimeSignatureSupportsTC 0
 /-- A 1-prime signature is insufficient for universal computation. -/
 axiom prime_signature_one_not_universal : ¬ PrimeSignatureSupportsTC 1
 
-/-- By Minsky's 1961 universality theorem, two counters (hence two prime channels) suffice. -/
+/-- By Minsky's 1961 universality theorem for register machines
+(*Recursive Unsolvability of Post's Problem of "Tag" and Other Topics in Theory of Turing Machines*,
+Theorem III), two counters (hence two prime channels) suffice. -/
 axiom prime_signature_two_universal : PrimeSignatureSupportsTC 2
 
 /-- **Theorem 1 (Prime-register floor).**
@@ -108,7 +114,11 @@ theorem minimal_prime_signature_eq_two :
   · exact prime_signature_one_not_universal
 
 /-- `SupportsTwoCounterBranching d` means modulus `d` can branch on both
-divisibility channels (`2 ∣ N` and `3 ∣ N`) needed for two independent counters. -/
+divisibility channels (`2 ∣ N` and `3 ∣ N`) needed for two independent counters.
+
+The choice `2,3` is the minimal-prime realization of two counters: in the prime
+register encoding `N = 2^{c₁} 3^{c₂} ⋯`, testing `2 ∣ N` is exactly the test
+`c₁ > 0`, and testing `3 ∣ N` is exactly the test `c₂ > 0`. -/
 opaque SupportsTwoCounterBranching : ℕ → Prop
 
 /-- Branchability is equivalent to simultaneously resolving divisibility by `2` and `3`. -/

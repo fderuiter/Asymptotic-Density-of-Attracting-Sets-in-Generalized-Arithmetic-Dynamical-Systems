@@ -3,6 +3,7 @@ import ArithmeticDynamics.Algebra.PadicExtensions
 import ArithmeticDynamics.Algebra.PadicMetric
 import ArithmeticDynamics.Algebra.LipschitzCausality
 import ArithmeticDynamics.Algebra.Isometry
+import ArithmeticDynamics.Algebra.HenselLift
 import ArithmeticDynamics.Computability.ChomskyBounds
 import ArithmeticDynamics.Computability.Fractran
 import ArithmeticDynamics.Computability.MinskyMachine

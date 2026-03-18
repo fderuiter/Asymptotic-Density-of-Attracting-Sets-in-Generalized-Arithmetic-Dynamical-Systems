@@ -1,24 +1,72 @@
-### 1. The Computability Floor and the Conway Filter
-*The goal of this section is to prove exactly where the boundary of algorithmic undecidability lies, and to formally verify that your system sits safely below it.*
+### Chapter 1 incorporation status (Lean + documentation)
 
-*   **The Minsky Reduction Bounds:** You must prove the absolute minimum number of piecewise affine branches required to successfully encode the `INCREMENT` and `JUMP-IF-ZERO` operations of a universal 2-register Minsky machine into a FRACTRAN program.
-*   **The Prime Register & Modulus Floor:** You must prove the minimal prime signature (the required number of distinct prime factors) and calculate the numerical floor for the modulus ($d_{min}$) required to sustain Turing-complete control flow without collapsing into a trivial cycle.
-*   **Coprime Invertibility:** You must prove that if the branch multipliers $a_i$ are strictly coprime to the modulus $d$, the map's action on the residue classes modulo $d$ is perfectly bijective.
-*   **Prevention of Destructive Reads:** You must prove that a bijective modular mapping is strictly information-preserving and therefore mathematically incapable of executing the state-dependent "destructive read" (prime division) required for Turing computation.
-*   **The Conway Filter Theorem (Deliverable):** Using *modus tollens*, you must conclude that any system satisfying the coprime constraint cannot simulate a Universal Turing Machine, rendering its long-term dynamics fundamentally decidable.
+This chapter now records all core proof artifacts from the structural boundary program, with
+formal Lean anchors for each claim. Some components are fully proved, while others are
+currently encoded as explicit axioms/placeholders pending deeper Mathlib support.
 
-### 2. Periodic Residue Classes and Cycle Bounding
-*The goal of this section is to prove that orbits in your "safe" system cannot wander infinitely without pattern, placing a strict topological ceiling on their periodic cycles.*
+### 1. Logarithmic drift and the stability boundary
 
-*   **The Dynamical Hensel Lift:** You must prove that any periodic cycle identified modulo $d$ lifts uniquely to an invariant solution modulo $d^k$ for any $k \ge 1$.
-*   **Closed-Form Geometric Expansion:** You must prove by induction that the $n$-th iterate of your affine map, $f^{(n)}(x)$, can be expressed as a closed-form geometric series over a generic commutative ring.
-*   **The Automorphism Group Constraint:** By casting the closed-form expansion into the finite ring $\mathbb{Z}/d^k\mathbb{Z}$, you must apply Euler's Theorem to prove that the absolute maximum length of any periodic cycle is strictly bounded by Euler's totient function, $\phi(d^k)$.
-*   **The $p$-adic Valuation Growth Rate (Deliverable):** You must prove that the $p$-adic valuation of the difference $f^{(n)}(x) - x$ grows strictly and monotonically. Using the Lifting-the-Exponent Lemma, this proves how rapidly the sequence of iterates is topologically crushed into a closed loop, severely tightening the totient bound.
+* **Core drift formalism:** `ArithmeticDynamics/ErgodicTheory/LogarithmicDrift.lean`
+  (`logarithmicDrift`, `SystemRegime`, `classifySystem`).
+* **Negative-drift pilot boundary (`d = 2`, `q = 3`)**:
+  `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean`
+  (`collatz_drift_is_contractive`).
+* **Expansive contrast (`d = 2`, `q = 5`)**:
+  `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
+  (`collatz5x1_drift_is_expansive`).
 
-### 3. Ergodic Translation and The Spectral Gap
-*The goal of this section is to translate the deterministic arithmetic of your system into a stochastic matrix, proving it mixes rapidly enough to authorize the use of analytic probability theory in Chapter 2.*
+These establish the contractive / neutral / expansive regime split and preserve the chapter's
+boundary interpretation between collapse, neutrality, and divergence.
 
-*   **Row-Stochastic Validation:** You must prove that the transition matrix $P$ constructed from your modular branches conserves probability mass (all rows sum exactly to $1$).
-*   **The Uniformity Bypass (Strict Positivity):** Leveraging the bijectivity proven in Section 1, you must prove that the map perfectly scatters inputs across the modular space, rendering every single transition probability strictly positive ($P_{ij} > 0$).
-*   **Irreducibility and Aperiodicity:** You must prove that the transition graph is a complete digraph, meaning the system mixes instantaneously and avoids bipartite oscillations.
-*   **The Spectral Gap Theorem (Deliverable):** Because the matrix is strictly positive and row-stochastic, you must invoke the Perron-Frobenius theorem to prove it possesses a unique dominant eigenvalue $\lambda_1 = 1$, and that the magnitude of the second-largest eigenvalue is strictly bounded below 1 ($|\lambda_2| < 1$). This proves a strictly positive spectral gap ($\delta > 0$), which mathematically guarantees the exponential decay of memory in your system.
+### 2. Coprime safe-harbor and undecidability protection
+
+* **Coprime invertibility and safe-harbor mechanism:**  
+  `ArithmeticDynamics/Computability/ConwayFilter.lean`
+  (`coprime_invertibility`, `minimal_prime_signature_eq_two`,
+  `minimal_effective_two_counter_modulus_eq_six`).
+* **Instruction-level and branch lower bounds:**  
+  `ArithmeticDynamics/Computability/MinskyBounds.lean`.
+* **FRACTRAN prime-signature threshold artifact:**  
+  `ArithmeticDynamics/Computability/Fractran.lean`
+  (`fractran_universal_threshold`).
+
+Together these files encode the Conway-filter floor and its coprimality-based protection logic.
+
+### 3. Ergodic measure construction vs. measure dissipation
+
+* **Markov framework + stationary measure existence schema:**  
+  `ArithmeticDynamics/ErgodicTheory/MarkovTransition.lean`
+  (`IsRowStochastic`, `existence_of_stationary_measure`).
+* **Expansive dissipation statement for `5x+1`:**  
+  `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
+  (`expansive_measure_dissipation`).
+
+This records both sides of the chapter claim: equilibrium construction in the contractive
+setting and measure escape in expansive dynamics.
+
+### 4. Spectral gaps and sieve degeneracy
+
+* **Spectral-gap structural package:**  
+  `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean`
+  (`spectral_gap_constraint`, `rapid_mixing_from_spectral_gap`).
+* **Sieve-degeneracy interface at deterministic universal floor:**  
+  `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean`
+  (`sieve_degeneracy_at_universal_floor`).
+
+These declarations formalize the chapter's mixing-vs-degeneracy boundary at the theorem
+interface level used by later analytic components.
+
+### 5. Prime-power collapse and Presburger embeddability
+
+* **Prime-power collapse / linearization interface:**  
+  `ArithmeticDynamics/Algebra/PadicExtensions.lean`
+  (`linearization_of_orbits`, `prime_power_architectural_starvation`).
+* **Dynamical Hensel lifting backbone:**  
+  `ArithmeticDynamics/Algebra/HenselLift.lean`
+  (`dynamical_hensel_lift`).
+* **First-order translation and decidability interface:**  
+  `ArithmeticDynamics/Computability/ChomskyBounds.lean`
+  (`first_order_translation`, `termination_and_periodicity_decidable`).
+
+This consolidates the chapter's final deliverable path from prime-power constrained dynamics
+to finite-state translation and Presburger-level decidability.

@@ -130,7 +130,7 @@ theorem supports_two_counter_branching_iff (d : ℕ) :
 theorem supports_two_counter_branching_implies_six_dvd {d : ℕ}
     (h : SupportsTwoCounterBranching d) : 6 ∣ d := by
   rcases (supports_two_counter_branching_iff d).1 h with ⟨h2, h3⟩
-  have hlcm : Nat.lcm 2 3 ∣ d := Nat.dvd_lcm h2 h3
+  have hlcm : Nat.lcm 2 3 ∣ d := Nat.lcm_dvd h2 h3
   simpa using hlcm
 
 /-- Every multiple of `6` can resolve both channels. -/

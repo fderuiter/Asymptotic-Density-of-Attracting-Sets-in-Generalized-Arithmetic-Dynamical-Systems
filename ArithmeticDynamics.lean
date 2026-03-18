@@ -1,4 +1,5 @@
 import ArithmeticDynamics.Algebra.QuasiPolynomial
+import ArithmeticDynamics.Algebra.ResidueAction
 import ArithmeticDynamics.Algebra.PadicExtensions
 import ArithmeticDynamics.Algebra.PadicMetric
 import ArithmeticDynamics.Algebra.LipschitzCausality

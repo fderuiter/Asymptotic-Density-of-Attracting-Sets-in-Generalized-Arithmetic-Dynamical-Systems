@@ -8,6 +8,7 @@ import ArithmeticDynamics.Algebra.HenselLift
 import ArithmeticDynamics.Computability.ChomskyBounds
 import ArithmeticDynamics.Computability.Fractran
 import ArithmeticDynamics.Computability.MinskyMachine
+import ArithmeticDynamics.Computability.MinskyBounds
 import ArithmeticDynamics.Computability.ConwayFilter
 import ArithmeticDynamics.ErgodicTheory.LogarithmicDrift
 import ArithmeticDynamics.ErgodicTheory.MarkovTransition

@@ -52,7 +52,7 @@ opaque EncodesTrajectory {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (A : BrauerA
 opaque PresburgerSentence : Type
 
 /-- First-order translation from Brauer automata to existential linear congruences. -/
-opaque TranslateToPresburger : BrauerAutomaton → PresburgerSentence
+axiom TranslateToPresburger : BrauerAutomaton → PresburgerSentence
 
 /-- Predicate asserting formal derivability/decidability in Presburger arithmetic. -/
 opaque PresburgerProvable : PresburgerSentence → Prop
@@ -75,7 +75,7 @@ decidable propositions after the Presburger translation. -/
 axiom termination_and_periodicity_decidable
     {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f)
     (A : BrauerAutomaton) (h_enc : EncodesTrajectory f A) :
-    (∀ x : Z_d d, Decidable (∃ n : ℕ, TerminatesAt f x n)) ∧
+    (∀ x : Z_d d, Decidable (∃ n : ℕ, TerminatesAt f x n)) ×
     (∀ x : Z_d d, Decidable (IsPeriodicAt f x))
 
 /-- The Deliverable Theorem of Phase 1: The Chomsky Preclusion.

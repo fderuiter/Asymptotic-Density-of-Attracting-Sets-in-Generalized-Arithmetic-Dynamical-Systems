@@ -119,23 +119,24 @@ divisibility channels (`2 ∣ N` and `3 ∣ N`) needed for two independent count
 The choice `2,3` is the minimal-prime realization of two counters: in the prime
 register encoding `N = 2^{c₁} 3^{c₂} ⋯`, testing `2 ∣ N` is exactly the test
 `c₁ > 0`, and testing `3 ∣ N` is exactly the test `c₂ > 0`. -/
-opaque SupportsTwoCounterBranching : ℕ → Prop
+def SupportsTwoCounterBranching (d : ℕ) : Prop := 2 ∣ d ∧ 3 ∣ d
 
 /-- Branchability is equivalent to simultaneously resolving divisibility by `2` and `3`. -/
-axiom supportsTwoCounterBranching_iff (d : ℕ) :
+theorem supports_two_counter_branching_iff (d : ℕ) :
   SupportsTwoCounterBranching d ↔ 2 ∣ d ∧ 3 ∣ d
+  := Iff.rfl
 
 /-- If a modulus supports both channels, it is a multiple of `6 = lcm(2,3)`. -/
 theorem supports_two_counter_branching_implies_six_dvd {d : ℕ}
     (h : SupportsTwoCounterBranching d) : 6 ∣ d := by
-  rcases (supportsTwoCounterBranching_iff d).1 h with ⟨h2, h3⟩
-  have hlcm : Nat.lcm 2 3 ∣ d := Nat.lcm_dvd.2 ⟨h2, h3⟩
+  rcases (supports_two_counter_branching_iff d).1 h with ⟨h2, h3⟩
+  have hlcm : Nat.lcm 2 3 ∣ d := Nat.dvd_lcm h2 h3
   simpa using hlcm
 
 /-- Every multiple of `6` can resolve both channels. -/
 theorem six_dvd_implies_supports_two_counter_branching {d : ℕ}
     (h6 : 6 ∣ d) : SupportsTwoCounterBranching d := by
-  refine (supportsTwoCounterBranching_iff d).2 ?_
+  refine (supports_two_counter_branching_iff d).2 ?_
   refine ⟨dvd_trans (by decide : 2 ∣ 6) h6, dvd_trans (by decide : 3 ∣ 6) h6⟩
 
 /-- Equivalent arithmetic form of the two-counter branchability condition. -/

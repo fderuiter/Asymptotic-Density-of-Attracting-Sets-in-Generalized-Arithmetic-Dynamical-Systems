@@ -92,10 +92,10 @@ theorem inducedAction_bijective (qp : QuasiPolynomial d) (i : Fin d)
   -- Step 1: (a_i : ZMod d) is a unit.
   have h_unit : IsUnit ((qp.a i : ZMod d)) :=
     (ZMod.coe_int_isUnit_iff_isCoprime (qp.a i) d).mpr h_coprime.symm
-  set c := (branchConst qp i : ZMod d)
+  let c := (branchConst qp i : ZMod d)
   -- Step 2: Factor Φ_i as (· + c) ∘ (a * ·).
   have h_eq : inducedAction qp i = (· + c) ∘ ((qp.a i : ZMod d) * ·) := by
-    ext k; simp [inducedAction]
+    ext k; simp [inducedAction, c]
   rw [h_eq]
   -- Step 3: (a * ·) is bijective since a is a unit.
   have h_mul : Function.Bijective ((qp.a i : ZMod d) * ·) :=

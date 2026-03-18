@@ -66,14 +66,14 @@ opaque IsPeriodicAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) : Pro
 /-- First-order translation theorem: 1-Lipschitz `d`-adic dynamics can be encoded as a
 Brauer automaton and translated to Presburger-compatible formulas. -/
 axiom first_order_translation
-    (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) :
+    {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) :
     ∃ A : BrauerAutomaton,
       EncodesTrajectory f A ∧ PresburgerProvable (TranslateToPresburger A)
 
 /-- Deliverable decidability corollary: termination and periodicity queries become finite
 decidable propositions after the Presburger translation. -/
 axiom termination_and_periodicity_decidable
-    (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) :
+    {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) :
     (∀ x : Z_d d, Decidable (∃ n : ℕ, TerminatesAt f x n)) ∧
     (∀ x : Z_d d, Decidable (IsPeriodicAt f x))
 

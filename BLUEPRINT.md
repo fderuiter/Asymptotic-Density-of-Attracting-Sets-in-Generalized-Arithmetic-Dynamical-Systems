@@ -64,3 +64,30 @@ The `Sub (Z_d d)` instance currently uses a `sorry` to bypass the proof that poi
 - [ ] The `sorry` in the `Sub (Z_d d)` instance is entirely replaced with a rigorous proof.
 - [ ] Pointwise subtraction is formally verified to maintain inverse limit coherence.
 - [ ] The `ArithmeticDynamics/Algebra/PadicMetric.lean` file compiles successfully with zero `sorry` warnings.
+
+## Target Task
+Construct `IsMeasurePreserving_def`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/Isometry.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The file `ArithmeticDynamics/Algebra/Isometry.lean` contains a dummy `def IsMeasurePreserving` returning `True` (ending on line 20) and an `opaque IsMeasurePreserving_def` (line 24). This structure acts as technical debt. The project requires a computable mathematical assertion of bijectivity modulo `d^k` for all `k` in order to evaluate higher-level metric distances and isolate computable boundaries. We must remove these placeholders and replace them with a single, formally verified computable definition using `Z_d.proj` to assert prefix bijectivity.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/Isometry.lean`.
+2. Delete the current faulty definition of `IsMeasurePreserving` (which maps to `True`) and the `opaque IsMeasurePreserving_def` declaration.
+3. Redefine `IsMeasurePreserving` as a concrete computable proposition asserting prefix bijectivity modulo `d^k` for all `k`. Using the `Z_d.proj` function defined in `Z_d`, assert that the induced map on prefixes is bijective. The easiest formulation without constructing quotient maps is to assert that for any output prefix `y`, there exists a unique input prefix `x` mapping to it:
+   ```lean
+   def IsMeasurePreserving (f : Z_d d → Z_d d) : Prop :=
+     ∀ (k : ℕ), ∀ (y : ZMod (d^k)), ∃! (x : ZMod (d^k)),
+       ∃ (X : Z_d d), Z_d.proj k X = x ∧ Z_d.proj k (f X) = y
+   ```
+4. Update `axiom measure_preserving_lipschitz_is_isometry` (line 30) to rely on the new `IsMeasurePreserving f` instead of `IsMeasurePreserving_def f`.
+
+## Definition of Done (DoD)
+- [ ] The `opaque IsMeasurePreserving_def` and faulty `IsMeasurePreserving` definitions are removed.
+- [ ] A new `def IsMeasurePreserving` is defined accurately capturing prefix bijectivity without `opaque` or `sorry`.
+- [ ] The `axiom measure_preserving_lipschitz_is_isometry` is updated to depend on the new definition.
+- [ ] The file `ArithmeticDynamics/Algebra/Isometry.lean` compiles successfully without errors.

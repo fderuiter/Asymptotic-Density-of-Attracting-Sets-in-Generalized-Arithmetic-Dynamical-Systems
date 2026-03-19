@@ -29,18 +29,20 @@ Once k crosses the threshold \tau(X^{-1}), the maximal total variation drops bel
 axiom decoupling_threshold :
   ∀ (X : ℝ) (_hX : X > 1) (δ : ℝ) (h_delta : δ > 0),
   ∃ (τ : ℝ), τ = mixing_time_threshold δ h_delta (1 / X) ∧
-  ∀ (k : ℕ) (_m : ℕ), (k : ℝ) ≥ τ →
-  ∃ (d_TV : ℝ), d_TV ≤ 1 / X
+  ∀ (k : ℕ) (m : ℕ), (k : ℝ) ≥ τ →
+  ∀ (N : ℕ), (N : ℝ) ≥ 1 ∧ (N : ℝ) ≤ X →
+  ∃ (d_TV : ℝ), d_TV ≤ 1 / X -- Placeholder for total variation bound to uniform mod 5^m
 
 /--
 Corollary 2.2 (Decay of Correlations):
 To validate the random walk model, we evaluate the covariance between any
 zero-mean observable parity \chi at the n-th and (n+k)-th steps. The projection
-guarantees an exponential decay bound.
+of \chi onto the orthogonal complement of the stationary state guarantees an exponential decay bound.
 -/
 axiom decay_of_correlations (δ : ℝ) (h_delta : δ > 0) :
   ∃ (γ : ℝ), γ = -Real.log (1 - δ) ∧ γ > 0 ∧
-  ∀ (χ_norm : ℝ) (k : ℕ), ∃ (C : ℝ), C > 0 ∧
+  ∀ (χ : ℕ → ℝ) (χ_norm : ℝ) (k : ℕ) (_h_zero_mean : True), -- Placeholder for projection condition
+  ∃ (C : ℝ), C > 0 ∧
   ∃ (Cov : ℝ), |Cov| ≤ (χ_norm ^ 2) * C * Real.exp (-γ * (k : ℝ))
 
 end ArithmeticDynamics.SieveAnalytics

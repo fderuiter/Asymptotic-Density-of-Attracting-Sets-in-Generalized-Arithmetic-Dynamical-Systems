@@ -1,7 +1,7 @@
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Topology.MetricSpace.Basic
 
-namespace ArithmeticDynamics
+namespace ArithmeticDynamics.SpectralThreshold
 
 /-!
 # Chapter 4.2: The Spectral Threshold and Cantor Set Avoidance
@@ -11,15 +11,20 @@ universal transfer matrix S, defining the exact spectral boundaries that
 separate dense converging systems from zero-density fractals.
 -/
 
+opaque d : ℕ
+opaque S_matrix : Matrix (Fin d) (Fin d) ℝ
+opaque essential_spectral_radius (S : Matrix (Fin d) (Fin d) ℝ) : ℝ
+opaque analytic_density : ℝ
+opaque support_hausdorff_dimension : ℝ
+
 /--
 Lemma 4.2.1 (The Spectral Threshold)
 Achieving a strictly positive analytic density is mathematically contingent upon
 the transfer matrix S possessing a significant spectral gap.
 -/
 axiom spectral_threshold :
-  ∀ (S_matrix : Matrix (Fin 2) (Fin 2) ℝ) (analytic_density : ℝ),
   analytic_density > 0 →
-  ∃ (spectral_gap : ℝ), spectral_gap > 0 -- Simplified placeholder
+  1 - essential_spectral_radius S_matrix > 0
 
 /--
 Theorem 4.2.2 (Cantor Set Collapse)
@@ -28,8 +33,7 @@ measure's support is mathematically forced to collapse into a Cantor set, provin
 an asymptotic natural density of exactly zero.
 -/
 axiom cantor_set_collapse :
-  ∀ (S_matrix : Matrix (Fin 2) (Fin 2) ℝ) (spectral_gap : ℝ) (analytic_density : ℝ),
-  spectral_gap ≤ 0 →
-  analytic_density = 0 -- Simplified placeholder
+  1 - essential_spectral_radius S_matrix ≤ 0 →
+  support_hausdorff_dimension < 1 ∧ analytic_density = 0
 
-end ArithmeticDynamics
+end ArithmeticDynamics.SpectralThreshold

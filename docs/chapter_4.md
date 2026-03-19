@@ -78,9 +78,9 @@ Hence the algebraic branch data explicitly controls the entropy scale. \(\blacks
 
 Therefore positive-density regimes require dual control:
 - expansion in totally disconnected dynamics (for mixing), and
-- nonpositive average archimedean drift:
+- nonpositive average archimedean drift, where expectation is taken with respect to the relevant invariant probability measure \(\mu\) on \(\mathcal{X}\):
 \[
-\limsup_{n\to\infty}\frac1n\sum_{k=0}^{n-1}\mathbb{E}\big[\Delta(f^k(x))\big] \le 0.
+\limsup_{n\to\infty}\frac1n\sum_{k=0}^{n-1}\mathbb{E}_{\mu}\big[\Delta(f^k(x))\big] \le 0.
 \]
 This is the complex-balancing condition. \(\blacksquare\)
 
@@ -184,6 +184,6 @@ Therefore equilibrium uniqueness and periodic-orbit uniqueness are equivalent. \
    \[
    c(\varepsilon)x^{1-\varepsilon}
    \]
-   for suitable \(\varepsilon>0\).
+   for \(0<\varepsilon<\varepsilon_0(a_i,b_i,d)\), with \(c(\varepsilon)>0\) depending on \(\varepsilon\) and the same algebraic branch data through the isolated leading eigenvalue and spectral gap constants of the transfer operator.
 
 This completes the synthesis: discrete algebraic branch data governs computability class, thermodynamic phase, and density behavior in generalized arithmetic dynamics. \(\blacksquare\)

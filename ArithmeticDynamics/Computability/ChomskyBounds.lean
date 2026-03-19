@@ -72,6 +72,8 @@ axiom first_order_translation
 
 /-- Deliverable decidability corollary: termination and periodicity queries become finite
 decidable propositions after the Presburger translation. -/
+-- `Decidable (...)` lives in `Type`, so this packs both procedures as a product
+-- rather than a logical conjunction in `Prop`.
 axiom termination_and_periodicity_decidable
     {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f)
     (A : BrauerAutomaton) (h_enc : EncodesTrajectory f A) :

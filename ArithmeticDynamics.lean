@@ -16,3 +16,4 @@ import ArithmeticDynamics.ErgodicTheory.SpectralGap
 import ArithmeticDynamics.SpecificModels.PilotSystem3x1
 import ArithmeticDynamics.SpecificModels.Expansive5x1
 import ArithmeticDynamics.SpecificModels.MinskyReduction
+import ArithmeticDynamics.SpecificModels.PilotSystem5

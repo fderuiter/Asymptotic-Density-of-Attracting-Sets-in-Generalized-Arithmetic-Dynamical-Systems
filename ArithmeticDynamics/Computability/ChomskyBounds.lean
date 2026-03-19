@@ -51,8 +51,12 @@ opaque EncodesTrajectory {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (A : BrauerA
 /-- Syntax carrier for Presburger sentences produced from automaton encodings. -/
 opaque PresburgerSentence : Type
 
+axiom PresburgerSentence.nonempty : Nonempty PresburgerSentence
+noncomputable instance : Nonempty PresburgerSentence := PresburgerSentence.nonempty
+noncomputable instance : Inhabited PresburgerSentence := ⟨Classical.choice PresburgerSentence.nonempty⟩
+
 /-- First-order translation from Brauer automata to existential linear congruences. -/
-opaque TranslateToPresburger : BrauerAutomaton → PresburgerSentence
+noncomputable opaque TranslateToPresburger : BrauerAutomaton → PresburgerSentence
 
 /-- Predicate asserting formal derivability/decidability in Presburger arithmetic. -/
 opaque PresburgerProvable : PresburgerSentence → Prop
@@ -75,8 +79,8 @@ decidable propositions after the Presburger translation. -/
 axiom termination_and_periodicity_decidable
     {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f)
     (A : BrauerAutomaton) (h_enc : EncodesTrajectory f A) :
-    (∀ x : Z_d d, Decidable (∃ n : ℕ, TerminatesAt f x n)) ∧
-    (∀ x : Z_d d, Decidable (IsPeriodicAt f x))
+    Nonempty (∀ x : Z_d d, Decidable (∃ n : ℕ, TerminatesAt f x n)) ∧
+    Nonempty (∀ x : Z_d d, Decidable (IsPeriodicAt f x))
 
 /-- The Deliverable Theorem of Phase 1: The Chomsky Preclusion.
     Proves that any measure-preserving 1-Lipschitz generalized Collatz function

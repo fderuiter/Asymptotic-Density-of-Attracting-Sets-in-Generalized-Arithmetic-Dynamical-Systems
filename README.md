@@ -34,6 +34,11 @@ This chapter evaluates the counting function $\pi_{\mathcal{A}}(x)$ representing
 * **Error Annihilation (`ErrorAnnihilation.lean`):** Uses spectral gap correlation decays to formally annihilate any remaining unconstrained error terms, ensuring asymptotic negligibility.
 * **Density Lower Bound (`DensityLowerBound.lean`):** Uses measure translations to map sieve statistics into standard natural density metrics, proving the final Asymptotic Counting Theorem: $\pi_{\mathcal{A}}(x) \geq cx^{1-\varepsilon}$.
 
-### Chapter 4: The Algebraic-Analytic Correspondence *[Planned]*
+### Chapter 4: The Algebraic-Analytic Correspondence *[In Progress]*
+This chapter abstracts the mechanics into a universal mathematical law, establishing the definitive correspondence between the foundational algebraic parameters of any quasi-polynomial and its resulting continuous topological density.
+* **Parametric Governance and the Scaling Duality (`ScalingDuality.lean`):** Formalizes how the raw algebraic inputs dictate the system's macroscopic physical behavior, specifically its entropy and scaling properties, proving the Lyapunov Scaling Duality and Complex Balancing.
+* **The Spectral Threshold and Cantor Set Avoidance (`SpectralThreshold.lean`):** Abstracts the Markov transition matrix into a universal transfer matrix $S$, defining the spectral boundaries that separate dense converging systems from zero-density fractals, proving the Cantor Set Collapse.
+* **Thermodynamic Formalism and the Primal Topology (`ThermodynamicFormalism.lean`):** Maps the systems into advanced statistical mechanics and topology, proving the Commutative Semiring of $\tau_f$ and Alexandroff Compactification and Finiteness.
+* **The Main Deliverable: The Unified Correspondence Theorem (`CorrespondenceTheorem.lean`):** The grand synthesis combining spectral gaps with thermodynamic topology, proving Equilibrium State Uniqueness and the ultimate Algebraic-Analytic Law.
 
 ---

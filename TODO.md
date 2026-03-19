@@ -1,78 +1,209 @@
-# TODO: Asymptotic Density Formalization in Lean 4
+# Formalization Checklist: Algebraic-Analytic Correspondence
 
-This document tracks the detailed implementation steps required to convert the project's foundational axioms and `sorry` placeholders into fully verified Lean 4 proofs.
+This checklist tracks the granular steps required to eliminate all `axiom` and `sorry` declarations in the `ArithmeticDynamics` Lean 4 repository, strictly ordered by mathematical and typological dependency.
 
-## Phase 1: Foundational Algebra & Immediate `sorry` Eradication
+## Phase 1: Algebraic Foundations & Technical Debt Clean-up
 
-The immediate priority is to clear the active `sorry` placeholders in the base algebraic files.
+These foundational lemmas block higher-level arithmetic and topological reasoning.
 
-- [ ] **Discharge `Sub` instance in `ArithmeticDynamics/Algebra/PadicMetric.lean`**
-  - *Description:* The sequence subtraction coherence proof for $Z_d$ integers is currently stubbed with a `sorry`.
-  - *Implementation:* 1. Unfold the `Z_d` property definition.
-    2. Given `x` and `y` in $Z_d$, extract their congruence properties: `x (k+1) ≡ x k [ZMOD d^k]` and `y (k+1) ≡ y k [ZMOD d^k]`.
-    3. Use `Int.ModEq.sub` to subtract the two congruences directly, which will yield `x (k+1) - y (k+1) ≡ x k - y k [ZMOD d^k]`.
-    4. Wrap the result in the subtype constructor `⟨fun k => x.val k - y.val k, ...⟩`.
+- [ ] **Discharge `QuasiPolynomial.natAbs_mod_lt`**
+  - **File:** `ArithmeticDynamics/Algebra/QuasiPolynomial.lean`
+  - **Current State:** `axiom`
+  - **Task:** Prove that `(n % (d : ℤ)).natAbs < d` for `d > 0`.
+  - **Dependencies:** None.
+  - **Mathlib Imports:** `Mathlib.Data.Int.ModEq`, `Mathlib.Data.Nat.Basic`
+  - **Tactics/Strategy:** Use `Int.emod_lt_of_pos` and cast `n % d` to `Nat` taking absolute value. The proof should easily succumb to `omega` or `zify`.
 
-- [ ] **Replace `natAbs_mod_lt` axiom in `ArithmeticDynamics/Algebra/QuasiPolynomial.lean`**
-  - *Description:* There is an `axiom` stating `(n % (d : ℤ)).natAbs < d`. Axiomatizing standard arithmetic is unsafe.
-  - *Implementation:*
-    1. Change `axiom` to `lemma` or `theorem`.
-    2. Use Mathlib's built-in integer modulo bounds. Apply `Int.emod_lt_of_pos` (since `d : ℕ` and `[NeZero d]` implies $d > 0$).
-    3. Convert the absolute value of the integer modulo result using `Int.natAbs_lt_iff_mul_self_lt` or directly through `Int.natAbs_of_nonneg`.
+- [ ] **Complete `Z_d` Subtraction Instance Coherence**
+  - **File:** `ArithmeticDynamics/Algebra/PadicMetric.lean`
+  - **Current State:** `sorry` at line 101.
+  - **Task:** Prove that pointwise subtraction of sequences maintains the `k+1 ≡ k [ZMOD d^k]` coherence property.
+  - **Dependencies:** None.
+  - **Mathlib Imports:** `Mathlib.Data.ZMod.Basic`
+  - **Tactics/Strategy:** Use `Int.ModEq.sub` applied to `ha` and `hb` (similar to the `Add` instance). Trivial with `exact Int.ModEq.sub ha hb`.
 
-- [ ] **Complete `dynamical_hensel_lift` in `ArithmeticDynamics/Algebra/HenselLift.lean`**
-  - *Description:* This is the most technically indebted file, containing 9 `sorry`s that represent the core induction steps of the Hensel lift.
-  - *Implementation:*
-    1. **Base Case Root & Uniqueness (`k=0`):** Use `h_root` directly for existence. For uniqueness, use `Int.ModEq` transitivity and symmetry on `y ≡ x₀ [ZMOD d^1]`.
-    2. **Divisibility Extraction:** For `∃ m : ℤ, G.eval X_n = m * d ^ (n + 1)`, use `Int.ModEq.dvd` which converts $A \equiv 0 \pmod B$ to $B \mid A$, then use `dvd_def` to extract the multiplier `m`.
-    3. **Derivative Coprimality Transfer:** Prove `G'(X_n) ≡ G'(x₀) [ZMOD d]` using `Polynomial.eval_modEq` on the derivative polynomial. Since `G'(x₀)` is coprime to `d`, `G'(X_n)` must also be coprime.
-    4. **Taylor-Approximation Congruence:** Use `Polynomial.eval_add` and extract the first two terms of the formal Taylor expansion. Show that all terms of degree $\ge 2$ are multiplied by $(t \cdot d^{n+1})^2$, which contains $d^{2n+2}$. Since $2n+2 \ge n+2$, these terms vanish modulo $d^{n+2}$.
-    5. **Main Cancellation:** Substitute $t = -m \cdot a$ into the Taylor expansion. Use the Bezout identity extracted from the coprimality hypothesis to show the sum perfectly cancels out modulo $d^{n+2}$.
-    6. **Final Uniqueness:** Use `Int.ModEq.of_modEq_mul_left` or similar reduction lemmas to step the modulus down from $d^{n+2}$ to $d^{n+1}$.
+- [ ] **Construct `IsMeasurePreserving_def`**
+  - **File:** `ArithmeticDynamics/Algebra/Isometry.lean`
+  - **Current State:** `opaque`
+  - **Refactor Warning:** Currently flagged as a technical debt. We must replace the opaque definition with a computable mathematical assertion of bijectivity modulo `d^k` for all `k`.
+  - **Task:** Redefine as `def IsMeasurePreserving (f : Z_d d → Z_d d) : Prop := ∀ k, Function.Bijective (fun (x : ZMod (d^k)) => ...)`.
 
-## Phase 2: The Ergodic Core (Chapter 1)
+- [ ] **Prove `measure_preserving_lipschitz_is_isometry`**
+  - **File:** `ArithmeticDynamics/Algebra/Isometry.lean`
+  - **Current State:** `axiom`
+  - **Task:** Prove that a measure-preserving 1-Lipschitz function on `Z_d` is a strict isometry (`padicNormZd d (f x - f y) = padicNormZd d (x - y)`).
+  - **Dependencies:** Completed `IsMeasurePreserving_def`.
+  - **Mathlib Imports:** `Mathlib.Topology.MetricSpace.Basic`
+  - **Tactics/Strategy:** Unfold definitions of `IsOneLipschitz` and `IsMeasurePreserving`. Requires induction on `k` and demonstrating that bijectivity on quotients forces strict equality of distances.
 
-Replace the placeholder axioms in the Markov and Spectral modules with rigorous linear algebra and probability theory.
+- [ ] **Prove `lipschitz_implies_causality`**
+  - **File:** `ArithmeticDynamics/Algebra/LipschitzCausality.lean`
+  - **Current State:** `axiom`
+  - **Task:** Formalize congruence preservation under 1-Lipschitz maps.
 
-- [ ] **Formalize `existence_of_stationary_measure` in `ErgodicTheory/MarkovTransition.lean`**
-  - *Description:* Currently an axiom awaiting Perron-Frobenius support.
-  - *Implementation:* If Mathlib's Perron-Frobenius theorem is insufficient for general real matrices, restrict the type signature to strictly positive stochastic matrices (`Matrix.PosDef` or explicitly strictly positive entries) and construct a bespoke contraction mapping proof using the Birkhoff projective metric or the Brouwer fixed-point theorem over the standard simplex.
-- [ ] **Formalize `spectral_gap_constraint` and `rapid_mixing_from_spectral_gap` in `ErgodicTheory/SpectralGap.lean`**
-  - *Description:* Bridge the gap between the spectral radius and the mixing time.
-  - *Implementation:* Define `SecondLargestEigenvalueAbs P`. Prove that for an irreducible, aperiodic, stochastic matrix, $\lambda_2 < 1$. Use standard matrix exponentiation bounds (e.g., Jordan normal form decay) to prove that $\|P^k - \Pi\|_{TV} \le C \cdot \lambda_2^k$, satisfying `HasProbabilisticIndependence`.
-- [ ] **Discharge Model-Specific Axioms in `SpecificModels/`**
-  - *Description:* Replace axioms like `collatz_div_cond`, `collatz5x1_drift_is_expansive`, and `collatz_drift_is_contractive` with computational proofs.
-  - *Implementation:* For divisibility conditions (`collatz_div_cond`, `collatz5x1_div_cond`), use `decide` or `omega` by expanding the finite cases (`Fin 2`). For logarithmic drift, write a concrete calculation evaluating the finite sum $\sum \log(a_i/d)$ and prove the resulting real number inequality using `norm_num`.
+- [ ] **Prove `linearization_of_orbits`**
+  - **File:** `ArithmeticDynamics/Algebra/PadicExtensions.lean`
+  - **Current State:** `axiom`
+  - **Task:** Show prime-power arithmetic maps are 1-Lipschitz.
 
-## Phase 3: Computability Bridge (Chapter 1)
+- [ ] **Prove `prime_power_architectural_starvation`**
+  - **File:** `ArithmeticDynamics/Algebra/PadicExtensions.lean`
+  - **Current State:** `axiom`
+  - **Task:** Prove a prime-power modulus cannot realize orthogonal multi-prime register channels.
 
-Convert the FRACTRAN and Minsky machine limits into formal Lean proofs.
+## Phase 2: The Dynamical Hensel Lift
 
-- [ ] **Formalize FRACTRAN 16-Prime Threshold in `Computability/Fractran.lean`**
-  - *Implementation:* Define a specific `MinskyMachine` structure. Construct a compilation function `compile_to_fractran`. Prove that compiling a universal 2-register, 14-state machine results in exactly 16 distinct prime factors in the denominators, discharging `fractran_universal_threshold`.
-- [ ] **Implement Minsky Reduction Bounds in `SpecificModels/MinskyReduction.lean`**
-  - *Implementation:* Building off the upper/lower bounds established in `MinskyBounds.lean`, aggregate the branch counts for Korec's minimal 14-instruction machine. Create a summation proof showing $K \ge 389$, discharging `absolute_minimum_universal_branches`.
-- [ ] **First-Order Presburger Translation in `Computability/ChomskyBounds.lean`**
-  - *Implementation:* Formalize `TranslateToPresburger`. Define `BrauerAutomaton` as a deterministic finite automaton over $Z_d$. Create an inductive proof mapping DFA paths to systems of linear congruences, thereby proving `first_order_translation`. Use Mathlib's decidability typeclasses on finite sets to prove `termination_and_periodicity_decidable`.
+This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel_lift`.
 
-## Phase 4: Sieve Analytics (Chapters 2 & 3)
+- [ ] **Hensel Lift: Base Case Root Propagation**
+  - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 49)
+  - **Task:** Prove `Int.ModEq (d^1) (G.eval x₀) 0` from `Int.ModEq d (G.eval x₀) 0`.
+  - **Tactics/Strategy:** Use `pow_one d` and rewrite via `rw` or `ring`.
 
-Transition the `SieveAnalytics` folder from pure placeholders to functional definitions.
+- [ ] **Hensel Lift: Base Case Uniqueness**
+  - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 52)
+  - **Task:** Prove uniqueness mod `d^1` given `Int.ModEq d y x₀`.
+  - **Tactics/Strategy:** Same as above, apply `pow_one` to reduce `d^1` to `d`.
 
-- [ ] **Build the Reweighted Measure (`SieveAnalytics/ReweightedMeasure.lean`)**
-  - *Implementation:* Fully define `Lambda` and the `markov_transfer_operator_M` function based on the specific Pilot System branches. Define the pushforward measure integral over the real line and formally prove `perfect_forward_invariance` using the established eigenvector `w`.
-- [ ] **Define Difference Inequalities (`SieveAnalytics/GeneralizedSieve.lean`)**
-  - *Implementation:* Implement the actual recursive function for `fractional_density`. Prove `difference_inequalities_formulation` by applying the pre-image sum $L_i(y) = (5y - b_i) / a_i$ to the defined density measure.
-- [ ] **Error Annihilation (`SieveAnalytics/ErrorAnnihilation.lean`)**
-  - *Implementation:* Use the spectral gap decay bounds formalized in Phase 2 to bound the `boundary_error` terms from the generalized sieve as a convergent geometric series, proving `negligibility_of_error_term`.
+- [ ] **Hensel Lift: Divisibility Extraction**
+  - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 65)
+  - **Task:** Derive `∃ m, G.eval X_n = m * d^(n+1)` from `Int.ModEq (d^(n+1)) (G.eval X_n) 0`.
+  - **Tactics/Strategy:** Unfold `Int.ModEq`. The definition is exactly `d^(n+1) ∣ (G.eval X_n - 0)`. Use `dvd_iff_exists_eq_mul_left`.
 
-## Phase 5: The Algebraic-Analytic Correspondence (Chapter 4)
+- [ ] **Hensel Lift: Derivative Coprimality Transfer**
+  - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 72)
+  - **Task:** Prove `IsCoprime (G.derivative.eval X_n) d`.
+  - **Mathlib Imports:** `Mathlib.Data.Polynomial.Eval`
+  - **Tactics/Strategy:** Use `Polynomial.eval_modEq` to lift `X_n ≡ x₀ [ZMOD d]` to `G'(X_n) ≡ G'(x₀) [ZMOD d]`. Then use `IsCoprime.modEq`.
 
-Unify the proven theorems into the final universal laws.
+- [ ] **Hensel Lift: Taylor Approximation Step**
+  - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 96)
+  - **Task:** Prove `G(X_n + t * d^{n+1}) ≡ G(X_n) + G'(X_n)*t*d^{n+1} [ZMOD d^{n+2}]`.
+  - **Mathlib Imports:** `Mathlib.Data.Polynomial.Taylor`
+  - **Tactics/Strategy:** Apply polynomial Taylor expansion. Extract the linear term and bound higher-order terms using `d^(2n+2) ≡ 0 [ZMOD d^{n+2}]` since `2n+2 ≥ n+2`.
 
-- [ ] **Implement `lyapunov_scaling_duality` in `UniversalLaw/ScalingDuality.lean`**
-  - *Implementation:* Explicitly define `metric_entropy` using the Kolmogorov-Sinai entropy definition. Prove it is bounded by the sum of positive Lyapunov exponents.
-- [ ] **Implement `cantor_set_collapse` in `UniversalLaw/SpectralThreshold.lean`**
-  - *Implementation:* Define the `support_hausdorff_dimension`. Use the Bowen formula to relate the Hausdorff dimension of the invariant set to the root of the topological pressure equation, showing that if the spectral gap is $\le 0$, the dimension drops below 1.
-- [ ] **Final Synthesis (`UniversalLaw/CorrespondenceTheorem.lean`)**
-  - *Implementation:* Combine the Chomsky decidability bounds (Phase 3) with the Spectral bounds (Phase 2 & 5) to exhaustively prove the three arms of the `algebraic_analytic_law` `Iff` statements.
+- [ ] **Hensel Lift: Main Cancellation**
+  - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 103)
+  - **Task:** Prove `G.eval X_n + G'(X_n)*t*d^{n+1} ≡ 0 [ZMOD d^{n+2}]`.
+  - **Tactics/Strategy:** Substitute `G(X_n) = m * d^{n+1}` and `t = -m * a`. Factor `d^{n+1}` and apply Bezout's identity `1 - a * G'(X_n) = b * d` to extract a factor of `d`. Use `ring`.
+
+- [ ] **Hensel Lift: Modulo `d` Compatibility**
+  - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 109)
+  - **Task:** Prove `X_n + t * d^{n+1} ≡ x₀ [ZMOD d]`.
+  - **Tactics/Strategy:** Show `t * d^{n+1} ≡ 0 [ZMOD d]` because `d ∣ d^{n+1}`. Add this to `X_n ≡ x₀ [ZMOD d]` using transitivity.
+
+- [ ] **Hensel Lift: Reduction of Modulus**
+  - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 118)
+  - **Task:** Deduce `G(y) ≡ 0 [ZMOD d^{n+1}]` from `G(y) ≡ 0 [ZMOD d^{n+2}]`.
+  - **Tactics/Strategy:** Use `Int.ModEq.of_dvd`. Prove `d^{n+1} ∣ d^{n+2}` via `pow_succ`.
+
+- [ ] **Hensel Lift: Higher Modulus Uniqueness**
+  - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 140)
+  - **Task:** Prove strict uniqueness for `y ≡ X_next [ZMOD d^{n+2}]`.
+  - **Tactics/Strategy:** Write `y = X_n + s * d^{n+1}`. Expand `G(y)` and match terms modulo `d^{n+2}`. Use coprimality to force `s ≡ t [ZMOD d]`, then deduce `s * d^{n+1} ≡ t * d^{n+1} [ZMOD d^{n+2}]`. Conclude `y ≡ X_next` with `ring`.
+
+## Phase 3: Computability Bounds & Universal Floor
+
+These steps bridge FRACTRAN and Minsky machines with our metric spaces.
+
+- [ ] **Prove `fractran_universal_threshold`**
+  - **File:** `ArithmeticDynamics/Computability/Fractran.lean`
+  - **Current State:** `axiom`
+  - **Task:** Formalize the 16-prime threshold for FRACTRAN encodings.
+  - **Tactics/Strategy:** Enumerate Korec's 14 states + 2 registers = 16 primes. Needs exhaustive cases for universality reduction from Minsky machines.
+
+- [ ] **Prove `absolute_minimum_universal_branches`**
+  - **File:** `ArithmeticDynamics/SpecificModels/MinskyReduction.lean`
+  - **Current State:** `axiom`
+  - **Task:** Formalize branch lower bounds for compiled maps.
+
+- [ ] **Prove `prime_signature_zero_not_universal` & `prime_signature_one_not_universal`**
+  - **File:** `ArithmeticDynamics/Computability/ConwayFilter.lean`
+  - **Current State:** `axiom`
+  - **Refactor Warning:** Explicit computability axioms should be bridged to formal Minsky definitions.
+  - **Task:** Prove bounded register bounds prevent Turing universality.
+
+- [ ] **Prove `prime_signature_two_universal`**
+  - **File:** `ArithmeticDynamics/Computability/ConwayFilter.lean`
+  - **Current State:** `axiom`
+  - **Task:** Construct a mapping to the Minsky 2-counter machine.
+
+- [ ] **Automata Equivalence: `lipschitz_is_mealy_machine`**
+  - **File:** `ArithmeticDynamics/Computability/ChomskyBounds.lean`
+  - **Current State:** `axiom`
+  - **Task:** Formalize Anashin's theorem that 1-Lipschitz `Z_d` maps are Mealy Machines.
+
+- [ ] **First-Order Translation & Decidability**
+  - **File:** `ArithmeticDynamics/Computability/ChomskyBounds.lean`
+  - **Current State:** `axiom`s (`first_order_translation`, `termination_and_periodicity_decidable`, `lipschitz_measure_preserving_bounds_chomsky`).
+  - **Task:** Prove Presburger translation and resulting capacity bound.
+
+## Phase 4: Ergodic Core & Sieve Analytics
+
+Formalize the probability matrices and spectral properties.
+
+- [ ] **Prove `existence_of_stationary_measure`**
+  - **File:** `ArithmeticDynamics/ErgodicTheory/MarkovTransition.lean`
+  - **Current State:** `axiom`
+  - **Task:** Perron-Frobenius existence/uniqueness for primitive stochastic matrices.
+  - **Mathlib Imports:** Need deeper linear algebra for matrix eigenvalues. Likely requires manual construction of the dominant eigenvector or linking to `Matrix.vecMul`.
+
+- [ ] **Prove `spectral_gap_constraint` & `rapid_mixing_from_spectral_gap`**
+  - **File:** `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean`
+  - **Current State:** `axiom`
+  - **Task:** Connect aperiodic/irreducible chains to rapid mixing via eigenvalue bounds.
+
+- [ ] **Prove `sieve_degeneracy_at_universal_floor`**
+  - **File:** `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean`
+  - **Current State:** `axiom`
+  - **Task:** Show deterministic universal programs violate analytic-sieve independence.
+
+- [ ] **Sieve Analytics General Framework**
+  - **Files:** `SieveAnalytics/DecouplingThreshold.lean`, `DescentDominant.lean`, `ErrorAnnihilation.lean`, `DensityLowerBound.lean`, `GeneralizedSieve.lean`, `ReweightedMeasure.lean`
+  - **Current State:** 17 `axiom`s.
+  - **Task:** Translate the probabilistic sieve bounds and main term extraction. This is heavy analytic number theory and measure theory. Will require substantial intermediate limit theorems.
+
+## Phase 5: Universal Laws & Thermodynamic Formalism
+
+The structural Algebraic-Analytic Correspondence theorems.
+
+- [ ] **Prove `lyapunov_scaling_duality` & `complex_balancing`**
+  - **File:** `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean`
+  - **Current State:** `axiom`, `sorry` for instances.
+  - **Task:** Construct the exact topological structure mapping matrix scaling bounds to metric entropy. Need to define the `TopologicalSpace StateSpace` rather than keeping it `opaque`.
+
+- [ ] **Prove `commutative_semiring_tau_f` & `alexandroff_compactification_finiteness`**
+  - **File:** `ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean`
+  - **Current State:** `axiom`, `sorry` for instances.
+
+- [ ] **Prove `spectral_threshold` & `cantor_set_collapse`**
+  - **File:** `ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean`
+  - **Current State:** `axiom`
+
+- [ ] **Prove `equilibrium_state_uniqueness` & `algebraic_analytic_law`**
+  - **File:** `ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean`
+  - **Current State:** `axiom`
+
+## Phase 6: Specific Models (3x+1, 5x+1)
+
+Concrete instantiations of the algebraic framework.
+
+- [ ] **Prove `collatz_div_cond` & `collatz_drift_is_contractive`**
+  - **File:** `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean`
+  - **Current State:** `axiom`
+  - **Task:** Evaluate $a_i = 1, 3$ mod $d=2$. Compute `(log(1/2) + log(3/2))/2 < 0`. Trivial with `norm_num`.
+
+- [ ] **Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`**
+  - **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
+  - **Current State:** `axiom`
+  - **Task:** Evaluate for `5x+1`. Compute drift $> 0$.
+
+- [ ] **Prove `expansive_measure_dissipation`**
+  - **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
+  - **Current State:** `axiom`
+  - **Task:** Prove expansive positive drift forces measure dissipation towards infinity.
+
+- [ ] **Pilot System 5 Evaluation**
+  - **File:** `ArithmeticDynamics/SpecificModels/PilotSystem.lean`
+  - **Current State:** 4 `axiom`s for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, `pilot5_algebraic_error_capping`.
+  - **Task:** Verify specific mathematical derivations for the $d=5$ map.

@@ -2,7 +2,7 @@ import Mathlib.Topology.Basic
 import Mathlib.Topology.MetricSpace.Basic
 import Mathlib.MeasureTheory.Measure.MeasureSpace
 
-namespace ArithmeticDynamics
+namespace ArithmeticDynamics.ThermodynamicFormalism
 
 /-!
 # Chapter 4.3: Thermodynamic Formalism and the Primal Topology
@@ -42,4 +42,4 @@ an equilibrium state.
 axiom alexandroff_compactification_finiteness :
   periodic_orbits_finite ↔ all_continuous_potentials_have_equilibrium
 
-end ArithmeticDynamics
+end ArithmeticDynamics.ThermodynamicFormalism

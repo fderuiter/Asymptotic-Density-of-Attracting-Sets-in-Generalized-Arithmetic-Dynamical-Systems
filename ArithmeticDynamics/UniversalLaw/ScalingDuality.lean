@@ -4,7 +4,7 @@ import Mathlib.Topology.MetricSpace.Basic
 import Mathlib.Probability.Martingale.Basic
 import Mathlib.MeasureTheory.Measure.MeasureSpace
 
-namespace ArithmeticDynamics
+namespace ArithmeticDynamics.ScalingDuality
 
 /-!
 # Chapter 4.1: Parametric Governance and the Scaling Duality
@@ -55,4 +55,4 @@ axiom complex_balancing :
   lyapunov_exponent mu f > 0 ∧
   (∀ ε > 0, ∃ N, ∀ n ≥ N, expected_drift f n ≤ ε)
 
-end ArithmeticDynamics
+end ArithmeticDynamics.ScalingDuality

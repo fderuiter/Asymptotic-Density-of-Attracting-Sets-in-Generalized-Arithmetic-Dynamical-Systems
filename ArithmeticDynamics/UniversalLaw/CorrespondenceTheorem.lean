@@ -1,7 +1,7 @@
 import Mathlib.Topology.Basic
 import Mathlib.Topology.MetricSpace.Basic
 
-namespace ArithmeticDynamics
+namespace ArithmeticDynamics.CorrespondenceTheorem
 
 /-!
 # Chapter 4.4: The Main Deliverable: The Unified Correspondence Theorem
@@ -51,4 +51,4 @@ axiom algebraic_analytic_law :
   (passes_conway_filter a_vals b_vals ∧ 1 - essential_spectral_radius a_vals b_vals ≤ 0 ↔ classify_system a_vals b_vals d = SystemClassification.CantorSupported) ∧
   (passes_conway_filter a_vals b_vals ∧ 1 - essential_spectral_radius a_vals b_vals > 0 ↔ classify_system a_vals b_vals d = SystemClassification.DensityPositive)
 
-end ArithmeticDynamics
+end ArithmeticDynamics.CorrespondenceTheorem

@@ -1,7 +1,7 @@
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Topology.MetricSpace.Basic
 
-namespace ArithmeticDynamics
+namespace ArithmeticDynamics.SpectralThreshold
 
 /-!
 # Chapter 4.2: The Spectral Threshold and Cantor Set Avoidance
@@ -36,4 +36,4 @@ axiom cantor_set_collapse :
   1 - essential_spectral_radius S_matrix ≤ 0 →
   support_hausdorff_dimension < 1 ∧ analytic_density = 0
 
-end ArithmeticDynamics
+end ArithmeticDynamics.SpectralThreshold

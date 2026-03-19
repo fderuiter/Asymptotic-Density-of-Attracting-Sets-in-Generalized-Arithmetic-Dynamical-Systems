@@ -91,3 +91,37 @@ The file `ArithmeticDynamics/Algebra/Isometry.lean` contains a dummy `def IsMeas
 - [ ] A new `def IsMeasurePreserving` is defined accurately capturing prefix bijectivity without `opaque` or `sorry`.
 - [ ] The `axiom measure_preserving_lipschitz_is_isometry` is updated to depend on the new definition.
 - [ ] The file `ArithmeticDynamics/Algebra/Isometry.lean` compiles successfully without errors.
+
+## Target Task
+Prove `measure_preserving_lipschitz_is_isometry`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/Isometry.lean`
+- **New Mathlib Imports:** `Mathlib.Topology.MetricSpace.Basic`
+
+## Contextual Analysis
+The foundational theorem `measure_preserving_lipschitz_is_isometry` (the Isometry Confinement Theorem) asserts that a measure-preserving 1-Lipschitz function on `Z_d` acts as a strict isometry. Currently, this theorem is an unproven `axiom`, which creates severe technical debt by assuming a critical structural linkage between measure preservation and exact distance preservation without formal proof. This forces downstream computability models (like FRACTRAN completeness) to rely on unverified metric bounds. The axiom must be replaced with a rigorous formal proof to re-establish the logical chain.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/Isometry.lean`.
+2. Ensure the required Mathlib import is present at the top of the file:
+   ```lean
+   import Mathlib.Topology.MetricSpace.Basic
+   ```
+3. Change the `axiom measure_preserving_lipschitz_is_isometry` to a `theorem` declaration.
+4. Update the hypothesis `h_meas` to use the non-opaque computable definition `IsMeasurePreserving f` instead of `IsMeasurePreserving_def f`.
+   ```lean
+   theorem measure_preserving_lipschitz_is_isometry
+     (h_lip : IsOneLipschitz f) (h_meas : IsMeasurePreserving f) :
+     ∀ x y : Z_d d, padicNormZd d (f x - f y) = padicNormZd d (x - y) := by
+   ```
+5. Begin the proof by introducing the variables: `intro x y`.
+6. Since `h_lip` is `IsOneLipschitz f`, we immediately have the upper bound `padicNormZd d (f x - f y) ≤ padicNormZd d (x - y)`.
+7. To prove equality, we need to show the reverse inequality or establish equality by showing that the first differing prefix level is identical. Unfold the definitions of `IsOneLipschitz` and `IsMeasurePreserving`.
+8. The proof strategy will likely require induction on the prefix length `k` or proving that if `f x` and `f y` agree modulo `d^k`, then `x` and `y` must also agree modulo `d^k`. Use the hypothesis `h_meas` (prefix bijectivity on `ZMod (d^k)`) to prove that the quotient maps induced by `f` are injective.
+9. Since the quotient map on `ZMod (d^k)` is injective (derived from bijectivity), `f x ≡ f y [ZMOD d^k]` implies `x ≡ y [ZMOD d^k]`. This exact equivalence of prefix agreement depth forces `padicNormZd d (f x - f y) = padicNormZd d (x - y)`. Close the goal using these properties.
+
+## Definition of Done (DoD)
+- [ ] The `axiom measure_preserving_lipschitz_is_isometry` is replaced by a formally proven `theorem`.
+- [ ] The theorem successfully applies the computable `IsMeasurePreserving` definition instead of the deprecated opaque one.
+- [ ] Zero `sorry`s exist in the proof, and the file `ArithmeticDynamics/Algebra/Isometry.lean` compiles without errors.

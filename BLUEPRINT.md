@@ -41,3 +41,26 @@ The core operational logic for evaluating a `QuasiPolynomial` currently relies o
 - [ ] Axiom `natAbs_mod_lt` is removed entirely.
 - [ ] Zero `sorry`s exist in `ArithmeticDynamics/Algebra/QuasiPolynomial.lean`.
 - [ ] The file compiles successfully without errors or warnings.
+## Target Task
+Complete `Z_d` Subtraction Instance Coherence
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/PadicMetric.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The `Sub (Z_d d)` instance currently uses a `sorry` to bypass the proof that pointwise sequence subtraction maintains the crucial `k+1 ≡ k [ZMOD d^k]` coherence condition of the inverse limit. This severely degrades the integrity of the algebraic foundations, as arithmetic bounds and metric evaluations fundamentally depend on exact modular congruences over differences. The technical debt must be eliminated by formally applying integer congruence subtraction to the structural properties of the operands.
+
+## Granular Execution Steps
+1. Navigate to the `Sub (Z_d d)` instance in `ArithmeticDynamics/Algebra/PadicMetric.lean` (around line 100).
+2. Replace the `sorry` block with a formal proof block starting with `by`.
+3. Introduce the natural number index and the positivity hypothesis: `intro k hk`.
+4. Extract the inverse limit coherence properties from the two sequences:
+   - `have hx := x.property k hk`
+   - `have hy := y.property k hk`
+5. Apply the Mathlib lemma for subtraction of modular equivalences to resolve the goal: `exact Int.ModEq.sub hx hy`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` in the `Sub (Z_d d)` instance is entirely replaced with a rigorous proof.
+- [ ] Pointwise subtraction is formally verified to maintain inverse limit coherence.
+- [ ] The `ArithmeticDynamics/Algebra/PadicMetric.lean` file compiles successfully with zero `sorry` warnings.

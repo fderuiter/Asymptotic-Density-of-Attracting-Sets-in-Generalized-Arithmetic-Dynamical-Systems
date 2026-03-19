@@ -6,9 +6,9 @@ This checklist tracks the granular steps required to eliminate all `axiom` and `
 
 These foundational lemmas block higher-level arithmetic and topological reasoning.
 
-- [ ] **Discharge `QuasiPolynomial.natAbs_mod_lt`**
+- [x] **Discharge `QuasiPolynomial.natAbs_mod_lt`**
   - **File:** `ArithmeticDynamics/Algebra/QuasiPolynomial.lean`
-  - **Current State:** `axiom`
+  - **Current State:** `theorem`
   - **Task:** Prove that `(n % (d : ℤ)).natAbs < d` for `d > 0`.
   - **Dependencies:** None.
   - **Mathlib Imports:** `Mathlib.Data.Int.ModEq`, `Mathlib.Data.Nat.Basic`

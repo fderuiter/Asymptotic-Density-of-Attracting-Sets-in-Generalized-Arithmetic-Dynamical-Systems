@@ -14,7 +14,7 @@ These foundational lemmas block higher-level arithmetic and topological reasonin
   - **Mathlib Imports:** `Mathlib.Data.Int.ModEq`, `Mathlib.Data.Nat.Basic`
   - **Tactics/Strategy:** Use `Int.emod_lt_of_pos` and cast `n % d` to `Nat` taking absolute value. The proof should easily succumb to `omega` or `zify`.
 
-- [ ] **Complete `Z_d` Subtraction Instance Coherence**
+- [x] **Complete `Z_d` Subtraction Instance Coherence**
   - **File:** `ArithmeticDynamics/Algebra/PadicMetric.lean`
   - **Current State:** `sorry` at line 101.
   - **Task:** Prove that pointwise subtraction of sequences maintains the `k+1 ≡ k [ZMOD d^k]` coherence property.

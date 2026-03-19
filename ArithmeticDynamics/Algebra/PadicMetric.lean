@@ -98,7 +98,11 @@ instance : Add (Z_d d) where
     Because congruences are preserved under subtraction, the resulting sequence
     maintains the inverse limit coherence condition. -/
 instance {d : ℕ} : Sub (Z_d d) where
-  sub x y := ⟨fun k => x.val k - y.val k, by sorry⟩
+  sub x y := ⟨fun k => x.val k - y.val k, by
+    intro k hk
+    have hx := x.property k hk
+    have hy := y.property k hk
+    exact Int.ModEq.sub hx hy⟩
 
 /-- Defines the projection map extracting the k-th modular component. -/
 def proj (k : ℕ) (x : Z_d d) : ZMod (d^k) :=

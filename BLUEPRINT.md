@@ -41,7 +41,7 @@ The core operational logic for evaluating a `QuasiPolynomial` currently relies o
 - [x] Axiom `natAbs_mod_lt` is removed entirely.
 - [x] Zero `sorry`s exist in `ArithmeticDynamics/Algebra/QuasiPolynomial.lean`.
 - [x] The file compiles successfully without errors or warnings.
-## Target Task
+## Target Task [COMPLETED]
 Complete `Z_d` Subtraction Instance Coherence
 
 ## Target Profile
@@ -61,9 +61,9 @@ The `Sub (Z_d d)` instance currently uses a `sorry` to bypass the proof that poi
 5. Apply the Mathlib lemma for subtraction of modular equivalences to resolve the goal: `exact Int.ModEq.sub hx hy`.
 
 ## Definition of Done (DoD)
-- [ ] The `sorry` in the `Sub (Z_d d)` instance is entirely replaced with a rigorous proof.
-- [ ] Pointwise subtraction is formally verified to maintain inverse limit coherence.
-- [ ] The `ArithmeticDynamics/Algebra/PadicMetric.lean` file compiles successfully with zero `sorry` warnings.
+- [x] The `sorry` in the `Sub (Z_d d)` instance is entirely replaced with a rigorous proof.
+- [x] Pointwise subtraction is formally verified to maintain inverse limit coherence.
+- [x] The `ArithmeticDynamics/Algebra/PadicMetric.lean` file compiles successfully with zero `sorry` warnings.
 
 ## Target Task
 Construct `IsMeasurePreserving_def`

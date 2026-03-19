@@ -1,6 +1,6 @@
 # Blueprint Specification
 
-## Target Task
+## Target Task [COMPLETED]
 Discharge `QuasiPolynomial.natAbs_mod_lt`
 
 ## Target Profile
@@ -38,9 +38,9 @@ The core operational logic for evaluating a `QuasiPolynomial` currently relies o
    ```
 
 ## Definition of Done (DoD)
-- [ ] Axiom `natAbs_mod_lt` is removed entirely.
-- [ ] Zero `sorry`s exist in `ArithmeticDynamics/Algebra/QuasiPolynomial.lean`.
-- [ ] The file compiles successfully without errors or warnings.
+- [x] Axiom `natAbs_mod_lt` is removed entirely.
+- [x] Zero `sorry`s exist in `ArithmeticDynamics/Algebra/QuasiPolynomial.lean`.
+- [x] The file compiles successfully without errors or warnings.
 ## Target Task
 Complete `Z_d` Subtraction Instance Coherence
 

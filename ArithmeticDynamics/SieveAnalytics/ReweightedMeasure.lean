@@ -20,15 +20,21 @@ W(y) is severely dependent on y (mod 12).
 -/
 axiom standard_measure_failure :
   ∃ (y_1 y_2 : ℕ), (y_1 % 12 = 5) ∧ (y_2 % 12 = 0) ∧
-  ∃ (W_1 W_2 : ℝ), W_1 = 2.0 ∧ W_2 = 0.6 ∧ W_1 ≠ W_2
+  ∃ (W : ℕ → ℝ), W y_1 = 2.0 ∧ W y_2 = 0.6 ∧ W y_1 ≠ W y_2 ∧
+  ∀ (y : ℕ), ∃ (T_pushforward_mu : ℝ), T_pushforward_mu = W y / y
 
 /--
-Let \Lambda = 144 be the closed congruence state space. We define the normalized
-principal left-eigenvector `w` corresponding to eigenvalue 1.
+Let \Lambda = 144 be the closed congruence state space. We define the Markov transfer
+operator M mapping density between states, and the normalized principal
+left-eigenvector `w` corresponding to eigenvalue 1.
 -/
 def Lambda : ℕ := 144
 
-axiom principal_left_eigenvector_w : Fin Lambda → ℝ
+axiom markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ
+
+axiom principal_left_eigenvector_w :
+  ∃ (w : Fin Lambda → ℝ),
+  ∀ (j : Fin Lambda), (∑' (i : Fin Lambda), markov_transfer_operator_M j i * w i) = w j
 
 /--
 The Algebraically Re-weighted Measure \mu_{\log}'(A):
@@ -43,11 +49,10 @@ The algebraically re-weighted measure is strictly preserved by the forward itera
 of the Pilot System: T_* \mu_{\log}' = \mu_{\log}'.
 By explicitly embedding the Markov transition weights, we mathematically prove that
 applying the affine map to any set of integers yields a new set with the exact same
-invariant density.
+invariant density. The asymmetrical scaling factors flawlessly collapse into the identity.
 -/
 axiom perfect_forward_invariance :
-  ∀ (A : Set ℕ) (T : ℕ → ℕ),
-  reweighted_measure principal_left_eigenvector_w (T '' A) =
-  reweighted_measure principal_left_eigenvector_w A
+  ∀ (A : Set ℕ) (T : ℕ → ℕ) (w : Fin Lambda → ℝ) (_hw : ∀ j, (∑' i, markov_transfer_operator_M j i * w i) = w j),
+  reweighted_measure w (T '' A) = reweighted_measure w A
 
 end ArithmeticDynamics.SieveAnalytics

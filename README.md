@@ -27,7 +27,12 @@ Establishes the absolute topological and computational floor of the dynamical sy
 
 ### Chapter 2: The Analytic Translation *[Planned]*
 
-### Chapter 3: Establishing the Asymptotic Bound *[Planned]*
+### Chapter 3: Establishing the Asymptotic Bound *[In Progress]*
+This chapter evaluates the counting function $\pi_{\mathcal{A}}(x)$ representing the integers that successfully converge to the attracting set, guaranteeing a strict analytical lower bound.
+* **Descent-Dominant Dynamics (`DescentDominant.lean`):** Proves the macroscopic physical behavior overwhelmingly pulls integers downwards via the "Hailstone" Variance Bound.
+* **Generalized Sieve Operator (`GeneralizedSieve.lean`):** Executes generalized difference inequalities to dynamically filter out integers that systemically evade the main stream, extracting the characteristic main density parameter.
+* **Error Annihilation (`ErrorAnnihilation.lean`):** Uses spectral gap correlation decays to formally annihilate any remaining unconstrained error terms, ensuring asymptotic negligibility.
+* **Density Lower Bound (`DensityLowerBound.lean`):** Uses measure translations to map sieve statistics into standard natural density metrics, proving the final Asymptotic Counting Theorem: $\pi_{\mathcal{A}}(x) \geq cx^{1-\varepsilon}$.
 
 ### Chapter 4: The Algebraic-Analytic Correspondence *[Planned]*
 

@@ -207,3 +207,72 @@ Concrete instantiations of the algebraic framework.
   - **File:** `ArithmeticDynamics/SpecificModels/PilotSystem.lean`
   - **Current State:** 4 `axiom`s for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, `pilot5_algebraic_error_capping`.
   - **Task:** Verify specific mathematical derivations for the $d=5$ map.
+
+---
+
+Gap 1: The Core Definitional Foundation. You jump straight into advanced algebra and ergodic theory, but you lack the foundational definitions that tie the title of your project together. Where is the formal Lean definition of an "Attracting Set"? Where is the definition of "Asymptotic Density" (Natural vs. Logarithmic)? Your Sieve Analytics need a concrete target to bound.
+
+
+Gap 2: Operator Theory. You have ThermodynamicFormalism.lean and SpectralGap.lean, but thermodynamic formalism fundamentally relies on Transfer Operators (the Ruelle-Perron-Frobenius operator). Without defining this operator on a Banach space (like the Lipschitz functions you started in LipschitzCausality.lean), you cannot rigorously prove the spectral gap.
+
+Gap 3: Measure Theory Foundations. Ergodic theory requires probability measures. While you have ReweightedMeasure.lean, you must explicitly bridge Lean's measure theory to $\mathbb{Z}_p$ by defining the normalized $p$-adic Haar Measure.
+
+
+Gap 4: The Undecidability Chain. You have the components (FRACTRAN, Minsky), but you are missing the explicit mathematical reduction proving why the Turing-completeness of these generalized maps prevents a universal density bound (i.e., tying them to the Halting Problem).
+
+
+Gap 5: Continuous $p$-adic Interpolation. To analyze discrete quasi-polynomials modulo $d$ continuously over $p$-adics, it is standard practice to expand them. You are missing Mahler's Theorem for continuous functions on $\mathbb{Z}_p$.
+
+Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_data.json. But how do you mathematically prove that your empirical Python simulation exactly mirrors the formal Lean implementation? You need a script to ingest that JSON at compile-time and verify it using Lean's decide tactic.
+---
+
+# Comprehensive Project TODO & Implementation Roadmap
+
+## 1. 🏗️ Core Infrastructure & Metamathematics
+- [ ] **Mathlib Alignment:** Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
+- [ ] **Continuous Integration (CI):**
+  - [ ] Create `.github/workflows/lint.yml` to run `lake exe lint` (catches unused variables, missing docstrings, and naming violations).
+  - [ ] Configure `doc-gen4` in `lakefile.toml` and set up a GitHub Action to deploy Lean documentation to GitHub Pages.
+- [ ] **Blueprint Maintenance:** Ensure all major theorems in Lean have `@[blueprint]` annotations and map directly to `blueprint/src/content.tex` via `\uses` and `\proves` macros.
+- [ ] **Testing Directory:** Create a `test/` folder for `#eval` regression tests on quasi-polynomials, Minsky machines, and FRACTRAN states.
+
+## 2. 📖 Core Definitions (The Missing Foundation)
+*Currently, the project jumps into advanced algebra, but lacks the core definitions defining the title.*
+- [ ] **`ArithmeticDynamics/Basic.lean`:** Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
+- [ ] **`ArithmeticDynamics/AttractingSet.lean`:** Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
+- [ ] **`ArithmeticDynamics/AsymptoticDensity.lean`:** Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
+
+## 3. 🧮 Algebra & $p$-adic Dynamics (`ArithmeticDynamics/Algebra/`)
+- [ ] **`MahlerExpansion.lean`:** Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
+- [ ] **`HaarMeasure.lean`:** Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).
+- [ ] **`ProfiniteTopology.lean`:** Connect the inverse limit of $\mathbb{Z}/d^n\mathbb{Z}$ to the dynamical boundary behaviors.
+- [ ] **Finish Existing:** Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.
+
+## 4. 💻 Computability & Undecidability (`ArithmeticDynamics/Computability/`)
+*The components (FRACTRAN, Minsky) exist, but the formal reduction chain is missing.*
+- [ ] **`HaltingProblem.lean`:** Import Mathlib's `Computability.Halting` to establish the Halting Problem as the base of uncomputability.
+- [ ] **`UndecidabilityBarrier.lean`:** Formalize the explicit reduction proving that calculating the exact asymptotic density of attracting sets for an *arbitrary* quasi-polynomial map is uncomputable.
+- [ ] **`DiophantineEncoding.lean`:** Formalize the encoding of Minsky register states into integer arithmetic.
+- [ ] **Finish Existing:** Complete Chomsky bounds and Conway filter formalizations.
+
+## 5. 🌀 Ergodic Theory (`ArithmeticDynamics/ErgodicTheory/`)
+*Thermodynamic formalism requires transfer operators and invariant measures.*
+- [ ] **`TransferOperator.lean`:** Define the Ruelle-Perron-Frobenius transfer operator on a suitable Banach space of functions over $\mathbb{Z}_p$.
+- [ ] **`InvariantMeasure.lean`:** Prove the existence (and uniqueness, if applicable) of the absolutely continuous invariant measure (ACIM) via Krylov-Bogolyubov.
+- [ ] **`BirkhoffErgodic.lean`:** Specialize Birkhoff's Ergodic Theorem for your system to rigorously link spatial averages (asymptotic density) to time averages (logarithmic drift).
+- [ ] **Finish Existing:** Complete `MarkovTransition.lean` and `SpectralGap.lean`.
+
+## 6. 📉 Sieve Analytics (`ArithmeticDynamics/SieveAnalytics/`)
+- [ ] **`ResidueIndependence.lean`:** Formalize the heuristic that branching events (residue class transitions) are statistically quasi-independent using the Chinese Remainder Theorem.
+- [ ] **`LocalToGlobal.lean`:** Prove the conditions under which local $p$-adic decoupling (`DecouplingThreshold.lean`) successfully lifts to global density lower bounds (`DensityLowerBound.lean`).
+- [ ] **Finish Existing:** Prove error bounds in `ErrorAnnihilation.lean` and formalize the sieve abstractly in `GeneralizedSieve.lean`.
+
+## 7. 🌌 Universal Law & Thermodynamic Formalism (`ArithmeticDynamics/UniversalLaw/`)
+- [ ] **`DynamicalZetaFunction.lean`:** Formally define the dynamical zeta function to support the thermodynamic formalism.
+- [ ] **`BowenEquation.lean`:** Relate the Hausdorff dimension of attracting sets to the roots of topological pressure.
+- [ ] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
+
+## 8. 🧪 Specific Models & Computational Verification (`ArithmeticDynamics/SpecificModels/`)
+- [ ] **`Collatz3x1.lean`:** Formalize the standard Syracuse $3x+1$ function and prove it embeds into your GADS framework as a baseline.
+- [ ] **`Expansive5x1.lean`:** Prove positive logarithmic drift / positive Lyapunov exponent for the $5x+1$ system.
+- [ ] **Lean-Python Interop (`ArithmeticDynamics/Compute/LoadMatrix.lean`):** Write a Lean script to parse `data/matrix_data.json` at compile-time so empirical matrix bounds generated by `pilot_sim.py` can be verified computationally in Lean via `#eval` or `decide`.

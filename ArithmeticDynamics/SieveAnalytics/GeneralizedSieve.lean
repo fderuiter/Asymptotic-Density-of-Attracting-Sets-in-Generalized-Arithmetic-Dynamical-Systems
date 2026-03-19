@@ -33,6 +33,10 @@ axiom boundary_error : ℕ → ℝ → ℝ
 Lemma 3.2.2 (The Difference Inequalities Formulation)
 We write out the exact, explicit system of difference inequalities for our Pilot System,
 mathematically adapting the original Krasikov-Lagarias framework.
+
+The system pulls back bounding intervals through the inverse branches L_i(y) = \frac{5y - b_i}{a_i} \approx \frac{5y}{a_i}. Embedding the multipliers a_i \in \{1, 4, 2, 3, 2\}, the pull-back difference inequality tracking the surviving inverse branches becomes:
+$$ \mathcal{N}_k(x) \le \sum_{i=0}^{4} \frac{1}{5} \mathcal{N}_{k-1}\left( \frac{5x}{a_i} \right) + \mathcal{E}_k(x) $$
+where the 1/5 factor represents the topological probability of satisfying n \equiv i \pmod 5, and \mathcal{E}_k(x) isolates the boundary misalignment error of the discrete lattice points mapping into continuous fractional intervals.
 -/
 axiom difference_inequalities_formulation :
   ∀ (k : ℕ) (X : ℝ),

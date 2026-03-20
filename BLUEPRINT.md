@@ -327,3 +327,30 @@ In the core inductive step of the Dynamical Hensel Lift, we define the next appr
 - [ ] The `sorry` for `h_taylor` in the inductive step is fully removed.
 - [ ] The Taylor expansion accurately proves that all higher-order terms vanish modulo $d^{n+2}$.
 - [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.
+## Target Task
+Hensel Lift: Main Cancellation
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The core mechanism of the Dynamical Hensel Lift relies on precisely canceling out the existing dynamical error by taking a linear approximation step. In this `sorry` block (around line 103), we must formally prove that adding the linear shift exactly zeros out the evaluation modulo `d^{n+2}`. This is technically challenging as it requires linking the polynomial evaluation to the transversality condition. Leaving this core cancellation as an unproven statement invalidates the structural integrity of the lift mechanism, creating mathematical debt that must be paid down by directly substituting and using `ring` to verify the identities.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block in the proof for `G(X_next) ≡ 0 [ZMOD d^{n+2}]` (around line 103). We have `h_taylor` from the previous step which equates the evaluation modulo $d^{n+2}$ to $G(X_n) + G'(X_n) \cdot t \cdot d^{n+1}$.
+3. Start the proof using `by`.
+4. Apply transitivity using the established taylor congruence: `apply Int.ModEq.trans h_taylor`.
+5. The new goal is to prove $G(X_n) + G'(X_n) \cdot t \cdot d^{n+1} \equiv 0 \pmod{d^{n+2}}$. We can use exact equivalences by unfolding `Int.ModEq`. The definition is $(d^{n+2}) \mid (G(X_n) + G'(X_n) \cdot t \cdot d^{n+1} - 0)$.
+6. Since `Int.ModEq` is symmetrical to divisibility, use `rw [Int.ModEq]`.
+7. Substitute the definition of `t` and $G(X_n) = m \cdot d^{n+1}$. Note that $t$ is a let-binding, so we might need to unfold it or simply substitute expressions.
+8. The expression is $m \cdot d^{n+1} - G'(X_n) \cdot m \cdot a \cdot d^{n+1}$. Factor out $m \cdot d^{n+1}$ to get $m \cdot d^{n+1} \cdot (1 - a \cdot G'(X_n))$.
+9. Use Bezout's identity to rewrite $1 - a \cdot G'(X_n) = b \cdot d$.
+10. The expression simplifies to $m \cdot d^{n+1} \cdot b \cdot d = m \cdot b \cdot d^{n+2}$.
+11. This is visibly a multiple of $d^{n+2}$, which is what we need to prove for `Int.ModEq` to `0`. Close the goal with `use m * b` and `ring`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` for the main cancellation proof is entirely replaced.
+- [ ] The proof correctly applies Bezout's identity to prove the modulo $d^{n+2}$ property.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly without errors up to the next `sorry` warning.

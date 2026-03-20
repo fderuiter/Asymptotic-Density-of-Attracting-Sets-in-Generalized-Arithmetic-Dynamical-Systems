@@ -327,3 +327,31 @@ In the core inductive step of the Dynamical Hensel Lift, we define the next appr
 - [ ] The `sorry` for `h_taylor` in the inductive step is fully removed.
 - [ ] The Taylor expansion accurately proves that all higher-order terms vanish modulo $d^{n+2}$.
 - [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.
+
+## Target Task
+Hensel Lift: Main Cancellation
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathematically prove that our proposed root $X_{n+1}$ satisfies $G(X_{n+1}) \equiv 0 \pmod{d^{n+2}}$. We've established a Taylor approximation $G(X_{n+1}) \equiv G(X_n) + G'(X_n) \cdot t \cdot d^{n+1} \pmod{d^{n+2}}$. The remaining `sorry` at line 103 is a critical piece of technical debt requiring us to formally show the linear approximation term cancels the dynamical error exactly. We will substitute our choices for $G(X_n)$ and $t$, factor out $d^{n+1}$, and leverage Bezout's identity on the derivative's coprimality to extract a final factor of $d$, pushing the sum to be a clean multiple of $d^{n+2}$.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing `PROOF 1` (around line 103), just below `have h_taylor`.
+3. The expected goal is `Int.ModEq (d ^ (n + 2)) (G.eval X_next) 0`.
+4. Open a proof block and apply `Int.ModEq.trans` to change the goal to `Int.ModEq (d ^ (n + 2)) (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1)) 0`. (e.g., `exact h_taylor.trans (by ...)`).
+5. Convert the modulo equivalence to a divisibility condition using `rw [Int.modEq_zero_iff_dvd]`. The goal becomes `(d ^ (n + 2)) ∣ (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1))`.
+6. Provide the explicit divisibility witness by using `use m * b`. This transforms the goal into an equality: `G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1) = d ^ (n + 2) * (m * b)`.
+7. Unfold the `let` definition of `t` by using `change G.eval X_n + G.derivative.eval X_n * (-m * a) * d ^ (n + 1) = _`. Alternatively, `dsimp only` or directly proceeding to substitutions might work.
+8. Substitute the definition of the dynamical error using `rw [hm]`.
+9. Expand the target exponent to expose the factor of `d` using `rw [pow_succ d (n + 1)]` (this changes `d ^ (n + 1 + 1)` to `d ^ (n + 1) * d`).
+10. The goal is now a pure ring equality that depends exactly on Bezout's identity (`hab : a * G.derivative.eval X_n + b * d = 1`).
+11. Close the goal using `linear_combination (m * d ^ (n + 1)) * hab`. This explicitly multiplies the Bezout identity by the factored term to verify the exact cancellation.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
+- [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

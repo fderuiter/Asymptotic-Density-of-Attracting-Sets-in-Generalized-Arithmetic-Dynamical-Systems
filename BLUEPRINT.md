@@ -327,3 +327,36 @@ In the core inductive step of the Dynamical Hensel Lift, we define the next appr
 - [ ] The `sorry` for `h_taylor` in the inductive step is fully removed.
 - [ ] The Taylor expansion accurately proves that all higher-order terms vanish modulo $d^{n+2}$.
 - [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.
+
+## Target Task
+Hensel Lift: Main Cancellation
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the core inductive step of the Dynamical Hensel Lift, we must prove that our linear approximation perfectly cancels out the dynamical error modulo $d^{n+2}$. The `h_taylor` hypothesis expands $G(X_{n+1})$, leaving the residual term $G(X_n) + G'(X_n) \cdot t \cdot d^{n+1}$. By substituting the known error magnitude $G(X_n) = m \cdot d^{n+1}$ and the linear correction scalar $t = -m \cdot a$, we factor out $d^{n+1}$. The remainder perfectly matches Bezout's identity from the multiplier transversality condition ($1 - a \cdot G'(X_n) = b \cdot d$), extracting an additional factor of $d$ to cleanly reach the target modulus $d^{n+2}$. Leaving this cancellation as a `sorry` fundamentally bypasses the entire algebraic mechanism that makes the Hensel lift work, constituting critical mathematical debt that propagates unverified existence claims for invariant cycles.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block immediately after the `h_taylor` declaration in the inductive step (around line 103).
+3. The goal is to prove `Int.ModEq (d ^ (n + 2)) (G.eval X_next) 0`.
+4. Use the Taylor expansion congruence `h_taylor` to transition the goal: `apply Int.ModEq.trans h_taylor`.
+5. The goal becomes proving that the linear approximation evaluates to 0 modulo $d^{n+2}$: `Int.ModEq (d ^ (n + 2)) (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1)) 0`.
+6. Convert the modular equation into a divisibility assertion using `apply Int.ModEq.of_dvd`. The goal becomes `(d ^ (n + 2)) ∣ (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1) - 0)`.
+7. Simplify the subtraction of zero via `rw [sub_zero]`.
+8. Substitute the definition of the dynamical error `G(X_n) = m * d^{n+1}` using `rw [hm]`.
+9. The expression is now `m * d ^ (n + 1) + G.derivative.eval X_n * t * d ^ (n + 1)`. The variable `t` is defined as `-m * a` in the local context.
+10. State a factoring helper lemma: `have h_factor : m * d ^ (n + 1) + G.derivative.eval X_n * (-m * a) * d ^ (n + 1) = d ^ (n + 1) * m * (1 - a * G.derivative.eval X_n) := by ring`.
+11. Apply the factoring to the goal using `change (d ^ (n + 2)) ∣ d ^ (n + 1) * m * (1 - a * G.derivative.eval X_n)`. (Note: Since `t` is a `let` binding, `change` effortlessly unfolds it and applies the factoring simultaneously).
+12. Substitute the Bezout relation. The hypothesis `hab` states `a * G.derivative.eval X_n + b * d = 1`. Formulate the replacement: `have h_bezout : 1 - a * G.derivative.eval X_n = b * d := by calc 1 - a * G.derivative.eval X_n = a * G.derivative.eval X_n + b * d - a * G.derivative.eval X_n := by rw [hab] ... = b * d := by ring`.
+13. Rewrite the expression using the Bezout identity: `rw [h_bezout]`. The divisibility target is now `d ^ (n + 1) * m * (b * d)`.
+14. Rearrange the terms to explicitly expose the $d^{n+2}$ factor: `have h_extract : d ^ (n + 1) * m * (b * d) = d ^ (n + 2) * (m * b) := by calc d ^ (n + 1) * m * (b * d) = d ^ (n + 1) * d * (m * b) := by ring ... = d ^ (n + 1 + 1) * (m * b) := by rw [← pow_succ'] ... = d ^ (n + 2) * (m * b) := by congr 2; ring`.
+15. Apply the rearrangement: `rw [h_extract]`.
+16. The goal is now `(d ^ (n + 2)) ∣ d ^ (n + 2) * (m * b)`. Conclude the proof using the exact divisibility axiom: `exact dvd_mul_right (d ^ (n + 2)) (m * b)`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` for the main cancellation step (PROOF 1) is entirely removed.
+- [ ] The polynomial linear approximation is rigorously proven to evaluate to 0 modulo $d^{n+2}$ using Bezout's identity and basic arithmetic rings.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles cleanly up to the next `sorry` warning without errors.

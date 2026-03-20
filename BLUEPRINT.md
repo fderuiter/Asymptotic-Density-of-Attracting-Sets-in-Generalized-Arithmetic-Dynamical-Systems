@@ -327,3 +327,43 @@ In the core inductive step of the Dynamical Hensel Lift, we define the next appr
 - [ ] The `sorry` for `h_taylor` in the inductive step is fully removed.
 - [ ] The Taylor expansion accurately proves that all higher-order terms vanish modulo $d^{n+2}$.
 - [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.
+
+## Target Task
+Hensel Lift: Main Cancellation
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The proof step `G(X_next) ≡ 0 [ZMOD d^{n+2}]` in `ArithmeticDynamics/Algebra/HenselLift.lean` (around line 103) contains a `sorry`. This step represents the main cancellation of the dynamical error where the linear approximation constructed from the previous step exactly neutralizes the residual error modulo `d^{n+2}`. The math guarantees this because we designed $t = -m \cdot a$ precisely to solve $m + G'(X_n) \cdot t \equiv 0 \pmod d$, making $d^{n+1} \cdot (m + G'(X_n) \cdot t) \equiv 0 \pmod{d^{n+2}}$. Leaving this central cancellation as an axiom destroys the formal algebraic link proving that the periodic cycles recursively lift across dimensions. We must formalize this algebraic reduction utilizing our established congruence hypotheses, divisibility, and Bezout's identity.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the second `sorry` inside the `PROOF 1` block (around line 103).
+3. The goal is `Int.ModEq (d ^ (n + 2)) (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1)) 0`.
+4. We have `h_div : ∃ m, G.eval X_n = m * d ^ (n + 1)` and we extracted `m` with `hm : G.eval X_n = m * d ^ (n + 1)`.
+5. We have the definition of `t := -m * a`.
+6. We have the Bezout identity `hab : a * G.derivative.eval X_n + b * d = 1`.
+7. Rewrite the goal using `hm` and the definition of `t`.
+   ```lean
+   rw [hm]
+   ```
+8. The expression is now `m * d ^ (n + 1) + G.derivative.eval X_n * (-m * a) * d ^ (n + 1)`. We want to prove this is congruent to `0` mod `d ^ (n + 2)`.
+9. The most direct tactic is to show the expression equals `m * b * d ^ (n + 2)` and then apply divisibility to conclude the modular congruence.
+10. Use `have h_alg : m * d ^ (n + 1) + G.derivative.eval X_n * (-m * a) * d ^ (n + 1) = m * b * d ^ (n + 2) := by ...`.
+11. Inside the `have` block:
+    Factor out `m * d ^ (n + 1)` using `ring_nf` or explicit factorization: `m * d ^ (n + 1) * (1 - G.derivative.eval X_n * a)`.
+    From `hab`, we know `1 - G.derivative.eval X_n * a = b * d` (after applying `ring`).
+    So the expression is `m * d ^ (n + 1) * (b * d)`.
+    Use `pow_succ` to combine `d ^ (n + 1) * d` into `d ^ (n + 2)`.
+    Thus it equals `m * b * d ^ (n + 2)`. Use `linear_combination` or `calc` combining `hab` to finalize `h_alg`.
+12. Now the goal is `Int.ModEq (d ^ (n + 2)) (m * b * d ^ (n + 2)) 0`.
+13. By definition of `Int.ModEq`, this means `d ^ (n + 2) ∣ (m * b * d ^ (n + 2) - 0)`.
+14. This simplifies to `d ^ (n + 2) ∣ m * b * d ^ (n + 2)`, which is trivially true since it's a multiple of `d ^ (n + 2)`.
+15. Use `exact Int.ModEq.of_mul_right _ _` or simply use `use m * b; ring` if using `dvd` directly. For `Int.ModEq`, `exact Int.modEq_zero_iff_dvd.mpr (dvd_mul_left _ _)` or similar `dvd` constructors will close the goal.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` at the end of `PROOF 1` in `ArithmeticDynamics/Algebra/HenselLift.lean` is completely replaced with a rigorous proof.
+- [ ] The proof explicitly utilizes `hm`, the definition of `t`, and the Bezout identity `hab` to perform the cancellation.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles successfully up to the subsequent `sorry` warning without errors.

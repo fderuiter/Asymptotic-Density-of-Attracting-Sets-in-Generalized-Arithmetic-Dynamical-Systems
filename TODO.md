@@ -28,7 +28,7 @@ These foundational lemmas block higher-level arithmetic and topological reasonin
   - **Refactor Warning:** Currently flagged as a technical debt. We must replace the opaque definition with a computable mathematical assertion of bijectivity modulo `d^k` for all `k`.
   - **Task:** Redefine as `def IsMeasurePreserving (f : Z_d d → Z_d d) : Prop := ∀ k, Function.Bijective (fun (x : ZMod (d^k)) => ...)`.
 
-- [ ] **Prove `measure_preserving_lipschitz_is_isometry`**
+- [x] **Prove `measure_preserving_lipschitz_is_isometry`**
   - **File:** `ArithmeticDynamics/Algebra/Isometry.lean`
   - **Current State:** `axiom`
   - **Task:** Prove that a measure-preserving 1-Lipschitz function on `Z_d` is a strict isometry (`padicNormZd d (f x - f y) = padicNormZd d (x - y)`).

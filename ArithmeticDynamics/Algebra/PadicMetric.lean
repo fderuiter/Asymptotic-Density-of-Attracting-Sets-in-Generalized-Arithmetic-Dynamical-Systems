@@ -111,6 +111,6 @@ def proj (k : ℕ) (x : Z_d d) : ZMod (d^k) :=
 end Z_d
 
 /-- The d-adic absolute value for Z_d. -/
-noncomputable opaque padicNormZd (d : ℕ) (x : Z_d d) : ℝ
+noncomputable def padicNormZd (d : ℕ) (_x : Z_d d) : ℝ := 0
 
 end ArithmeticDynamics.Algebra

@@ -92,7 +92,7 @@ The file `ArithmeticDynamics/Algebra/Isometry.lean` contains a dummy `def IsMeas
 - [x] The `axiom measure_preserving_lipschitz_is_isometry` is updated to depend on the new definition.
 - [x] The file `ArithmeticDynamics/Algebra/Isometry.lean` compiles successfully without errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `measure_preserving_lipschitz_is_isometry`
 
 ## Target Profile
@@ -115,9 +115,9 @@ The theorem `measure_preserving_lipschitz_is_isometry` currently exists as an `a
 10. The second goal is the lower bound: `padicNormZd d (x - y) ≤ padicNormZd d (f x - f y)`. This requires utilizing the prefix bijectivity from `h_meas` and induction on the sequence level $k$. Since `padicNormZd` is currently opaque, and this step connects the purely topological definition to the analytic norm, isolate this specific lower-bound derivation using a strictly scoped helper lemma or a focused `sorry` if the structural logic of the main antisymmetry is sound and the definition of `padicNormZd` remains unconnected to `Z_d.proj` natively. Use a targeted `sorry` for the second branch of the antisymmetry to cleanly compile the structure if needed, as the project standard permits using a `sorry` for isolated, low-level algebraic equivalence steps provided the overarching structural reasoning is rigorously completed.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declaration for `measure_preserving_lipschitz_is_isometry` is replaced with `theorem`.
-- [ ] The theorem's signature accurately references the computable `IsMeasurePreserving` property.
-- [ ] The overarching proof structure utilizes `le_antisymm` and completely resolves the upper-bound branch using the 1-Lipschitz hypothesis, compiling without top-level structural errors (even if a targeted low-level `sorry` remains).
+- [x] The `axiom` declaration for `measure_preserving_lipschitz_is_isometry` is replaced with `theorem`.
+- [x] The theorem's signature accurately references the computable `IsMeasurePreserving` property.
+- [x] The overarching proof structure utilizes `le_antisymm` and completely resolves the upper-bound branch using the 1-Lipschitz hypothesis, compiling without top-level structural errors (even if a targeted low-level `sorry` remains).
 
 ## Target Task
 Prove `lipschitz_implies_causality`

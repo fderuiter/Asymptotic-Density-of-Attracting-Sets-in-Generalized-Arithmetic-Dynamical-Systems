@@ -238,3 +238,29 @@ The base case of the Dynamical Hensel Lift theorem (`k = 0`) requires establishi
 - [ ] The second `sorry` in the `zero` case of `dynamical_hensel_lift` is entirely replaced with a rigorous proof.
 - [ ] The base case root uniqueness is mathematically verified using the identity `hd1` and the assumption `hy_lift`.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the inductive step `sorry` warnings.
+
+## Target Task
+Hensel Lift: Divisibility Extraction
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The `sorry` at the beginning of the inductive step blocks proving the core divisibility property of $G(X_n)$. We have `h_root_n : Int.ModEq (d ^ (n + 1)) (G.eval X_n) 0`. We need to extract the divisibility meaning from this `Int.ModEq` definition, specifically `∃ m : ℤ, G.eval X_n = m * d ^ (n + 1)`. Replacing this `sorry` provides the necessary algebraic foundation for building the higher-dimensional lift $X_{n+1}$. Leaving this foundational algebra unproven propagates technical debt and weakens the structural integrity of the entire inverse limit architecture.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `h_div : ∃ m : ℤ, G.eval X_n = m * d ^ (n + 1)` inside the inductive step (around line 65).
+3. Open the proof block with `by`.
+4. The hypothesis `h_root_n` states `Int.ModEq (d ^ (n + 1)) (G.eval X_n) 0`. Unfold the definition of `Int.ModEq` directly, which means `(d ^ (n + 1)) ∣ (G.eval X_n - 0)`.
+5. Use `have h1 : (d ^ (n + 1)) ∣ (G.eval X_n - 0) := h_root_n`.
+6. Simplify `G.eval X_n - 0` to `G.eval X_n` using `rw [sub_zero] at h1`.
+7. Apply `rcases h1 with ⟨c, hc⟩` to extract the witness of divisibility, where `G.eval X_n = d ^ (n + 1) * c`.
+8. Provide `c` as the witness for the existential quantifier using `use c`.
+9. The goal becomes `G.eval X_n = c * d ^ (n + 1)`. We have `hc : G.eval X_n = d ^ (n + 1) * c`. Use `rw [hc, mul_comm]` to match the goal exactly and conclude the proof.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` defining `h_div` in the inductive step is entirely replaced with a rigorous proof.
+- [ ] The divisibility property is extracted cleanly from `h_root_n` using Mathlib's divisibility infrastructure.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

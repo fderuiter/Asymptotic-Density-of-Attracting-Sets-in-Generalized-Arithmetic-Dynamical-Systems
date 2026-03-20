@@ -264,3 +264,66 @@ The `sorry` at the beginning of the inductive step blocks proving the core divis
 - [ ] The `sorry` defining `h_div` in the inductive step is entirely replaced with a rigorous proof.
 - [ ] The divisibility property is extracted cleanly from `h_root_n` using Mathlib's divisibility infrastructure.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Derivative Coprimality Transfer
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Polynomial.Eval`
+
+## Contextual Analysis
+The transversality condition $G'(X_n) \equiv G'(x_0) \pmod d$ is critical for establishing that the derivative of the polynomial map is coprime to the modulus $d$ at every step of the Hensel lift. The current `sorry` around line 72 bypasses the formal verification that polynomial evaluation preserves congruence relationships. The `h_deriv_n` hypothesis asserts `IsCoprime (G.derivative.eval X_n) d`, which mathematically follows from the base transversality condition `h_transversal : IsCoprime (G.derivative.eval x₀) d` and the congruence `X_n \equiv x_0 \pmod d` given by `h_lift_n`. We must formally lift the variable congruence to the polynomial evaluation using Mathlib's `Polynomial.eval_modEq` and transfer the coprimality property.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Ensure `import Mathlib.Data.Polynomial.Eval` is present at the top of the file to access `Polynomial.eval_modEq`. (It might be implicitly provided by `import Mathlib`, but explicit is better if it fails).
+3. Locate the `sorry` block defining `h_deriv_n : IsCoprime (G.derivative.eval X_n) d` inside the inductive step (around line 72).
+4. Begin the proof block with `by`.
+5. We need to show `G'(X_n) \equiv G'(x_0) \pmod d`. Use `have h_eq : Int.ModEq d (G.derivative.eval X_n) (G.derivative.eval x₀) := Polynomial.eval_modEq G.derivative h_lift_n`.
+6. Mathlib provides a mechanism to transfer coprimality across modular equivalences, specifically `IsCoprime.modEq_right` or similar, but the most direct way to prove `IsCoprime A d` given `IsCoprime B d` and `A \equiv B \pmod d` is to destruct `h_transversal`.
+7. `h_transversal` means `∃ a b, a * G'(x₀) + b * d = 1`. Since `G'(X_n) ≡ G'(x₀) [ZMOD d]`, `G'(X_n) = G'(x₀) + k * d`. Substituting this back provides the coprimality.
+8. A more direct Mathlib tactic approach: `h_eq` gives `d ∣ (G.derivative.eval X_n - G.derivative.eval x₀)`.
+   Alternatively, `exact h_transversal.of_modEq h_eq.symm` if `IsCoprime.of_modEq` or `Int.ModEq.isCoprime` exists. Let's use the explicit Bezout definition to be completely safe against missing Mathlib lemmas.
+9. `rcases h_transversal with ⟨a, b, hab⟩`. We have `a * G.derivative.eval x₀ + b * d = 1`.
+10. `have h_diff : d ∣ (G.derivative.eval X_n - G.derivative.eval x₀) := h_eq`.
+11. `rcases h_diff with ⟨k, hk⟩`. So `G.derivative.eval X_n - G.derivative.eval x₀ = d * k`, meaning `G.derivative.eval x₀ = G.derivative.eval X_n - d * k`.
+12. Substitute into Bezout: `a * (G.derivative.eval X_n - d * k) + b * d = 1`.
+13. Rearrange: `a * G.derivative.eval X_n + (b - a * k) * d = 1`.
+14. Construct the `IsCoprime` term: `use a, (b - a * k)`.
+15. Use `ring_nf` or `linear_combination` combined with `hab` to close the goal.
+   Specifically: `calc a * G.derivative.eval X_n + (b - a * k) * d = a * (G.derivative.eval X_n - d * k) + b * d := by ring ... = a * G.derivative.eval x₀ + b * d := by rw [← hk, sub_sub_cancel] ... = 1 := hab`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` defining `h_deriv_n` in the inductive step is entirely replaced with a rigorous proof.
+- [ ] The proof explicitly utilizes `Polynomial.eval_modEq` (or equivalent) to transfer the congruence.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Taylor Approximation Step
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Polynomial.Taylor`
+
+## Contextual Analysis
+In the core inductive step of the Dynamical Hensel Lift, we define the next approximation $X_{n+1} = X_n + t \cdot d^{n+1}$. To prove $G(X_{n+1}) \equiv 0 \pmod{d^{n+2}}$, we must formally expand the polynomial $G$ around $X_n$ using a formal algebraic Taylor expansion. Currently, `h_taylor` is a `sorry`. This is dangerous technical debt because the cancellation of the dynamical error strictly depends on extracting the linear term $G'(X_n) \cdot t \cdot d^{n+1}$ and rigorously proving that all higher-order terms in the Taylor series vanish modulo $d^{n+2}$ due to the property that $(d^{n+1})^k \equiv 0 \pmod{d^{n+2}}$ for $k \ge 2$. We must formalize this using Mathlib's `Polynomial.taylor` and bound the exponents.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Ensure `import Mathlib.Data.Polynomial.Taylor` is added to the top of the file to provide formal Taylor series theorems like `Polynomial.as_sum_taylor` or `Polynomial.eval_taylor`.
+3. Locate the `sorry` block defining `h_taylor` in the inductive step (around line 96).
+4. Open the proof block with `by`.
+5. The goal is to prove `Int.ModEq (d ^ (n + 2)) (G.eval (X_n + t * d ^ (n + 1))) (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1))`.
+6. Use the fundamental property that `G.eval (X + Y) ≡ G.eval X + G.derivative.eval X * Y [ZMOD Y^2]` for any polynomial `G`. In our case, `Y = t * d ^ (n + 1)`. Mathlib's `Polynomial` API might have a direct congruence lemma for this (e.g., `Polynomial.eval_add_modSq`), or we can construct it via `Polynomial.eval_add`.
+7. Alternatively, if no direct API exists, use `have h_exp := Polynomial.as_sum_taylor G X_n`.
+8. Expand `G.eval (X_n + Y)`. The expansion is `∑ i in range (G.natDegree + 1), (taylor i G X_n).eval X_n * Y^i`. The 0-th term is `G(X_n)`, the 1st term is `G'(X_n) * Y`.
+9. The higher order terms involve `Y^i` for `i ≥ 2`. Since `Y = t * d ^ (n + 1)`, `Y^i = t^i * (d ^ (n + 1))^i = t^i * d ^ (i * (n + 1))`.
+10. We need to show `d ^ (n + 2) ∣ Y^i` for `i ≥ 2`. Since `n ≥ 0`, `i * (n + 1) ≥ 2n + 2`. Because `2n + 2 = n + n + 2 ≥ n + 2`, `d ^ (n + 2)` strictly divides `d ^ (i * (n + 1))`.
+11. Therefore, all terms for `i ≥ 2` are congruent to `0` modulo `d ^ (n + 2)`.
+12. Summing these congruences yields exactly the required `Int.ModEq (d ^ (n + 2))` relationship. Use `exact` or `apply` with the formulated sum reduction.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` for `h_taylor` in the inductive step is fully removed.
+- [ ] The Taylor expansion accurately proves that all higher-order terms vanish modulo $d^{n+2}$.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.

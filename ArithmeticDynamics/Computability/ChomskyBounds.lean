@@ -83,7 +83,7 @@ axiom termination_and_periodicity_decidable
     Proves that any measure-preserving 1-Lipschitz generalized Collatz function
     is structurally incapable of Universal Computation (Type 0). -/
 axiom lipschitz_measure_preserving_bounds_chomsky
-  (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) (h_meas : IsMeasurePreserving_def f) :
+  (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) (h_meas : IsMeasurePreserving f) :
   ComputationalCapacity f ≤ ChomskyLevel.Type2_ContextFree
 
 end ArithmeticDynamics.Computability

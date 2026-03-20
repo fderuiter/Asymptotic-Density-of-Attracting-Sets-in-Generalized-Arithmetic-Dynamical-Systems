@@ -327,3 +327,33 @@ In the core inductive step of the Dynamical Hensel Lift, we define the next appr
 - [ ] The `sorry` for `h_taylor` in the inductive step is fully removed.
 - [ ] The Taylor expansion accurately proves that all higher-order terms vanish modulo $d^{n+2}$.
 - [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.
+## Target Task
+Hensel Lift: Main Cancellation
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The Main Cancellation step of the Dynamical Hensel Lift must rigorously prove that the defined linear shift `t` successfully annihilates the lower-order dynamical error. The current code relies on a `sorry` to bypass the algebraic manipulation combining the polynomial Taylor expansion, the extracted divisibility factor `m`, and the Bezout coefficients of transversality. This `sorry` propagates unverified structural claims about invariant cycle continuation and represents dangerous mathematical debt. We must construct a formal equational proof connecting the linear approximation `G(X_n) + G'(X_n) * t * d^{n+1}` to exactly `0` modulo `d^{n+2}` via Bezout's identity, ensuring the `d^{n+2}` factor is cleanly extracted.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the second `sorry` in the `PROOF 1` section of the inductive step (around line 105).
+3. The overall goal is to prove `Int.ModEq (d ^ (n + 2)) (G.eval X_next) 0`.
+4. We have `h_taylor` from the previous step which equates `G(X_next)` to its linear approximation modulo `d^{n+2}`.
+5. Apply transitivity to shift the goal to the linear approximation: `apply Int.ModEq.trans h_taylor`. The new goal becomes `Int.ModEq (d ^ (n + 2)) (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1)) 0`.
+6. Unfold the definition of `Int.ModEq` to `d ^ (n + 2) ∣ (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1) - 0)` or use `Int.ModEq.of_dvd`. It is cleaner to use `have h_dvd : d ^ (n + 2) ∣ (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1)) := by ...` then `exact Int.ModEq.of_dvd h_dvd`.
+7. Inside the proof of `h_dvd`, use the hypothesis `hm : G.eval X_n = d ^ (n + 1) * m` to substitute `G(X_n)` via `rw [hm]`.
+8. Substitute the definition of `t` by unfolding it: `dsimp only [t]`.
+9. The expression is now `d ^ (n + 1) * m + G.derivative.eval X_n * (-m * a) * d ^ (n + 1)`.
+10. We want to extract `d ^ (n + 2)`. Use `have h_alg : d ^ (n + 1) * m + G.derivative.eval X_n * (-m * a) * d ^ (n + 1) = (m * b) * d ^ (n + 2) := by ...`.
+11. Prove `h_alg` using the transversality condition `hab : a * G.derivative.eval X_n + b * d = 1`. You can use `calc` and `ring`, noting that `d ^ (n + 2) = d ^ (n + 1) * d` (via `pow_succ d (n + 1)`). Specifically, `d ^ (n + 1) * m + G.derivative.eval X_n * (-m * a) * d ^ (n + 1) = m * (1 - a * G.derivative.eval X_n) * d ^ (n + 1) = m * (b * d) * d ^ (n + 1) = m * b * (d * d ^ (n + 1)) = m * b * d ^ (n + 2)`. Alternatively, use `linear_combination` combined with `hab`.
+12. With `h_alg` proven, rewrite the divisibility goal: `rw [h_alg]`.
+13. Conclude the divisibility `d ^ (n + 2) ∣ (m * b) * d ^ (n + 2)` using `exact dvd_mul_left _ _` or `apply dvd_mul_of_dvd_right`.
+14. Conclude the overall `Int.ModEq` using the proven divisibility.
+
+## Definition of Done (DoD)
+- [ ] The second `sorry` in `PROOF 1` of the inductive step is completely removed.
+- [ ] The proof explicitly utilizes `hm` (divisibility extraction), `t` (the linear shift), and `hab` (Bezout transversality) to algebraically annihilate the lower-order error.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles successfully up to the subsequent `sorry` warning without top-level structural errors.

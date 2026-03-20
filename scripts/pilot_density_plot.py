@@ -1,8 +1,36 @@
 import argparse
 import json
+import os
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+
+
+def validate_path(path_str):
+    """Ensures the path is within the project directory to prevent traversal attacks."""
+    if path_str is None:
+        return None
+
+    # Resolve the real path (including symlinks)
+    try:
+        real_path = os.path.realpath(path_str)
+    except Exception:
+        # Fallback to abspath if realpath fails for some reason
+        real_path = os.path.abspath(path_str)
+
+    # Resolve the project root securely
+    scripts_dir = os.path.dirname(os.path.realpath(__file__))
+    project_root = os.path.dirname(scripts_dir)
+
+    # Use commonpath to ensure real_path is strictly under project_root
+    try:
+        if os.path.commonpath([real_path, project_root]) != project_root:
+            raise PermissionError(f"Access denied: {path_str} is outside the project root.")
+    except ValueError:
+        # commonpath raises ValueError if paths are on different drives (Windows)
+        raise PermissionError(f"Access denied: {path_str} is outside the project root.")
+
+    return real_path
 
 
 def parse_args():
@@ -145,7 +173,14 @@ def evaluate_and_plot(N, pi_x, output_path="assets/density_bound_proof.png"):
 
 if __name__ == "__main__":
     args = parse_args()
-    d, a, b = load_system(args.input)
+    try:
+        input_path = validate_path(args.input)
+        output_path = validate_path(args.output)
+    except PermissionError as e:
+        print(f"SECURITY ERROR: {e}")
+        sys.exit(1)
+
+    d, a, b = load_system(input_path)
     N = args.limit
     pi_x = compute_density(d, a, b, N)
-    evaluate_and_plot(N, pi_x, args.output)
+    evaluate_and_plot(N, pi_x, output_path)

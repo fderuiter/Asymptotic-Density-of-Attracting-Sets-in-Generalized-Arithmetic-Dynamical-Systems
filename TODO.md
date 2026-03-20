@@ -22,7 +22,7 @@ These foundational lemmas block higher-level arithmetic and topological reasonin
   - **Mathlib Imports:** `Mathlib.Data.ZMod.Basic`
   - **Tactics/Strategy:** Use `Int.ModEq.sub` applied to `ha` and `hb` (similar to the `Add` instance). Trivial with `exact Int.ModEq.sub ha hb`.
 
-- [ ] **Construct `IsMeasurePreserving_def`**
+- [x] **Construct `IsMeasurePreserving_def`**
   - **File:** `ArithmeticDynamics/Algebra/Isometry.lean`
   - **Current State:** `opaque`
   - **Refactor Warning:** Currently flagged as a technical debt. We must replace the opaque definition with a computable mathematical assertion of bijectivity modulo `d^k` for all `k`.

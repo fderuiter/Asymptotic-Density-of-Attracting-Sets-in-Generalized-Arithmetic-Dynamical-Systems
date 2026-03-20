@@ -65,7 +65,7 @@ The `Sub (Z_d d)` instance currently uses a `sorry` to bypass the proof that poi
 - [x] Pointwise subtraction is formally verified to maintain inverse limit coherence.
 - [x] The `ArithmeticDynamics/Algebra/PadicMetric.lean` file compiles successfully with zero `sorry` warnings.
 
-## Target Task
+## Target Task [COMPLETED]
 Construct `IsMeasurePreserving_def`
 
 ## Target Profile
@@ -87,10 +87,10 @@ The file `ArithmeticDynamics/Algebra/Isometry.lean` contains a dummy `def IsMeas
 4. Update `axiom measure_preserving_lipschitz_is_isometry` (line 30) to rely on the new `IsMeasurePreserving f` instead of `IsMeasurePreserving_def f`.
 
 ## Definition of Done (DoD)
-- [ ] The `opaque IsMeasurePreserving_def` and faulty `IsMeasurePreserving` definitions are removed.
-- [ ] A new `def IsMeasurePreserving` is defined accurately capturing prefix bijectivity without `opaque` or `sorry`.
-- [ ] The `axiom measure_preserving_lipschitz_is_isometry` is updated to depend on the new definition.
-- [ ] The file `ArithmeticDynamics/Algebra/Isometry.lean` compiles successfully without errors.
+- [x] The `opaque IsMeasurePreserving_def` and faulty `IsMeasurePreserving` definitions are removed.
+- [x] A new `def IsMeasurePreserving` is defined accurately capturing prefix bijectivity without `opaque` or `sorry`.
+- [x] The `axiom measure_preserving_lipschitz_is_isometry` is updated to depend on the new definition.
+- [x] The file `ArithmeticDynamics/Algebra/Isometry.lean` compiles successfully without errors.
 
 ## Target Task
 Prove `measure_preserving_lipschitz_is_isometry`

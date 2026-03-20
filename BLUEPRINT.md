@@ -191,3 +191,27 @@ The theorem `prime_power_architectural_starvation` asserts that a strict prime-p
 - [ ] The `axiom` declaration for `prime_power_architectural_starvation` is completely removed and replaced with `theorem`.
 - [ ] The top-level logical structure for negation (`intro h_supports`) is rigorously formalized.
 - [ ] The `ArithmeticDynamics/Algebra/PadicExtensions.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signature.
+
+## Target Task
+Hensel Lift: Base Case Root Propagation
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The base case of the Dynamical Hensel Lift theorem currently contains a `sorry` for proving that a root modulo `d` is also a root modulo `d^1`. This is a trivial algebraic step but leaving it as a `sorry` breaks the inductive foundation of the entire Hensel Lift proof, which is critical for proving the existence and uniqueness of periodic cycles in p-adic dynamical systems. It must be rigorously verified to maintain the project's strict axiomatic integrity.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the first `sorry` in the `zero` case of the `induction k` block (around line 49).
+3. The goal is to prove `Int.ModEq (d ^ (0 + 1)) (G.eval x₀) 0`.
+4. We already have the hypothesis `hd1 : d ^ (0 + 1) = d` derived via `ring`, and `h_root : Int.ModEq d (G.eval x₀) 0` from the theorem signature.
+5. Use `rw [hd1]` to simplify the modulus in the goal from `d ^ (0 + 1)` to `d`.
+6. The goal is now exactly `Int.ModEq d (G.eval x₀) 0`.
+7. Conclude the goal with `exact h_root`.
+
+## Definition of Done (DoD)
+- [ ] The first `sorry` in the `zero` case of `dynamical_hensel_lift` is entirely replaced with a rigorous proof.
+- [ ] The base case root propagation correctly utilizes `hd1` and `h_root`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

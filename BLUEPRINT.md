@@ -355,3 +355,37 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Modulo `d` Compatibility
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify that our new root approximation $X_{n+1}$ mathematically lifts the original root $x_0$ modulo $d$. The current code leaves this as a `sorry` around line 109. This technical debt breaks the structural invariant that the approximated roots always converge to the unique base root. Specifically, we have $X_{n+1} = X_n + t \cdot d^{n+1}$. Since $n \ge 0$, $d$ cleanly divides $d^{n+1}$, which forces the linear addition term to vanish modulo $d$. Therefore, $X_{n+1} \equiv X_n \pmod d$. Combined with the inductive hypothesis $X_n \equiv x_0 \pmod d$, transitivity completes the proof. This step is a straightforward application of modulo arithmetic and divisibility in Mathlib.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing `PROOF 2` (around line 109).
+3. The expected goal is `Int.ModEq d X_next x₀`.
+4. Open a proof block and unfold the definition of `X_next` by using `calc` notation, starting with `calc X_next = X_n + t * d ^ (n + 1) := rfl`. Alternatively, just work directly on `X_n + t * d ^ (n + 1)`.
+5. Establish that $t \cdot d^{n+1} \equiv 0 \pmod d$ by proving `d ∣ (t * d ^ (n + 1))`. You can write `have hd : d ∣ d ^ (n + 1) := dvd_pow_self d (Nat.succ_ne_zero n)`.
+6. Use `Int.ModEq.add` to show `X_n + t * d ^ (n + 1) ≡ X_n + 0 [ZMOD d]`.
+7. Conclude the sequence of equivalences:
+   ```lean
+   calc X_n + t * d ^ (n + 1)
+     _ ≡ X_n + 0 [ZMOD d] := Int.ModEq.add rfl (by
+       rw [Int.modEq_zero_iff_dvd]
+       exact dvd_mul_of_dvd_right (dvd_pow_self d (Nat.succ_ne_zero n)) t
+     )
+     _ ≡ X_n [ZMOD d] := by rw [add_zero]
+     _ ≡ x₀ [ZMOD d] := h_lift_n
+   ```
+8. The `calc` block resolves the goal precisely by replacing `sorry`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing the modulo $d$ compatibility check in `PROOF 2` is removed.
+- [ ] The proof explicitly utilizes `dvd_pow_self` and `Int.ModEq.add` to show the added term vanishes modulo $d$.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

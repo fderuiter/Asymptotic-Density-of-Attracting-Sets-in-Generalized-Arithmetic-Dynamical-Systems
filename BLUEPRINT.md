@@ -355,3 +355,36 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Modulo `d` Compatibility
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify that our next dimensional lift $X_{next} = X_n + t \cdot d^{n+1}$ mathematically traces back to the original root $x_0 \pmod d$. The current `sorry` at line 109 ignores this foundational step. Without formalizing that $X_{next} \equiv X_n \equiv x_0 \pmod d$, the inductive linkage completely breaks, destroying the uniqueness structure of the entire periodic cycle. We must formally prove that the added linear term $t \cdot d^{n+1}$ vanishes modulo $d$.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing `PROOF 2` (around line 109).
+3. Open a proof block with `by`.
+4. The goal is `Int.ModEq d X_next x₀`.
+5. We have the inductive hypothesis `h_lift_n : Int.ModEq d X_n x₀`.
+6. To use transitivity, we first need to prove that `Int.ModEq d X_next X_n`, which means `X_next ≡ X_n [ZMOD d]`.
+7. Expand `X_next`: `X_next = X_n + t * d ^ (n + 1)`.
+8. Create a sub-goal: `have h_term : Int.ModEq d (t * d ^ (n + 1)) 0`.
+   - Prove this by showing $d$ divides $t \cdot d^{n+1}$.
+   - Unfold `Int.ModEq`, which means `d ∣ t * d ^ (n + 1) - 0`, simplifying to `d ∣ t * d ^ (n + 1)`.
+   - Since $n \ge 0$, $d^{n+1} = d \cdot d^n$. Thus $t \cdot d^{n+1} = d \cdot (t \cdot d^n)$.
+   - Use `use t * d ^ n` as the divisibility witness and close with `ring`.
+9. Create another sub-goal to link $X_{next}$ to $X_n$: `have h_next : Int.ModEq d X_next X_n`.
+   - Apply `Int.ModEq.add_left X_n h_term` which states $X_n + t \cdot d^{n+1} \equiv X_n + 0 \pmod d$.
+   - Simplify $X_n + 0$ to $X_n$ to match `h_next`. (e.g., using `exact Int.ModEq.add_left X_n h_term |>.trans (by ring_nf; exact Int.ModEq.refl _)` or similar `ring` equivalents).
+10. Finally, combine `h_next` and `h_lift_n` using transitivity to close the main goal: `exact h_next.trans h_lift_n`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing `PROOF 2` (Modulo `d` Compatibility) is fully removed.
+- [ ] The proof explicitly verifies that the added linear term $t \cdot d^{n+1}$ vanishes modulo $d$.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

@@ -355,3 +355,37 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Modulo `d` Compatibility
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify that our newly constructed point $X_{n+1}$ mathematically traces back to the original root sequence modulo $d$. The current `sorry` (around line 109) bypasses this requirement. A core feature of the inverse limit topology in $p$-adic dynamical systems is coherence. A periodic cycle found dynamically in $d^{n+2}$ must consistently extend the cycle from $d^{n+1}$. Specifically, $X_{n+1} = X_n + t \cdot d^{n+1}$. Since $n \ge 0$, $d$ cleanly divides $d^{n+1}$, meaning the linear perturbation step vanishes modulo $d$. Transitivity with the inductive hypothesis $X_n \equiv x_0 \pmod d$ formally completes the property. Leaving this unproven damages the inverse limit coherence mechanism.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing `PROOF 2` (around line 109).
+3. The expected goal is `Int.ModEq d X_next x₀`.
+4. Open a proof block using `by`.
+5. We have the inductive hypothesis `h_lift_n : Int.ModEq d X_n x₀`.
+6. Our definition is `X_next = X_n + t * d ^ (n + 1)`. We must prove `Int.ModEq d (X_n + t * d ^ (n + 1)) x₀`.
+7. First, prove that the perturbation term is congruent to 0 modulo `d`.
+   - `have h_pert : Int.ModEq d (t * d ^ (n + 1)) 0 := by ...`
+   - To prove `h_pert`: Unfold `Int.ModEq`. This means `d ∣ (t * d ^ (n + 1) - 0)`, which simplifies to `d ∣ t * d ^ (n + 1)`.
+   - Since `n ≥ 0`, `d ^ (n + 1) = d * d^n`. Therefore, `t * d ^ (n + 1) = d * (t * d^n)`. This trivially gives divisibility.
+   - Use `exact ⟨t * d ^ n, by ring⟩` or `apply dvd_mul_of_dvd_right (dvd_pow_self d (Nat.succ_ne_zero n))` and `exact Int.ModEq_zero_iff_dvd.mpr ...`.
+8. Once `h_pert : Int.ModEq d (t * d ^ (n + 1)) 0` is established, add it to the identity `Int.ModEq d X_n X_n`.
+   - `have h_add := Int.ModEq.add (Int.ModEq.refl X_n) h_pert`
+   - This gives `Int.ModEq d (X_n + t * d ^ (n + 1)) (X_n + 0)`.
+   - Simplify `X_n + 0` to `X_n`.
+9. Finally, chain this together with the inductive hypothesis using `Int.ModEq.trans`:
+   - `exact Int.ModEq.trans (by simpa using h_add) h_lift_n`
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing `PROOF 2` (modulo `d` compatibility) is removed.
+- [ ] The proof explicitly utilizes the property that $d$ divides $d^{n+1}$ to eliminate the perturbation term.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

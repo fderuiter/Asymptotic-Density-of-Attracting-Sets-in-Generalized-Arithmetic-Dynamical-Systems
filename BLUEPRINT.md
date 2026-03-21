@@ -355,3 +355,27 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over ℤ.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Basic.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Int.Basic`, `Mathlib.Data.Set.Basic`
+
+## Contextual Analysis
+Currently, the project jumps directly into advanced algebra and ergodic theory, but lacks the foundational definitions that tie the title of the project together. There is no formalized base structure for a Generalized Arithmetic Dynamical System (GADS) over `ℤ`, nor are there rigorous definitions for trajectories, forward invariance, or backward invariance. This structural gap is dangerous technical debt because advanced modules like Sieve Analytics and Thermodynamic Formalism lack a concrete base object to operate on. We must establish the core definitions for GADS natively in Lean 4 without introducing new axioms.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Basic.lean`.
+2. Add the imports `import Mathlib.Data.Int.Basic` and `import Mathlib.Data.Set.Basic` at the top of the file.
+3. Define the GADS structure using `structure GADS where` containing a deterministic transition map `T : ℤ → ℤ`.
+4. Define the trajectory function: `def trajectory (g : GADS) (x₀ : ℤ) : ℕ → ℤ` defined recursively. Base case: `| 0 => x₀`, Inductive step: `| n + 1 => g.T (trajectory g x₀ n)`.
+5. Define forward invariance for a set `S`: `def IsForwardInvariant (g : GADS) (S : Set ℤ) : Prop := ∀ x ∈ S, g.T x ∈ S`.
+6. Define backward invariance for a set `S`: `def IsBackwardInvariant (g : GADS) (S : Set ℤ) : Prop := ∀ x, g.T x ∈ S → x ∈ S`.
+7. Formulate and strictly prove `@[simp]` lemmas for the trajectory evaluation: `theorem trajectory_zero (g : GADS) (x₀ : ℤ) : trajectory g x₀ 0 = x₀ := by rfl` and `theorem trajectory_succ (g : GADS) (x₀ : ℤ) (n : ℕ) : trajectory g x₀ (n + 1) = g.T (trajectory g x₀ n) := by rfl`.
+
+## Definition of Done (DoD)
+- [ ] The `GADS` structure and its fundamental `trajectory`, `IsForwardInvariant`, and `IsBackwardInvariant` definitions are fully formalized.
+- [ ] Zero `sorry`s or `axiom`s exist in `ArithmeticDynamics/Basic.lean`.
+- [ ] The `ArithmeticDynamics/Basic.lean` file compiles without errors.

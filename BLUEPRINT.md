@@ -355,3 +355,31 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Modulo `d` Compatibility
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In `PROOF 2` of the inductive step, we must verify that our lifted root $X_{n+1} = X_n + t \cdot d^{n+1}$ mathematically descends correctly back to $x_0 \pmod d$. This relies on showing that $t \cdot d^{n+1} \equiv 0 \pmod d$ because $d$ strictly divides $d^{n+1}$. By replacing the `sorry` at line 109 with a rigorous congruence proof and leveraging transitivity, we enforce that our inverse limits structurally cohere with the base topology, eradicating the technical debt in this proof branch.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing `PROOF 2` (around line 109).
+3. Open a proof block with `by`.
+4. The goal is `Int.ModEq d X_next x₀`. Since `X_next = X_n + t * d ^ (n + 1)`, this is equivalent to `Int.ModEq d (X_n + t * d ^ (n + 1)) x₀`.
+5. We have `h_lift_n : Int.ModEq d X_n x₀` from the induction hypothesis. We want to apply `Int.ModEq.trans` or `Int.ModEq.add_right`. Alternatively, prove `Int.ModEq d (t * d ^ (n + 1)) 0`.
+6. Use `have h_zero : Int.ModEq d (t * d ^ (n + 1)) 0` to state the step term's congruence.
+7. Prove `h_zero` using `Int.modEq_zero_iff_dvd.mpr (by use t * d ^ n; ring)`. Note that `d ^ (n + 1) = d * d ^ n`.
+8. Combine `h_zero` with `h_lift_n` to show that adding the step to `X_n` gives something equivalent to `x₀` modulo `d`.
+9. Using the definition of `Int.ModEq d a b` as `d ∣ a - b`, we have `d ∣ X_n - x₀` and `d ∣ t * d ^ (n + 1)`. The sum of these is `(X_n + t * d ^ (n + 1)) - x₀`.
+10. Directly use `exact h_lift_n.trans (by ...)` or a manual divisibility proof: `rw [Int.modEq_iff_dvd] at *`, then `use (c + t * d ^ n)` where `c` comes from `h_lift_n`.
+11. Conclude the goal to completely resolve `PROOF 2`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing `PROOF 2` is removed.
+- [ ] The proof explicitly utilizes the divisibility of $d^{n+1}$ by $d$ and transitivity to conclude $X_{n+1} \equiv x_0 \pmod d$.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

@@ -355,3 +355,32 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+## Target Task
+Hensel Lift: Modulo `d` Compatibility
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify that the proposed lift $X_{n+1} = X_n + t \cdot d^{n+1}$ mathematically traces back to the original base cycle modulo $d$. The current code relies on a `sorry` at line 109 to bypass proving $X_{n+1} \equiv x_0 \pmod d$. This creates a gap in the proof sequence, as the base root property $x_0$ is essential for guaranteeing that the lifted periodic cycle structurally belongs to the same initial inverse limit branch. This unproven assumption acts as technical debt and must be rigorously deduced by combining the inductive hypothesis $X_n \equiv x_0 \pmod d$ with the fact that the linear correction step $t \cdot d^{n+1}$ vanishes modulo $d$.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing `PROOF 2` (around line 109).
+3. The goal is to prove `Int.ModEq d X_next x₀`, where `X_next = X_n + t * d ^ (n + 1)`.
+4. Open a proof block with `by`.
+5. Prove that the linear correction term is highly divisible by $d$. The power $d^{n+1}$ inherently contains $d$ as a factor since $n \ge 0$.
+   Establish `have hdvd : d ∣ t * d ^ (n + 1) := dvd_mul_of_dvd_right (dvd_pow_self d (by omega)) t`.
+6. Convert this exact divisibility property into a modular equivalence to zero:
+   `have hzero : Int.ModEq d (t * d ^ (n + 1)) 0 := Int.modEq_zero_iff_dvd.mpr hdvd`.
+7. Leverage the existing inductive hypothesis `h_lift_n : Int.ModEq d X_n x₀`.
+8. Combine the two modular congruences using point-wise addition:
+   `have h1 : Int.ModEq d (X_n + t * d ^ (n + 1)) (x₀ + 0) := Int.ModEq.add h_lift_n hzero`.
+9. The right-hand side is `x₀ + 0`. Use `rw [add_zero] at h1` to simplify it exactly to `x₀`.
+10. The goal exactly matches `h1`. Conclude the proof by providing it with `exact h1`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing `PROOF 2` for modulo compatibility is removed.
+- [ ] The proof rigorously establishes $d \mid t \cdot d^{n+1}$ via `dvd_pow_self` and `dvd_mul_of_dvd_right`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

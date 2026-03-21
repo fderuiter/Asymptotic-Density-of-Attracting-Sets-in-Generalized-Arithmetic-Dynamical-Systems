@@ -355,3 +355,33 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Inductive Root Lift
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In `PROOF 2` of the Dynamical Hensel Lift's inductive step, we must rigorously establish that the proposed higher-dimensional root $X_{n+1} = X_n + t \cdot d^{n+1}$ maps cleanly back to the base root $x_0$ modulo $d$. The current `sorry` around line 109 leaves this unproven. The mathematical justification hinges on the fact that since $n \ge 0$, the modulus $d$ perfectly divides the step increment $t \cdot d^{n+1}$, which formally forces the congruence $X_{n+1} \equiv X_n \pmod d$. Combined with the induction hypothesis $X_n \equiv x_0 \pmod d$, standard transitivity completes the proof. This must be formally extracted and proven.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean` and locate the `sorry` block completing `PROOF 2` (around line 109).
+2. The current goal is `Int.ModEq d X_next x₀`. Open a proof block using `by`.
+3. Apply transitivity to bridge `X_next` to `X_n` and then `X_n` to `x₀` by using the induction hypothesis: `apply Int.ModEq.trans _ h_lift_n`.
+4. The remaining goal is to prove `Int.ModEq d X_next X_n`, which unfolds to `Int.ModEq d (X_n + t * d ^ (n + 1)) X_n`.
+5. Convert this modular equivalence into a divisibility condition using Mathlib's standard lemma: `rw [Int.modEq_iff_dvd_sub]`.
+6. The goal becomes `d ∣ (X_n + t * d ^ (n + 1)) - X_n`.
+7. Simplify the algebraic expression inside the divisibility constraint to cancel out $X_n$. You can use `ring_nf` or simply `have h_sub : (X_n + t * d ^ (n + 1)) - X_n = t * d ^ (n + 1) := by ring` followed by `rw [h_sub]`.
+8. The goal is now `d ∣ t * d ^ (n + 1)`. We must provide an explicit witness for this divisibility.
+9. Provide the witness by using the `use` tactic: `use t * d ^ n`.
+10. The goal transforms into an equality: `t * d ^ (n + 1) = d * (t * d ^ n)`.
+11. Unfold the exponent using the successor property of natural numbers: `rw [pow_succ d n]`.
+12. The goal becomes `t * (d ^ n * d) = d * (t * d ^ n)`.
+13. Close the goal using `ring` to prove the exact structural equivalence of the rearranged terms.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing `PROOF 2` in the inductive step is entirely removed.
+- [ ] The proof explicitly extracts the divisibility of the increment $t \cdot d^{n+1}$ by $d$ using `pow_succ`.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles cleanly up to the next `sorry` warning without errors.

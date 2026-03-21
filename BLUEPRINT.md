@@ -355,3 +355,32 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Modulo `d` Compatibility
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In `PROOF 2` of the Dynamical Hensel Lift, we must prove that the newly constructed root $X_{next} = X_n + t \cdot d^{n+1}$ mathematically lifts the original root $x_0$ modulo $d$. In other words, $X_{next} \equiv x_0 \pmod d$. This directly depends on $X_n \equiv x_0 \pmod d$ (from the inductive hypothesis `h_lift_n`) and the fact that $t \cdot d^{n+1} \equiv 0 \pmod d$ because $n \ge 0$. The current `sorry` around line 109 acts as technical debt that breaks the induction chain for sequence validity. Replacing it with a formal modular equivalence preserves the root identity across dimension scaling.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing `PROOF 2` (around line 109).
+3. The goal is to prove `Int.ModEq d X_next x₀`.
+4. Open the proof block with `by`.
+5. First, prove that the added term vanishes modulo $d$: `have h_t : Int.ModEq d (t * d ^ (n + 1)) 0 := by ...`. Inside the `by` block:
+   - Convert to a divisibility condition using `rw [Int.modEq_zero_iff_dvd]`.
+   - Provide the multiplier `t * d ^ n` using `use (t * d ^ n)`.
+   - Expand `d ^ (n + 1)` using `rw [pow_succ d n]`.
+   - Reorder terms using `ring`.
+6. Add this vanishing term to the existing congruence for $X_n$: `have h_add := Int.ModEq.add h_lift_n h_t`.
+7. Simplify the right-hand side `x₀ + 0` to `x₀` using `rw [add_zero] at h_add`.
+8. Conclude the goal with `exact h_add`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing `PROOF 2` is removed.
+- [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to translate the $X_n$ equivalence.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

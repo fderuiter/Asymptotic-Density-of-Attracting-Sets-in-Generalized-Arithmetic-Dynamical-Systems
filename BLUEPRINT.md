@@ -355,3 +355,32 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Modulo `d` Compatibility
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify that the newly constructed root $X_{next}$ mathematically traces back (lifts) perfectly to the original base sequence modulo $d$. The mathematical claim is $X_{next} \equiv x_0 \pmod d$. By definition $X_{next} = X_n + t \cdot d^{n+1}$. This is conceptually trivial because $d$ intrinsically divides $d^{n+1}$ for $n \ge 0$, nullifying the added term. However, leaving it as a `sorry` fundamentally severs the structural link between the $p$-adic limit point and its finite arithmetic seed. It must be rigorously formalized using basic divisibility and modular arithmetic properties to maintain the topological causality of the dynamical system.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing `PROOF 2` (around line 109).
+3. The expected goal is `Int.ModEq d X_next x₀`.
+4. Open the proof block with `by`.
+5. The induction hypothesis gives `h_lift_n : Int.ModEq d X_n x₀`.
+6. Establish that the added term is mathematically equivalent to 0 modulo `d`. Create a sub-proof: `have h_term : Int.ModEq d (t * d ^ (n + 1)) 0 := by ...`
+7. Inside the sub-proof for `h_term`, use `rw [Int.modEq_zero_iff_dvd]` to convert it to a divisibility condition: `d ∣ t * d ^ (n + 1)`.
+8. Provide the exact multiplicative witness using `use t * (d ^ n : ℤ)`.
+9. Expand the target exponent using `rw [pow_succ]` and close the sub-proof using the `ring` tactic.
+10. With `h_term` proven, combine it with `h_lift_n` by generating the additive equivalence: `have h_sum := h_lift_n.add h_term`.
+11. The result is `Int.ModEq d (X_n + t * d ^ (n + 1)) (x₀ + 0)`. Simplify the right-hand side using `rw [add_zero] at h_sum`.
+12. Resolve the final goal using `exact h_sum`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing `PROOF 2` is completely removed.
+- [ ] The formal proof mathematically verifies $X_{next} \equiv x_0 \pmod d$ using the divisibility of $d^{n+1}$ by $d$.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

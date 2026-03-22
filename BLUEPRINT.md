@@ -385,3 +385,28 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In PROOF 3 of `dynamical_hensel_lift` (Strict Uniqueness modulo $d^{n+2}$), the uniqueness step requires proving that if $y$ is another root modulo $d^{n+2}$ that lifts $x_0$, it must also logically be a valid root modulo $d^{n+1}$. This is a direct consequence of the divisibility property $d^{n+1} \mid d^{n+2}$. The current `sorry` defining `hy_root_n` represents structural debt that breaks the induction required for strict uniqueness. We must mathematically formalize this modulus reduction using `Int.ModEq.of_dvd`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `hy_root_n` inside PROOF 3 (around line 119).
+3. The goal is to prove `Int.ModEq (d ^ (n + 1)) (G.eval y) 0`.
+4. Open a proof block with `by`.
+5. Apply the theorem that modulus reduction holds if the new modulus mathematically divides the old one by writing: `apply Int.ModEq.of_dvd _ hy_root`.
+6. This strictly leaves the divisibility condition `d ^ (n + 1) ∣ d ^ (n + 2)` as the remaining goal.
+7. Provide the explicit multiplicative factor establishing divisibility using `use d`.
+8. The final goal requires verifying the equality `d ^ (n + 2) = d ^ (n + 1) * d`. Close this purely algebraic ring equality by applying the `ring` tactic.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` defining `hy_root_n` in PROOF 3 is formally removed.
+- [ ] The proof explicitly utilizes `Int.ModEq.of_dvd` and proves polynomial exponent divisibility via `use d` and `ring`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file correctly compiles without errors up to the subsequent `sorry` warning.

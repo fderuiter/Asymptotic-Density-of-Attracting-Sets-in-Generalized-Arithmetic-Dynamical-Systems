@@ -385,3 +385,27 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the uniqueness step of the Hensel Lift (`PROOF 3`), we must prove that any proposed root `y` modulo `d^{n+2}` is also logically a root modulo the smaller domain `d^{n+1}`. This is a crucial topological requirement, as it allows us to invoke the strong uniqueness guarantee of our induction hypothesis (`h_uniq_n`). Currently, this fundamental modulus reduction is bypassed with a `sorry` at line 118. Leaving this unproven breaks the strict uniqueness claim of the $p$-adic periodic cycle. We must formally deduce the lower-dimensional congruence using Mathlib's divisibility transfer lemmas.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `hy_root_n : Int.ModEq (d ^ (n + 1)) (G.eval y) 0` in `PROOF 3` (around line 118).
+3. Open a proof block with `by`.
+4. The overarching goal is to reduce the modulus of the hypothesis `hy_root : Int.ModEq (d ^ (n + 2)) (G.eval y) 0`.
+5. Mathlib's `Int.ModEq.of_dvd` requires proving that the smaller modulus strictly divides the larger modulus. Apply it to the hypothesis: `apply Int.ModEq.of_dvd _ hy_root`. The goal reduces to proving `d ^ (n + 1) ∣ d ^ (n + 2)`.
+6. Expand the exponent `n + 2` to `(n + 1) + 1` mathematically by rewriting it as `d ^ (n + 1) * d`. A clean way to prove `(d ^ (n + 1)) ∣ (d ^ (n + 2))` is to provide the exact multiplier `d`. Use `use d`.
+7. The goal becomes `d ^ (n + 2) = d ^ (n + 1) * d`. Conclude this exact equivalence using the `ring` tactic.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed.
+- [ ] The proof explicitly utilizes `Int.ModEq.of_dvd` and extracts the `d` multiplier to verify the modulus reduction.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles cleanly up to the final `sorry` warning without errors.

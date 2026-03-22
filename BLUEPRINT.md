@@ -385,3 +385,29 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the final uniqueness proof of the Dynamical Hensel Lift, we assume `y` is another invariant root modulo $d^{n+2}$ that traces back to $x_0$. To apply our strong inductive uniqueness guarantee, we must first establish that `y` is mathematically also a valid root modulo $d^{n+1}$. The current `sorry` at line 118 represents a critical piece of technical debt. We must rigorously formalize this modulus reduction using the definition of `Int.ModEq` and exponent divisibility, otherwise the entire basis of the inductive uniqueness claim collapses.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `hy_root_n` in the inductive step (around line 118).
+3. Open a proof block with `by`.
+4. We must prove `Int.ModEq (d ^ (n + 1)) (G.eval y) 0` given `hy_root : Int.ModEq (d ^ (n + 2)) (G.eval y) 0`.
+5. Use `Int.ModEq.of_dvd` which requires showing `(d ^ (n + 1)) ∣ (d ^ (n + 2))`.
+6. Establish this divisibility with a helper: `have hd : (d ^ (n + 1) : ℤ) ∣ (d ^ (n + 2) : ℤ)`.
+7. To prove `hd`, use `use d` to set up the equation `d ^ (n + 2) = d ^ (n + 1) * d`.
+8. Conclude `hd` with the `ring` tactic.
+9. Apply the reduction directly: `exact Int.ModEq.of_dvd hd hy_root`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` defining `hy_root_n` reducing the modulus from $d^{n+2}$ to $d^{n+1}$ is completely removed.
+- [ ] The proof explicitly verifies `d^{n+1} ∣ d^{n+2}` and leverages `Int.ModEq.of_dvd`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

@@ -385,3 +385,30 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the third part of the Hensel Lift inductive step (`PROOF 3`), the proof of strict uniqueness modulo $d^{n+2}$ requires establishing that any valid lift $y$ is also a valid root modulo $d^{n+1}$. Currently, this reduction step is left as a `sorry`. Leaving this unproven creates technical debt and severs the inductive chain: without showing that $y$ is a root modulo the lower power, we cannot apply the inductive uniqueness hypothesis `h_uniq_n`. Replacing this `sorry` requires formally reducing the modulus of the equivalence using `Int.ModEq.of_dvd` and proving the divisibility of the exponents $d^{n+1} \mid d^{n+2}$.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `hy_root_n` inside `PROOF 3` (around line 118).
+3. The goal is `Int.ModEq (d ^ (n + 1)) (G.eval y) 0`.
+4. Open the proof block with `by`.
+5. We have the assumption `hy_root : Int.ModEq (d ^ (n + 2)) (G.eval y) 0`.
+6. Use `apply Int.ModEq.of_dvd _ hy_root` to reduce the goal to showing $d^{n+1} \mid d^{n+2}$.
+7. The goal becomes `d ^ (n + 1) ∣ d ^ (n + 2)`.
+8. Provide the explicit divisibility witness by using `use d`.
+9. The goal becomes `d ^ (n + 2) = d ^ (n + 1) * d`.
+10. Conclude the goal using `ring` or `rw [pow_succ d (n + 1)]`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is fully removed.
+- [ ] The proof explicitly reduces the modulus by proving $d^{n+1} \mid d^{n+2}$.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.

@@ -235,9 +235,9 @@ The base case of the Dynamical Hensel Lift theorem (`k = 0`) requires establishi
 6. Conclude the proof by providing exactly `hy_lift` using `exact hy_lift`.
 
 ## Definition of Done (DoD)
-- [ ] The second `sorry` in the `zero` case of `dynamical_hensel_lift` is entirely replaced with a rigorous proof.
-- [ ] The base case root uniqueness is mathematically verified using the identity `hd1` and the assumption `hy_lift`.
-- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the inductive step `sorry` warnings.
+- [x] The second `sorry` in the `zero` case of `dynamical_hensel_lift` is entirely replaced with a rigorous proof.
+- [x] The base case root uniqueness is mathematically verified using the identity `hd1` and the assumption `hy_lift`.
+- [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the inductive step `sorry` warnings.
 
 ## Target Task
 Hensel Lift: Divisibility Extraction

@@ -385,3 +385,28 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+--
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the third part of the Hensel Lift inductive step (`PROOF 3`), we must prove the strict uniqueness of the generated lift modulo $d^{n+2}$. The induction hypothesis gives us uniqueness modulo $d^{n+1}$. To leverage this, if `y` is another invariant root modulo $d^{n+2}$ that lifts $x_0$, it mathematically must also be a valid root modulo $d^{n+1}$. The `sorry` at line 118 bypasses this formal modulus reduction. We need to formalize that $G(y) \equiv 0 \pmod{d^{n+2}}$ implies $G(y) \equiv 0 \pmod{d^{n+1}}$ because $d^{n+1}$ divides $d^{n+2}$.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `hy_root_n : Int.ModEq (d ^ (n + 1)) (G.eval y) 0` in `PROOF 3` (around line 118).
+3. Open a proof block with `by`.
+4. We need to apply `Int.ModEq.of_dvd`. The required divisibility is `d ^ (n + 1) ∣ d ^ (n + 2)`.
+5. Prove the divisibility using `have hd : d ^ (n + 1) ∣ d ^ (n + 2)`. Open a proof block for `hd` with `by`.
+6. To prove `d ^ (n + 1) ∣ d ^ (n + 2)`, use the witness `d` via `use d`.
+7. The goal becomes `d ^ (n + 2) = d ^ (n + 1) * d`. Close it with `ring`.
+8. Apply the divisibility to the hypothesis `hy_root` (which states `Int.ModEq (d ^ (n + 2)) (G.eval y) 0`) using `exact hy_root.of_dvd hd`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` block defining `hy_root_n` is completely replaced by a rigorous Lean 4 proof.
+- [ ] The proof successfully reduces the modulus from $d^{n+2}$ to $d^{n+1}$ using divisibility logic without introducing any new axioms.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles successfully up to that point.

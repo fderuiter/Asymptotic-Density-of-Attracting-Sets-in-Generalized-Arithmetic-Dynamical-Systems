@@ -385,3 +385,30 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the strict uniqueness proof (`PROOF 3`) of the Hensel Lift, we assume a competing root `y` satisfies `G(y) ≡ 0 [ZMOD d^{n+2}]`. To leverage the inductive hypothesis, we must formally reduce this modulus to show that `y` is also a valid root modulo `d^{n+1}`. Currently, `hy_root_n` is an unproven `sorry`. This technical debt prevents the invocation of the inductive uniqueness guarantee, completely blocking the final step of the Hensel Lift theorem. We must rigorously formalize this modulus reduction by proving divisibility `d^{n+1} ∣ d^{n+2}` and applying `Int.ModEq.of_dvd`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `hy_root_n : Int.ModEq (d ^ (n + 1)) (G.eval y) 0` within `PROOF 3` (around line 117).
+3. Open a proof block with `by`.
+4. We need to reduce the modulus from `d^{n+2}` (given by `hy_root`) to `d^{n+1}`. Mathlib provides `Int.ModEq.of_dvd` which states that if `a ≡ b [ZMOD M]` and `m ∣ M`, then `a ≡ b [ZMOD m]`.
+5. First, establish the divisibility condition `d^{n+1} ∣ d^{n+2}`.
+   `have h_dvd : d ^ (n + 1) ∣ d ^ (n + 2) := by`
+6. Inside the sub-proof for `h_dvd`, we can explicitly provide the factor using `use d` because `d^{n+2} = d^{n+1} * d`.
+7. Conclude the divisibility proof with `ring`, which elegantly handles the exponent addition (`n + 2 = n + 1 + 1`).
+8. Apply the `Int.ModEq.of_dvd` theorem to the established divisibility and the existing equivalence:
+   `exact Int.ModEq.of_dvd h_dvd hy_root`
+
+## Definition of Done (DoD)
+- [ ] The `sorry` for `hy_root_n` in `PROOF 3` is removed.
+- [ ] The proof correctly uses `Int.ModEq.of_dvd` and mathematically proves $d^{n+1}$ divides $d^{n+2}$.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the final `sorry` warning.

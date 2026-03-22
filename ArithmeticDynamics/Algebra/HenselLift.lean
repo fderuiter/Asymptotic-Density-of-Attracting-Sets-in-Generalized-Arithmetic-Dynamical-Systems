@@ -46,7 +46,8 @@ theorem dynamical_hensel_lift
     refine ⟨?_, Int.ModEq.refl _, ?_⟩
     · -- Prove G(x₀) ≡ 0 [ZMOD d^1]
       -- Since d^1 = d, this is exactly our base assumption `h_root`.
-      sorry
+      rw [hd1]
+      exact h_root
     · -- Uniqueness modulo d^1 is trivial: if y ≡ x₀ [ZMOD d], then y ≡ x₀ [ZMOD d^1]
       intro y _ hy_lift
       sorry

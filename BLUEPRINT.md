@@ -192,7 +192,7 @@ The theorem `prime_power_architectural_starvation` asserts that a strict prime-p
 - [ ] The top-level logical structure for negation (`intro h_supports`) is rigorously formalized.
 - [ ] The `ArithmeticDynamics/Algebra/PadicExtensions.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signature.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Base Case Root Propagation
 
 ## Target Profile
@@ -212,9 +212,9 @@ The base case of the Dynamical Hensel Lift theorem currently contains a `sorry` 
 7. Conclude the goal with `exact h_root`.
 
 ## Definition of Done (DoD)
-- [ ] The first `sorry` in the `zero` case of `dynamical_hensel_lift` is entirely replaced with a rigorous proof.
-- [ ] The base case root propagation correctly utilizes `hd1` and `h_root`.
-- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+- [x] The first `sorry` in the `zero` case of `dynamical_hensel_lift` is entirely replaced with a rigorous proof.
+- [x] The base case root propagation correctly utilizes `hd1` and `h_root`.
+- [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
 ## Target Task
 Hensel Lift: Base Case Root Uniqueness

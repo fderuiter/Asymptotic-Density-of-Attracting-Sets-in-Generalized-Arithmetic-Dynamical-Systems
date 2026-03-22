@@ -55,7 +55,7 @@ These foundational lemmas block higher-level arithmetic and topological reasonin
 
 This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel_lift`.
 
-- [ ] **Hensel Lift: Base Case Root Propagation**
+- [x] **Hensel Lift: Base Case Root Propagation**
   - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 49)
   - **Task:** Prove `Int.ModEq (d^1) (G.eval x₀) 0` from `Int.ModEq d (G.eval x₀) 0`.
   - **Tactics/Strategy:** Use `pow_one d` and rewrite via `rw` or `ring`.

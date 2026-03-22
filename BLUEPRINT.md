@@ -385,3 +385,27 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The uniqueness branch of the Hensel Lift inductive step (`PROOF 3`) begins by verifying that if a prospective root $y$ is invariant modulo $d^{n+2}$, it is inherently invariant modulo $d^{n+1}$. This involves a trivial algebraic modulo reduction: $d^{n+1} \mid d^{n+2}$. The `sorry` located at approximately line 118 introduces technical debt to this fundamental reduction step. This must be formally established to allow the uniqueness proof to seamlessly bridge its higher-modulus assumptions back to the lower-dimensional inductive hypotheses.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing the definition of `hy_root_n` (around line 118).
+3. Open the proof block with `by`.
+4. The target modulo equivalence is `Int.ModEq (d ^ (n + 1)) (G.eval y) 0`.
+5. Use `Int.ModEq.of_dvd` which reduces an equivalence with a larger modulus to a smaller one if the smaller divides the larger. The tactic signature expects the divisibility proof and the larger equivalence.
+6. Before applying it, mathematically assert the explicit divisibility step: `have hdvd : d ^ (n + 1) ∣ d ^ (n + 2) := by use d; ring`. (This cleanly avoids potential type mismatches caused by `dvd_mul_right` and `pow_succ`).
+7. Close the goal by exact application of the hypothesis and the divisibility: `exact hy_root.of_dvd hdvd`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing `hy_root_n` in `PROOF 3` is removed.
+- [ ] The proof explicitly verifies that $d^{n+1} \mid d^{n+2}$ and utilizes `Int.ModEq.of_dvd` to establish the lower modulus root constraint.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

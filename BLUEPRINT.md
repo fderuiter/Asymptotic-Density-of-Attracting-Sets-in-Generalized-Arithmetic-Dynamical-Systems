@@ -119,7 +119,7 @@ The theorem `measure_preserving_lipschitz_is_isometry` currently exists as an `a
 - [x] The theorem's signature accurately references the computable `IsMeasurePreserving` property.
 - [x] The overarching proof structure utilizes `le_antisymm` and completely resolves the upper-bound branch using the 1-Lipschitz hypothesis, compiling without top-level structural errors (even if a targeted low-level `sorry` remains).
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `lipschitz_implies_causality`
 
 ## Target Profile
@@ -216,7 +216,7 @@ The base case of the Dynamical Hensel Lift theorem currently contains a `sorry` 
 - [x] The base case root propagation correctly utilizes `hd1` and `h_root`.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Base Case Root Uniqueness
 
 ## Target Profile
@@ -235,9 +235,9 @@ The base case of the Dynamical Hensel Lift theorem (`k = 0`) requires establishi
 6. Conclude the proof by providing exactly `hy_lift` using `exact hy_lift`.
 
 ## Definition of Done (DoD)
-- [ ] The second `sorry` in the `zero` case of `dynamical_hensel_lift` is entirely replaced with a rigorous proof.
-- [ ] The base case root uniqueness is mathematically verified using the identity `hd1` and the assumption `hy_lift`.
-- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the inductive step `sorry` warnings.
+- [x] The second `sorry` in the `zero` case of `dynamical_hensel_lift` is entirely replaced with a rigorous proof.
+- [x] The base case root uniqueness is mathematically verified using the identity `hd1` and the assumption `hy_lift`.
+- [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the inductive step `sorry` warnings.
 
 ## Target Task
 Hensel Lift: Divisibility Extraction

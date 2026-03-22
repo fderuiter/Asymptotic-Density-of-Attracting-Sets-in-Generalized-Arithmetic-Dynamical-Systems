@@ -385,3 +385,33 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+### Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **Mathlib Imports Required:** `Mathlib.Data.Int.ModEq`, `Mathlib.Tactic.Ring`
+
+### Contextual Analysis
+In the strict uniqueness proof of the Dynamical Hensel Lift Theorem (around line 118), we are given a hypothetical invariant root `y` modulo `d^{n+2}` that also lifts `x₀` modulo `d`. To apply our inductive strong uniqueness guarantee (`h_uniq_n`), we must first prove that `y` is mathematically a valid root modulo the lower dimension `d^{n+1}`. This requires a straightforward divisibility reduction. The current code leaves this step as a `sorry`. We must prove that `G(y) ≡ 0 [ZMOD d^{n+1}]` directly from `G(y) ≡ 0 [ZMOD d^{n+2}]` using transitivity of divisibility.
+
+### Granular Execution Steps
+1. Navigate to the `sorry` block in `ArithmeticDynamics/Algebra/HenselLift.lean` under the comment `-- Divisibility reduction from d^{n+2} to d^{n+1}` (in the Proof 3 section).
+2. The current goal is `Int.ModEq (d ^ (n + 1)) (G.eval y) 0`.
+3. Extract the underlying divisibility relation between the moduli using a `have` statement:
+   ```lean
+   have hdvd : d ^ (n + 1) ∣ d ^ (n + 2) := by
+     use d
+     ring
+   ```
+4. Conclude the goal by applying Mathlib's divisibility transfer lemma for modular equivalences:
+   ```lean
+   exact Int.ModEq.of_dvd hdvd hy_root
+   ```
+   *(Note: Verify the exact name of the hypothesis for `G(y) ≡ 0 [ZMOD d^{n+2}]` in the local context; it is likely `hy_root` based on the intro block `intro y hy_root hy_lift`).*
+
+### Definition of Done (DoD)
+- [ ] The `sorry` resolving `hy_root_n` via divisibility reduction is completely replaced with formal tactic proofs.
+- [ ] No new axioms are introduced to prove this step.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles successfully without errors or warnings for this specific sub-goal.

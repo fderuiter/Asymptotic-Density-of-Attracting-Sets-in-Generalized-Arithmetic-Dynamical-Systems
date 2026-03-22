@@ -355,3 +355,33 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Modulo `d` Compatibility
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify that the proposed lift $X_{n+1} = X_n + t \cdot d^{n+1}$ maps cleanly back to the initial root $x_0 \pmod d$. This represents the fundamental continuity of the $p$-adic sequence—ensuring the higher-dimensional approximations don't drift away from the base root. Currently, this step is marked with a `sorry`. Leaving it unproven introduces structural debt by breaking the backward compatibility of the dynamical lift. We need to formalize the fact that adding a multiple of $d^{n+1}$ has no effect on congruences modulo $d$.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block completing `PROOF 2` (around line 109).
+3. Open a proof block with `by`.
+4. The goal is to prove `Int.ModEq d X_next x₀`. Expand `X_next` logically to `X_n + t * d ^ (n + 1)`.
+5. Prove that $d^{n+1}$ is divisible by $d$ using:
+   `have hd : d ∣ d ^ (n + 1) := dvd_pow_self d (Nat.succ_ne_zero n)`
+6. Prove that the added term is equivalent to 0 modulo $d$ using `Int.modEq_zero_iff_dvd.mpr`:
+   `have h_t : Int.ModEq d (t * d ^ (n + 1)) 0 := Int.modEq_zero_iff_dvd.mpr (dvd_mul_of_dvd_right hd t)`
+7. Use the inductive hypothesis `h_lift_n : Int.ModEq d X_n x₀`.
+8. Combine the congruences using `have h_add := Int.ModEq.add h_lift_n h_t`.
+   This results in `Int.ModEq d (X_n + t * d ^ (n + 1)) (x₀ + 0)`.
+9. Conclude the goal by simplifying `x₀ + 0`:
+   `rwa [add_zero] at h_add` or use `exact h_add` after `rw [add_zero] at h_add`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` completing `PROOF 2` is removed.
+- [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

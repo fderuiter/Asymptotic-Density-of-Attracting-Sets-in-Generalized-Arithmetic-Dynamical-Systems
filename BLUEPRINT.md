@@ -385,3 +385,29 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the third part of the Hensel Lift inductive step (`PROOF 3`), we must prove that the lifted solution is strictly unique modulo $d^{n+2}$. The first logical step in this uniqueness proof is showing that any proposed root $y$ modulo $d^{n+2}$ is necessarily a root modulo $d^{n+1}$. This guarantees that $y$ falls within the strict uniqueness parameters of our inductive hypothesis. Leaving this as a `sorry` introduces technical debt by failing to connect higher-dimensional congruences to their lower-dimensional shadows, which is the foundational principle of inverse limits.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `hy_root_n` inside `PROOF 3` (around line 118).
+3. Open a proof block with `by`.
+4. The goal is to prove `Int.ModEq (d ^ (n + 1)) (G.eval y) 0`.
+5. We have the assumption `hy_root : Int.ModEq (d ^ (n + 2)) (G.eval y) 0`.
+6. To reduce the modulus, we need to show that $d^{n+1}$ divides $d^{n+2}$. We can explicitly state this divisibility condition: `have h_div : d ^ (n + 1) ∣ d ^ (n + 2)`.
+7. Prove `h_div` by using `use d` followed by `ring` to avoid type mismatch errors associated with `pow_succ`.
+   `have h_div : d ^ (n + 1) ∣ d ^ (n + 2) := by { use d; ring }`
+8. Apply Mathlib's modulus reduction theorem: `exact hy_root.of_dvd h_div`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` for `hy_root_n` is entirely removed.
+- [ ] The proof explicitly verifies that $d^{n+1}$ divides $d^{n+2}$ and uses `Int.ModEq.of_dvd`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the final `sorry` warning without errors.

@@ -408,3 +408,31 @@ In the uniqueness part of the Hensel Lift inductive step (`PROOF 3`), we assume 
 - [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed.
 - [ ] The proof explicitly utilizes `Int.ModEq.of_dvd` and a formal divisibility argument for the powers of `d`.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Higher Modulus Uniqueness
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the final step of the Hensel Lift proof (`PROOF 3`), we must establish that the newly constructed root `X_next = X_n + t * d^{n+1}` is strictly unique modulo `d^{n+2}`. We already know that any other valid lift `y` must be congruent to `X_n` modulo `d^{n+1}` due to the induction hypothesis. This implies `y = X_n + s * d^{n+1}` for some integer `s`. Because the derivative `G'(X_n)` is coprime to `d` (the multiplier transversality condition), the equation for `s` modulo `d` has exactly one solution, which we previously selected as `t`. This strict algebraic uniqueness guarantees that the periodic orbits don't geometrically branch, proving the function acts as an isometry. Replacing the final `sorry` mathematically finalizes the induction step.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the final `sorry` completing `PROOF 3` at the end of the file (around line 140).
+3. We have `hy_eq_Xn : Int.ModEq (d ^ (n + 1)) y X_n`. Use the definition of `Int.ModEq` to deduce that `y = X_n + s * d^{n+1}` for some integer `s`.
+4. Substitute `y` into `G(y) ≡ 0 [ZMOD d^{n+2}]` using a backward application of the Taylor expansion.
+5. This expansion will yield `G(X_n) + G'(X_n) * s * d^{n+1} ≡ 0 [ZMOD d^{n+2}]`.
+6. Substitute `G(X_n) = m * d^{n+1}` into the congruence.
+7. Divide the entire congruence by `d^{n+1}` to reduce it to `m + G'(X_n) * s ≡ 0 [ZMOD d]`.
+8. Because `G'(X_n)` is coprime to `d` (multiplier transversality), the equation has a uniquely determined solution for `s` modulo `d`.
+9. `t` was defined exactly as this unique solution. Use this fact to conclude that `s ≡ t [ZMOD d]`.
+10. Because `s ≡ t [ZMOD d]`, their higher-dimensional mappings are identical: `s * d^{n+1} ≡ t * d^{n+1} [ZMOD d^{n+2}]`.
+11. Adding `X_n` to both sides logically guarantees that `y ≡ X_next [ZMOD d^{n+2}]`. Conclude the proof by providing this explicit equivalence.
+
+## Definition of Done (DoD)
+- [ ] The final `sorry` completing `PROOF 3` and the `dynamical_hensel_lift` theorem is removed.
+- [ ] The proof explicitly extracts the structural witness `s` and uniquely equates it to `t` modulo `d`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles with absolutely zero `sorry` warnings remaining.

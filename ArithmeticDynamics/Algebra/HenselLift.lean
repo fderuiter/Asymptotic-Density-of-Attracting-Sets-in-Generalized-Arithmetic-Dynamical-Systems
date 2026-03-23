@@ -64,7 +64,11 @@ theorem dynamical_hensel_lift
     -- Because G(X_n) ≡ 0 mod d^{n+1}, there exists some integer m such that G(X_n) = m * d^{n+1}
     have h_div : ∃ m : ℤ, G.eval X_n = m * d ^ (n + 1) := by
       -- Divisibility derived via mathematical definitions of `Int.ModEq`
-      sorry
+      have h1 : (d ^ (n + 1)) ∣ (G.eval X_n - 0) := h_root_n.symm.dvd
+      rw [sub_zero] at h1
+      rcases h1 with ⟨c, hc⟩
+      use c
+      rw [hc, mul_comm]
     rcases h_div with ⟨m, hm⟩
 
     -- We also know X_n ≡ x₀ mod d, so their derivatives evaluate equivalently mod d.

@@ -65,7 +65,7 @@ This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel
   - **Task:** Prove uniqueness mod `d^1` given `Int.ModEq d y x₀`.
   - **Tactics/Strategy:** Same as above, apply `pow_one` to reduce `d^1` to `d`.
 
-- [ ] **Hensel Lift: Divisibility Extraction**
+- [x] **Hensel Lift: Divisibility Extraction**
   - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 65)
   - **Task:** Derive `∃ m, G.eval X_n = m * d^(n+1)` from `Int.ModEq (d^(n+1)) (G.eval X_n) 0`.
   - **Tactics/Strategy:** Unfold `Int.ModEq`. The definition is exactly `d^(n+1) ∣ (G.eval X_n - 0)`. Use `dvd_iff_exists_eq_mul_left`.

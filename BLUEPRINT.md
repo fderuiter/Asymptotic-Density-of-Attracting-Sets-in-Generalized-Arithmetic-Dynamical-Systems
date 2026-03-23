@@ -119,7 +119,7 @@ The theorem `measure_preserving_lipschitz_is_isometry` currently exists as an `a
 - [x] The theorem's signature accurately references the computable `IsMeasurePreserving` property.
 - [x] The overarching proof structure utilizes `le_antisymm` and completely resolves the upper-bound branch using the 1-Lipschitz hypothesis, compiling without top-level structural errors (even if a targeted low-level `sorry` remains).
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `lipschitz_implies_causality`
 
 ## Target Profile

@@ -408,3 +408,28 @@ In the uniqueness part of the Hensel Lift inductive step (`PROOF 3`), we assume 
 - [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed.
 - [ ] The proof explicitly utilizes `Int.ModEq.of_dvd` and a formal divisibility argument for the powers of `d`.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Higher Modulus Uniqueness
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the final uniqueness part of the Hensel Lift inductive step (`PROOF 3`), we must prove that any other root `y` modulo `d^{n+2}` strictly coincides with our constructed `X_next`. Leaving this final uniqueness step as a `sorry` fundamentally weakens the unique existence claim of the periodic cycles. We need to substitute the form `y = X_n + s * d^{n+1}` into the root condition, cancel `d^{n+1}`, use the multiplier transversality to show `s ≡ t [ZMOD d]`, and formally conclude `y ≡ X_next [ZMOD d^{n+2}]`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the final `sorry` in `PROOF 3` (around line 142).
+3. The goal is to prove `Int.ModEq (d ^ (n + 2)) y X_next`.
+4. Extract the representation of `y`: `have hy_eq : ∃ s : ℤ, y = X_n + s * d ^ (n + 1) := ...` (Extract this from `hy_eq_Xn` using `Int.ModEq`).
+5. Introduce `s` and substitute into the congruence `G(y) ≡ 0 [ZMOD d^{n+2}]`.
+6. Use the Taylor expansion and the coprimality `h_deriv_n` to isolate `s` and deduce `Int.ModEq d s t`.
+7. Multiply the congruence by `d^{n+1}` to get `Int.ModEq (d^{n+2}) (s * d^{n+1}) (t * d^{n+1})`.
+8. Add `X_n` to both sides to prove `y ≡ X_next [ZMOD d^{n+2}]` and resolve the goal using `ring` or basic congruence additions.
+
+## Definition of Done (DoD)
+- [ ] The final `sorry` in `PROOF 3` for higher modulus uniqueness is fully removed.
+- [ ] The proof explicitly reduces the congruence modulo `d^{n+2}` to a linear congruence modulo `d` and uses `IsCoprime` to establish `s ≡ t`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly without errors.

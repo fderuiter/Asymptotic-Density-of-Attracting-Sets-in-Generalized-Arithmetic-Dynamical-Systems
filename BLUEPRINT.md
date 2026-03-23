@@ -385,3 +385,28 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In `PROOF 3`, to establish strict uniqueness of the periodic orbit $y$ modulo $d^{n+2}$, we must first verify that $y$ is also a valid root modulo $d^{n+1}$. Currently, this reduction is marked with a `sorry` at line 118. Leaving this unproven acts as a structural blocker in the inductive chain, severing the connection between the current root and the previous lower-dimensional lifts. The transition is mathematically straightforward, but Lean's typechecker requires explicit proof that the higher modulus is a multiple of the lower modulus. We must eliminate this debt by leveraging `Int.ModEq.of_dvd` and proving $d^{n+1} \mid d^{n+2}$.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `have hy_root_n : Int.ModEq (d ^ (n + 1)) (G.eval y) 0 := by` in `PROOF 3` (around line 118).
+3. Open the proof block with `by`.
+4. We have the hypothesis `hy_root : Int.ModEq (d ^ (n + 2)) (G.eval y) 0` from the theorem signature (the assumption that $y$ is a root mod $d^{n+2}$). We need to prove `Int.ModEq (d ^ (n + 1)) (G.eval y) 0`.
+5. Use `apply Int.ModEq.of_dvd _ hy_root` to reduce the goal to showing the divisibility condition `d ^ (n + 1) ∣ d ^ (n + 2)`.
+6. To prove this divisibility, provide `d` as the multiplicative factor by using `use d`.
+7. The goal becomes the equality `d ^ (n + 2) = d ^ (n + 1) * d`.
+8. Conclude the proof by applying the `ring` tactic, which automatically simplifies and verifies exponents.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed and replaced with a rigorous proof.
+- [ ] The proof explicitly applies `Int.ModEq.of_dvd` and shows $d^{n+1} \mid d^{n+2}$ via `ring`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

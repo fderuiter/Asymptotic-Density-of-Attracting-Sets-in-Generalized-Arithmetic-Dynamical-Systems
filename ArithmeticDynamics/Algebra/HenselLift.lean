@@ -50,7 +50,8 @@ theorem dynamical_hensel_lift
       exact h_root
     · -- Uniqueness modulo d^1 is trivial: if y ≡ x₀ [ZMOD d], then y ≡ x₀ [ZMOD d^1]
       intro y _ hy_lift
-      sorry
+      rw [hd1]
+      exact hy_lift
 
   | succ n ih =>
     -- ==========================================

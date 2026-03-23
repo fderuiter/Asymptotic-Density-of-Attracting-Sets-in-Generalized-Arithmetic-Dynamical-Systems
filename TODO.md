@@ -60,7 +60,7 @@ This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel
   - **Task:** Prove `Int.ModEq (d^1) (G.eval x₀) 0` from `Int.ModEq d (G.eval x₀) 0`.
   - **Tactics/Strategy:** Use `pow_one d` and rewrite via `rw` or `ring`.
 
-- [ ] **Hensel Lift: Base Case Uniqueness**
+- [x] **Hensel Lift: Base Case Uniqueness**
   - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 52)
   - **Task:** Prove uniqueness mod `d^1` given `Int.ModEq d y x₀`.
   - **Tactics/Strategy:** Same as above, apply `pow_one` to reduce `d^1` to `d`.

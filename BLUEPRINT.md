@@ -385,3 +385,26 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the uniqueness part of the Hensel Lift inductive step (`PROOF 3`), we assume `y` is another invariant root modulo `d^{n+2}` that lifts `x₀`. To apply our inductive hypothesis, which provides uniqueness at the previous dimension, we mathematically must prove that `y` is also an invariant root modulo `d^{n+1}`. This is currently marked as a `sorry`. Leaving it unproven introduces structural debt because it bypasses the foundational downward inclusion of nested $p$-adic neighborhoods. We need to formalize the fact that if a sequence evaluates to `0` modulo `d^{n+2}`, it inherently evaluates to `0` modulo the smaller divisor `d^{n+1}`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `hy_root_n` in `PROOF 3` (around line 118).
+3. The goal is `Int.ModEq (d ^ (n + 1)) (G.eval y) 0`, and we have the hypothesis `hy_root : Int.ModEq (d ^ (n + 2)) (G.eval y) 0`.
+4. Apply the `Int.ModEq.of_dvd` tactic to reduce the modulus from `d^{n+2}` to `d^{n+1}` by proving that `d^{n+1}` strictly divides `d^{n+2}`.
+5. Provide the divisibility proof using `have hdvd : d ^ (n + 1) ∣ d ^ (n + 2) := by use d; ring`.
+6. Conclude the goal with `exact hy_root.of_dvd hdvd` or `exact Int.ModEq.of_dvd hdvd hy_root`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed.
+- [ ] The proof explicitly utilizes `Int.ModEq.of_dvd` and a formal divisibility argument for the powers of `d`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.

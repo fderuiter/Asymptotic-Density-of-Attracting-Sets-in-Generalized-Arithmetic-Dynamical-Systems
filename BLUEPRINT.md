@@ -385,3 +385,30 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Reduction of Modulus
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the third part of the Hensel Lift inductive step (`PROOF 3`), which establishes the strict uniqueness of the lifted invariant cycle, we must prove that if `y` is an invariant root modulo `d^{n+2}`, it is logically also an invariant root modulo `d^{n+1}`. This is currently blocked by a `sorry` for `hy_root_n`. Leaving this unproven severs the downward consistency requirement of the inverse limit and prevents the application of the inductive uniqueness hypothesis. We must formalize this divisibility reduction using Mathlib's `Int.ModEq.of_dvd`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the `sorry` block defining `hy_root_n` inside `PROOF 3` of the inductive step.
+3. Open a proof block with `by`.
+4. The goal is to deduce `Int.ModEq (d ^ (n + 1)) (G.eval y) 0` from the hypothesis `hy_root : Int.ModEq (d ^ (n + 2)) (G.eval y) 0`.
+5. Prove that the smaller modulus strictly divides the larger modulus:
+   `have hd : (d ^ (n + 1)) ∣ (d ^ (n + 2)) := by`
+   `  use d`
+   `  ring`
+6. Apply the Mathlib lemma to downcast the modulo equivalence:
+   `exact hy_root.of_dvd hd`
+
+## Definition of Done (DoD)
+- [ ] The `sorry` for `hy_root_n` in `PROOF 3` is entirely removed and rigorously proven.
+- [ ] The proof explicitly extracts the divisibility `d^{n+1} ∣ d^{n+2}` using `use d` and `ring`.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.

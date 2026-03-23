@@ -385,3 +385,26 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Base Case Uniqueness
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The base case of the Dynamical Hensel Lift theorem (`k = 0`) requires establishing that the root `x₀` modulo `d^1` is strictly unique among all possible lifts `y` that evaluate to `0` mod `d^1` and are congruent to `x₀` modulo `d`. This is currently marked with a `sorry` at line 52. While mathematically trivial because `d^1 = d`, formalizing this specific equivalence is critical to satisfy Lean's rigid type system and eliminate the warning. Leaving this as a `sorry` fundamentally weakens the unique existence claim of the periodic cycles, which is unacceptable technical debt.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the second `sorry` in the `zero` case of the `induction k` block (around line 52).
+3. The goal is to prove `Int.ModEq (d ^ (0 + 1)) y x₀` given `hy_lift : Int.ModEq d y x₀`.
+4. We already established `hd1 : d ^ (0 + 1) = d` earlier in the block.
+5. Apply the `rw [hd1]` tactic to rewrite the exponentiation in the goal. This simplifies the goal from `Int.ModEq (d ^ (0 + 1)) y x₀` to `Int.ModEq d y x₀`.
+6. Conclude the proof by providing exactly `hy_lift` using `exact hy_lift`.
+
+## Definition of Done (DoD)
+- [ ] The second `sorry` in the `zero` case of `dynamical_hensel_lift` is entirely replaced with a rigorous proof.
+- [ ] The base case root uniqueness is mathematically verified using the identity `hd1` and the assumption `hy_lift`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the inductive step `sorry` warnings.

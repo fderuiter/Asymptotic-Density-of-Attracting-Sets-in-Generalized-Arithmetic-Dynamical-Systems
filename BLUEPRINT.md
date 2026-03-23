@@ -408,3 +408,31 @@ In the uniqueness part of the Hensel Lift inductive step (`PROOF 3`), we assume 
 - [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed.
 - [ ] The proof explicitly utilizes `Int.ModEq.of_dvd` and a formal divisibility argument for the powers of `d`.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Higher Modulus Uniqueness
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the final step of the Dynamical Hensel Lift's inductive step, we must establish that the dynamically generated periodic orbit is strictly unique modulo `d^{n+2}`. Currently, this core uniqueness proof is left as a `sorry`. This assumption undermines the entire algebraic-analytic correspondence framework, as it bypasses the formal proof that alternative roots collapse to the identical trajectory sequence. We must rigorously formalize this uniqueness by expressing the alternative root `y` as `X_n + s * d^{n+1}`, substituting it into the polynomial Taylor expansion modulo `d^{n+2}`, and applying coprimality to enforce `s ≡ t [ZMOD d]`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the final `sorry` completing the uniqueness proof (around line 140).
+3. We are provided `hy_eq_Xn : Int.ModEq (d ^ (n + 1)) y X_n`. Unfold this to an existential equation `y = X_n + s * d^{n+1}` by utilizing the divisibility definition of `Int.ModEq` (e.g., `(d ^ (n + 1)) ∣ (y - X_n)` and using `rcases` to extract `s`).
+4. Substitute `y = X_n + s * d^{n+1}` into the assumption `G(y) ≡ 0 [ZMOD d^{n+2}]`.
+5. Formally expand `G(y)` using a polynomial Taylor expansion modulo `d^{n+2}` to yield `G(X_n) + G'(X_n) * s * d^{n+1} ≡ 0 [ZMOD d^{n+2}]`.
+6. Substitute the divisibility identity `G(X_n) = m * d^{n+1}` into the congruence.
+7. Divide the entire modular equivalence by `d^{n+1}` to yield the lower-dimensional congruence `m + G'(X_n) * s ≡ 0 [ZMOD d]`.
+8. Apply the coprimality constraint (multiplier transversality) to solve for `s`. Prove `s ≡ -m * a [ZMOD d]` where `a` is derived from the Bezout identity for coprimality.
+9. Conclude that `s ≡ t [ZMOD d]`, because `t` was defined as the exact unique solution modulo `d`.
+10. Scale the congruence by `d^{n+1}` to yield `s * d^{n+1} ≡ t * d^{n+1} [ZMOD d^{n+2}]`.
+11. Add `X_n` to both sides to prove `y ≡ X_next [ZMOD d^{n+2}]`, closing the final goal using `ring` or `linear_combination` to handle the algebraic substitutions.
+
+## Definition of Done (DoD)
+- [ ] The final `sorry` completing the uniqueness proof is fully replaced with a rigorous proof block.
+- [ ] The proof explicitly matches Taylor expansion terms modulo `d^{n+2}` and uses coprimality to force `s ≡ t [ZMOD d]`.
+- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly without errors or `sorry` warnings.

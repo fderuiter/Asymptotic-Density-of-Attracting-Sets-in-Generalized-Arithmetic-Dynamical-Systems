@@ -408,3 +408,32 @@ In the uniqueness part of the Hensel Lift inductive step (`PROOF 3`), we assume 
 - [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed.
 - [ ] The proof explicitly utilizes `Int.ModEq.of_dvd` and a formal divisibility argument for the powers of `d`.
 - [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+
+## Target Task
+Hensel Lift: Higher Modulus Uniqueness
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+In the final step of the uniqueness proof for the Dynamical Hensel Lift (`PROOF 3`), we must formally establish that any competing lift $y \equiv X_n \pmod{d^{n+1}}$ evaluating to $0 \pmod{d^{n+2}}$ exactly matches our deterministic linear choice $X_{next}$. The current `sorry` breaks the core algorithmic assurance that the formal power series limits to a strictly unique $p$-adic root. We must close this loop by substituting $y = X_n + s \cdot d^{n+1}$ back into the polynomial, matching the linear remainder $s$ with our specific transversal inverse $t$, and formalizing $s \equiv t \pmod d$.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean`.
+2. Locate the final `sorry` block completing the inductive uniqueness proof in `PROOF 3` (around line 142).
+3. The objective is to rigorously conclude `Int.ModEq (d ^ (n + 2)) y X_next` using the established equivalence `hy_eq_Xn : Int.ModEq (d ^ (n + 1)) y X_n`.
+4. Since `Int.ModEq (d ^ (n + 1)) y X_n`, there exists an integer `s` such that `y = X_n + s * d ^ (n + 1)`. Extract this structurally via `rcases hy_eq_Xn.symm.dvd with ⟨s, hs⟩` and `rw [sub_eq_iff_eq_add] at hs`.
+5. Substitute `y = X_n + s * d ^ (n + 1)` into the hypothesis `hy_root : Int.ModEq (d ^ (n + 2)) (G.eval y) 0`.
+6. Apply the Taylor polynomial expansion (reusing techniques from `PROOF 1`) to expand `G(X_n + s * d ^ (n + 1))`. This leaves a linear term: `G(X_n) + G'(X_n) * s * d ^ (n + 1) ≡ 0 [ZMOD d ^ (n + 2)]`.
+7. Substitute `G(X_n) = m * d ^ (n + 1)` and divide the entire congruence relation by `d ^ (n + 1)`, leaving `m + G'(X_n) * s ≡ 0 [ZMOD d]`.
+8. Since `G'(X_n)` is coprime to `d` (`h_deriv_n`), multiply by its inverse `a`. This gives `s ≡ -m * a [ZMOD d]`, which exactly matches our definition of `t`.
+9. Thus `s ≡ t [ZMOD d]`, implying `s = t + c * d` for some integer `c`.
+10. Substitute `s` back into `y`: `y = X_n + (t + c * d) * d ^ (n + 1) = X_n + t * d ^ (n + 1) + c * d ^ (n + 2)`.
+11. By definition `X_next = X_n + t * d ^ (n + 1)`. Therefore `y = X_next + c * d ^ (n + 2)`.
+12. This trivially implies `Int.ModEq (d ^ (n + 2)) y X_next`. Conclude the proof.
+
+## Definition of Done (DoD)
+- [ ] The final `sorry` completing `PROOF 3` at the end of the inductive step is entirely removed.
+- [ ] The formal derivation successfully substitutes `y = X_n + s * d^{n+1}` and exploits the transversality condition to force `s \equiv t \pmod d`.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the end of the module.

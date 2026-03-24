@@ -552,3 +552,26 @@ The foundational limit bounds for continuous arithmetic maps depend on the causa
 - [ ] The `axiom` declaration for `lipschitz_implies_causality` is completely removed.
 - [ ] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
 - [ ] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signature itself.
+
+## Target Task
+Automata Equivalence: `lipschitz_is_mealy_machine`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Computability/ChomskyBounds.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The theorem `lipschitz_is_mealy_machine` (Anashin's Automata Isomorphism) states that every 1-Lipschitz function on `Z_d` evaluates identically to a Mealy Machine. Currently, this core automata equivalence is declared as an `axiom`, which introduces significant technical debt into the computability framework. The relation `ObservationalEquivalence` is currently defined as `opaque`, rendering a constructive mathematical proof impossible at this time. To uphold the project's structural integrity and eradicate top-level axioms, we must re-declare this as a `theorem` and isolate the uncomputable gap into a targeted `sorry`. This strictly aligns with the project's standards for mitigating technical debt by replacing structural axioms involving opaque predicates with `theorem` signatures containing isolated base-case `sorry`s.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Computability/ChomskyBounds.lean`.
+2. Locate the declaration `axiom lipschitz_is_mealy_machine` (around line 30).
+3. Change the `axiom` keyword to `theorem`.
+4. Add `:= by sorry` at the end of the theorem signature.
+5. The full signature should look like: `theorem lipschitz_is_mealy_machine (f : Z_d d → Z_d d) (h : IsOneLipschitz f) : ∃ M : MealyMachine (Fin d), ObservationalEquivalence f M := by sorry`
+6. Verify that the file compiles successfully.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declaration for `lipschitz_is_mealy_machine` is completely removed and replaced with a `theorem` declaration.
+- [ ] The top-level logical structure is formalized with `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/Computability/ChomskyBounds.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.

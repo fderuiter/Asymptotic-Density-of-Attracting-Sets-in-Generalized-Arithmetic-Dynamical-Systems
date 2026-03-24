@@ -265,7 +265,7 @@ The `sorry` at the beginning of the inductive step blocks proving the core divis
 - [x] The divisibility property is extracted cleanly from `h_root_n` using Mathlib's divisibility infrastructure.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Derivative Coprimality Transfer
 
 ## Target Profile
@@ -295,9 +295,9 @@ The transversality condition $G'(X_n) \equiv G'(x_0) \pmod d$ is critical for es
    Specifically: `calc a * G.derivative.eval X_n + (b - a * k) * d = a * (G.derivative.eval X_n - d * k) + b * d := by ring ... = a * G.derivative.eval x₀ + b * d := by rw [← hk, sub_sub_cancel] ... = 1 := hab`.
 
 ## Definition of Done (DoD)
-- [ ] The `sorry` defining `h_deriv_n` in the inductive step is entirely replaced with a rigorous proof.
-- [ ] The proof explicitly utilizes `Polynomial.eval_modEq` (or equivalent) to transfer the congruence.
-- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+- [x] The `sorry` defining `h_deriv_n` in the inductive step is entirely replaced with a rigorous proof.
+- [x] The proof explicitly utilizes `Polynomial.eval_modEq` (or equivalent) to transfer the congruence.
+- [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
 ## Target Task
 Hensel Lift: Taylor Approximation Step
@@ -354,7 +354,7 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 ## Definition of Done (DoD)
 - [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
 - [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
-- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+- [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
 ## Target Task
 Hensel Lift: Modulo `d` Compatibility
@@ -384,7 +384,7 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 ## Definition of Done (DoD)
 - [ ] The `sorry` completing `PROOF 2` is removed.
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
-- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+- [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
 ## Target Task
 Hensel Lift: Reduction of Modulus
@@ -407,7 +407,7 @@ In the uniqueness part of the Hensel Lift inductive step (`PROOF 3`), we assume 
 ## Definition of Done (DoD)
 - [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed.
 - [ ] The proof explicitly utilizes `Int.ModEq.of_dvd` and a formal divisibility argument for the powers of `d`.
-- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+- [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
 ## Target Task
 Hensel Lift: Higher Modulus Uniqueness

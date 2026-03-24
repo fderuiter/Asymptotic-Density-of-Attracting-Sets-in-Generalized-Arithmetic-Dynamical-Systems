@@ -4,6 +4,19 @@ open Polynomial
 
 namespace ArithmeticDynamics.Algebra
 
+/-- Helper to preserve modular equivalence under polynomial evaluation. -/
+theorem eval_modEq (P : ℤ[X]) {d x y : ℤ} (h : Int.ModEq d x y) : Int.ModEq d (P.eval x) (P.eval y) := by
+  refine Polynomial.induction_on P ?_ ?_ ?_
+  · intro a
+    simp only [eval_C, Int.ModEq.refl]
+  · intro p q hp hq
+    simp only [eval_add]
+    exact Int.ModEq.add hp hq
+  · intro n a _
+    simp only [eval_mul, eval_pow, eval_X, eval_C]
+    have h_pow : Int.ModEq d (x ^ (n + 1)) (y ^ (n + 1)) := Int.ModEq.pow (n + 1) h
+    exact Int.ModEq.mul (Int.ModEq.refl a) h_pow
+
 /--
   The Dynamical Hensel Lift Theorem (Fixed Point Formulation)
 
@@ -73,8 +86,21 @@ theorem dynamical_hensel_lift
     -- We also know X_n ≡ x₀ mod d, so their derivatives evaluate equivalently mod d.
     -- Thus, G'(X_n) inherits the transversality condition and remains coprime to d.
     have h_deriv_n : IsCoprime (G.derivative.eval X_n) d := by
-      -- Proven via `Polynomial.eval_modEq` preserving strict coprimality
-      sorry
+      have h_eq : Int.ModEq d (G.derivative.eval X_n) (G.derivative.eval x₀) :=
+        eval_modEq G.derivative h_lift_n
+      rcases h_transversal with ⟨a, b, hab⟩
+      have h_diff : d ∣ (G.derivative.eval X_n - G.derivative.eval x₀) := h_eq.symm.dvd
+      rcases h_diff with ⟨k, hk⟩
+      use a, b - a * k
+      calc
+        a * G.derivative.eval X_n + (b - a * k) * d = a * (G.derivative.eval X_n - d * k) + b * d := by ring
+        _ = a * G.derivative.eval x₀ + b * d := by
+          have hk' : G.derivative.eval X_n - d * k = G.derivative.eval x₀ := by
+            calc
+              G.derivative.eval X_n - d * k = G.derivative.eval X_n - (G.derivative.eval X_n - G.derivative.eval x₀) := by rw [hk]
+              _ = G.derivative.eval x₀ := by ring
+          rw [hk']
+        _ = 1 := hab
 
     -- By Bezout's Identity (IsCoprime), G'(X_n) has a multiplicative inverse modulo d.
     -- We natively extract coefficients `a` and `b` such that a * G'(X_n) + b * d = 1.

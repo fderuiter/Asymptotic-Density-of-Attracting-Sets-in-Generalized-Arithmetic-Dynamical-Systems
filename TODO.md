@@ -70,7 +70,7 @@ This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel
   - **Task:** Derive `∃ m, G.eval X_n = m * d^(n+1)` from `Int.ModEq (d^(n+1)) (G.eval X_n) 0`.
   - **Tactics/Strategy:** Unfold `Int.ModEq`. The definition is exactly `d^(n+1) ∣ (G.eval X_n - 0)`. Use `dvd_iff_exists_eq_mul_left`.
 
-- [ ] **Hensel Lift: Derivative Coprimality Transfer**
+ - [x] **Hensel Lift: Derivative Coprimality Transfer**
   - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 72)
   - **Task:** Prove `IsCoprime (G.derivative.eval X_n) d`.
   - **Mathlib Imports:** `Mathlib.Data.Polynomial.Eval`

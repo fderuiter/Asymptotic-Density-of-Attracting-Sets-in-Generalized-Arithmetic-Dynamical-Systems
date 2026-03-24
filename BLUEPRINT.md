@@ -239,7 +239,7 @@ The base case of the Dynamical Hensel Lift theorem (`k = 0`) requires establishi
 - [x] The base case root uniqueness is mathematically verified using the identity `hd1` and the assumption `hy_lift`.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the inductive step `sorry` warnings.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Divisibility Extraction
 
 ## Target Profile
@@ -261,9 +261,9 @@ The `sorry` at the beginning of the inductive step blocks proving the core divis
 9. The goal becomes `G.eval X_n = c * d ^ (n + 1)`. We have `hc : G.eval X_n = d ^ (n + 1) * c`. Use `rw [hc, mul_comm]` to match the goal exactly and conclude the proof.
 
 ## Definition of Done (DoD)
-- [ ] The `sorry` defining `h_div` in the inductive step is entirely replaced with a rigorous proof.
-- [ ] The divisibility property is extracted cleanly from `h_root_n` using Mathlib's divisibility infrastructure.
-- [ ] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
+- [x] The `sorry` defining `h_div` in the inductive step is entirely replaced with a rigorous proof.
+- [x] The divisibility property is extracted cleanly from `h_root_n` using Mathlib's divisibility infrastructure.
+- [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
 ## Target Task
 Hensel Lift: Derivative Coprimality Transfer

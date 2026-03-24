@@ -43,10 +43,14 @@ def find_primary_attractor(d, a, b):
     x = 1
     seen = {}  # dict: value -> insertion index for O(1) lookup
     idx = 0
+
+    a_list = a.tolist()
+    b_list = b.tolist()
+
     while x not in seen:
         seen[x] = idx
         res = x % d
-        x = (int(a[res]) * x + int(b[res])) // d
+        x = (a_list[res] * x + b_list[res]) // d
         idx += 1
     cycle_start = seen[x]
     seen_list = list(seen.keys())
@@ -71,6 +75,10 @@ def compute_density(d, a, b, N):
 
     print(f"Executing exhaustive memoized search up to {N:,}...")
 
+    # Convert arrays to lists to avoid NumPy scalar indexing overhead in the loop
+    a_list = a.tolist()
+    b_list = b.tolist()
+
     for x in range(1, N + 1):
         path = []
         current = x
@@ -82,7 +90,7 @@ def compute_density(d, a, b, N):
 
             path.append(current)
             res = current % d
-            current = (int(a[res]) * current + int(b[res])) // d
+            current = (a_list[res] * current + b_list[res]) // d
 
             # Failsafe for integer escape
             if current >= CACHE_SIZE:

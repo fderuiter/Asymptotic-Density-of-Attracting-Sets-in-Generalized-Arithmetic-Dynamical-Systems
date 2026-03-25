@@ -575,3 +575,30 @@ The theorem `lipschitz_is_mealy_machine` (Anashin's Automata Isomorphism) states
 - [ ] The `axiom` declaration for `lipschitz_is_mealy_machine` is completely removed and replaced with a `theorem` declaration.
 - [ ] The top-level logical structure is formalized with `:= by sorry`.
 - [ ] The file `ArithmeticDynamics/Computability/ChomskyBounds.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
+## Target Task
+First-Order Translation & Decidability
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Computability/ChomskyBounds.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The foundational framework proving that measure-preserving 1-Lipschitz $d$-adic dynamics cannot be computationally universal (Type 0) hinges on their translation into finite automata and subsequently into decidable Presburger arithmetic. Currently, three critical assertions — `first_order_translation`, `termination_and_periodicity_decidable`, and `lipschitz_measure_preserving_bounds_chomsky` — are defined as `axiom`s. This introduces severe technical debt because the associated definitions (`BrauerAutomaton`, `TranslateToPresburger`, `PresburgerProvable`, `ComputationalCapacity`) are declared as `opaque`. The lack of constructive definitions renders native computational bounding impossible at this stage. To mitigate this debt while maintaining the project's structural integrity, we must eradicate these top-level axioms by converting them into `theorem` declarations and isolating the uncomputable gaps into targeted `sorry`s.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Computability/ChomskyBounds.lean`.
+2. Locate the declaration `axiom first_order_translation` (around line 69).
+3. Change the `axiom` keyword to `theorem`.
+4. Add `:= by sorry` at the end of the theorem signature.
+5. Locate the declaration `axiom termination_and_periodicity_decidable` (around line 76).
+6. Change the `axiom` keyword to `theorem`.
+7. Add `:= by sorry` at the end of the theorem signature.
+8. Locate the declaration `axiom lipschitz_measure_preserving_bounds_chomsky` (around line 85).
+9. Change the `axiom` keyword to `theorem`.
+10. Add `:= by sorry` at the end of the theorem signature.
+11. Verify that the file compiles successfully without any syntax errors and that the only remaining issues are the expected 'declaration uses sorry' warnings on the theorem signatures themselves.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `first_order_translation`, `termination_and_periodicity_decidable`, and `lipschitz_measure_preserving_bounds_chomsky` are completely removed.
+- [ ] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/Computability/ChomskyBounds.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.

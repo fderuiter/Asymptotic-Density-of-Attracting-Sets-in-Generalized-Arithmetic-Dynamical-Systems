@@ -145,9 +145,8 @@ theorem dynamical_hensel_lift
       -- If `y` is another invariant root modulo d^{n+2} that lifts x₀,
       -- then `y` must mathematically also be a valid root modulo d^{n+1}.
       have hy_root_n : Int.ModEq (d ^ (n + 1)) (G.eval y) 0 := by
-        -- Divisibility reduction from d^{n+2} to d^{n+1}
-        sorry
-
+        have hdvd : (d ^ (n + 1) : ℤ) ∣ (d ^ (n + 2) : ℤ) := by use d; ring
+        exact Int.ModEq.of_dvd hdvd hy_root
       -- By the strong uniqueness guarantee of our induction hypothesis (h_uniq_n),
       -- y must be completely congruent to X_n modulo d^{n+1}.
       have hy_eq_Xn : Int.ModEq (d ^ (n + 1)) y X_n := h_uniq_n y hy_root_n hy_lift

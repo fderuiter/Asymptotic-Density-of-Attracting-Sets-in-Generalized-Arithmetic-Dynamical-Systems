@@ -386,7 +386,7 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
 - [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Reduction of Modulus
 
 ## Target Profile
@@ -405,8 +405,8 @@ In the uniqueness part of the Hensel Lift inductive step (`PROOF 3`), we assume 
 6. Conclude the goal with `exact hy_root.of_dvd hdvd` or `exact Int.ModEq.of_dvd hdvd hy_root`.
 
 ## Definition of Done (DoD)
-- [ ] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed.
-- [ ] The proof explicitly utilizes `Int.ModEq.of_dvd` and a formal divisibility argument for the powers of `d`.
+- [x] The `sorry` defining `hy_root_n` in `PROOF 3` is entirely removed.
+- [x] The proof explicitly utilizes `Int.ModEq.of_dvd` and a formal divisibility argument for the powers of `d`.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
 ## Target Task

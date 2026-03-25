@@ -92,7 +92,7 @@ This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel
   - **Task:** Prove `X_n + t * d^{n+1} ≡ x₀ [ZMOD d]`.
   - **Tactics/Strategy:** Show `t * d^{n+1} ≡ 0 [ZMOD d]` because `d ∣ d^{n+1}`. Add this to `X_n ≡ x₀ [ZMOD d]` using transitivity.
 
-- [ ] **Hensel Lift: Reduction of Modulus**
+- [x] **Hensel Lift: Reduction of Modulus**
   - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 118)
   - **Task:** Deduce `G(y) ≡ 0 [ZMOD d^{n+1}]` from `G(y) ≡ 0 [ZMOD d^{n+2}]`.
   - **Tactics/Strategy:** Use `Int.ModEq.of_dvd`. Prove `d^{n+1} ∣ d^{n+2}` via `pow_succ`.

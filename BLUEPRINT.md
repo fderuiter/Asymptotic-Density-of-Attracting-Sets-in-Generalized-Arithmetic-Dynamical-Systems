@@ -676,3 +676,152 @@ The `sieve_degeneracy_at_universal_floor` axiom asserts that deterministic unive
 - [ ] The `axiom` declaration for `sieve_degeneracy_at_universal_floor` is completely removed and replaced with a `theorem` declaration.
 - [ ] The top-level logical structure is formalized with `:= by sorry`.
 - [ ] The `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Sieve Analytics General Framework - Decoupling Threshold
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SieveAnalytics/DecouplingThreshold.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The `decoupling_threshold` and `decay_of_correlations` axioms assert that the system reaches uniform distribution mod $5^m$ after a certain threshold $	au$, ensuring analytic-sieve probabilistic independence. As top-level axioms are strictly prohibited, we must convert these declarations into theorems and isolate the uncomputable spectral gap decay via targeted `sorry`s.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SieveAnalytics/DecouplingThreshold.lean`.
+2. Locate the declaration `axiom decoupling_threshold :` (around line 30).
+3. Change `axiom` to `theorem`.
+4. Append `:= by sorry` at the end of the theorem block.
+5. Locate the declaration `axiom decay_of_correlations` (around line 43).
+6. Change `axiom` to `theorem`.
+7. Append `:= by sorry` at the end of the theorem block.
+8. Verify that the file compiles without errors beyond 'declaration uses sorry'.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `decoupling_threshold` and `decay_of_correlations` are removed.
+- [ ] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/SieveAnalytics/DecouplingThreshold.lean` compiles without errors.
+
+## Target Task
+Sieve Analytics General Framework - Descent Dominant
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SieveAnalytics/DescentDominant.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The `hailstone_variance_bound` and `descent_dominant_classification` axioms represent the structural bounds on magnitude increments and descent classification, currently bypassing topological proofs. We must convert these axioms into theorems and use `sorry` to formally isolate the uncomputable bounds, adhering to the project standard.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SieveAnalytics/DescentDominant.lean`.
+2. Locate `axiom hailstone_variance_bound :` (around line 21).
+3. Change `axiom` to `theorem`.
+4. Append `:= by sorry` at the end of the theorem signature.
+5. Locate `axiom descent_dominant_classification :` (around line 30).
+6. Change `axiom` to `theorem`.
+7. Append `:= by sorry` at the end of the theorem signature.
+8. Verify that the file compiles without errors beyond 'declaration uses sorry'.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `hailstone_variance_bound` and `descent_dominant_classification` are removed.
+- [ ] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/SieveAnalytics/DescentDominant.lean` compiles cleanly.
+
+## Target Task
+Sieve Analytics General Framework - Error Annihilation
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SieveAnalytics/ErrorAnnihilation.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The `independence_heuristic` and `negligibility_of_error_term` axioms postulate total variation decay and geometric error suppression without constructive proof. To eliminate this technical debt, we convert the top-level axioms to theorems and use `sorry` to formally isolate the uncomputable probability theory.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SieveAnalytics/ErrorAnnihilation.lean`.
+2. Locate `axiom independence_heuristic :` (around line 21).
+3. Change `axiom` to `theorem`.
+4. Append `:= by sorry` at the end of the theorem block.
+5. Locate `axiom negligibility_of_error_term :` (around line 31).
+6. Change `axiom` to `theorem`.
+7. Append `:= by sorry` at the end of the theorem block.
+8. Verify compilation.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `independence_heuristic` and `negligibility_of_error_term` are removed.
+- [ ] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/SieveAnalytics/ErrorAnnihilation.lean` compiles cleanly.
+
+## Target Task
+Sieve Analytics General Framework - Density Lower Bound
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SieveAnalytics/DensityLowerBound.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The `measure_translation` and `asymptotic_counting_theorem` axioms define Abelian partial summation limits and fractional density bounds without formalization. These must be declared as theorems, bridging the uncomputable analytic number theory bounds strictly with targeted `sorry`s.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SieveAnalytics/DensityLowerBound.lean`.
+2. Locate `axiom measure_translation :` (around line 22).
+3. Change `axiom` to `theorem`.
+4. Append `:= by sorry` at the end of the theorem block.
+5. Locate `axiom asymptotic_counting_theorem :` (around line 34).
+6. Change `axiom` to `theorem`.
+7. Append `:= by sorry` at the end of the theorem block.
+8. Verify compilation.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` keyword for `measure_translation` and `asymptotic_counting_theorem` is replaced with `theorem`.
+- [ ] The declarations conclude with `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/SieveAnalytics/DensityLowerBound.lean` compiles cleanly.
+
+## Target Task
+Sieve Analytics General Framework - Generalized Sieve
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SieveAnalytics/GeneralizedSieve.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+This file contains `generalized_sieve_construction`, `fractional_density`, `boundary_error`, `difference_inequalities_formulation`, and `main_term_extraction`. These declarations represent unproven bounds and noncomputable functions that currently exist as top-level structural axioms. To eliminate this technical debt and strictly align with the project's standards, we must convert these declarations. Propositional axioms will be replaced with `theorem` signatures ending in `:= by sorry`, and data/function axioms will be replaced with `noncomputable def` declarations ending in `:= sorry`. This isolates the uncomputable mathematical logic without breaking the framework's foundational integrity.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SieveAnalytics/GeneralizedSieve.lean`.
+2. Locate `axiom generalized_sieve_construction :`. Change `axiom` to `theorem` and append `:= by sorry`.
+3. Locate `axiom fractional_density : ℕ → ℝ → ℝ`. Change to `noncomputable def fractional_density : ℕ → ℝ → ℝ := sorry`.
+4. Locate `axiom boundary_error : ℕ → ℝ → ℝ`. Change to `noncomputable def boundary_error : ℕ → ℝ → ℝ := sorry`.
+5. Locate `axiom difference_inequalities_formulation :`. Change `axiom` to `theorem` and append `:= by sorry`.
+6. Locate `axiom main_term_extraction :`. Change `axiom` to `theorem` and append `:= by sorry`.
+7. Verify compilation.
+
+## Definition of Done (DoD)
+- [ ] All `axiom` declarations in `ArithmeticDynamics/SieveAnalytics/GeneralizedSieve.lean` are removed.
+- [ ] Propositions are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] Data functions are replaced with `noncomputable def` ending in `:= sorry`.
+- [ ] The file compiles cleanly.
+
+## Target Task
+Sieve Analytics General Framework - Reweighted Measure
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SieveAnalytics/ReweightedMeasure.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The axioms `standard_measure_failure`, `markov_transfer_operator_M`, `principal_left_eigenvector_w`, and `perfect_forward_invariance` construct a re-weighted measure that perfectly pushes forward invariant density. These must be translated away from structural axioms. `markov_transfer_operator_M` is a function, so it becomes a `noncomputable def` with `sorry`. The rest are propositions, becoming `theorem` with `:= by sorry`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SieveAnalytics/ReweightedMeasure.lean`.
+2. Locate `axiom standard_measure_failure :`. Change `axiom` to `theorem` and append `:= by sorry`.
+3. Locate `axiom markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ`. Change to `noncomputable def markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ := sorry`.
+4. Locate `axiom principal_left_eigenvector_w :`. Change `axiom` to `theorem` and append `:= by sorry`.
+5. Locate `axiom perfect_forward_invariance :`. Change `axiom` to `theorem` and append `:= by sorry`.
+6. Verify compilation.
+
+## Definition of Done (DoD)
+- [ ] All `axiom` declarations in `ArithmeticDynamics/SieveAnalytics/ReweightedMeasure.lean` are removed.
+- [ ] Data functions are replaced with `noncomputable def` ending in `:= sorry`.
+- [ ] Propositions are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file compiles cleanly.

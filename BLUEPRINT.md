@@ -575,3 +575,28 @@ The theorem `lipschitz_is_mealy_machine` (Anashin's Automata Isomorphism) states
 - [ ] The `axiom` declaration for `lipschitz_is_mealy_machine` is completely removed and replaced with a `theorem` declaration.
 - [ ] The top-level logical structure is formalized with `:= by sorry`.
 - [ ] The file `ArithmeticDynamics/Computability/ChomskyBounds.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
+
+## Target Task
+First-Order Translation & Decidability
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Computability/ChomskyBounds.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The axioms `first_order_translation`, `termination_and_periodicity_decidable`, and `lipschitz_measure_preserving_bounds_chomsky` represent the core structural results mapping 1-Lipschitz dynamics to Presburger arithmetic and enforcing the Type 2 Chomsky bound. Currently, they are stated as `axiom`s. To align with our strategy for eliminating axiomatic technical debt and preparing for rigorous decidability verification, these must be transformed into `theorem` declarations isolated by `:= by sorry`. This encapsulates the uncomputable gap formally within the proof structure rather than polluting the top-level axiomatic foundation.
+
+## Granular Execution Steps
+1. Open `ArithmeticDynamics/Computability/ChomskyBounds.lean`.
+2. At line 69, modify the declaration `axiom first_order_translation` to `theorem first_order_translation`.
+3. Append `:= by sorry` to the end of its signature (after the existential statement).
+4. At line 76, modify the declaration `axiom termination_and_periodicity_decidable` to `theorem termination_and_periodicity_decidable`.
+5. Append `:= by sorry` to the end of its signature (after the `Nonempty` product type).
+6. At line 85, modify the declaration `axiom lipschitz_measure_preserving_bounds_chomsky` to `theorem lipschitz_measure_preserving_bounds_chomsky`.
+7. Append `:= by sorry` to the end of its signature.
+8. Verify that the file compiles successfully and that all `axiom` keywords for these definitions have been replaced.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `first_order_translation`, `termination_and_periodicity_decidable`, and `lipschitz_measure_preserving_bounds_chomsky` are completely removed and replaced with `theorem` declarations.
+- [ ] The structural logical claims are formalized using `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/Computability/ChomskyBounds.lean` compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.

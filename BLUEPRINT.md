@@ -699,3 +699,199 @@ The `lipschitz_implies_causality` axiom asserts that 1-Lipschitz continuity over
 - [ ] The `axiom` declaration for `lipschitz_implies_causality` is completely removed and replaced with a `theorem` declaration.
 - [ ] The top-level logical structure is formalized with `:= by sorry`.
 - [ ] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Sieve Analytics General Framework
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SieveAnalytics/DecouplingThreshold.lean`, `ArithmeticDynamics/SieveAnalytics/DescentDominant.lean`, `ArithmeticDynamics/SieveAnalytics/ErrorAnnihilation.lean`, `ArithmeticDynamics/SieveAnalytics/DensityLowerBound.lean`, `ArithmeticDynamics/SieveAnalytics/GeneralizedSieve.lean`, `ArithmeticDynamics/SieveAnalytics/ReweightedMeasure.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The `SieveAnalytics` module currently relies on 17 unverified `axiom` declarations to formalize the probabilistic sieve bounds and main term extraction. This represents an enormous accumulation of technical debt, as the entire analytic number theory and measure theory foundation for the generalized sieve is circumvented. Leaving these foundational probabilistic decoupling, correlation decay, descent dominance, and measure translation limits as axioms breaks the rigorous chain of trust. To preserve structural integrity and isolate the heavy analytic uncomputability, all 17 propositional axioms must be converted to `theorem`s concluding with `:= by sorry`. Any data-bearing axioms (e.g., `fractional_density`, `boundary_error`, and `markov_transfer_operator_M`) must be replaced with `noncomputable def`s concluding with `:= sorry`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SieveAnalytics/DecouplingThreshold.lean`.
+2. Locate `axiom decoupling_threshold` and `axiom decay_of_correlations`. Change the `axiom` keywords to `theorem` and append `:= by sorry` to their signatures.
+3. Navigate to `ArithmeticDynamics/SieveAnalytics/DescentDominant.lean`.
+4. Locate `axiom hailstone_variance_bound` and `axiom descent_dominant_classification`. Change the `axiom` keywords to `theorem` and append `:= by sorry` to their signatures.
+5. Navigate to `ArithmeticDynamics/SieveAnalytics/ErrorAnnihilation.lean`.
+6. Locate `axiom independence_heuristic` and `axiom negligibility_of_error_term`. Change the `axiom` keywords to `theorem` and append `:= by sorry` to their signatures.
+7. Navigate to `ArithmeticDynamics/SieveAnalytics/DensityLowerBound.lean`.
+8. Locate `axiom measure_translation` and `axiom asymptotic_counting_theorem`. Change the `axiom` keywords to `theorem` and append `:= by sorry` to their signatures.
+9. Navigate to `ArithmeticDynamics/SieveAnalytics/GeneralizedSieve.lean`.
+10. Change propositional axioms `generalized_sieve_construction`, `difference_inequalities_formulation`, and `main_term_extraction` to `theorem`s and append `:= by sorry` to each.
+11. Change data axioms `fractional_density` and `boundary_error` to `noncomputable def`s and append `:= sorry` to each.
+12. Navigate to `ArithmeticDynamics/SieveAnalytics/ReweightedMeasure.lean`.
+13. Change propositional axioms `standard_measure_failure`, `principal_left_eigenvector_w`, and `perfect_forward_invariance` to `theorem`s and append `:= by sorry` to each.
+14. Change the data axiom `markov_transfer_operator_M` to `noncomputable def` and append `:= sorry`.
+
+## Definition of Done (DoD)
+- [ ] All 17 `axiom` declarations across the 6 `SieveAnalytics` files are completely removed.
+- [ ] Propositional axioms are replaced with `theorem`s ending in `:= by sorry`, and data axioms are replaced with `noncomputable def`s ending in `:= sorry`.
+- [ ] All 6 modified `.lean` files compile successfully without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Prove `lyapunov_scaling_duality` & `complex_balancing`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The foundational limit bounds mapping algebraic scaling parameters to metric entropy via the Lyapunov exponent currently exist as unverified `axiom` declarations (`lyapunov_scaling_duality` and `complex_balancing`). Leaving these structural definitions as axioms forces the entire theoretical edifice of algebraic-analytic correspondence into severe technical debt, bypassing the exact topological mappings needed to rigorously bind matrix scaling to density. To isolate this macroscopic gap and eradicate structural technical debt, the unverified assertions must be transformed into `theorem` signatures with focused `sorry`s.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean`.
+2. Locate `axiom lyapunov_scaling_duality` (around line 41).
+3. Change the `axiom` keyword to `theorem`.
+4. Append `:= by sorry` to conclude the theorem's proof block.
+5. Locate `axiom complex_balancing` (around line 53).
+6. Change the `axiom` keyword to `theorem`.
+7. Append `:= by sorry` to conclude the theorem's proof block.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `lyapunov_scaling_duality` and `complex_balancing` are completely removed.
+- [ ] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean` compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Prove `commutative_semiring_tau_f` & `alexandroff_compactification_finiteness`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The theoretical mappings describing the primal topology `τ_f` and the finiteness of periodic cycles under its Alexandroff compactification are asserted as unverified `axiom` declarations (`commutative_semiring_tau_f` and `alexandroff_compactification_finiteness`). Leaving thermodynamic and topological mappings as axioms induces severe structural debt on the correspondence theorem, circumventing mathematical verification. To mitigate this uncomputability and uphold project integrity, we must replace these top-level structural axioms with `theorem` signatures bridging the analytical topology with a focused `sorry`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean`.
+2. Locate `axiom commutative_semiring_tau_f` (around line 29).
+3. Change the `axiom` keyword to `theorem`.
+4. Append `:= by sorry` to strictly isolate the uncomputable entropy calculation.
+5. Locate `axiom alexandroff_compactification_finiteness` (around line 42).
+6. Change the `axiom` keyword to `theorem`.
+7. Append `:= by sorry` to bridge the topological finite equilibrium property.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `commutative_semiring_tau_f` and `alexandroff_compactification_finiteness` are completely removed.
+- [ ] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean` compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Prove `spectral_threshold` & `cantor_set_collapse`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The defining properties of systems avoiding zero-density fractal collapse mathematically pivot on the spectral boundaries dictated by a transfer matrix. `spectral_threshold` and `cantor_set_collapse` formalize this, but they are currently declared as `axiom`s. This introduces severe theoretical debt because the density lower bounds logically depend on unverified spectral radii assertions. To uphold rigorous metamathematical constraints, these unverified limits must be isolated into `theorem` declarations with base-case `sorry`s replacing the uncomputable mapping to Hausdorff dimensions.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean`.
+2. Locate `axiom spectral_threshold` (around line 25).
+3. Change the `axiom` keyword to `theorem`.
+4. Append `:= by sorry` to conclude the theorem's proof block.
+5. Locate `axiom cantor_set_collapse` (around line 35).
+6. Change the `axiom` keyword to `theorem`.
+7. Append `:= by sorry` to conclude the theorem's proof block.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `spectral_threshold` and `cantor_set_collapse` are completely removed.
+- [ ] Both declarations are correctly replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean` compiles safely without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Prove `equilibrium_state_uniqueness` & `algebraic_analytic_law`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The algebraic-analytic law forms the central deliverable of the PhD project, classifying all quasi-polynomial systems rigidly into Turing-Complete, Cantor-Supported, or Density-Positive. However, the exact theorem statement, `algebraic_analytic_law`, as well as its thermodynamic requirement, `equilibrium_state_uniqueness`, are asserted as top-level `axiom`s. This constitutes the project's most significant structural technical debt. A mathematical correspondence theorem cannot be an axiom. To eliminate the top-level structural technical debt and rigorously preserve the project's strategy for uncomputable metrics, we must convert these unverified `axiom`s into `theorem` signatures with their uncomputable correspondence derivations strictly isolated into a single `sorry` per signature.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean`.
+2. Locate `axiom equilibrium_state_uniqueness` (around line 23).
+3. Change the `axiom` keyword to `theorem`.
+4. Append `:= by sorry` to conclude the theorem's proof block.
+5. Locate `axiom algebraic_analytic_law` (around line 48).
+6. Change the `axiom` keyword to `theorem`.
+7. Append `:= by sorry` to strictly isolate the overarching structural correspondence mappings.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `equilibrium_state_uniqueness` and `algebraic_analytic_law` are completely removed.
+- [ ] Both declarations are correctly replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Prove `collatz_div_cond` & `collatz_drift_is_contractive`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The divisibility conditions (`collatz_div_cond`) and logarithmic drift limits (`collatz_drift_is_contractive`) mapping the traditional 3x+1 system into the algebraic framework are currently `axiom`s. Because this serves as the foundational algebraic test case proving that the map mathematically belongs in the Contractive Complement Space (`ρ < 0`), relying on unverified axioms destroys computational certainty. We must convert these assertions to strictly bounded mathematical derivations or structural isolates (`theorem`s). The divisibility evaluates simply modulo `2`. The geometric drift evaluates exactly to `(log(1/2) + log(3/2))/2 < 0`, but because `logarithmicDrift` definition is uncomputable over `ℝ`, we will strictly bridge the computational step with `sorry` for now, preserving structural integrity.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean`.
+2. Locate `axiom collatz_div_cond` (around line 6).
+3. Change the `axiom` keyword to `theorem`.
+4. Append `:= by sorry` to strictly bridge the integer modulo derivation.
+5. Locate `axiom collatz_drift_is_contractive` (around line 18).
+6. Change the `axiom` keyword to `theorem`.
+7. Append `:= by sorry` to bridge the uncomputable evaluation of `logarithmicDrift` over real limits.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `collatz_div_cond` and `collatz_drift_is_contractive` are removed.
+- [ ] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+To contrast against the contractive 3x+1 dynamics, the generalized Expansive `5x+1` system evaluates its drift analytically. The condition `collatz5x1_drift_is_expansive` states its logarithmic drift is strictly positive (`ρ > 0`), but is currently declared an `axiom`. Likewise, its divisibility constraints (`collatz5x1_div_cond`) remain unverified axioms. Axiomatizing exact limits destroys mathematical certainty of the divergent regime. We must replace these structural properties with formal `theorem`s, isolating their exact real-valued calculation behind a `sorry` to maintain rigorous top-level theorem definitions for the map's behavior.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`.
+2. Locate `axiom collatz5x1_div_cond` (around line 10).
+3. Change the `axiom` keyword to `theorem`.
+4. Append `:= by sorry` to conclude the theorem's proof block.
+5. Locate `axiom collatz5x1_drift_is_expansive` (around line 20).
+6. Change the `axiom` keyword to `theorem`.
+7. Append `:= by sorry` to strictly bridge the uncomputable evaluation of `logarithmicDrift` over real limits.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declarations for `collatz5x1_div_cond` and `collatz5x1_drift_is_expansive` are completely removed.
+- [ ] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Prove `expansive_measure_dissipation`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+Because `ρ > 0` for `5x+1`, the map demonstrates catastrophic algebraic diffusion, preventing the existence of any stationary invariant measure (`π`). This fundamental distinction is currently an `axiom`. By avoiding a topological proof that positive drift mathematically contradicts the measure conservation laws (mass dissipation toward infinity), the system relies entirely on unverified assertions. We must rigidly convert `expansive_measure_dissipation` into a `theorem` whose measure-theoretic gap is strictly isolated using `sorry`, preserving the structural correspondence framework's analytical integrity.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`.
+2. Locate `axiom expansive_measure_dissipation` (around line 27).
+3. Change the `axiom` keyword to `theorem`.
+4. Append `:= by sorry` to conclude the proof block, isolating the uncomputable measure theory logic.
+
+## Definition of Done (DoD)
+- [ ] The `axiom` declaration for `expansive_measure_dissipation` is completely removed.
+- [ ] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.

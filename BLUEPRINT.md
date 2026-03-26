@@ -895,3 +895,33 @@ Because `ρ > 0` for `5x+1`, the map demonstrates catastrophic algebraic diffusi
 - [ ] The `axiom` declaration for `expansive_measure_dissipation` is completely removed.
 - [ ] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
 - [ ] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
+
+## Target Task
+Pilot System 5 Evaluation
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SpecificModels/PilotSystem.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The foundational properties of the $d=5$ Pilot System (`pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, `pilot5_algebraic_error_capping`) are initially structured as unverified `axiom` declarations. This serves as critical technical debt because it bypasses mathematical certainty for the map's boundary conditions, geometric drift, supermartingale structure, and algebraic error capping, severely breaking the structural consistency of the specific model evaluations. To strictly isolate their uncomputable algebraic and real-valued evaluations while allowing structural theorems to rely on verified theorem signatures, they must be converted to `theorem` declarations ending in `:= by sorry`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SpecificModels/PilotSystem.lean`.
+2. Locate the declaration `axiom pilot5_div_cond` (around line 27).
+3. Change the `axiom` keyword to `theorem`.
+4. Append `:= by sorry` to conclude the theorem's proof block, safely isolating the modulo 5 integer evaluation.
+5. Locate the declaration `axiom pilot5_drift_is_contractive` (around line 40).
+6. Change the `axiom` keyword to `theorem`.
+7. Append `:= by sorry` to strictly bridge the uncomputable evaluation of `logarithmicDrift` over real limits.
+8. Locate the declaration `axiom pilot5_contractive_supermartingale` (around line 49).
+9. Change the `axiom` keyword to `theorem`.
+10. Append `:= by sorry` to bridge the uncomputable supermartingale formalization limit.
+11. Locate the declaration `axiom pilot5_algebraic_error_capping` (around line 62).
+12. Change the `axiom` keyword to `theorem`.
+13. Append `:= by sorry` to conclude the proof block, isolating the complex bounding of fractional error divergences.
+
+## Definition of Done (DoD)
+- [ ] The 4 `axiom` declarations for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, and `pilot5_algebraic_error_capping` are completely removed.
+- [ ] All 4 declarations are explicitly replaced with `theorem` signatures ending in `:= by sorry`.
+- [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.

@@ -699,3 +699,44 @@ The `lipschitz_implies_causality` axiom asserts that 1-Lipschitz continuity over
 - [ ] The `axiom` declaration for `lipschitz_implies_causality` is completely removed and replaced with a `theorem` declaration.
 - [ ] The top-level logical structure is formalized with `:= by sorry`.
 - [ ] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Sieve Analytics General Framework
+
+## Target Profile
+- **Files:** `ArithmeticDynamics/SieveAnalytics/DecouplingThreshold.lean`, `ArithmeticDynamics/SieveAnalytics/DescentDominant.lean`, `ArithmeticDynamics/SieveAnalytics/ErrorAnnihilation.lean`, `ArithmeticDynamics/SieveAnalytics/DensityLowerBound.lean`, `ArithmeticDynamics/SieveAnalytics/GeneralizedSieve.lean`, `ArithmeticDynamics/SieveAnalytics/ReweightedMeasure.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The generalized sieve framework in `SieveAnalytics` relies on 17 structural `axiom` declarations to formalize probabilistic independence, macro descent bounds, difference inequalities, and density constraints. These axioms act as severe technical debt, bypassing the heavy analytic number theory required to rigorously bind the spectral gap to the arithmetic trajectories. To preserve the mathematical and structural integrity of the project and eradicate top-level axioms, we must replace all 17 propositional axioms with `theorem` declarations ending in `:= by sorry`. Function or data axioms (e.g., `fractional_density`, `boundary_error`, `markov_transfer_operator_M`) must be replaced with `noncomputable def` declarations ending in `:= sorry`. This strictly isolates the uncomputable analytic bounds to the execution layer without compromising the structural signatures.
+
+## Granular Execution Steps
+1. **`DecouplingThreshold.lean`:**
+   - Locate `axiom decoupling_threshold` (line ~30). Change to `theorem decoupling_threshold`, append `:= by sorry`.
+   - Locate `axiom decay_of_correlations` (line ~43). Change to `theorem decay_of_correlations`, append `:= by sorry`.
+2. **`DescentDominant.lean`:**
+   - Locate `axiom hailstone_variance_bound` (line ~21). Change to `theorem hailstone_variance_bound`, append `:= by sorry`.
+   - Locate `axiom descent_dominant_classification` (line ~30). Change to `theorem descent_dominant_classification`, append `:= by sorry`.
+3. **`ErrorAnnihilation.lean`:**
+   - Locate `axiom independence_heuristic` (line ~21). Change to `theorem independence_heuristic`, append `:= by sorry`.
+   - Locate `axiom negligibility_of_error_term` (line ~31). Change to `theorem negligibility_of_error_term`, append `:= by sorry`.
+4. **`DensityLowerBound.lean`:**
+   - Locate `axiom measure_translation` (line ~22). Change to `theorem measure_translation`, append `:= by sorry`.
+   - Locate `axiom asymptotic_counting_theorem` (line ~34). Change to `theorem asymptotic_counting_theorem`, append `:= by sorry`.
+5. **`GeneralizedSieve.lean`:**
+   - Locate `axiom generalized_sieve_construction` (line ~19). Change to `theorem generalized_sieve_construction`, append `:= by sorry`.
+   - Locate `axiom fractional_density : ℕ → ℝ → ℝ` (line ~27). Change to `noncomputable def fractional_density : ℕ → ℝ → ℝ := sorry`.
+   - Locate `axiom boundary_error : ℕ → ℝ → ℝ` (line ~30). Change to `noncomputable def boundary_error : ℕ → ℝ → ℝ := sorry`.
+   - Locate `axiom difference_inequalities_formulation` (line ~41). Change to `theorem difference_inequalities_formulation`, append `:= by sorry`.
+   - Locate `axiom main_term_extraction` (line ~57). Change to `theorem main_term_extraction`, append `:= by sorry`.
+6. **`ReweightedMeasure.lean`:**
+   - Locate `axiom standard_measure_failure` (line ~20). Change to `theorem standard_measure_failure`, append `:= by sorry`.
+   - Locate `axiom markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ` (line ~30). Change to `noncomputable def markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ := sorry`.
+   - Locate `axiom principal_left_eigenvector_w` (line ~32). Change to `theorem principal_left_eigenvector_w`, append `:= by sorry`.
+   - Locate `axiom perfect_forward_invariance` (line ~57). Change to `theorem perfect_forward_invariance`, append `:= by sorry`.
+7. For all six modified files, verify compilation to ensure there are no syntax errors and the structure remains intact, producing only the expected 'declaration uses sorry' warnings.
+
+## Definition of Done (DoD)
+- [ ] All 17 `axiom` declarations across the 6 `SieveAnalytics` files are entirely removed.
+- [ ] Propositional axioms are replaced with `theorem` signatures ending in `:= by sorry`, and function/data axioms are replaced with `noncomputable def` ending in `:= sorry`.
+- [ ] All 6 files (`DecouplingThreshold.lean`, `DescentDominant.lean`, `ErrorAnnihilation.lean`, `DensityLowerBound.lean`, `GeneralizedSieve.lean`, `ReweightedMeasure.lean`) compile cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.

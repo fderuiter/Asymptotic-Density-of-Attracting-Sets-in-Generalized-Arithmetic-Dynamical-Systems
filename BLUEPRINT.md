@@ -699,3 +699,30 @@ The `lipschitz_implies_causality` axiom asserts that 1-Lipschitz continuity over
 - [ ] The `axiom` declaration for `lipschitz_implies_causality` is completely removed and replaced with a `theorem` declaration.
 - [ ] The top-level logical structure is formalized with `:= by sorry`.
 - [ ] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+## Target Task
+Sieve Analytics General Framework
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SieveAnalytics/DecouplingThreshold.lean`, `ArithmeticDynamics/SieveAnalytics/DescentDominant.lean`, `ArithmeticDynamics/SieveAnalytics/ErrorAnnihilation.lean`, `ArithmeticDynamics/SieveAnalytics/DensityLowerBound.lean`, `ArithmeticDynamics/SieveAnalytics/GeneralizedSieve.lean`, `ArithmeticDynamics/SieveAnalytics/ReweightedMeasure.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The `SieveAnalytics` module translates probabilistic sieve bounds and main term extraction. Currently, 17 structural axioms govern the fundamental dynamics, including probabilistic independence (`decoupling_threshold`), macroscopic macro descent bounds (`hailstone_variance_bound`), and density constraints (`generalized_sieve_construction`). These axioms constitute massive technical debt by asserting heavily analytic number theoretic bounds without formal proof, bypassing crucial convergence requirements. To restore algebraic and logical integrity, we must replace all 17 top-level `axiom` declarations with uncomputable `theorem` or `noncomputable def` equivalents, explicitly terminating each with `:= sorry` or `:= by sorry`. This isolates the uncomputable analytic barriers to their base layers without breaking structural dependencies across the `SieveAnalytics` framework.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SieveAnalytics/DecouplingThreshold.lean`. Convert `axiom decoupling_threshold` to `theorem decoupling_threshold`, appending `:= by sorry`. Convert `axiom decay_of_correlations` to `theorem decay_of_correlations`, appending `:= by sorry`.
+2. Navigate to `ArithmeticDynamics/SieveAnalytics/DescentDominant.lean`. Convert `axiom hailstone_variance_bound` and `axiom descent_dominant_classification` to `theorem` declarations, appending `:= by sorry`.
+3. Navigate to `ArithmeticDynamics/SieveAnalytics/ErrorAnnihilation.lean`. Convert `axiom independence_heuristic` and `axiom negligibility_of_error_term` to `theorem` declarations, appending `:= by sorry`.
+4. Navigate to `ArithmeticDynamics/SieveAnalytics/DensityLowerBound.lean`. Convert `axiom measure_translation` and `axiom asymptotic_counting_theorem` to `theorem` declarations, appending `:= by sorry`.
+5. Navigate to `ArithmeticDynamics/SieveAnalytics/GeneralizedSieve.lean`.
+   - Convert `axiom generalized_sieve_construction`, `axiom difference_inequalities_formulation`, and `axiom main_term_extraction` to `theorem` declarations, appending `:= by sorry`.
+   - Convert the data signatures `axiom fractional_density : ℕ → ℝ → ℝ` and `axiom boundary_error : ℕ → ℝ → ℝ` to `noncomputable def`s ending with `:= sorry` (e.g. `noncomputable def fractional_density : ℕ → ℝ → ℝ := sorry`).
+6. Navigate to `ArithmeticDynamics/SieveAnalytics/ReweightedMeasure.lean`.
+   - Convert `axiom standard_measure_failure` and `axiom perfect_forward_invariance` to `theorem`s, appending `:= by sorry`.
+   - Convert data signatures `axiom markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ` and `axiom principal_left_eigenvector_w : Fin Lambda → ℝ` to `noncomputable def`s ending in `:= sorry`.
+7. Verify compilation for all modified files using `lake build ArithmeticDynamics.SieveAnalytics.DecouplingThreshold` and similarly for the rest.
+
+## Definition of Done (DoD)
+- [ ] All 17 `axiom` declarations across the 6 specified `SieveAnalytics` files are entirely removed.
+- [ ] Propositional axioms are correctly converted to `theorem` signatures with `:= by sorry`, while function/data axioms are converted to `noncomputable def` signatures with `:= sorry`.
+- [ ] All modified `SieveAnalytics` files compile cleanly without top-level 'declaration uses sorry' structural errors for the signatures themselves.

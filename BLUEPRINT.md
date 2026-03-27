@@ -925,3 +925,26 @@ The foundational properties of the $d=5$ Pilot System (`pilot5_div_cond`, `pilot
 - [ ] The 4 `axiom` declarations for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, and `pilot5_algebraic_error_capping` are completely removed.
 - [ ] All 4 declarations are explicitly replaced with `theorem` signatures ending in `:= by sorry`.
 - [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+`ArithmeticDynamics/Basic.lean`
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Basic.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Int.Basic`
+
+## Contextual Analysis
+The ArithmeticDynamics project completely lacks a foundational mathematical definition of the Generalized Arithmetic Dynamical System (GADS) operating over the integers ($\mathbb{Z}$). Without formally defining the overarching structure, the advanced topological limits and ergodic theories formalized downstream operate in a conceptual vacuum without a solid domain. We must define the structural type for a GADS along with the recursive generation of forward trajectories, defining both structural boundaries and invariant behaviors native to the dynamical map.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Basic.lean`.
+2. Add the necessary Mathlib import at the top of the file: `import Mathlib.Data.Int.Basic`.
+3. Define the core structure representing a Generalized Arithmetic Dynamical System using `structure GADS where` followed by the fields `d : ℕ` and `f : ℤ → ℤ`.
+4. Define the forward discrete-time trajectory map recursively: `def trajectory (sys : GADS) (x₀ : ℤ) : ℕ → ℤ` with the base case `| 0 => x₀` and inductive step `| n + 1 => sys.f (trajectory sys x₀ n)`.
+5. Define the concept of a forward-invariant subset of $\mathbb{Z}$: `def IsForwardInvariant (sys : GADS) (S : Set ℤ) : Prop := ∀ x ∈ S, sys.f x ∈ S`.
+6. Define the concept of a backward-invariant subset: `def IsBackwardInvariant (sys : GADS) (S : Set ℤ) : Prop := ∀ x, sys.f x ∈ S → x ∈ S`.
+
+## Definition of Done (DoD)
+- [ ] The new file `ArithmeticDynamics/Basic.lean` is created with the correct Mathlib import.
+- [ ] `GADS`, `trajectory`, `IsForwardInvariant`, and `IsBackwardInvariant` are fully computable definitions without any `sorry` or `opaque` keywords.
+- [ ] The file compiles successfully without any errors or warnings.

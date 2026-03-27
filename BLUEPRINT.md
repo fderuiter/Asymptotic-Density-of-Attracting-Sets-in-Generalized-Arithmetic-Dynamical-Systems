@@ -925,3 +925,31 @@ The foundational properties of the $d=5$ Pilot System (`pilot5_div_cond`, `pilot
 - [ ] The 4 `axiom` declarations for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, and `pilot5_algebraic_error_capping` are completely removed.
 - [ ] All 4 declarations are explicitly replaced with `theorem` signatures ending in `:= by sorry`.
 - [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+`ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Basic.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Int.Basic`, `Mathlib.Algebra.Group.Basic`
+
+## Contextual Analysis
+The project entirely lacks a foundational formal definition of a "Generalized Arithmetic Dynamical System (GADS)" over the integers. All advanced quasi-polynomial algebra, ergodic theories, and universal bounds currently float without a unified, structurally typed origin mapping. The absence of this base class acts as massive definitional debt, preventing general theorem induction over arbitrary arithmetic systems. We must rigorously define the structural type of a GADS, establishing its domain, parameterization (e.g., modulus $d$ and branch maps), and its fundamental operational semantics: discrete forward and backward trajectories (invariance). This will strictly define the object that the algebraic-analytic correspondence bounds.
+
+## Granular Execution Steps
+1. Create and open the file `ArithmeticDynamics/Basic.lean`.
+2. Add the necessary Mathlib dependencies at the top:
+   ```lean
+   import Mathlib.Data.Int.Basic
+   import Mathlib.Algebra.Group.Basic
+   ```
+3. Define the core `structure` named `GeneralizedArithmeticSystem` to encapsulate the arithmetic mapping properties. It must include the modulus `d : ℕ` (with a positivity/greater-than-1 constraint like `d_ge_two : d ≥ 2`) and the piecewise affine branching components or a generic deterministic transition function `map : ℤ → ℤ`.
+4. Define the trajectory of the system formally via `def forward_trajectory (sys : GeneralizedArithmeticSystem) (x₀ : ℤ) (n : ℕ) : ℤ`. This can be implemented natively using `Nat.rec` or `Nat.iterate` applying `sys.map` $n$ times to the base point $x₀$.
+5. Define the concept of an invariant set under the system map. Create a `def IsForwardInvariant (sys : GeneralizedArithmeticSystem) (S : Set ℤ) : Prop := ∀ x ∈ S, sys.map x ∈ S`.
+6. Define backward invariance similarly: `def IsBackwardInvariant (sys : GeneralizedArithmeticSystem) (S : Set ℤ) : Prop := ∀ x, sys.map x ∈ S → x ∈ S`.
+7. Ensure the file contains zero `sorry`s or `axiom`s. This is purely foundational structure declaration.
+
+## Definition of Done (DoD)
+- [ ] The core `GeneralizedArithmeticSystem` structure is natively defined and encapsulates the system map.
+- [ ] Forward trajectories and forward/backward invariance are mathematically formalized as computable definitions or propositions over `Set ℤ`.
+- [ ] The file `ArithmeticDynamics/Basic.lean` compiles without errors and contains zero `sorry`s.

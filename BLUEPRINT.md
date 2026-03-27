@@ -925,3 +925,26 @@ The foundational properties of the $d=5$ Pilot System (`pilot5_div_cond`, `pilot
 - [ ] The 4 `axiom` declarations for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, and `pilot5_algebraic_error_capping` are completely removed.
 - [ ] All 4 declarations are explicitly replaced with `theorem` signatures ending in `:= by sorry`.
 - [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+`ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over Z. Define trajectories and forward/backward invariance.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Basic.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Int.Basic`
+
+## Contextual Analysis
+Currently, the project jumps into advanced algebra, but lacks the core definitions defining the title. The foundational mathematical object of the repository is the Generalized Arithmetic Dynamical System (GADS) over Z, which must be formally defined in `ArithmeticDynamics/Basic.lean` to establish a base structure encompassing discrete trajectories and forward/backward invariance. Without this core defining structure, the Sieve Analytics and Ergodic Theory modules lack a concrete, typological target for their density bounds and measure-theoretic properties. We must formalize this baseline system to bridge the top-level algebraic operations to the specific dynamic models.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Basic.lean`.
+2. At the top of the file, declare the import: `import Mathlib.Data.Int.Basic`.
+3. Define the core `structure GeneralizedArithmeticSystem` (or GADS) specifying the state space and the transition function over `ℤ`.
+4. Define the trajectory sequence inductively using `def trajectory (sys : GeneralizedArithmeticSystem) (x₀ : ℤ) : ℕ → ℤ` where the base case is `x₀` and the inductive step applies the system's map.
+5. Define the predicate `def IsForwardInvariant (sys : GeneralizedArithmeticSystem) (S : Set ℤ) : Prop := ∀ x ∈ S, sys.map x ∈ S`.
+6. Define the predicate `def IsBackwardInvariant (sys : GeneralizedArithmeticSystem) (S : Set ℤ) : Prop := ∀ x, sys.map x ∈ S → x ∈ S`.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/Basic.lean` is created and imports `Mathlib.Data.Int.Basic`.
+- [ ] The `GeneralizedArithmeticSystem` structure, trajectory, and invariance predicates are completely defined.
+- [ ] The file compiles without errors and contains exactly zero `sorry`s.

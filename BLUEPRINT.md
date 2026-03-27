@@ -925,3 +925,25 @@ The foundational properties of the $d=5$ Pilot System (`pilot5_div_cond`, `pilot
 - [ ] The 4 `axiom` declarations for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, and `pilot5_algebraic_error_capping` are completely removed.
 - [ ] All 4 declarations are explicitly replaced with `theorem` signatures ending in `:= by sorry`.
 - [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+`ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over Z. Define trajectories and forward/backward invariance.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Basic.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Int.Basic`, `Mathlib.Data.Set.Basic`
+
+## Contextual Analysis
+Currently, the project lacks foundational definitions for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. It jumps straight into advanced algebraic, computable, and topological modules without explicitly defining the base structure, discrete trajectories, or invariance bounds. This creates significant technical debt, preventing structural unification of properties across different dynamical systems studied. We must rigorously formalize the base structure `GeneralizedArithmeticDynamics` and its trajectories to provide the analytical target required for further correspondence theorems.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Basic.lean`.
+2. Ensure the module imports `Mathlib.Data.Int.Basic` and `Mathlib.Data.Set.Basic`.
+3. Declare a structure `GeneralizedArithmeticDynamics` over $\mathbb{Z}$ that takes a state transformation function $f : \mathbb{Z} \to \mathbb{Z}$.
+4. Define a discrete trajectory function computing the $n$-th iterate of $f$ on an initial state $x_0$, natively utilizing `Nat.rec` or iterated application.
+5. Define strict predicate properties for `IsForwardInvariant` (ensuring mapped states remain within a given set) and `IsBackwardInvariant` (ensuring pre-images strictly reside within a given set).
+
+## Definition of Done (DoD)
+- [ ] `ArithmeticDynamics/Basic.lean` formally defines the `GeneralizedArithmeticDynamics` structure and discrete trajectory bounds over $\mathbb{Z}$.
+- [ ] Forward and backward invariance properties are strictly typed as definitions.
+- [ ] The file strictly adheres to project dependency paths without introducing any `sorry` or `axiom`.

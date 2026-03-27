@@ -4,6 +4,56 @@ open Polynomial
 
 namespace ArithmeticDynamics.Algebra
 
+/-- Helper to formalize Taylor expansion linear approximation modulo an arbitrary square. -/
+theorem eval_add_modSq (G : ℤ[X]) (x y y_sq : ℤ) (h_sq : Int.ModEq y_sq (y ^ 2) 0) :
+    Int.ModEq y_sq (G.eval (x + y)) (G.eval x + G.derivative.eval x * y) := by
+  refine Polynomial.induction_on G ?_ ?_ ?_
+  · intro a
+    simp
+  · intro p q hp hq
+    simp only [eval_add, derivative_add]
+    have hr : eval x p + eval x q + (eval x (derivative p) + eval x (derivative q)) * y =
+              (eval x p + eval x (derivative p) * y) + (eval x q + eval x (derivative q) * y) := by ring
+    rw [hr]
+    exact Int.ModEq.add hp hq
+  · intro n a ih
+    have h_prod : C a * X ^ (n + 1) = X * (C a * X ^ n) := by ring
+    rw [h_prod]
+    have hev : eval (x + y) (X * (C a * X ^ n)) = eval (x + y) X * eval (x + y) (C a * X ^ n) := eval_mul
+    rw [hev]
+    have hder : derivative (X * (C a * X ^ n)) = X * derivative (C a * X ^ n) + derivative X * (C a * X ^ n) := by
+      have h1 : derivative (X * (C a * X ^ n)) = derivative X * (C a * X ^ n) + X * derivative (C a * X ^ n) := derivative_mul
+      rw [h1]
+      ring
+    rw [hder]
+    have hev2 : eval x (X * derivative (C a * X ^ n) + derivative X * (C a * X ^ n)) =
+                eval x X * eval x (derivative (C a * X ^ n)) + eval x (derivative X) * eval x (C a * X ^ n) := by
+      simp only [eval_add, eval_mul]
+    rw [hev2]
+    have hX : Int.ModEq y_sq (eval (x + y) X) (eval x X + eval x (derivative X) * y) := by
+      simp only [eval_X, derivative_X, eval_one]
+      have h1 : x + y = x + 1 * y := by ring
+      rw [h1]
+    have h_mul := Int.ModEq.mul hX ih
+    have hdvd : y_sq ∣ (y ^ 2) := by
+      have h1 := h_sq.symm.dvd
+      rw [sub_zero] at h1
+      exact h1
+    have h2 : Int.ModEq y_sq ((eval x X + eval x (derivative X) * y) * (eval x (C a * X ^ n) + eval x (derivative (C a * X ^ n)) * y))
+                             (eval x X * eval x (C a * X ^ n) + (eval x X * eval x (derivative (C a * X ^ n)) + eval x (derivative X) * eval x (C a * X ^ n)) * y) := by
+      have diff_eq : ((eval x X * eval x (C a * X ^ n) + (eval x X * eval x (derivative (C a * X ^ n)) + eval x (derivative X) * eval x (C a * X ^ n)) * y)) -
+                     ((eval x X + eval x (derivative X) * y) * (eval x (C a * X ^ n) + eval x (derivative (C a * X ^ n)) * y)) =
+                     -(eval x (derivative X) * eval x (derivative (C a * X ^ n)) * y ^ 2) := by ring
+      rw [Int.modEq_iff_dvd]
+      rw [diff_eq]
+      have hh : -(eval x (derivative X) * eval x (derivative (C a * X ^ n)) * y ^ 2) = y^2 * (- (eval x (derivative X) * eval x (derivative (C a * X ^ n)))) := by ring
+      rw [hh]
+      exact dvd_mul_of_dvd_left hdvd _
+    have h3 := Int.ModEq.trans h_mul h2
+    have hh : eval x X * eval x (C a * X ^ n) = eval x (X * (C a * X ^ n)) := by simp only [eval_mul]
+    rw [hh] at h3
+    exact h3
+
 /-- Helper to preserve modular equivalence under polynomial evaluation. -/
 theorem eval_modEq (P : ℤ[X]) {d x y : ℤ} (h : Int.ModEq d x y) : Int.ModEq d (P.eval x) (P.eval y) := by
   refine Polynomial.induction_on P ?_ ?_ ?_
@@ -124,7 +174,20 @@ theorem dynamical_hensel_lift
       have h_taylor : Int.ModEq (d ^ (n + 2))
           (G.eval X_next)
           (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1)) := by
-        sorry
+        have h_y_sq : Int.ModEq (d ^ (n + 2)) ((t * d ^ (n + 1)) ^ 2) 0 := by
+          have h1 : (t * d ^ (n + 1)) ^ 2 = t ^ 2 * d ^ (2 * n + 2) := by ring
+          rw [Int.modEq_zero_iff_dvd]
+          rw [h1]
+          have h2 : 2 * n + 2 = n + 2 + n := by ring
+          rw [h2]
+          have h3 : d ^ (n + 2 + n) = d ^ (n + 2) * d ^ n := pow_add d (n + 2) n
+          rw [h3]
+          exact dvd_mul_of_dvd_right (dvd_mul_right (d ^ (n + 2)) (d ^ n)) (t ^ 2)
+        have h_base := eval_add_modSq G X_n (t * d ^ (n + 1)) (d ^ (n + 2)) h_y_sq
+        have h_eq : G.eval X_n + G.derivative.eval X_n * (t * d ^ (n + 1)) =
+                    G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1) := by ring
+        rw [h_eq] at h_base
+        exact h_base
 
       -- Substitute G(X_n) = m * d^{n+1} and t = -m * a into the linear approximation:
       -- G(X_next) ≈ m * d^{n+1} - G'(X_n) * (m * a) * d^{n+1}

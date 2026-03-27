@@ -925,3 +925,38 @@ The foundational properties of the $d=5$ Pilot System (`pilot5_div_cond`, `pilot
 - [ ] The 4 `axiom` declarations for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, and `pilot5_algebraic_error_capping` are completely removed.
 - [ ] All 4 declarations are explicitly replaced with `theorem` signatures ending in `:= by sorry`.
 - [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+Define `ArithmeticDynamics/Basic.lean` (Generalized Arithmetic Dynamical System)
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Basic.lean` (New File)
+- **New Mathlib Imports:** `Mathlib.Data.Int.Basic`, `Mathlib.Topology.Basic`, `Mathlib.Order.Basic`
+
+## Contextual Analysis
+The repository jumps straight into advanced $p$-adic algebra, ergodic theory, and sieve bounds without formally defining the foundational domain it claims to study. This is severe conceptual technical debt. The lack of a `Generalized Arithmetic Dynamical System (GADS)` structure over $\mathbb{Z}$ leaves higher-level algebraic correspondence theorems floating without a strict definitional root. We must define the core mathematical object: a system $(X, T)$ where $T: X \to X$ is an arithmetic map, specifically establishing rigorous definitions for discrete trajectories and forward/backward invariance. This creates the required base structure upon which metric topologies and computability reductions will later anchor.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Basic.lean` at the root of the source directory.
+2. Add imports: `import Mathlib.Data.Int.Basic` and `import Mathlib.Order.Basic`.
+3. Open a `namespace ArithmeticDynamics`.
+4. Define the core `Structure` `GADS`:
+   ```lean
+   structure GADS where
+     space : Type
+     map : space → space
+   ```
+5. Define the concept of a forward `trajectory`:
+   ```lean
+   def trajectory (sys : GADS) (x : sys.space) : ℕ → sys.space
+   | 0 => x
+   | n + 1 => sys.map (trajectory sys x n)
+   ```
+6. Define `IsForwardInvariant` for a subset $S \subseteq X$: `def IsForwardInvariant (sys : GADS) (S : Set sys.space) : Prop := ∀ x ∈ S, sys.map x ∈ S`.
+7. Define `IsBackwardInvariant` for a subset $S \subseteq X$: `def IsBackwardInvariant (sys : GADS) (S : Set sys.space) : Prop := ∀ x, sys.map x ∈ S → x ∈ S`.
+8. Ensure all definitions include professional docstrings, and save the file. No unproven assumptions (`sorry` or `axiom`) are permitted in these structural definitions.
+
+## Definition of Done (DoD)
+- [ ] The new file `ArithmeticDynamics/Basic.lean` is created with the `GADS` structure explicitly defined.
+- [ ] The `trajectory`, `IsForwardInvariant`, and `IsBackwardInvariant` definitions are cleanly formalized using Lean's `Set` API.
+- [ ] The file compiles cleanly from scratch without any `sorry`, `axiom`, or structural errors.

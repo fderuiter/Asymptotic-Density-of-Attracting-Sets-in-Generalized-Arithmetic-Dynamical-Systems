@@ -986,3 +986,30 @@ The overarching mathematical framework evaluates the asymptotic density of subse
 - [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
 - [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s.
 - [ ] The file compiles cleanly and imports dependencies correctly.
+
+## Target Task
+Hensel Lift: Modulo `d` Compatibility
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
+- **Mathlib Imports:** None new required.
+
+## Contextual Analysis
+The second proof obligation in the main induction step of `hensel_lift` asserts that the iteratively generated next step, `X_next = X_n + t * d^(n+1)`, correctly maintains the base congruence `X_next ≡ x₀ [ZMOD d]`. Currently, this foundational requirement of Hensel's lemma is admitted using `sorry`. We must formalize this to mathematically ground the p-adic orbit construction, bridging the gap between `X_n ≡ x₀ [ZMOD d]` and `X_next`.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/HenselLift.lean` around line 133, inside the proof of `hensel_lift`.
+2. Locate the second bullet point `· -- PROOF 2: X_next cleanly lifts x₀ modulo d` and the associated `sorry`.
+3. Prove `d ∣ (t * d ^ (n + 1))` using `have hdvd : d ∣ (t * d ^ (n + 1)) := by ...`
+   - Use `have h1 : d ∣ d ^ (n + 1) := dvd_pow_self d (Nat.succ_ne_zero n)` to show `d` divides the power.
+   - Use `exact dvd_mul_of_dvd_right h1 t` to show `d` divides the full term.
+4. Convert the divisibility to a modular equivalence: `have hz : Int.ModEq d (t * d ^ (n + 1)) 0 := Int.modEq_zero_iff_dvd.mpr hdvd`
+5. Apply modular addition to `X_n`: `have h_add : Int.ModEq d (X_n + t * d ^ (n + 1)) (X_n + 0) := Int.ModEq.add (Int.ModEq.refl X_n) hz`
+6. Simplify the addition with zero: `rw [add_zero] at h_add`
+7. Conclude the goal by chaining `h_add` with the inductive hypothesis `h_lift_n`: `exact h_add.trans h_lift_n`
+8. Delete the `sorry`.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` for PROOF 2 in `hensel_lift` is fully removed.
+- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles locally using `lake build ArithmeticDynamics.Algebra.HenselLift` without any errors.
+- [ ] No new `sorry` or `axiom` declarations were introduced.

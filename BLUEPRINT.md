@@ -356,7 +356,7 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [x] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Modulo `d` Compatibility
 
 ## Target Profile
@@ -986,3 +986,34 @@ The overarching mathematical framework evaluates the asymptotic density of subse
 - [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
 - [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s.
 - [ ] The file compiles cleanly and imports dependencies correctly.
+
+## Target Task
+`ArithmeticDynamics/AsymptoticDensity.lean`: Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/AsymptoticDensity.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Nat.Basic`, `Mathlib.Data.Real.Basic`, `Mathlib.Topology.Instances.Int`, `Mathlib.Order.Filter.Basic`
+
+## Contextual Analysis
+The project's sieve analytics components heavily rely on asymptotic density constraints, but there is no explicit foundational definition of what "asymptotic density" mathematically means in Lean. Without explicitly typing out natural density, logarithmic density, and their upper/lower variants, bounds proved in the SieveAnalytics folder lack a rigorous mapping to subset probability structures over `ℕ`. We must create `ArithmeticDynamics/AsymptoticDensity.lean` to formally provide these definitions utilizing limits (`Filter.Tendsto`) over the real numbers. This resolves another core definitional gap identified in `TODO.md`.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/AsymptoticDensity.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Data.Nat.Basic
+   import Mathlib.Data.Real.Basic
+   import Mathlib.Topology.Instances.Int
+   import Mathlib.Order.Filter.Basic
+   ```
+3. Open necessary namespaces: `open Filter Topology`.
+4. Define the counting function `countUpTo (A : Set ℕ) (n : ℕ) : ℕ`, representing the number of elements in `A` less than or equal to `n`. (This can be defined constructively using `Finset.filter` over `Finset.range (n + 1)`).
+5. Define `HasNaturalDensity (A : Set ℕ) (δ : ℝ) : Prop`, stating that `Filter.Tendsto (fun n ↦ (countUpTo A n : ℝ) / (n : ℝ)) Filter.atTop (𝓝 δ)`.
+6. Define `HasLogarithmicDensity (A : Set ℕ) (δ : ℝ) : Prop`, representing the logarithmic variant which weights elements by `1/k`.
+7. Define `UpperNaturalDensity` and `LowerNaturalDensity` using `limsup` and `liminf` over the same ratio.
+8. Add comprehensive docstrings for all definitions.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/AsymptoticDensity.lean` is created.
+- [ ] The definitions for `countUpTo`, `HasNaturalDensity`, `HasLogarithmicDensity`, `UpperNaturalDensity`, and `LowerNaturalDensity` are accurately formalized without `sorry`s.
+- [ ] The file compiles safely without errors.

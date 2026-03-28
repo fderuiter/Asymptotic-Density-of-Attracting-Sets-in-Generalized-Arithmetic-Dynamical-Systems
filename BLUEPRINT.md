@@ -986,3 +986,63 @@ The overarching mathematical framework evaluates the asymptotic density of subse
 - [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
 - [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s.
 - [ ] The file compiles cleanly and imports dependencies correctly.
+
+## Target Task
+`ArithmeticDynamics/AsymptoticDensity.lean`: Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/AsymptoticDensity.lean`
+- **New Mathlib Imports:** `Mathlib.SetTheory.Cardinal.Finite`, `Mathlib.Topology.Instances.Int`, `Mathlib.Order.Filter.Basic`, `Mathlib.Data.Real.Basic`, `Mathlib.Topology.MetricSpace.Basic`, `Mathlib.Order.LiminfLimsup`, `Mathlib.Analysis.SpecialFunctions.Log.Basic`
+
+## Contextual Analysis
+The Sieve Analytics framework relies heavily on bounding the density of trajectories that fall into specific residue classes. However, the foundational definitions of asymptotic density (natural and logarithmic) are currently missing from the mathematical formalization. Ergodic theory fundamentally requires these limiting probability densities as a target for measure-theoretic bounds. We must create `ArithmeticDynamics/AsymptoticDensity.lean` to rigorously formalize upper/lower natural density, upper/lower logarithmic density, and the explicit existence of these limits for subsets of $\mathbb{N}$, providing a concrete analytical target for the decoupling thresholds.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/AsymptoticDensity.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.SetTheory.Cardinal.Finite
+   import Mathlib.Topology.Instances.Int
+   import Mathlib.Order.Filter.Basic
+   import Mathlib.Data.Real.Basic
+   import Mathlib.Topology.MetricSpace.Basic
+   import Mathlib.Order.LiminfLimsup
+   import Mathlib.Analysis.SpecialFunctions.Log.Basic
+   ```
+3. Open necessary namespaces: `open Filter Topology Set`.
+4. Define `upperNaturalDensity` for a set `A : Set ℕ` using `limsup` over `atTop`.
+   ```lean
+   noncomputable def upperNaturalDensity (A : Set ℕ) : ℝ :=
+     limsup (fun (N : ℕ) ↦ (Nat.card ↥(A ∩ {n : ℕ | n < N}) : ℝ) / (N : ℝ)) atTop
+   ```
+5. Define `lowerNaturalDensity` using `liminf`.
+   ```lean
+   noncomputable def lowerNaturalDensity (A : Set ℕ) : ℝ :=
+     liminf (fun (N : ℕ) ↦ (Nat.card ↥(A ∩ {n : ℕ | n < N}) : ℝ) / (N : ℝ)) atTop
+   ```
+6. Define `HasNaturalDensity` as the condition where the limit exists (i.e., `Tendsto` to some `d : ℝ`).
+   ```lean
+   def HasNaturalDensity (A : Set ℕ) (d : ℝ) : Prop :=
+     Tendsto (fun (N : ℕ) ↦ (Nat.card ↥(A ∩ {n : ℕ | n < N}) : ℝ) / (N : ℝ)) atTop (𝓝 d)
+   ```
+7. Define `upperLogarithmicDensity` using a harmonic sum divided by `Real.log`.
+   ```lean
+   noncomputable def upperLogarithmicDensity (A : Set ℕ) : ℝ :=
+     limsup (fun (N : ℕ) ↦ (∑' n : ↥(A ∩ {n : ℕ | n < N}), 1 / (n : ℝ)) / Real.log (N : ℝ)) atTop
+   ```
+8. Define `lowerLogarithmicDensity` using `liminf`.
+   ```lean
+   noncomputable def lowerLogarithmicDensity (A : Set ℕ) : ℝ :=
+     liminf (fun (N : ℕ) ↦ (∑' n : ↥(A ∩ {n : ℕ | n < N}), 1 / (n : ℝ)) / Real.log (N : ℝ)) atTop
+   ```
+9. Define `HasLogarithmicDensity` as the condition where the limit exists.
+   ```lean
+   def HasLogarithmicDensity (A : Set ℕ) (d : ℝ) : Prop :=
+     Tendsto (fun (N : ℕ) ↦ (∑' n : ↥(A ∩ {n : ℕ | n < N}), 1 / (n : ℝ)) / Real.log (N : ℝ)) atTop (𝓝 d)
+   ```
+10. Add appropriate docstrings to all definitions describing their mathematical significance.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/AsymptoticDensity.lean` is created.
+- [ ] The definitions for natural and logarithmic densities are formalized using proper Mathlib filter limit semantics without relying on unproven axioms.
+- [ ] The file cleanly compiles and imports without errors.

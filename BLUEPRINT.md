@@ -986,3 +986,58 @@ The overarching mathematical framework evaluates the asymptotic density of subse
 - [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
 - [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s.
 - [ ] The file compiles cleanly and imports dependencies correctly.
+
+## Target Task
+`ArithmeticDynamics/AsymptoticDensity.lean`: Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/AsymptoticDensity.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Real.Basic`, `Mathlib.Data.Nat.Basic`, `Mathlib.SetTheory.Cardinal.Finite`, `Mathlib.Order.LiminfLimsup`, `Mathlib.Analysis.SpecialFunctions.Log.Basic`, `Mathlib.Data.Set.Basic`
+
+## Contextual Analysis
+The `SieveAnalytics` framework currently attempts to bound the asymptotic behavior of dynamically decoupled quasi-independent branching events. However, it entirely lacks the definitions of what it is trying to bound: Natural and Logarithmic Density. Without these core metric and analytic limits formalized explicitly over $\mathbb{N}$, the analytical sieve proofs are operating in a vacuum without a rigorously typed target. We must create `ArithmeticDynamics/AsymptoticDensity.lean` to formally construct `naturalDensityUpper`, `naturalDensityLower`, `logarithmicDensityUpper`, and `logarithmicDensityLower` using Lean's `limsup` and `liminf` over the reals.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/AsymptoticDensity.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Data.Real.Basic
+   import Mathlib.Data.Nat.Basic
+   import Mathlib.SetTheory.Cardinal.Finite
+   import Mathlib.Order.LiminfLimsup
+   import Mathlib.Analysis.SpecialFunctions.Log.Basic
+   import Mathlib.Data.Set.Basic
+   ```
+3. Open namespaces: `open Filter Set`.
+4. Formalize Natural Density Upper and Lower bounds using `limsup` and `liminf` evaluated at `atTop`.
+   ```lean
+   noncomputable def naturalDensityUpper (A : Set ℕ) : ℝ :=
+     limsup (fun (N : ℕ) ↦ (Nat.card ↥(A ∩ {n : ℕ | n < N}) : ℝ) / (N : ℝ)) atTop
+
+   noncomputable def naturalDensityLower (A : Set ℕ) : ℝ :=
+     liminf (fun (N : ℕ) ↦ (Nat.card ↥(A ∩ {n : ℕ | n < N}) : ℝ) / (N : ℝ)) atTop
+   ```
+5. Formalize `HasNaturalDensity` to enforce existence when bounds match.
+   ```lean
+   def HasNaturalDensity (A : Set ℕ) : Prop :=
+     naturalDensityLower A = naturalDensityUpper A
+   ```
+6. Formalize Logarithmic Density bounds using the sum of reciprocals against the natural logarithm.
+   ```lean
+   noncomputable def logarithmicDensityUpper (A : Set ℕ) : ℝ :=
+     limsup (fun (N : ℕ) ↦ (∑' n : ↥(A ∩ {n : ℕ | 0 < n ∧ n < N}), (1 : ℝ) / (n : ℝ)) / Real.log (N : ℝ)) atTop
+
+   noncomputable def logarithmicDensityLower (A : Set ℕ) : ℝ :=
+     liminf (fun (N : ℕ) ↦ (∑' n : ↥(A ∩ {n : ℕ | 0 < n ∧ n < N}), (1 : ℝ) / (n : ℝ)) / Real.log (N : ℝ)) atTop
+   ```
+7. Formalize `HasLogarithmicDensity` to enforce existence when logarithmic bounds match.
+   ```lean
+   def HasLogarithmicDensity (A : Set ℕ) : Prop :=
+     logarithmicDensityLower A = logarithmicDensityUpper A
+   ```
+8. Add comprehensive docstrings for all mathematical operations and structures.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/AsymptoticDensity.lean` is created.
+- [ ] The definitions for natural and logarithmic densities are formalized rigorously using `noncomputable def` without any `sorry`.
+- [ ] The file compiles cleanly with all required dependencies imported successfully.

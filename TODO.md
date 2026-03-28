@@ -87,7 +87,7 @@ This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel
   - **Task:** Prove `G.eval X_n + G'(X_n)*t*d^{n+1} ≡ 0 [ZMOD d^{n+2}]`.
   - **Tactics/Strategy:** Substitute `G(X_n) = m * d^{n+1}` and `t = -m * a`. Factor `d^{n+1}` and apply Bezout's identity `1 - a * G'(X_n) = b * d` to extract a factor of `d`. Use `ring`.
 
-- [ ] **Hensel Lift: Modulo `d` Compatibility**
+- [x] **Hensel Lift: Modulo `d` Compatibility**
   - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 109)
   - **Task:** Prove `X_n + t * d^{n+1} ≡ x₀ [ZMOD d]`.
   - **Tactics/Strategy:** Show `t * d^{n+1} ≡ 0 [ZMOD d]` because `d ∣ d^{n+1}`. Add this to `X_n ≡ x₀ [ZMOD d]` using transitivity.

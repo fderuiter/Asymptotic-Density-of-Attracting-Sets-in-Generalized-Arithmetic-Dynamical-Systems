@@ -986,3 +986,33 @@ The overarching mathematical framework evaluates the asymptotic density of subse
 - [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
 - [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s.
 - [ ] The file compiles cleanly and imports dependencies correctly.
+
+## Target Task
+`ArithmeticDynamics/AsymptoticDensity.lean`: Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/AsymptoticDensity.lean`
+- **New Mathlib Imports:** `Mathlib.Analysis.SpecialFunctions.Log.Basic`, `Mathlib.Data.Real.Basic`, `Mathlib.Order.Filter.Basic`, `Mathlib.SetTheory.Cardinal.Finite`
+
+## Contextual Analysis
+Sieve Analytics bounds the proportion of trajectories that remain free of collisions. However, the exact mathematical target for these bounds—the asymptotic density of sets in $\mathbb{N}$—is undefined. Natural density defines the linear proportion of a set up to $N$, while logarithmic density reweights by $1/n$ to smooth out multiplicative sequences. Without rigorously formalizing upper and lower density limits over $\mathbb{R}$ using `limsup` and `liminf`, ergodic theorems (like Birkhoff's) cannot link spatial capacity to temporal averages. We must create `ArithmeticDynamics/AsymptoticDensity.lean` to formally declare these density measures.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/AsymptoticDensity.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Analysis.SpecialFunctions.Log.Basic
+   import Mathlib.Data.Real.Basic
+   import Mathlib.Order.Filter.Basic
+   import Mathlib.SetTheory.Cardinal.Finite
+   ```
+3. Open namespaces `Filter` and `Topology`.
+4. Define `upperNaturalDensity` and `lowerNaturalDensity` for `A : Set ℕ` noncomputably as `limsup` and `liminf` of `(Nat.card ↥(A ∩ {n : ℕ | n < N})) / N` as `N → atTop` in `ℝ`.
+5. Define `HasNaturalDensity (A : Set ℕ) (d : ℝ) : Prop` as `Tendsto` of the sequence to `𝓝 d`.
+6. Define `upperLogarithmicDensity` and `lowerLogarithmicDensity` for `A : Set ℕ` noncomputably using `(∑' n : ↥(A ∩ {k : ℕ | 0 < k ∧ k < N}), 1 / (n : ℝ)) / Real.log N`.
+7. Define `HasLogarithmicDensity (A : Set ℕ) (d : ℝ) : Prop` as `Tendsto` of the logarithmic sequence to `𝓝 d`.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/AsymptoticDensity.lean` is created.
+- [ ] Natural and logarithmic density definitions (`upper`, `lower`, and `Has` variants) are explicitly typed and formalized using Mathlib filters without `sorry`.
+- [ ] The file compiles cleanly and imports dependencies correctly.

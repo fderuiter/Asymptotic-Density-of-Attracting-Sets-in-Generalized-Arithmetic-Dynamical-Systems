@@ -356,7 +356,7 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 - [x] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Modulo `d` Compatibility
 
 ## Target Profile
@@ -382,8 +382,8 @@ In the second part of the Hensel Lift inductive step (`PROOF 2`), we must verify
    `rwa [add_zero] at h_add` or use `exact h_add` after `rw [add_zero] at h_add`.
 
 ## Definition of Done (DoD)
-- [ ] The `sorry` completing `PROOF 2` is removed.
-- [ ] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
+- [x] The `sorry` completing `PROOF 2` is removed.
+- [x] The proof explicitly verifies that $t \cdot d^{n+1} \equiv 0 \pmod d$ and uses it to establish transitivity.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
 ## Target Task [COMPLETED]

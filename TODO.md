@@ -41,7 +41,7 @@ These foundational lemmas block higher-level arithmetic and topological reasonin
   - **Current State:** `axiom`
   - **Task:** Formalize congruence preservation under 1-Lipschitz maps.
 
-- [ ] **Prove `linearization_of_orbits`**
+- [x] **Prove `linearization_of_orbits`**
   - **File:** `ArithmeticDynamics/Algebra/PadicExtensions.lean`
   - **Current State:** `axiom`
   - **Task:** Show prime-power arithmetic maps are 1-Lipschitz.

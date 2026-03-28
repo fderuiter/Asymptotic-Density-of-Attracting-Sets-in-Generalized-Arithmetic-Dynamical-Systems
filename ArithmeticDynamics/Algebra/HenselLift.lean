@@ -216,7 +216,10 @@ theorem dynamical_hensel_lift
       -- X_next = X_n + t * d^{n+1}. Since n ≥ 0, d divides d^{n+1} perfectly.
       -- Thus X_next ≡ X_n [ZMOD d]. By the inductive hypothesis (h_lift_n), X_n ≡ x₀ [ZMOD d].
       -- By basic transitivity, X_next ≡ x₀ [ZMOD d].
-      sorry
+      have hd : d ∣ d ^ (n + 1) := dvd_pow_self d (Nat.succ_ne_zero n)
+      have h_t : Int.ModEq d (t * d ^ (n + 1)) 0 := Int.modEq_zero_iff_dvd.mpr (dvd_mul_of_dvd_right hd t)
+      have h_add := Int.ModEq.add h_lift_n h_t
+      rwa [add_zero] at h_add
 
     · -- PROOF 3: Strict Uniqueness modulo d^{n+2}
       intro y hy_root hy_lift

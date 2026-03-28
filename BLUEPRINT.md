@@ -299,7 +299,7 @@ The transversality condition $G'(X_n) \equiv G'(x_0) \pmod d$ is critical for es
 - [x] The proof explicitly utilizes `Polynomial.eval_modEq` (or equivalent) to transfer the congruence.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Taylor Approximation Step
 
 ## Target Profile
@@ -324,9 +324,9 @@ In the core inductive step of the Dynamical Hensel Lift, we define the next appr
 12. Summing these congruences yields exactly the required `Int.ModEq (d ^ (n + 2))` relationship. Use `exact` or `apply` with the formulated sum reduction.
 
 ## Definition of Done (DoD)
-- [ ] The `sorry` for `h_taylor` in the inductive step is fully removed.
-- [ ] The Taylor expansion accurately proves that all higher-order terms vanish modulo $d^{n+2}$.
-- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.
+- [x] The `sorry` for `h_taylor` in the inductive step is fully removed.
+- [x] The Taylor expansion accurately proves that all higher-order terms vanish modulo $d^{n+2}$.
+- [x] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.
 
 ## Target Task
 Hensel Lift: Main Cancellation

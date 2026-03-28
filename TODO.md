@@ -76,7 +76,7 @@ This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel
   - **Mathlib Imports:** `Mathlib.Data.Polynomial.Eval`
   - **Tactics/Strategy:** Use `Polynomial.eval_modEq` to lift `X_n ≡ x₀ [ZMOD d]` to `G'(X_n) ≡ G'(x₀) [ZMOD d]`. Then use `IsCoprime.modEq`.
 
-- [ ] **Hensel Lift: Taylor Approximation Step**
+- [x] **Hensel Lift: Taylor Approximation Step**
   - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 96)
   - **Task:** Prove `G(X_n + t * d^{n+1}) ≡ G(X_n) + G'(X_n)*t*d^{n+1} [ZMOD d^{n+2}]`.
   - **Mathlib Imports:** `Mathlib.Data.Polynomial.Taylor`

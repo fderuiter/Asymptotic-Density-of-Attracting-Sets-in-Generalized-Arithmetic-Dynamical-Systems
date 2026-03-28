@@ -194,7 +194,23 @@ theorem dynamical_hensel_lift
       -- Factor out d^{n+1}: d^{n+1} * m * (1 - a * G'(X_n))
       -- From Bezout's identity (hab), 1 - a * G'(X_n) = b * d
       -- Thus: d^{n+1} * m * (b * d) = m * b * d^{n+2} ≡ 0 [ZMOD d^{n+2}]
-      sorry
+      have h_cancel : Int.ModEq (d ^ (n + 2)) (G.eval X_n + G.derivative.eval X_n * t * d ^ (n + 1)) 0 := by
+        rw [Int.modEq_zero_iff_dvd]
+        use m * b
+        change G.eval X_n + G.derivative.eval X_n * (-m * a) * d ^ (n + 1) = d ^ (n + 2) * (m * b)
+        rw [hm]
+        calc
+          m * d ^ (n + 1) + G.derivative.eval X_n * (-m * a) * d ^ (n + 1) = m * d ^ (n + 1) * (1 - a * G.derivative.eval X_n) := by ring
+          _ = m * d ^ (n + 1) * (b * d) := by
+            have h1 : 1 - a * G.derivative.eval X_n = b * d := by
+              calc
+                1 - a * G.derivative.eval X_n = a * G.derivative.eval X_n + b * d - a * G.derivative.eval X_n := by rw [hab]
+                _ = b * d := by ring
+            rw [h1]
+          _ = d ^ (n + 2) * (m * b) := by
+            rw [pow_succ d (n + 1)]
+            ring
+      exact h_taylor.trans h_cancel
 
     · -- PROOF 2: X_next cleanly lifts x₀ modulo d
       -- X_next = X_n + t * d^{n+1}. Since n ≥ 0, d divides d^{n+1} perfectly.

@@ -328,7 +328,7 @@ In the core inductive step of the Dynamical Hensel Lift, we define the next appr
 - [x] The Taylor expansion accurately proves that all higher-order terms vanish modulo $d^{n+2}$.
 - [x] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the subsequent `sorry` warning.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Main Cancellation
 
 ## Target Profile
@@ -352,8 +352,8 @@ In the first part of the Hensel Lift inductive step (`PROOF 1`), we must mathema
 11. Close the goal using `linear_combination (m * d ^ (n + 1)) * hab`. This explicitly multiplies the Bezout identity by the factored term to verify the exact cancellation.
 
 ## Definition of Done (DoD)
-- [ ] The `sorry` completing the main cancellation in `PROOF 1` is removed.
-- [ ] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
+- [x] The `sorry` completing the main cancellation in `PROOF 1` is removed.
+- [x] The proof explicitly utilizes Bezout's identity (`hab`) and the error term definition (`hm`) to deduce exact divisibility by $d^{n+2}$.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
 ## Target Task

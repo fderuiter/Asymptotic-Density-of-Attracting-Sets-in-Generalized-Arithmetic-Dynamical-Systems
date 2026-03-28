@@ -82,7 +82,7 @@ This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel
   - **Mathlib Imports:** `Mathlib.Data.Polynomial.Taylor`
   - **Tactics/Strategy:** Apply polynomial Taylor expansion. Extract the linear term and bound higher-order terms using `d^(2n+2) ≡ 0 [ZMOD d^{n+2}]` since `2n+2 ≥ n+2`.
 
-- [ ] **Hensel Lift: Main Cancellation**
+- [x] **Hensel Lift: Main Cancellation**
   - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 103)
   - **Task:** Prove `G.eval X_n + G'(X_n)*t*d^{n+1} ≡ 0 [ZMOD d^{n+2}]`.
   - **Tactics/Strategy:** Substitute `G(X_n) = m * d^{n+1}` and `t = -m * a`. Factor `d^{n+1}` and apply Bezout's identity `1 - a * G'(X_n) = b * d` to extract a factor of `d`. Use `ring`.

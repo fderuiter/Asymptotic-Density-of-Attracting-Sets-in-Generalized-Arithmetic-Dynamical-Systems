@@ -950,3 +950,26 @@ Currently, the formalization explores heavy analytic and algorithmic dynamics, y
 - [ ] The file `ArithmeticDynamics/Basic.lean` is created.
 - [ ] The `GADS` structure, `trajectory`, `IsForwardInvariant`, and `IsBackwardInvariant` definitions are accurately formalized.
 - [ ] The file `ArithmeticDynamics/Basic.lean` compiles safely without errors.
+
+## Target Task
+`ArithmeticDynamics/AttractingSet.lean`: Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
+
+## Target Profile
+- **File:** `ArithmeticDynamics/AttractingSet.lean`
+- **New Mathlib Imports:** `Mathlib.Topology.MetricSpace.Basic`, `Mathlib.Topology.Bases`
+
+## Contextual Analysis
+Following the instantiation of the generalized dynamical system structure (`GADS`), the next topological prerequisite is the definition of an "Attracting Set". This defines the stable periodic or divergent targets that the quasi-polynomial systems descend into. Currently, there is no mathematical definition isolating an attracting domain, which leaves the sieve analytics without a well-defined topological limit to bound probabilistically. We must formally define what constitutes an attracting set under the standard discrete topology for actual integer bounds, and the $p$-adic topology for continuous metric analysis.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/AttractingSet.lean`.
+2. Import `ArithmeticDynamics.Basic`, `Mathlib.Topology.MetricSpace.Basic`, and `Mathlib.Topology.Bases`.
+3. Open appropriate namespaces.
+4. Define the property `IsAttractingSet_discrete (sys : GADS) (S : Set ℤ)` to mean that there exists an open neighborhood `U` around `S` in the discrete topology such that for all `x ∈ U`, the forward trajectory of `x` eventually falls into `S` and remains there. Since `ℤ` is discrete, this simplifies to finding some invariant subset `S` that maps into itself.
+5. Define the property `IsAttractingSet_padic (sys : GADS) (S : Set ℤ) (d : ℕ)` to define attracting sets under the $p$-adic limit. Since we are evaluating over a generalized modulus `d`, formally define the convergence `padicNormZd d (sys.f^[n] x - y) → 0` for some `y ∈ S` as $n \to \infty$.
+6. Leave structural placeholders if further mathlib limits are required, but ensure top-level definitions parse successfully.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/AttractingSet.lean` is completely created.
+- [ ] Definitions for both `IsAttractingSet_discrete` and `IsAttractingSet_padic` are accurately formalized without remaining `opaque` or `sorry` keywords on their signatures.
+- [ ] The file `ArithmeticDynamics/AttractingSet.lean` compiles cleanly with no syntax or typecheck errors.

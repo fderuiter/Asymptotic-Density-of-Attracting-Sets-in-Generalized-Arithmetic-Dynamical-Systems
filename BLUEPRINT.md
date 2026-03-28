@@ -925,3 +925,28 @@ The foundational properties of the $d=5$ Pilot System (`pilot5_div_cond`, `pilot
 - [ ] The 4 `axiom` declarations for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, and `pilot5_algebraic_error_capping` are completely removed.
 - [ ] All 4 declarations are explicitly replaced with `theorem` signatures ending in `:= by sorry`.
 - [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+
+## Target Task
+`ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over Z. Define trajectories and forward/backward invariance.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Basic.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Int.Basic`
+
+## Contextual Analysis
+Currently, the formalization explores heavy analytic and algorithmic dynamics, yet entirely lacks the root definitions. There is no mathematical definition of a "Generalized Arithmetic Dynamical System (GADS)" over the integers. Foundational structures defining basic dynamics, trajectories (orbits), and invariant sets are missing. This missing link breaks the dependency chain for further ergodic and sieve analytic work which require an explicit structural target. We must create `ArithmeticDynamics/Basic.lean` to formally instantiate the `GADS` structure with fields for the map type and modulus constraints, and define core operational properties like orbit trajectories and forward/backward invariance.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Basic.lean`.
+2. Add necessary imports: `import Mathlib`.
+3. Open necessary namespaces if required.
+4. Define the `GADS` structure. A Generalized Arithmetic Dynamical System operates over `ℤ`. It should at minimum contain `d : ℕ` (the modulus) and `f : ℤ → ℤ` (the dynamical map).
+5. Define `trajectory` (or `orbit`). Use `f^[n] x` (the `n`-th iterate of `f` on `x`) to define the position at time `n`. So, `def trajectory (sys : GADS) (x : ℤ) (n : ℕ) : ℤ := sys.f^[n] x`.
+6. Define `IsForwardInvariant` for a set `S : Set ℤ` under `sys : GADS` as `sys.f '' S ⊆ S` (or `∀ x ∈ S, sys.f x ∈ S`).
+7. Define `IsBackwardInvariant` for a set `S : Set ℤ` under `sys : GADS` as `S ⊆ sys.f ⁻¹' S` (or `∀ x, sys.f x ∈ S → x ∈ S`).
+8. Ensure all definitions include appropriate docstrings.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/Basic.lean` is created.
+- [ ] The `GADS` structure, `trajectory`, `IsForwardInvariant`, and `IsBackwardInvariant` definitions are accurately formalized.
+- [ ] The file `ArithmeticDynamics/Basic.lean` compiles safely without errors.

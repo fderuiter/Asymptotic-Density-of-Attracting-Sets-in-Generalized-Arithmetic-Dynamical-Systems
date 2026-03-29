@@ -1083,3 +1083,47 @@ To continuously interpolate discrete quasi-polynomial maps modulo $d$ over the $
 - [ ] Core definitions for `mahlerBasis` and `mahlerCoefficients` are mapped as `noncomputable def`s.
 - [ ] The foundational structural theorem `mahler_expansion_continuous` is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
 - [ ] The file correctly compiles.
+## Target Task
+`ArithmeticDynamics/Algebra/HaarMeasure.lean`: Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HaarMeasure.lean`
+- **New Mathlib Imports:** `Mathlib.MeasureTheory.Measure.Haar.Basic`, `Mathlib.Topology.Instances.Int`, `Mathlib.MeasureTheory.Constructions.BorelSpace.Basic`
+
+## Contextual Analysis
+To establish rigorous probabilistic and ergodic bounds on $p$-adic dynamical systems (like Sieve Analytics or Thermodynamic Formalism), we must possess a rigorously defined probability measure space on $\mathbb{Z}_p$. Currently, the `ArithmeticDynamics` project discusses stationary and invariant measures in higher-level axioms but fundamentally lacks the instantiation of the baseline Haar Measure over the $p$-adic integers (modeled as `Z_d d`). Without this measure, limits involving integration or almost-everywhere convergence lack a formal, topological foundation in Lean. We must create `ArithmeticDynamics/Algebra/HaarMeasure.lean` and construct a normalized Haar measure `noncomputable def padicHaarMeasure` on `Z_d d`. Since `Z_d` lacks full topological group and measurable space instances natively, we will isolate the topological bridging logic into a targeted `sorry` while formalizing the overall measure-theoretic signature.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Algebra/HaarMeasure.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.MeasureTheory.Measure.Haar.Basic
+   import Mathlib.Topology.Instances.Int
+   import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
+   import ArithmeticDynamics.Algebra.PadicMetric
+   ```
+3. Open necessary namespaces: `open MeasureTheory TopologicalSpace`.
+4. Define the `ArithmeticDynamics.Algebra` namespace and establish variable constraints: `variable {d : ℕ} [NeZero d]`.
+5. Since `Z_d` does not have a native `MeasurableSpace` or `TopologicalSpace` instance, provide dummy or isolated structural instances to satisfy the measure theory typeclasses, strictly isolating the uncomputable gap using `sorry`:
+   ```lean
+   noncomputable instance : TopologicalSpace (Z_d d) := sorry
+   noncomputable instance : MeasurableSpace (Z_d d) := sorry
+   noncomputable instance : BorelSpace (Z_d d) := sorry
+   noncomputable instance : TopologicalGroup (Z_d d) := sorry
+   ```
+6. Define the normalized Haar Measure explicitly mapping measurable sets of `Z_d d` to extended non-negative reals (`ℝ≥0∞`), bounding it with a `sorry` to isolate the uncomputable translation to the $p$-adic metric:
+   ```lean
+   noncomputable def padicHaarMeasure : Measure (Z_d d) :=
+     -- Isolated uncomputable gap bridging discrete topology to Haar measure
+     sorry
+   ```
+7. Define a theorem asserting that this measure is a probability measure (i.e., the measure of the universal set is 1), bounding the proof with a `sorry`:
+   ```lean
+   theorem padicHaarMeasure_isProbabilityMeasure : padicHaarMeasure Set.univ = 1 := by sorry
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/Algebra/HaarMeasure.lean` is created.
+- [ ] The topological and measurable space typeclass gaps are strictly isolated as `noncomputable instance`s ending in `:= sorry`.
+- [ ] The core definitions `padicHaarMeasure` and the probability theorem `padicHaarMeasure_isProbabilityMeasure` are mapped and terminate in `sorry`.
+- [ ] The file compiles without structural syntax errors beyond the expected 'declaration uses sorry' warnings.

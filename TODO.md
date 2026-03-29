@@ -97,7 +97,7 @@ This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel
   - **Task:** Deduce `G(y) ≡ 0 [ZMOD d^{n+1}]` from `G(y) ≡ 0 [ZMOD d^{n+2}]`.
   - **Tactics/Strategy:** Use `Int.ModEq.of_dvd`. Prove `d^{n+1} ∣ d^{n+2}` via `pow_succ`.
 
-- [ ] **Hensel Lift: Higher Modulus Uniqueness**
+- [x] **Hensel Lift: Higher Modulus Uniqueness**
   - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean` (line 140)
   - **Task:** Prove strict uniqueness for `y ≡ X_next [ZMOD d^{n+2}]`.
   - **Tactics/Strategy:** Write `y = X_n + s * d^{n+1}`. Expand `G(y)` and match terms modulo `d^{n+2}`. Use coprimality to force `s ≡ t [ZMOD d]`, then deduce `s * d^{n+1} ≡ t * d^{n+1} [ZMOD d^{n+2}]`. Conclude `y ≡ X_next` with `ring`.

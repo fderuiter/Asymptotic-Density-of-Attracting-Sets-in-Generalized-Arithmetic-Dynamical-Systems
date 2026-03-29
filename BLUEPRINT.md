@@ -409,7 +409,7 @@ In the uniqueness part of the Hensel Lift inductive step (`PROOF 3`), we assume 
 - [x] The proof explicitly utilizes `Int.ModEq.of_dvd` and a formal divisibility argument for the powers of `d`.
 - [x] The `ArithmeticDynamics/Algebra/HenselLift.lean` file compiles cleanly up to the next `sorry` warning without errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Hensel Lift: Higher Modulus Uniqueness
 
 ## Target Profile
@@ -434,9 +434,9 @@ In the final step of the uniqueness proof for the Dynamical Hensel Lift (`PROOF 
 12. This trivially implies `Int.ModEq (d ^ (n + 2)) y X_next`. Conclude the proof.
 
 ## Definition of Done (DoD)
-- [ ] The final `sorry` completing `PROOF 3` at the end of the inductive step is entirely removed.
-- [ ] The formal derivation successfully substitutes `y = X_n + s * d^{n+1}` and exploits the transversality condition to force `s \equiv t \pmod d`.
-- [ ] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the end of the module.
+- [x] The final `sorry` completing `PROOF 3` at the end of the inductive step is entirely removed.
+- [x] The formal derivation successfully substitutes `y = X_n + s * d^{n+1}` and exploits the transversality condition to force `s \equiv t \pmod d`.
+- [x] The file `ArithmeticDynamics/Algebra/HenselLift.lean` compiles without errors up to the end of the module.
 ## Target Task
 Prove `fractran_universal_threshold`
 

@@ -249,6 +249,130 @@ theorem dynamical_hensel_lift
 
       -- Adding X_n to both sides logically guarantees that y ≡ X_next [ZMOD d^{n+2}].
       -- The dynamically generated periodic orbit is strictly unique. ∎
-      sorry
+      rcases hy_eq_Xn.symm.dvd with ⟨s, hs⟩
+      have hs_eq : y = X_n + s * d ^ (n + 1) := by
+        calc
+          y = y - X_n + X_n := by ring
+          _ = d ^ (n + 1) * s + X_n := by rw [hs]
+          _ = X_n + s * d ^ (n + 1) := by ring
+
+      have h_y_sq : Int.ModEq (d ^ (n + 2)) ((s * d ^ (n + 1)) ^ 2) 0 := by
+        have h1 : (s * d ^ (n + 1)) ^ 2 = s ^ 2 * d ^ (2 * n + 2) := by ring
+        rw [Int.modEq_zero_iff_dvd]
+        rw [h1]
+        have h2 : 2 * n + 2 = n + 2 + n := by ring
+        rw [h2]
+        have h3 : d ^ (n + 2 + n) = d ^ (n + 2) * d ^ n := pow_add d (n + 2) n
+        rw [h3]
+        exact dvd_mul_of_dvd_right (dvd_mul_right (d ^ (n + 2)) (d ^ n)) (s ^ 2)
+      have h_taylor := eval_add_modSq G X_n (s * d ^ (n + 1)) (d ^ (n + 2)) h_y_sq
+      rw [← hs_eq] at h_taylor
+
+      have h_lin : Int.ModEq (d ^ (n + 2)) (G.eval X_n + G.derivative.eval X_n * (s * d ^ (n + 1))) 0 := h_taylor.symm.trans hy_root
+
+      have h_lin2 : Int.ModEq (d ^ (n + 2)) ((m + G.derivative.eval X_n * s) * d ^ (n + 1)) 0 := by
+        have h_ring : G.eval X_n + G.derivative.eval X_n * (s * d ^ (n + 1)) = (m + G.derivative.eval X_n * s) * d ^ (n + 1) := by
+          rw [hm]
+          ring
+        rwa [h_ring] at h_lin
+
+      have h_dvd : d ^ (n + 2) ∣ (m + G.derivative.eval X_n * s) * d ^ (n + 1) := by
+        have hdvd0 := h_lin2.symm.dvd
+        have h_sub : ((m + G.derivative.eval X_n * s) * d ^ (n + 1)) - 0 = ((m + G.derivative.eval X_n * s) * d ^ (n + 1)) := by ring
+        rw [h_sub] at hdvd0
+        exact hdvd0
+
+      have h_dvd2 : d ∣ (m + G.derivative.eval X_n * s) := by
+        rw [pow_succ d (n + 1)] at h_dvd
+        have h_mul : d ^ (n + 1) * d = d * d ^ (n + 1) := by ring
+        rw [h_mul] at h_dvd
+        rcases h_dvd with ⟨k, hk⟩
+        use k
+        have h_cancel : (m + G.derivative.eval X_n * s - d * k) * d ^ (n + 1) = 0 := by
+          calc
+            (m + G.derivative.eval X_n * s - d * k) * d ^ (n + 1) = (m + G.derivative.eval X_n * s) * d ^ (n + 1) - d * k * d ^ (n + 1) := by ring
+            _ = d * d ^ (n + 1) * k - d * k * d ^ (n + 1) := by rw [hk]
+            _ = 0 := by ring
+        have h_cancel2 : m + G.derivative.eval X_n * s - d * k = 0 := by
+          cases mul_eq_zero.mp h_cancel with
+          | inl h => exact h
+          | inr h =>
+            have hd_ne_zero : d ≠ 0 := by omega
+            have hpow_ne_zero : d ^ (n + 1) ≠ 0 := pow_ne_zero (n + 1) hd_ne_zero
+            contradiction
+        calc
+          m + G.derivative.eval X_n * s = m + G.derivative.eval X_n * s - d * k + d * k := by ring
+          _ = 0 + d * k := by rw [h_cancel2]
+          _ = d * k := by ring
+
+      have h_mod_s : Int.ModEq d s t := by
+        have hm_equiv : Int.ModEq d (m + G.derivative.eval X_n * s) 0 := Int.modEq_zero_iff_dvd.mpr h_dvd2
+        have h_mul_a : Int.ModEq d (a * (m + G.derivative.eval X_n * s)) (a * 0) := Int.ModEq.mul_left a hm_equiv
+        rw [mul_zero] at h_mul_a
+        have h_expand : a * (m + G.derivative.eval X_n * s) = a * m + a * G.derivative.eval X_n * s := by ring
+        rw [h_expand] at h_mul_a
+        have h_bezout : a * G.derivative.eval X_n = 1 - b * d := by
+          calc
+            a * G.derivative.eval X_n = a * G.derivative.eval X_n + b * d - b * d := by ring
+            _ = 1 - b * d := by rw [hab]
+        rw [h_bezout] at h_mul_a
+        have h_sub : a * m + (1 - b * d) * s = a * m + s - b * s * d := by ring
+        rw [h_sub] at h_mul_a
+
+        have h_shift : Int.ModEq d (a * m + s) 0 := by
+          have hdvd_full := h_mul_a.symm.dvd
+          have h1 : (a * m + s - b * s * d) - 0 = a * m + s - b * s * d := by ring
+          rw [h1] at hdvd_full
+          have hdvd_ams : d ∣ (a * m + s) := by
+            have h_eq : a * m + s = (a * m + s - b * s * d) + b * s * d := by ring
+            rw [h_eq]
+            exact dvd_add hdvd_full (dvd_mul_left d (b * s))
+          exact Int.modEq_zero_iff_dvd.mpr hdvd_ams
+
+        have h_s : Int.ModEq d s (-a * m) := by
+          have hdvd := h_shift.symm.dvd
+          have h_sub2 : (a * m + s) - 0 = a * m + s := by ring
+          rw [h_sub2] at hdvd
+          rw [Int.modEq_iff_dvd]
+          have h_sub3 : -a * m - s = - (a * m + s) := by ring
+          rw [h_sub3]
+          exact dvd_neg.mpr hdvd
+
+        have h_am_t : -a * m = t := by
+          calc
+            -a * m = -m * a := by ring
+            _ = t := by
+              have ht2 : t = -m * a := by rfl
+              rw [ht2]
+        rw [h_am_t] at h_s
+        exact h_s
+
+      rcases h_mod_s.symm.dvd with ⟨c, hc⟩
+      have hs_t : s = t + c * d := by
+        calc
+          s = s - t + t := by ring
+          _ = d * c + t := by rw [hc]
+          _ = t + c * d := by ring
+
+      have hy_final : y = X_next + c * d ^ (n + 2) := by
+        calc
+          y = X_n + s * d ^ (n + 1) := hs_eq
+          _ = X_n + (t + c * d) * d ^ (n + 1) := by rw [hs_t]
+          _ = X_n + t * d ^ (n + 1) + c * (d * d ^ (n + 1)) := by ring
+          _ = X_next + c * (d * d ^ (n + 1)) := by rfl
+          _ = X_next + c * d ^ (n + 2) := by
+            have hdpow : d * d ^ (n + 1) = d ^ (n + 2) := by
+              have h1 : n + 2 = n + 1 + 1 := by ring
+              rw [h1]
+              have h2 : d ^ (n + 1 + 1) = d ^ (n + 1) * d := pow_succ d (n + 1)
+              rw [h2]
+              ring
+            rw [hdpow]
+
+      rw [Int.modEq_iff_dvd]
+      use -c
+      calc
+        X_next - y = X_next - (X_next + c * d ^ (n + 2)) := by rw [hy_final]
+        _ = d ^ (n + 2) * (-c) := by ring
 
 end ArithmeticDynamics.Algebra

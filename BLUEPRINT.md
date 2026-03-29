@@ -144,7 +144,7 @@ The causal prefix-preservation theorem `lipschitz_implies_causality` currently e
 - [ ] The top-level logical proof structure (variable and hypothesis introduction) is rigorously formalized.
 - [ ] The file `ArithmeticDynamics/Algebra/LipschitzCausality.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `linearization_of_orbits`
 
 ## Target Profile

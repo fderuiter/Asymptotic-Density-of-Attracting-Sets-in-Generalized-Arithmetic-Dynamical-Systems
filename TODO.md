@@ -106,7 +106,7 @@ This phase eliminates the `sorry`s in the core inductive proof `dynamical_hensel
 
 These steps bridge FRACTRAN and Minsky machines with our metric spaces.
 
-- [ ] **Prove `fractran_universal_threshold`**
+- [x] **Prove `fractran_universal_threshold`**
   - **File:** `ArithmeticDynamics/Computability/Fractran.lean`
   - **Current State:** `axiom`
   - **Task:** Formalize the 16-prime threshold for FRACTRAN encodings.

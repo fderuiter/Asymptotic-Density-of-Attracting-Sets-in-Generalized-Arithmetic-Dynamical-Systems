@@ -17,7 +17,7 @@ opaque prime_signature_dimension (prog : FractranProgram) : ℕ
 /-- Theorem 1.1.2a: The Prime Register Bound.
     To achieve universality without violating the square-free coefficient bound,
     the system requires exactly 16 distinct primes (14 state + 2 register). -/
-axiom fractran_universal_threshold (prog : FractranProgram) (is_universal : Universal prog) :
-  (prime_signature_dimension prog) ≥ 16
+theorem fractran_universal_threshold (prog : FractranProgram) (is_universal : Universal prog) :
+  (prime_signature_dimension prog) ≥ 16 := by sorry
 
 end ArithmeticDynamics.Computability

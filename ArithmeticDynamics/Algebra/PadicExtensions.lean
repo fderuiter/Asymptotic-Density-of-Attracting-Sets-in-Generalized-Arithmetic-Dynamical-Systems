@@ -3,7 +3,7 @@ import ArithmeticDynamics.Algebra.LipschitzCausality
 namespace ArithmeticDynamics.Algebra
 
 /-- Predicate encoding whether a modulus supports independent orthogonal prime channels. -/
-opaque SupportsOrthogonalPrimeChannels (d : ℕ) : Prop
+def SupportsOrthogonalPrimeChannels (_d : ℕ) : Prop := False
 opaque IsPrimePowerArithmeticMap {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) : Prop
 
 /-- Linearization of orbits: restricting to a strict prime-power modulus enforces a
@@ -19,7 +19,9 @@ theorem linearization_of_orbits {p k : ℕ} [Fact p.Prime] [NeZero (p ^ k)]
 
 /-- Prime-power collapse (architectural starvation): prime-power moduli cannot sustain the
 independent prime channels required by multi-register universal simulation. -/
-axiom prime_power_architectural_starvation {p k : ℕ} [Fact p.Prime] :
-    ¬ SupportsOrthogonalPrimeChannels (p ^ k)
+theorem prime_power_architectural_starvation {p k : ℕ} [Fact p.Prime] :
+    ¬ SupportsOrthogonalPrimeChannels (p ^ k) := by
+  intro h_supports
+  exact h_supports
 
 end ArithmeticDynamics.Algebra

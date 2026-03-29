@@ -986,3 +986,52 @@ The overarching mathematical framework evaluates the asymptotic density of subse
 - [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
 - [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s.
 - [ ] The file compiles cleanly and imports dependencies correctly.
+
+## Target Task
+`ArithmeticDynamics/AsymptoticDensity.lean`: Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/AsymptoticDensity.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Set.Basic`, `Mathlib.SetTheory.Cardinal.Finite`, `Mathlib.Order.LiminfLimsup`, `Mathlib.Analysis.SpecialFunctions.Log.Basic`, `Mathlib.Data.Real.Basic`, `Mathlib.Data.Finset.Basic`
+
+## Contextual Analysis
+The central goal of the Sieve Analytics is to bound the asymptotic capacity of attracting sets. However, the exact mathematical definitions for upper/lower natural and logarithmic densities are entirely absent from the repository. This is missing foundational theory that blocks the instantiation of core density limits. To fill this gap and provide targets for our Sieve Analytic framework, we need to create `ArithmeticDynamics/AsymptoticDensity.lean` and define `upperNaturalDensity`, `lowerNaturalDensity`, `upperLogarithmicDensity`, and `lowerLogarithmicDensity` natively over `Set ℕ`. These must be marked as `noncomputable` because they evaluate limits over conditionally complete real orders.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/AsymptoticDensity.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Data.Set.Basic
+   import Mathlib.SetTheory.Cardinal.Finite
+   import Mathlib.Order.LiminfLimsup
+   import Mathlib.Analysis.SpecialFunctions.Log.Basic
+   import Mathlib.Data.Real.Basic
+   import Mathlib.Data.Finset.Basic
+   ```
+3. Open necessary namespaces: `open Filter Topology Set`.
+4. Define `upperNaturalDensity (A : Set ℕ) : ℝ` using `limsup` at infinity over the natural cardinality of the bounded subset:
+   ```lean
+   noncomputable def upperNaturalDensity (A : Set ℕ) : ℝ :=
+     limsup (fun (N : ℕ) => (Nat.card ↥(A ∩ {n : ℕ | n < N}) : ℝ) / (N : ℝ)) atTop
+   ```
+5. Define `lowerNaturalDensity (A : Set ℕ) : ℝ` similarly using `liminf`:
+   ```lean
+   noncomputable def lowerNaturalDensity (A : Set ℕ) : ℝ :=
+     liminf (fun (N : ℕ) => (Nat.card ↥(A ∩ {n : ℕ | n < N}) : ℝ) / (N : ℝ)) atTop
+   ```
+6. Open the big operators scope (`open scoped BigOperators`) to allow summation syntax.
+7. Define `upperLogarithmicDensity (A : Set ℕ) [DecidablePred (· ∈ A)] : ℝ` using a finite sum over filtered range arrays normalized by `Real.log`:
+   ```lean
+   noncomputable def upperLogarithmicDensity (A : Set ℕ) [DecidablePred (· ∈ A)] : ℝ :=
+     limsup (fun (N : ℕ) => (∑ n ∈ (Finset.range N).filter (· ∈ A), 1 / Real.log (n : ℝ)) / Real.log (N : ℝ)) atTop
+   ```
+8. Define `lowerLogarithmicDensity (A : Set ℕ) [DecidablePred (· ∈ A)] : ℝ` similarly with `liminf`:
+   ```lean
+   noncomputable def lowerLogarithmicDensity (A : Set ℕ) [DecidablePred (· ∈ A)] : ℝ :=
+     liminf (fun (N : ℕ) => (∑ n ∈ (Finset.range N).filter (· ∈ A), 1 / Real.log (n : ℝ)) / Real.log (N : ℝ)) atTop
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/AsymptoticDensity.lean` is created.
+- [ ] All four natural and logarithmic density definitions are accurately formalized as `noncomputable def`s.
+- [ ] The file compiles safely without errors.

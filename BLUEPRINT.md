@@ -1157,3 +1157,35 @@ Currently, the algebraic properties of `Z_d d` defined via inverse limits lack t
 - [ ] The file `ArithmeticDynamics/Algebra/ProfiniteTopology.lean` is created.
 - [ ] Core definition for `zdProfinite` is mapped as a `noncomputable def`.
 - [ ] The structural mapping is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
+
+## Target Task
+`ArithmeticDynamics/Computability/HaltingProblem.lean`: Import Mathlib's Computability.Halting to establish the Halting Problem as the base of uncomputability.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Computability/HaltingProblem.lean`
+- **New Mathlib Imports:** `Mathlib.Computability.Halting`
+
+## Contextual Analysis
+The undecidability foundation of generalized arithmetic dynamical systems requires a formal link between deterministic universal maps (like FRACTRAN) and the classic Turing Halting Problem. Currently, this core computational bound is missing from the project, leaving a critical theoretical gap between discrete metric evaluations and pure computability theory. By defining the uncomputable boundary using Mathlib's `Partrec` and `Computable` typeclasses from `Mathlib.Computability.Halting`, we provide a rigorous target for the `UndecidabilityBarrier` reduction without asserting unverified top-level axioms.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Computability/HaltingProblem.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Computability.Halting
+   ```
+3. Open necessary namespaces: `open Computability`.
+4. Establish the namespace `namespace ArithmeticDynamics.Computability`.
+5. Formulate a foundational definition representing the Halting Problem in the context of the project's state spaces or mappings. Since this serves as a baseline uncomputable target without fully executing the overarching framework, define the halting predicate using a `noncomputable def` concluding with `sorry`.
+   ```lean
+   noncomputable def HaltingPredicate (prog : ℕ) (input : ℕ) : Prop := sorry
+   ```
+6. Define an overarching theorem structurally stating that deciding this predicate is not formally computable. To strictly isolate the uncomputable evaluation without asserting top-level technical debt (an `axiom`), declare this as a `theorem` and conclude the proof block with `sorry`.
+   ```lean
+   theorem halting_is_uncomputable : ¬ Computable (fun (p : ℕ × ℕ) => decide (HaltingPredicate p.1 p.2)) := by sorry
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/Computability/HaltingProblem.lean` is created.
+- [ ] Core definitions for `HaltingPredicate` and `halting_is_uncomputable` are mapped as a `noncomputable def` and `theorem`, respectively.
+- [ ] The structural theorems are established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.

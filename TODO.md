@@ -117,13 +117,13 @@ These steps bridge FRACTRAN and Minsky machines with our metric spaces.
   - **Current State:** `axiom`
   - **Task:** Formalize branch lower bounds for compiled maps.
 
-- [ ] **Prove `prime_signature_zero_not_universal` & `prime_signature_one_not_universal`**
+- [x] **Prove `prime_signature_zero_not_universal` & `prime_signature_one_not_universal`**
   - **File:** `ArithmeticDynamics/Computability/ConwayFilter.lean`
   - **Current State:** `axiom`
   - **Refactor Warning:** Explicit computability axioms should be bridged to formal Minsky definitions.
   - **Task:** Prove bounded register bounds prevent Turing universality.
 
-- [ ] **Prove `prime_signature_two_universal`**
+- [x] **Prove `prime_signature_two_universal`**
   - **File:** `ArithmeticDynamics/Computability/ConwayFilter.lean`
   - **Current State:** `axiom`
   - **Task:** Construct a mapping to the Minsky 2-counter machine.

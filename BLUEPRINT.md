@@ -485,7 +485,7 @@ The theorem `absolute_minimum_universal_branches` asserts that an optimal transl
 - [x] The top-level logical structure is formalized with `:= by sorry`.
 - [x] The file `ArithmeticDynamics/SpecificModels/MinskyReduction.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `prime_signature_zero_not_universal` & `prime_signature_one_not_universal`
 
 ## Target Profile
@@ -506,11 +506,11 @@ The foundational limit bounds for Turing universality in prime-register machines
 8. Verify that the subsequent theorem `minimal_prime_signature_eq_two` still compiles successfully without modifications, utilizing the newly structurally sound `theorem` references instead of axioms.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declarations for `prime_signature_zero_not_universal` and `prime_signature_one_not_universal` are completely removed.
-- [ ] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
-- [ ] The `ArithmeticDynamics/Computability/ConwayFilter.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] The `axiom` declarations for `prime_signature_zero_not_universal` and `prime_signature_one_not_universal` are completely removed.
+- [x] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [x] The `ArithmeticDynamics/Computability/ConwayFilter.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `prime_signature_two_universal`
 
 ## Target Profile
@@ -528,9 +528,9 @@ The `prime_signature_two_universal` assertion states that a prime signature of d
 5. Verify that the subsequent theorem `minimal_prime_signature_eq_two` continues to compile cleanly using the newly converted `theorem` instead of the original `axiom`.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declaration for `prime_signature_two_universal` is completely removed.
-- [ ] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
-- [ ] The `ArithmeticDynamics/Computability/ConwayFilter.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signature itself.
+- [x] The `axiom` declaration for `prime_signature_two_universal` is completely removed.
+- [x] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
+- [x] The `ArithmeticDynamics/Computability/ConwayFilter.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signature itself.
 
 ## Target Task
 Prove `lipschitz_implies_causality`

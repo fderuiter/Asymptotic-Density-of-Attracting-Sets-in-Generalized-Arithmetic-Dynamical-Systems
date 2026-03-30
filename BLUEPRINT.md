@@ -1231,3 +1231,37 @@ Currently, the project claims that evaluating the asymptotic density for general
 - [ ] The file `ArithmeticDynamics/Computability/UndecidabilityBarrier.lean` is created.
 - [ ] Core definition for `AsymptoticDensityComputable` is mapped as a concrete `def`.
 - [ ] The foundational structural theorem `undecidability_barrier` is rigorously established without top-level `axiom`s and contains exactly zero `sorry`s.
+
+## Target Task
+`ArithmeticDynamics/Computability/DiophantineEncoding.lean`: Formalize the encoding of Minsky register states into integer arithmetic.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Computability/DiophantineEncoding.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Nat.Basic`, `Mathlib.Data.Nat.Prime.Basic`, `Mathlib.Data.List.Basic`
+
+## Contextual Analysis
+While `MinskyBounds.lean` verifies branch constraints for specific Minsky configurations in FRACTRAN, the overarching project misses the formal bridge converting arbitrary multi-register states into integer encodings (the Gödel numbering $\prod p_i^{r_i}$). This structural debt breaks the computational chain connecting discrete algorithmic dynamics to natural number arithmetic, preventing generalized proof of Turing universality limits. We must instantiate `ArithmeticDynamics/Computability/DiophantineEncoding.lean` to rigorously formalize the generic mapping from finite state registers to unique integers using prime exponents.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Computability/DiophantineEncoding.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Data.Nat.Basic
+   import Mathlib.Data.Nat.Prime.Basic
+   import Mathlib.Data.List.Basic
+   ```
+3. Open necessary namespaces if required.
+4. Define the `ArithmeticDynamics.Computability` namespace.
+5. Formalize the core encoding definition `encode_registers` as a computable `def` taking a list of registers (`r_i`) and a list of prime bases (`p_i`). Construct the Gödel numbering mathematically by applying the exponentiation function pairwise between primes and registers using `List.zipWith (· ^ ·) primes registers`, and then computing the total product using `.prod`:
+   ```lean
+   /-- Formalizes the encoding of Minsky register states into integer arithmetic using
+   prime exponentiation (Gödel numbering). -/
+   def encode_registers (registers : List ℕ) (primes : List ℕ) : ℕ :=
+     ((primes.zipWith (· ^ ·) registers)).prod
+   ```
+6. Add comprehensive docstrings detailing the mathematical intent of the Gödel numbering.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/Computability/DiophantineEncoding.lean` is created.
+- [ ] The core definition for `encode_registers` is rigorously formalized using `List.zipWith` and `.prod` to compute exactly $\prod p_i^{r_i}$.
+- [ ] The new `.lean` file compiles cleanly without errors.

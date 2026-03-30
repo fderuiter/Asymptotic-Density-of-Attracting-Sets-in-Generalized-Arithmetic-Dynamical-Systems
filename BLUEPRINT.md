@@ -1264,3 +1264,34 @@ To complete the formal reduction from the Halting Problem to the density functio
 - [ ] The file `ArithmeticDynamics/Computability/DiophantineEncoding.lean` is created.
 - [ ] Core definition for `MinskyStateToDiophantine` is mapped as a concrete `def`.
 - [ ] The foundational structural theorem `diophantine_encoding_base` is rigorously established without top-level `axiom`s and contains exactly zero `sorry`s.
+
+## Target Task
+`ArithmeticDynamics/ErgodicTheory/TransferOperator.lean`: Define the Ruelle-Perron-Frobenius transfer operator on a suitable Banach space of functions over $\mathbb{Z}_p$.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/ErgodicTheory/TransferOperator.lean`
+- **New Mathlib Imports:** `Mathlib.Analysis.Normed.Module.Basic`, `Mathlib.Analysis.Normed.Operator.Basic`, `Mathlib.Topology.Instances.Int`, `Mathlib.Data.Complex.Basic`
+
+## Contextual Analysis
+The thermodynamic formalism relies fundamentally on Transfer Operators (the Ruelle-Perron-Frobenius operator) to relate dynamic limits to invariant measures and topological entropy. Currently, the project lacks a formal definition of this operator acting on a Banach space (such as the Lipschitz functions defined in `LipschitzCausality.lean`). Without this structural bridge over the state space (e.g. mapping functions on the $p$-adic integers $\mathbb{Z}_p$), it is mathematically impossible to rigorously prove the spectral gap. The lack of an operator framework is a severe piece of technical debt that must be resolved by explicitly mapping the operator and avoiding uncomputable axioms, utilizing `noncomputable def` and isolating gaps strictly via `sorry`.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/ErgodicTheory/TransferOperator.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Analysis.Normed.Module.Basic
+   import Mathlib.Analysis.Normed.Operator.Basic
+   import Mathlib.Topology.Instances.Int
+   import Mathlib.Data.Complex.Basic
+   ```
+3. Open necessary namespaces: `open Topology Filter MeasureTheory`.
+4. Establish the `ArithmeticDynamics.ErgodicTheory` namespace.
+5. Create a `StateSpace` alias (`def StateSpace := ℤ`) to bootstrap the discrete algebraic topological structure until the continuous topology on $\mathbb{Z}_p$ can be perfectly mapped natively.
+6. Provide stubs for the Banach space typeclasses (`NormedAddCommGroup` and `NormedSpace ℂ`) natively evaluating to bottom or dummy instances so that Mathlib's Normed Operator modules synthesize without failing.
+7. Define the Ruelle-Perron-Frobenius transfer operator mathematically mapping a state potential function $g$ to the continuous operator space. Use `noncomputable def transferOperator` and cleanly bridge the exact uncomputable operator expansion over preimages using `sorry` strictly.
+8. Define a core spectral bounding proxy theorem (e.g. `transfer_operator_spectral_radius_bound`) ending in `:= by sorry` without utilizing top-level axioms.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/ErgodicTheory/TransferOperator.lean` is created.
+- [ ] Core topological aliases and the `transferOperator` mapping are formally defined as `noncomputable def`s.
+- [ ] The structural proof placeholder for the spectral bound is established without top-level `axiom`s, cleanly isolating analytical gaps via `sorry`.

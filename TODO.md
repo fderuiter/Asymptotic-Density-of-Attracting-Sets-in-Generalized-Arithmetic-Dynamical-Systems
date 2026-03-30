@@ -112,7 +112,7 @@ These steps bridge FRACTRAN and Minsky machines with our metric spaces.
   - **Task:** Formalize the 16-prime threshold for FRACTRAN encodings.
   - **Tactics/Strategy:** Enumerate Korec's 14 states + 2 registers = 16 primes. Needs exhaustive cases for universality reduction from Minsky machines.
 
-- [ ] **Prove `absolute_minimum_universal_branches`**
+- [x] **Prove `absolute_minimum_universal_branches`**
   - **File:** `ArithmeticDynamics/SpecificModels/MinskyReduction.lean`
   - **Current State:** `axiom`
   - **Task:** Formalize branch lower bounds for compiled maps.

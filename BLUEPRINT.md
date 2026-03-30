@@ -1123,3 +1123,41 @@ Ergodic theory requires probability measures. We must explicitly bridge Lean's m
 - [ ] The file `ArithmeticDynamics/Algebra/HaarMeasure.lean` is created.
 - [ ] Core definition for `padicHaarMeasure` is mapped as a `noncomputable def`.
 - [ ] The foundational structural theorem `padicHaarMeasure_univ_eq_one` is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
+## Target Task
+`ArithmeticDynamics/Algebra/ProfiniteTopology.lean`: Connect the inverse limit of $\mathbb{Z}/d^n\mathbb{Z}$ to the dynamical boundary behaviors.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/ProfiniteTopology.lean`
+- **New Mathlib Imports:** `Mathlib.Topology.Category.Profinite.Basic`, `Mathlib.Topology.Algebra.Ring.Basic`, `Mathlib.Data.ZMod.Basic`
+
+## Contextual Analysis
+The $d$-adic integers ($Z_d$) mathematically inherit a profinite topology arising as the inverse limit of finite discrete rings $\mathbb{Z}/d^k\mathbb{Z}$. Currently, this foundational topological structure is missing from the repository, acting as a critical blocker for formalizing continuous dynamic mappings and analyzing boundary behaviors on $p$-adic spaces. To resolve this technical debt and formally instantiate the topological limits of sequence spaces, we must create `ArithmeticDynamics/Algebra/ProfiniteTopology.lean` and define the correct topological instance induced by the Pi-type limit.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Algebra/ProfiniteTopology.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Topology.Category.Profinite.Basic
+   import Mathlib.Topology.Algebra.Ring.Basic
+   import Mathlib.Data.ZMod.Basic
+   import ArithmeticDynamics.Algebra.PadicMetric
+   ```
+3. Open the `Topology` namespace: `open Topology`.
+4. Define the `ArithmeticDynamics.Algebra` namespace.
+5. Create a `TopologicalSpace` instance for `Z_d d` natively. Since `Z_d d` is defined as a subtype of the product `Π k : ℕ, ℤ` (or structurally conceptually `Π k : ℕ, ZMod (d^k)` depending on how sequence values map), its topology can be defined via the induced topology from the Pi product type.
+   ```lean
+   variable {d : ℕ} [NeZero d]
+
+   instance : TopologicalSpace (Z_d d) :=
+     TopologicalSpace.induced (fun x => x.val) Pi.topologicalSpace
+   ```
+6. Add the fundamental `TopologicalSpace (Z_d d)` typeclass so that analytical continuity definitions over metric limit spaces natively compile.
+7. If further inverse limit mappings or compact topologies (`CompactSpace`) require complex limit structures, establish them as structural `theorem`s or `instance`s bridged with `sorry` for now, effectively isolating base-case topological bounds while providing the rigorous type target for ergodic analyses.
+   ```lean
+   instance : CompactSpace (Z_d d) := sorry
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/Algebra/ProfiniteTopology.lean` is created.
+- [ ] The core `TopologicalSpace` instance for `Z_d d` is explicitly mapped as an induced topology from the sequence space.
+- [ ] The file compiles safely without errors, providing native topological structure to $Z_d$.

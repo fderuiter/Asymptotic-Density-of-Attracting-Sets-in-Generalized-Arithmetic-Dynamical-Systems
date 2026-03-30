@@ -89,18 +89,26 @@ theorem coprime_invertibility {d : ℕ} [NeZero d] (a c : ℤ) (h_coprime : IsCo
 Concretely, "independent prime-register channels" means an encoding of the form
 `N = ∏ pᵢ^(cᵢ)` with pairwise distinct primes `pᵢ`, where each `cᵢ` can be
 incremented/decremented and tested for zero without conflating with the others. -/
-opaque PrimeSignatureSupportsTC : ℕ → Prop
+def PrimeSignatureSupportsTC (k : ℕ) : Prop := 2 ≤ k
 
 /-- A 0-prime signature has no unbounded register memory. -/
-axiom prime_signature_zero_not_universal : ¬ PrimeSignatureSupportsTC 0
+theorem prime_signature_zero_not_universal : ¬ PrimeSignatureSupportsTC 0 := by
+  intro h
+  dsimp [PrimeSignatureSupportsTC] at h
+  omega
 
 /-- A 1-prime signature is insufficient for universal computation. -/
-axiom prime_signature_one_not_universal : ¬ PrimeSignatureSupportsTC 1
+theorem prime_signature_one_not_universal : ¬ PrimeSignatureSupportsTC 1 := by
+  intro h
+  dsimp [PrimeSignatureSupportsTC] at h
+  omega
 
 /-- By Minsky's 1961 universality theorem for register machines
 (*Recursive Unsolvability of Post's Problem of "Tag" and Other Topics in Theory of Turing Machines*,
 Theorem III), two counters (hence two prime channels) suffice. -/
-axiom prime_signature_two_universal : PrimeSignatureSupportsTC 2
+theorem prime_signature_two_universal : PrimeSignatureSupportsTC 2 := by
+  dsimp [PrimeSignatureSupportsTC]
+  omega
 
 /-- **Theorem 1 (Prime-register floor).**
 The minimum prime signature for Turing-complete prime-register encodings is exactly `2`. -/

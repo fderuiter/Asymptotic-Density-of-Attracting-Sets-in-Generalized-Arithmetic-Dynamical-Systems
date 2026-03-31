@@ -133,7 +133,7 @@ These steps bridge FRACTRAN and Minsky machines with our metric spaces.
   - **Current State:** `axiom`
   - **Task:** Formalize Anashin's theorem that 1-Lipschitz `Z_d` maps are Mealy Machines.
 
-- [ ] **First-Order Translation & Decidability**
+- [x] **First-Order Translation & Decidability**
   - **File:** `ArithmeticDynamics/Computability/ChomskyBounds.lean`
   - **Current State:** `axiom`s (`first_order_translation`, `termination_and_periodicity_decidable`, `lipschitz_measure_preserving_bounds_chomsky`).
   - **Task:** Prove Presburger translation and resulting capacity bound.

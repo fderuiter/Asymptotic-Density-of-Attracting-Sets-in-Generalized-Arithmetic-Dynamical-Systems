@@ -1336,3 +1336,47 @@ Following the definition of the transfer operator, we must formally establish th
 - [ ] The file `ArithmeticDynamics/ErgodicTheory/InvariantMeasure.lean` is created.
 - [ ] Core definitions `StateSpace` and `IsInvariantMeasure` are rigorously formalized without `sorry`s.
 - [ ] The structural proof placeholder `exists_invariant_measure` is established without top-level `axiom`s, cleanly isolating analytical gaps via `sorry`.
+
+## Target Task
+`ArithmeticDynamics/ErgodicTheory/BirkhoffErgodic.lean`: Specialize Birkhoff's Ergodic Theorem for your system to rigorously link spatial averages (asymptotic density) to time averages (logarithmic drift).
+
+## Target Profile
+- **File:** `ArithmeticDynamics/ErgodicTheory/BirkhoffErgodic.lean`
+- **New Mathlib Imports:** `Mathlib.MeasureTheory.Measure.MeasureSpace`, `Mathlib.MeasureTheory.Measure.ProbabilityMeasure`, `Mathlib.Topology.Instances.Int`, `Mathlib.Data.Real.Basic`
+
+## Contextual Analysis
+Currently, the theoretical framework assumes a direct equivalence between the spatial properties of the system (asymptotic density mapped via probability measures) and the temporal evolution of trajectories (logarithmic drift mapping to Lyapunov limits). This profound algebraic-analytic correspondence relies inherently on Birkhoff's Ergodic Theorem. However, the exact specialization of Birkhoff's theorem linking these temporal limits and spatial capacities for our discrete/p-adic quasi-polynomial maps is absent. This missing formal bridge constitutes critical technical debt. To eliminate this uncomputable gap and solidify the Ergodic foundations, we must formalize the equivalence structurally via `birkhoff_ergodic_specialization`, utilizing `sorry` strictly to bypass the deep analytic integral convergence proofs.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/ErgodicTheory/BirkhoffErgodic.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.MeasureTheory.Measure.MeasureSpace
+   import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
+   import Mathlib.Topology.Instances.Int
+   import Mathlib.Data.Real.Basic
+   ```
+3. Open necessary namespaces: `open MeasureTheory Topology Filter`.
+4. Establish the `ArithmeticDynamics.ErgodicTheory` namespace.
+5. Define the foundational `StateSpace` aliases and minimal measurable instances required by Mathlib (evaluating to `⊥`) to avoid structural synthesis failures.
+6. Formalize the core measure preservation property:
+   ```lean
+   def IsInvariantMeasure (f : StateSpace → StateSpace) (μ : Measure StateSpace) : Prop :=
+     Measure.map f μ = μ
+   ```
+7. Define continuous mappings for the spatial capacity `spatialAverage` and the asymptotic trajectory `timeAverage` over the state space as `noncomputable def`s. For `timeAverage`, explicitly isolate the uncomputable integral bounds using `sorry` and prefix unused variables with underscores (e.g., `_f`, `_x`) to satisfy linter warnings.
+8. Declare the core structural theorem mapping temporal evolution to spatial density for almost all states under the measure:
+   ```lean
+   theorem birkhoff_ergodic_specialization
+     (f : StateSpace → StateSpace)
+     (μ : Measure StateSpace)
+     [IsProbabilityMeasure μ]
+     (h_inv : IsInvariantMeasure f μ)
+     (A : Set StateSpace) :
+     ∀ᵐ x ∂μ, timeAverage f x A = spatialAverage μ A := by sorry
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/ErgodicTheory/BirkhoffErgodic.lean` is created.
+- [ ] Core metric mappings for `timeAverage` and `spatialAverage` are explicitly defined as `noncomputable def`s.
+- [ ] The structural proof placeholder `birkhoff_ergodic_specialization` is rigorously established without top-level `axiom`s, safely isolating integral convergence gaps via `sorry`.

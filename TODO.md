@@ -128,7 +128,7 @@ These steps bridge FRACTRAN and Minsky machines with our metric spaces.
   - **Current State:** `axiom`
   - **Task:** Construct a mapping to the Minsky 2-counter machine.
 
-- [ ] **Automata Equivalence: `lipschitz_is_mealy_machine`**
+- [x] **Automata Equivalence: `lipschitz_is_mealy_machine`**
   - **File:** `ArithmeticDynamics/Computability/ChomskyBounds.lean`
   - **Current State:** `axiom`
   - **Task:** Formalize Anashin's theorem that 1-Lipschitz `Z_d` maps are Mealy Machines.

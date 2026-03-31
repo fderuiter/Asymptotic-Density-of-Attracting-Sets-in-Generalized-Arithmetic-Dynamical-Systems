@@ -553,7 +553,7 @@ The foundational limit bounds for continuous arithmetic maps depend on the causa
 - [x] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
 - [x] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signature itself.
 
-## Target Task
+## Target Task [COMPLETED]
 Automata Equivalence: `lipschitz_is_mealy_machine`
 
 ## Target Profile
@@ -572,9 +572,9 @@ The theorem `lipschitz_is_mealy_machine` (Anashin's Automata Isomorphism) states
 6. Verify that the file compiles successfully.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declaration for `lipschitz_is_mealy_machine` is completely removed and replaced with a `theorem` declaration.
-- [ ] The top-level logical structure is formalized with `:= by sorry`.
-- [ ] The file `ArithmeticDynamics/Computability/ChomskyBounds.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
+- [x] The `axiom` declaration for `lipschitz_is_mealy_machine` is completely removed and replaced with a `theorem` declaration.
+- [x] The top-level logical structure is formalized with `:= by sorry`.
+- [x] The file `ArithmeticDynamics/Computability/ChomskyBounds.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
 
 ## Target Task
 First-Order Translation & Decidability

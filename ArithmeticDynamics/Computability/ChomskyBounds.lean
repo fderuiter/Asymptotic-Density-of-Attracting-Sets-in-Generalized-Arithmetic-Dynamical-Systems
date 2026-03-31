@@ -37,8 +37,8 @@ variable {d : ℕ} [NeZero d]
 
 /-- Theorem: Anashin's Automata Isomorphism.
     Every 1-Lipschitz function on Z_d evaluates identically to a Mealy Machine. -/
-axiom lipschitz_is_mealy_machine (f : Z_d d → Z_d d) (h : IsOneLipschitz f) :
-  ∃ M : MealyMachine (Fin d), ObservationalEquivalence f M
+theorem lipschitz_is_mealy_machine (f : Z_d d → Z_d d) (h : IsOneLipschitz f) :
+  ∃ M : MealyMachine (Fin d), ObservationalEquivalence f M := by sorry
 
 opaque ComputationalCapacity {d : ℕ} (f : Z_d d → Z_d d) : ChomskyLevel
 

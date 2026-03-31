@@ -576,7 +576,7 @@ The theorem `lipschitz_is_mealy_machine` (Anashin's Automata Isomorphism) states
 - [x] The top-level logical structure is formalized with `:= by sorry`.
 - [x] The file `ArithmeticDynamics/Computability/ChomskyBounds.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
 
-## Target Task
+## Target Task [COMPLETED]
 First-Order Translation & Decidability
 
 ## Target Profile
@@ -600,9 +600,9 @@ The limits of computational capability for measure-preserving 1-Lipschitz functi
 11. Verify that the file compiles successfully after replacing the three axioms with theorem signatures ending in `:= by sorry`.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declarations for `first_order_translation`, `termination_and_periodicity_decidable`, and `lipschitz_measure_preserving_bounds_chomsky` are completely removed.
-- [ ] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
-- [ ] The `ArithmeticDynamics/Computability/ChomskyBounds.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] The `axiom` declarations for `first_order_translation`, `termination_and_periodicity_decidable`, and `lipschitz_measure_preserving_bounds_chomsky` are completely removed.
+- [x] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [x] The `ArithmeticDynamics/Computability/ChomskyBounds.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
 ## Target Task
 Prove `existence_of_stationary_measure`

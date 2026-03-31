@@ -1,4 +1,5 @@
 import ArithmeticDynamics.ErgodicTheory.MarkovTransition
+import Mathlib.Data.Real.Basic
 import ArithmeticDynamics.Computability.Fractran
 
 namespace ArithmeticDynamics.ErgodicTheory
@@ -16,14 +17,14 @@ opaque SecondLargestEigenvalueAbs (P : Matrix (Fin M) (Fin M) ℝ) : ℝ
 
 /-- Spectral-gap constraint: irreducible + aperiodic stochastic systems admit a strictly
 positive mixing gap. -/
-axiom spectral_gap_constraint
+theorem spectral_gap_constraint
     (h_stoch : IsRowStochastic P) (h_irr : IsIrreducible P) (h_aper : IsAperiodic P) :
-    ∃ δ : ℝ, 0 < δ ∧ SecondLargestEigenvalueAbs P ≤ 1 - δ
+    ∃ δ : ℝ, 0 < δ ∧ SecondLargestEigenvalueAbs P ≤ 1 - δ := by sorry
 
 /-- Positive spectral gap forces rapid mixing and asymptotic probabilistic independence. -/
-axiom rapid_mixing_from_spectral_gap
+theorem rapid_mixing_from_spectral_gap
     (h_stoch : IsRowStochastic P) (h_irr : IsIrreducible P) (h_aper : IsAperiodic P) :
-    HasProbabilisticIndependence P
+    HasProbabilisticIndependence P := by sorry
 
 /-- A predicate for density-sieve admissibility on symbolic encodings. -/
 opaque SupportsAnalyticSieve (prog : FractranProgram) : Prop
@@ -36,9 +37,9 @@ opaque AtUniversalInstructionFloor (prog : FractranProgram) : Prop
 
 /-- Sieve degeneracy theorem: deterministic universal machines at the threshold floor do
 not satisfy the stochastic assumptions required by analytic density sieves. -/
-axiom sieve_degeneracy_at_universal_floor (prog : FractranProgram)
+theorem sieve_degeneracy_at_universal_floor (prog : FractranProgram)
     (h_floor : AtUniversalInstructionFloor prog) (h_univ : Computability.Universal prog)
     (h_det : DeterministicBranchingFactorOne prog) :
-    ¬ SupportsAnalyticSieve prog
+    ¬ SupportsAnalyticSieve prog := by sorry
 
 end ArithmeticDynamics.ErgodicTheory

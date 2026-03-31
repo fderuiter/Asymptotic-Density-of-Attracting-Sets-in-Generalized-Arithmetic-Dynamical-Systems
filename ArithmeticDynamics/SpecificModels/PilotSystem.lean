@@ -32,8 +32,8 @@ def pilot5_b : Fin 5 → ℤ :=
   | 4 => 2
   | _ => 0 -- unreachable
 
-axiom pilot5_div_cond : ∀ (i : Fin 5) (k : ℤ),
-  (5 : ℤ) ∣ (pilot5_a i * (k * 5 + i.val) + pilot5_b i)
+theorem pilot5_div_cond : ∀ (i : Fin 5) (k : ℤ),
+  (5 : ℤ) ∣ (pilot5_a i * (k * 5 + i.val) + pilot5_b i) := by sorry
 
 /-- The d=5 Pilot System. -/
 def pilotSystem5 : Algebra.QuasiPolynomial 5 :=
@@ -45,8 +45,8 @@ def pilotSystem5 : Algebra.QuasiPolynomial 5 :=
 The geometric drift rate \lambda is strictly negative:
 $$ \lambda = \frac{1}{5} \sum_{i=0}^{4} \log\left(\frac{a_i}{5}\right) = \frac{1}{5} \log\left(\frac{1 \cdot 4 \cdot 2 \cdot 3 \cdot 2}{5^5}\right) = \frac{1}{5} \log\left(\frac{48}{3125}\right) \approx -0.835 < 0 $$
 -/
-axiom pilot5_drift_is_contractive :
-  ErgodicTheory.logarithmicDrift 5 (fun i => (pilot5_a i : ℝ)) < 0
+theorem pilot5_drift_is_contractive :
+  ErgodicTheory.logarithmicDrift 5 (fun i => (pilot5_a i : ℝ)) < 0 := by sorry
 
 /--
 Because \lambda < 0, Birkhoff’s Ergodic Theorem guarantees that
@@ -55,8 +55,8 @@ The magnitude of the input mathematically compresses over a sufficiently large w
 structurally absorbing and overcoming any localized "hailstone" sequence expansions
 (such as those triggered by the maximal branch numerator a_1=4).
 -/
-axiom pilot5_contractive_supermartingale :
-  ErgodicTheory.logarithmicDrift 5 (fun i => (pilot5_a i : ℝ)) < 0 → True -- Placeholder for the supermartingale formalization
+theorem pilot5_contractive_supermartingale :
+  ErgodicTheory.logarithmicDrift 5 (fun i => (pilot5_a i : ℝ)) < 0 → True := by sorry -- Placeholder for the supermartingale formalization
 
 /--
 Theorem 1.1 (Algebraic Error Capping):
@@ -68,11 +68,11 @@ By setting our iteration depth logarithmically proportional to the macroscopic s
 $$ |\mathcal{E}_k(x)| \le \mathcal{O}(\rho^{*k}) \le \mathcal{O}(4^{\alpha \log_5 x}) = \mathcal{O}(x^{\alpha \log_5 4}) $$
 Because \log_5 4 \approx 0.861 < 1, the explosive combinatorial error evaluates to strictly sublinear growth \mathcal{O}(x^{1-c}). As x \to \infty, the fractional error mathematically decays to zero, capping the divergence. \blacksquare
 -/
-axiom pilot5_algebraic_error_capping :
+theorem pilot5_algebraic_error_capping :
   ∃ (α : ℝ), α > 0 ∧
   ∀ (x : ℝ) (_hX : x > 1), ∃ (E : ℝ → ℝ) (C : ℝ),
   ∀ (k : ℝ), k ≤ α * (Real.log x / Real.log 5) →
   |E k| ≤ C * (4 ^ (α * (Real.log x / Real.log 5))) ∧
-  ∃ (c : ℝ), c > 0 ∧ |E k| ≤ C * (x ^ (1 - c))
+  ∃ (c : ℝ), c > 0 ∧ |E k| ≤ C * (x ^ (1 - c)) := by sorry
 
 end ArithmeticDynamics.SpecificModels

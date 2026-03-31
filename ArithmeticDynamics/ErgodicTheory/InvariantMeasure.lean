@@ -1,0 +1,20 @@
+import Mathlib.MeasureTheory.Measure.MeasureSpace
+import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
+import Mathlib.Topology.Instances.Int
+
+open MeasureTheory Topology Filter
+
+namespace ArithmeticDynamics.ErgodicTheory
+
+def StateSpace := ℤ
+
+instance : MeasurableSpace StateSpace := ⊥
+instance : TopologicalSpace StateSpace := ⊥
+
+def IsInvariantMeasure (f : StateSpace → StateSpace) (μ : Measure StateSpace) : Prop :=
+  Measure.map f μ = μ
+
+theorem exists_invariant_measure (f : StateSpace → StateSpace) (h_cont : Continuous f) :
+  ∃ μ : Measure StateSpace, IsProbabilityMeasure μ ∧ IsInvariantMeasure f μ := by sorry
+
+end ArithmeticDynamics.ErgodicTheory

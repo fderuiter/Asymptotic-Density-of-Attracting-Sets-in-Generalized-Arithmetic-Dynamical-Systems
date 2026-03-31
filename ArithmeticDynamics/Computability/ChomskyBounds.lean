@@ -66,24 +66,24 @@ opaque IsPeriodicAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) : Pro
 
 /-- First-order translation theorem: 1-Lipschitz `d`-adic dynamics can be encoded as a
 Brauer automaton and translated to Presburger-compatible formulas. -/
-axiom first_order_translation
+theorem first_order_translation
     {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) :
     ∃ A : BrauerAutomaton,
-      EncodesTrajectory f A ∧ PresburgerProvable (TranslateToPresburger A)
+      EncodesTrajectory f A ∧ PresburgerProvable (TranslateToPresburger A) := by sorry
 
 /-- Deliverable decidability corollary: termination and periodicity queries become finite
 decidable propositions after the Presburger translation. -/
-axiom termination_and_periodicity_decidable
+theorem termination_and_periodicity_decidable
     {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f)
     (A : BrauerAutomaton) (h_enc : EncodesTrajectory f A) :
     Nonempty ((∀ x : Z_d d, Decidable (∃ n : ℕ, TerminatesAt f x n)) ×
-    (∀ x : Z_d d, Decidable (IsPeriodicAt f x)))
+    (∀ x : Z_d d, Decidable (IsPeriodicAt f x))) := by sorry
 
 /-- The Deliverable Theorem of Phase 1: The Chomsky Preclusion.
     Proves that any measure-preserving 1-Lipschitz generalized Collatz function
     is structurally incapable of Universal Computation (Type 0). -/
-axiom lipschitz_measure_preserving_bounds_chomsky
+theorem lipschitz_measure_preserving_bounds_chomsky
   (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) (h_meas : IsMeasurePreserving f) :
-  ComputationalCapacity f ≤ ChomskyLevel.Type2_ContextFree
+  ComputationalCapacity f ≤ ChomskyLevel.Type2_ContextFree := by sorry
 
 end ArithmeticDynamics.Computability

@@ -532,7 +532,7 @@ The `prime_signature_two_universal` assertion states that a prime signature of d
 - [x] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
 - [x] The `ArithmeticDynamics/Computability/ConwayFilter.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signature itself.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `lipschitz_implies_causality`
 
 ## Target Profile
@@ -549,9 +549,9 @@ The foundational limit bounds for continuous arithmetic maps depend on the causa
 4. Add `:= by sorry` to conclude the proof block, explicitly isolating the uncomputable limitation due to `padicNormZd` being undefined natively.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declaration for `lipschitz_implies_causality` is completely removed.
-- [ ] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
-- [ ] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signature itself.
+- [x] The `axiom` declaration for `lipschitz_implies_causality` is completely removed.
+- [x] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
+- [x] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signature itself.
 
 ## Target Task
 Automata Equivalence: `lipschitz_is_mealy_machine`
@@ -677,7 +677,7 @@ The `sieve_degeneracy_at_universal_floor` axiom asserts that deterministic unive
 - [ ] The top-level logical structure is formalized with `:= by sorry`.
 - [ ] The `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `lipschitz_implies_causality`
 
 ## Target Profile

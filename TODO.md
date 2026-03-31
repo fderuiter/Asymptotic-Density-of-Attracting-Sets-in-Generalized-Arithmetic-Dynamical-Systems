@@ -36,7 +36,7 @@ These foundational lemmas block higher-level arithmetic and topological reasonin
   - **Mathlib Imports:** `Mathlib.Topology.MetricSpace.Basic`
   - **Tactics/Strategy:** Unfold definitions of `IsOneLipschitz` and `IsMeasurePreserving`. Requires induction on `k` and demonstrating that bijectivity on quotients forces strict equality of distances.
 
-- [ ] **Prove `lipschitz_implies_causality`**
+- [x] **Prove `lipschitz_implies_causality`**
   - **File:** `ArithmeticDynamics/Algebra/LipschitzCausality.lean`
   - **Current State:** `axiom`
   - **Task:** Formalize congruence preservation under 1-Lipschitz maps.

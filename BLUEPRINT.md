@@ -604,7 +604,7 @@ The limits of computational capability for measure-preserving 1-Lipschitz functi
 - [x] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
 - [x] The `ArithmeticDynamics/Computability/ChomskyBounds.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `existence_of_stationary_measure`
 
 ## Target Profile
@@ -624,9 +624,9 @@ The `existence_of_stationary_measure` axiom asserts the existence and uniqueness
 7. Verify compilation to ensure the file is syntactically correct and no other top-level axioms remain in that declaration.
 
 ## Definition of Done (DoD)
-- [ ] The file imports `Mathlib.Data.Real.Basic`.
-- [ ] The `axiom` keyword for `existence_of_stationary_measure` is replaced with `theorem`.
-- [ ] The declaration correctly ends with `:= by sorry` and the file compiles without errors (other than the expected 'declaration uses sorry' warning).
+- [x] The file imports `Mathlib.Data.Real.Basic`.
+- [x] The `axiom` keyword for `existence_of_stationary_measure` is replaced with `theorem`.
+- [x] The declaration correctly ends with `:= by sorry` and the file compiles without errors (other than the expected 'declaration uses sorry' warning).
 
 ## Target Task
 Prove `spectral_gap_constraint` & `rapid_mixing_from_spectral_gap`

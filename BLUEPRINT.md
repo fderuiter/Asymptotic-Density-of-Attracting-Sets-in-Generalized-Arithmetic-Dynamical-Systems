@@ -1449,3 +1449,35 @@ The Sieve Analytics generalized framework bounds fractional density by relying o
 - [ ] The file `ArithmeticDynamics/SieveAnalytics/ResidueIndependence.lean` is created and imports correct dependencies.
 - [ ] The structural mapping `ResidueIndependenceHeuristic` is defined as a concrete `def` yielding `False`.
 - [ ] The core bridging theorem `residue_independence_base` is established structurally without top-level `axiom`s and contains exactly zero `sorry`s.
+
+## Target Task
+`ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean`: Formally define the dynamical zeta function to support the thermodynamic formalism.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Complex.Basic`, `Mathlib.Topology.Basic`
+
+## Contextual Analysis
+The Thermodynamic Formalism and Universal Law framework fundamentally depend on evaluating the periodic cycles and their analytical topological boundaries. The `DynamicalZetaFunction` acts as the generating function for these periodic points. Currently, this core structure is completely missing from the `UniversalLaw` section. Without formally defining it, mapping the Hausdorff dimension of attracting sets to roots of topological pressure becomes a structurally unsupported jump. We must rigidly map this analytic function natively. To strictly satisfy the zero-defect policy without providing the entire measure-theoretic convergence proof immediately, we define the zeta function using a `noncomputable def` and isolate the exact analytical sum logic using `sorry`.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Data.Complex.Basic
+   import Mathlib.Topology.Basic
+   ```
+3. Establish the `ArithmeticDynamics.ThermodynamicFormalism` namespace to align with the existing `UniversalLaw` formalizations.
+4. Define `StateSpace` alias to bridge the topology mappings:
+   ```lean
+   def StateSpace := ℤ
+   ```
+5. Define the foundational `dynamicalZetaFunction` algebraically evaluating over the state space complex dimensions as a `noncomputable def` to cleanly isolate uncomputability:
+   ```lean
+   noncomputable def dynamicalZetaFunction (f : StateSpace → StateSpace) (z : ℂ) : ℂ := sorry
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean` is created.
+- [ ] The `dynamicalZetaFunction` mapping is accurately formalized as a `noncomputable def`.
+- [ ] The file `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean` compiles safely without top-level 'declaration uses sorry' errors for structural theorem signatures themselves.

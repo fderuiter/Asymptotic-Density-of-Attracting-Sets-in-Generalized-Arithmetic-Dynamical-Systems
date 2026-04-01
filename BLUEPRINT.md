@@ -1449,3 +1449,31 @@ The Sieve Analytics generalized framework bounds fractional density by relying o
 - [ ] The file `ArithmeticDynamics/SieveAnalytics/ResidueIndependence.lean` is created and imports correct dependencies.
 - [ ] The structural mapping `ResidueIndependenceHeuristic` is defined as a concrete `def` yielding `False`.
 - [ ] The core bridging theorem `residue_independence_base` is established structurally without top-level `axiom`s and contains exactly zero `sorry`s.
+
+## Target Task
+`ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean`: Formally define the dynamical zeta function to support the thermodynamic formalism.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Complex.Basic`, `Mathlib.Topology.Instances.Int`
+
+## Contextual Analysis
+The thermodynamic formalism rigorously requires evaluating the dynamical zeta function to relate periodic orbits to analytic structures and calculate topological pressure mappings. The current project entirely lacks a formal mathematical definition of the dynamical zeta function. This unmapped function constitutes foundational technical debt that blocks evaluating equilibrium states. We must explicitly construct the definition analytically for continuous maps, isolating the complex variable evaluation to a targeted `sorry` within a `noncomputable def` to preserve the overarching structural integrity without top-level unproven `axiom`s.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean`.
+2. Import necessary Mathlib modules:
+   ```lean
+   import Mathlib.Data.Complex.Basic
+   import Mathlib.Topology.Instances.Int
+   ```
+3. Open namespaces `Topology` and `Complex`.
+4. Define the `ArithmeticDynamics.UniversalLaw` namespace.
+5. Define a discrete mapping alias `def StateSpace := ℤ` and a minimal `instance : TopologicalSpace StateSpace := ⊥` to avoid metric synthesis failures.
+6. Define a formal metric evaluating the cardinality of periodic orbits as a `noncomputable def periodicPointCount (f : StateSpace → StateSpace) (n : ℕ) : ℕ := sorry`, isolating the complex tracking logic to a targeted base-case gap.
+7. Formalize the main zeta function bounding the series expansion `exp(sum z^n / n * |Fix(f^n)|)` via `noncomputable def dynamicalZetaFunction (f : StateSpace → StateSpace) (z : ℂ) : ℂ := sorry`, yielding a targeted uncomputable analytic gap.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean` is created.
+- [ ] Core metric functions `periodicPointCount` and `dynamicalZetaFunction` are mapped as `noncomputable def`s.
+- [ ] The foundational structural analytic mapping is established natively to complex variables without top-level `axiom`s, cleanly isolating analytical evaluation gaps via `sorry`.

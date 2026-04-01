@@ -604,7 +604,7 @@ The limits of computational capability for measure-preserving 1-Lipschitz functi
 - [x] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
 - [x] The `ArithmeticDynamics/Computability/ChomskyBounds.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `existence_of_stationary_measure`
 
 ## Target Profile

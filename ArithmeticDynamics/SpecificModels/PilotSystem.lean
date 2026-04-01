@@ -32,8 +32,8 @@ def pilot5_b : Fin 5 → ℤ :=
   | 4 => 2
   | _ => 0 -- unreachable
 
-axiom pilot5_div_cond : ∀ (i : Fin 5) (k : ℤ),
-  (5 : ℤ) ∣ (pilot5_a i * (k * 5 + i.val) + pilot5_b i)
+theorem pilot5_div_cond : ∀ (i : Fin 5) (k : ℤ),
+  (5 : ℤ) ∣ (pilot5_a i * (k * 5 + i.val) + pilot5_b i) := by sorry
 
 /-- The d=5 Pilot System. -/
 def pilotSystem5 : Algebra.QuasiPolynomial 5 :=

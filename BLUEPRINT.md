@@ -1641,3 +1641,44 @@ The expansive 5x+1 map currently asserts its positive logarithmic drift (`collat
 - [ ] The `axiom collatz5x1_drift_is_expansive` is entirely removed.
 - [ ] The declaration is replaced with a `theorem` containing the exact tactic-level sequence (`unfold`, `rw [Fin.sum_univ_two]`, `dsimp`) for sum expansion.
 - [ ] Zero unproven `axiom`s exist in the file.
+
+## Target Task
+`ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Basic.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Int.Basic`, `Mathlib.Order.Basic`, `Mathlib.Logic.Function.Iterate`
+
+## Contextual Analysis
+Currently, the project jumps into advanced algebra and ergodic theory, but lacks the core definitions establishing the generalized system structure itself. We must formalize the foundational base structure for a Generalized Arithmetic Dynamical System (GADS) over `ℤ`, along with basic trajectory definitions and topological invariance, to eliminate the mathematical gap and ground the project natively without relying on unverified axioms for foundational concepts.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/Basic.lean`.
+2. Add the required imports:
+   ```lean
+   import Mathlib.Data.Int.Basic
+   import Mathlib.Order.Basic
+   import Mathlib.Logic.Function.Iterate
+   ```
+3. Define the GADS structure over `ℤ` natively:
+   ```lean
+   structure GADS where
+     d : ℕ
+     d_pos : 0 < d
+     f : ℤ → ℤ
+   ```
+4. Define the trajectory formally using Mathlib's function iteration:
+   ```lean
+   def trajectory (sys : GADS) (x : ℤ) (n : ℕ) : ℤ :=
+     sys.f^[n] x
+   ```
+5. Define the forward invariant property for subsets of `ℤ`:
+   ```lean
+   def IsForwardInvariant (sys : GADS) (S : Set ℤ) : Prop :=
+     ∀ x ∈ S, sys.f x ∈ S
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/Basic.lean` is created.
+- [ ] The `GADS` structure, `trajectory`, and `IsForwardInvariant` are rigorously defined without `sorry`s.
+- [ ] The file compiles cleanly.

@@ -755,7 +755,7 @@ The foundational limit bounds mapping algebraic scaling parameters to metric ent
 - [x] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
 - [x] The file `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean` compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `commutative_semiring_tau_f` & `alexandroff_compactification_finiteness`
 
 ## Target Profile
@@ -775,9 +775,9 @@ The theoretical mappings describing the primal topology `τ_f` and the finitenes
 7. Append `:= by sorry` to bridge the topological finite equilibrium property.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declarations for `commutative_semiring_tau_f` and `alexandroff_compactification_finiteness` are completely removed.
-- [ ] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
-- [ ] The file `ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean` compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] The `axiom` declarations for `commutative_semiring_tau_f` and `alexandroff_compactification_finiteness` are completely removed.
+- [x] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [x] The file `ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean` compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
 ## Target Task
 Prove `spectral_threshold` & `cantor_set_collapse`

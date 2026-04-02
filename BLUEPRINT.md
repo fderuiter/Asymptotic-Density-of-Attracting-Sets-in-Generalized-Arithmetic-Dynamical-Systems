@@ -654,7 +654,7 @@ The axioms `spectral_gap_constraint` and `rapid_mixing_from_spectral_gap` curren
 - [x] Both declarations are replaced with `theorem` signatures ending with `:= by sorry`.
 - [x] The file `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean` compiles without errors beyond the expected 'declaration uses sorry' warnings.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `sieve_degeneracy_at_universal_floor`
 
 ## Target Profile
@@ -673,9 +673,9 @@ The `sieve_degeneracy_at_universal_floor` axiom asserts that deterministic unive
 6. Verify that the file compiles successfully after making the changes.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declaration for `sieve_degeneracy_at_universal_floor` is completely removed and replaced with a `theorem` declaration.
-- [ ] The top-level logical structure is formalized with `:= by sorry`.
-- [ ] The `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] The `axiom` declaration for `sieve_degeneracy_at_universal_floor` is completely removed and replaced with a `theorem` declaration.
+- [x] The top-level logical structure is formalized with `:= by sorry`.
+- [x] The `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
 ## Target Task [COMPLETED]
 Prove `lipschitz_implies_causality`
@@ -697,7 +697,7 @@ The `lipschitz_implies_causality` axiom asserts that 1-Lipschitz continuity over
 
 ## Definition of Done (DoD)
 - [ ] The `axiom` declaration for `lipschitz_implies_causality` is completely removed and replaced with a `theorem` declaration.
-- [ ] The top-level logical structure is formalized with `:= by sorry`.
+- [x] The top-level logical structure is formalized with `:= by sorry`.
 - [ ] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
 ## Target Task

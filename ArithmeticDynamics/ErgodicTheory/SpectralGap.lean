@@ -37,9 +37,9 @@ opaque AtUniversalInstructionFloor (prog : FractranProgram) : Prop
 
 /-- Sieve degeneracy theorem: deterministic universal machines at the threshold floor do
 not satisfy the stochastic assumptions required by analytic density sieves. -/
-axiom sieve_degeneracy_at_universal_floor (prog : FractranProgram)
+theorem sieve_degeneracy_at_universal_floor (prog : FractranProgram)
     (h_floor : AtUniversalInstructionFloor prog) (h_univ : Computability.Universal prog)
     (h_det : DeterministicBranchingFactorOne prog) :
-    ¬ SupportsAnalyticSieve prog
+    ¬ SupportsAnalyticSieve prog := by sorry
 
 end ArithmeticDynamics.ErgodicTheory

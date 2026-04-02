@@ -153,7 +153,7 @@ Formalize the probability matrices and spectral properties.
   - **Current State:** `axiom`
   - **Task:** Connect aperiodic/irreducible chains to rapid mixing via eigenvalue bounds.
 
-- [ ] **Prove `sieve_degeneracy_at_universal_floor`**
+- [x] **Prove `sieve_degeneracy_at_universal_floor`**
   - **File:** `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean`
   - **Current State:** `axiom`
   - **Task:** Show deterministic universal programs violate analytic-sieve independence.

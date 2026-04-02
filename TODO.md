@@ -142,7 +142,7 @@ These steps bridge FRACTRAN and Minsky machines with our metric spaces.
 
 Formalize the probability matrices and spectral properties.
 
-- [ ] **Prove `existence_of_stationary_measure`**
+- [x] **Prove `existence_of_stationary_measure`**
   - **File:** `ArithmeticDynamics/ErgodicTheory/MarkovTransition.lean`
   - **Current State:** `axiom`
   - **Task:** Perron-Frobenius existence/uniqueness for primitive stochastic matrices.

@@ -1,5 +1,6 @@
 import ArithmeticDynamics.ErgodicTheory.MarkovTransition
 import ArithmeticDynamics.Computability.Fractran
+import Mathlib.Data.Real.Basic
 
 namespace ArithmeticDynamics.ErgodicTheory
 
@@ -16,14 +17,14 @@ opaque SecondLargestEigenvalueAbs (P : Matrix (Fin M) (Fin M) ℝ) : ℝ
 
 /-- Spectral-gap constraint: irreducible + aperiodic stochastic systems admit a strictly
 positive mixing gap. -/
-axiom spectral_gap_constraint
+theorem spectral_gap_constraint
     (h_stoch : IsRowStochastic P) (h_irr : IsIrreducible P) (h_aper : IsAperiodic P) :
-    ∃ δ : ℝ, 0 < δ ∧ SecondLargestEigenvalueAbs P ≤ 1 - δ
+    ∃ δ : ℝ, 0 < δ ∧ SecondLargestEigenvalueAbs P ≤ 1 - δ := by sorry
 
 /-- Positive spectral gap forces rapid mixing and asymptotic probabilistic independence. -/
-axiom rapid_mixing_from_spectral_gap
+theorem rapid_mixing_from_spectral_gap
     (h_stoch : IsRowStochastic P) (h_irr : IsIrreducible P) (h_aper : IsAperiodic P) :
-    HasProbabilisticIndependence P
+    HasProbabilisticIndependence P := by sorry
 
 /-- A predicate for density-sieve admissibility on symbolic encodings. -/
 opaque SupportsAnalyticSieve (prog : FractranProgram) : Prop

@@ -628,7 +628,7 @@ The `existence_of_stationary_measure` axiom asserts the existence and uniqueness
 - [x] The `axiom` keyword for `existence_of_stationary_measure` is replaced with `theorem`.
 - [x] The declaration correctly ends with `:= by sorry` and the file compiles without errors (other than the expected 'declaration uses sorry' warning).
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `spectral_gap_constraint` & `rapid_mixing_from_spectral_gap`
 
 ## Target Profile
@@ -650,9 +650,9 @@ The axioms `spectral_gap_constraint` and `rapid_mixing_from_spectral_gap` curren
 9. Verify that the file compiles successfully after making these replacements.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declarations for `spectral_gap_constraint` and `rapid_mixing_from_spectral_gap` are removed.
-- [ ] Both declarations are replaced with `theorem` signatures ending with `:= by sorry`.
-- [ ] The file `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean` compiles without errors beyond the expected 'declaration uses sorry' warnings.
+- [x] The `axiom` declarations for `spectral_gap_constraint` and `rapid_mixing_from_spectral_gap` are removed.
+- [x] Both declarations are replaced with `theorem` signatures ending with `:= by sorry`.
+- [x] The file `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean` compiles without errors beyond the expected 'declaration uses sorry' warnings.
 
 ## Target Task
 Prove `sieve_degeneracy_at_universal_floor`

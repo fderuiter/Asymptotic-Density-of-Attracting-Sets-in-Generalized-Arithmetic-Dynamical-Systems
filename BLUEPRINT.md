@@ -755,7 +755,7 @@ The foundational limit bounds mapping algebraic scaling parameters to metric ent
 - [x] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
 - [x] The file `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean` compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `commutative_semiring_tau_f` & `alexandroff_compactification_finiteness`
 
 ## Target Profile

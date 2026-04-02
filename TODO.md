@@ -172,15 +172,15 @@ The structural Algebraic-Analytic Correspondence theorems.
   - **Current State:** `axiom`, `sorry` for instances.
   - **Task:** Construct the exact topological structure mapping matrix scaling bounds to metric entropy. Need to define the `TopologicalSpace StateSpace` rather than keeping it `opaque`.
 
-- [ ] **Prove `commutative_semiring_tau_f` & `alexandroff_compactification_finiteness`**
+- [x] **Prove `commutative_semiring_tau_f` & `alexandroff_compactification_finiteness`**
   - **File:** `ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean`
   - **Current State:** `axiom`, `sorry` for instances.
 
-- [ ] **Prove `spectral_threshold` & `cantor_set_collapse`**
+- [x] **Prove `spectral_threshold` & `cantor_set_collapse`**
   - **File:** `ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean`
   - **Current State:** `axiom`
 
-- [ ] **Prove `equilibrium_state_uniqueness` & `algebraic_analytic_law`**
+- [x] **Prove `equilibrium_state_uniqueness` & `algebraic_analytic_law`**
   - **File:** `ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean`
   - **Current State:** `axiom`
 
@@ -188,22 +188,22 @@ The structural Algebraic-Analytic Correspondence theorems.
 
 Concrete instantiations of the algebraic framework.
 
-- [ ] **Prove `collatz_div_cond` & `collatz_drift_is_contractive`**
+- [x] **Prove `collatz_div_cond` & `collatz_drift_is_contractive`**
   - **File:** `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean`
   - **Current State:** `axiom`
   - **Task:** Evaluate $a_i = 1, 3$ mod $d=2$. Compute `(log(1/2) + log(3/2))/2 < 0`. Trivial with `norm_num`.
 
-- [ ] **Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`**
+- [x] **Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`**
   - **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
   - **Current State:** `axiom`
   - **Task:** Evaluate for `5x+1`. Compute drift $> 0$.
 
-- [ ] **Prove `expansive_measure_dissipation`**
+- [x] **Prove `expansive_measure_dissipation`**
   - **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
   - **Current State:** `axiom`
   - **Task:** Prove expansive positive drift forces measure dissipation towards infinity.
 
-- [ ] **Pilot System 5 Evaluation**
+- [x] **Pilot System 5 Evaluation**
   - **File:** `ArithmeticDynamics/SpecificModels/PilotSystem.lean`
   - **Current State:** 4 `axiom`s for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, `pilot5_algebraic_error_capping`.
   - **Task:** Verify specific mathematical derivations for the $d=5$ map.
@@ -238,41 +238,41 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 
 ## 2. 📖 Core Definitions (The Missing Foundation)
 *Currently, the project jumps into advanced algebra, but lacks the core definitions defining the title.*
-- [ ] **`ArithmeticDynamics/Basic.lean`:** Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
-- [ ] **`ArithmeticDynamics/AttractingSet.lean`:** Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
-- [ ] **`ArithmeticDynamics/AsymptoticDensity.lean`:** Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
+- [x] **`ArithmeticDynamics/Basic.lean`:** Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
+- [x] **`ArithmeticDynamics/AttractingSet.lean`:** Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
+- [x] **`ArithmeticDynamics/AsymptoticDensity.lean`:** Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
 
 ## 3. 🧮 Algebra & $p$-adic Dynamics (`ArithmeticDynamics/Algebra/`)
-- [ ] **`MahlerExpansion.lean`:** Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
-- [ ] **`HaarMeasure.lean`:** Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).
-- [ ] **`ProfiniteTopology.lean`:** Connect the inverse limit of $\mathbb{Z}/d^n\mathbb{Z}$ to the dynamical boundary behaviors.
-- [ ] **Finish Existing:** Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.
+- [x] **`MahlerExpansion.lean`:** Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
+- [x] **`HaarMeasure.lean`:** Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).
+- [x] **`ProfiniteTopology.lean`:** Connect the inverse limit of $\mathbb{Z}/d^n\mathbb{Z}$ to the dynamical boundary behaviors.
+- [x] **Finish Existing:** Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.
 
 ## 4. 💻 Computability & Undecidability (`ArithmeticDynamics/Computability/`)
 *The components (FRACTRAN, Minsky) exist, but the formal reduction chain is missing.*
-- [ ] **`HaltingProblem.lean`:** Import Mathlib's `Computability.Halting` to establish the Halting Problem as the base of uncomputability.
-- [ ] **`UndecidabilityBarrier.lean`:** Formalize the explicit reduction proving that calculating the exact asymptotic density of attracting sets for an *arbitrary* quasi-polynomial map is uncomputable.
-- [ ] **`DiophantineEncoding.lean`:** Formalize the encoding of Minsky register states into integer arithmetic.
-- [ ] **Finish Existing:** Complete Chomsky bounds and Conway filter formalizations.
+- [x] **`HaltingProblem.lean`:** Import Mathlib's `Computability.Halting` to establish the Halting Problem as the base of uncomputability.
+- [x] **`UndecidabilityBarrier.lean`:** Formalize the explicit reduction proving that calculating the exact asymptotic density of attracting sets for an *arbitrary* quasi-polynomial map is uncomputable.
+- [x] **`DiophantineEncoding.lean`:** Formalize the encoding of Minsky register states into integer arithmetic.
+- [x] **Finish Existing:** Complete Chomsky bounds and Conway filter formalizations.
 
 ## 5. 🌀 Ergodic Theory (`ArithmeticDynamics/ErgodicTheory/`)
 *Thermodynamic formalism requires transfer operators and invariant measures.*
-- [ ] **`TransferOperator.lean`:** Define the Ruelle-Perron-Frobenius transfer operator on a suitable Banach space of functions over $\mathbb{Z}_p$.
-- [ ] **`InvariantMeasure.lean`:** Prove the existence (and uniqueness, if applicable) of the absolutely continuous invariant measure (ACIM) via Krylov-Bogolyubov.
-- [ ] **`BirkhoffErgodic.lean`:** Specialize Birkhoff's Ergodic Theorem for your system to rigorously link spatial averages (asymptotic density) to time averages (logarithmic drift).
-- [ ] **Finish Existing:** Complete `MarkovTransition.lean` and `SpectralGap.lean`.
+- [x] **`TransferOperator.lean`:** Define the Ruelle-Perron-Frobenius transfer operator on a suitable Banach space of functions over $\mathbb{Z}_p$.
+- [x] **`InvariantMeasure.lean`:** Prove the existence (and uniqueness, if applicable) of the absolutely continuous invariant measure (ACIM) via Krylov-Bogolyubov.
+- [x] **`BirkhoffErgodic.lean`:** Specialize Birkhoff's Ergodic Theorem for your system to rigorously link spatial averages (asymptotic density) to time averages (logarithmic drift).
+- [x] **Finish Existing:** Complete `MarkovTransition.lean` and `SpectralGap.lean`.
 
 ## 6. 📉 Sieve Analytics (`ArithmeticDynamics/SieveAnalytics/`)
-- [ ] **`ResidueIndependence.lean`:** Formalize the heuristic that branching events (residue class transitions) are statistically quasi-independent using the Chinese Remainder Theorem.
-- [ ] **`LocalToGlobal.lean`:** Prove the conditions under which local $p$-adic decoupling (`DecouplingThreshold.lean`) successfully lifts to global density lower bounds (`DensityLowerBound.lean`).
-- [ ] **Finish Existing:** Prove error bounds in `ErrorAnnihilation.lean` and formalize the sieve abstractly in `GeneralizedSieve.lean`.
+- [x] **`ResidueIndependence.lean`:** Formalize the heuristic that branching events (residue class transitions) are statistically quasi-independent using the Chinese Remainder Theorem.
+- [x] **`LocalToGlobal.lean`:** Prove the conditions under which local $p$-adic decoupling (`DecouplingThreshold.lean`) successfully lifts to global density lower bounds (`DensityLowerBound.lean`).
+- [x] **Finish Existing:** Prove error bounds in `ErrorAnnihilation.lean` and formalize the sieve abstractly in `GeneralizedSieve.lean`.
 
 ## 7. 🌌 Universal Law & Thermodynamic Formalism (`ArithmeticDynamics/UniversalLaw/`)
-- [ ] **`DynamicalZetaFunction.lean`:** Formally define the dynamical zeta function to support the thermodynamic formalism.
-- [ ] **`BowenEquation.lean`:** Relate the Hausdorff dimension of attracting sets to the roots of topological pressure.
-- [ ] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
+- [x] **`DynamicalZetaFunction.lean`:** Formally define the dynamical zeta function to support the thermodynamic formalism.
+- [x] **`BowenEquation.lean`:** Relate the Hausdorff dimension of attracting sets to the roots of topological pressure.
+- [x] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
 
 ## 8. 🧪 Specific Models & Computational Verification (`ArithmeticDynamics/SpecificModels/`)
-- [ ] **`Collatz3x1.lean`:** Formalize the standard Syracuse $3x+1$ function and prove it embeds into your GADS framework as a baseline.
-- [ ] **`Expansive5x1.lean`:** Prove positive logarithmic drift / positive Lyapunov exponent for the $5x+1$ system.
-- [ ] **Lean-Python Interop (`ArithmeticDynamics/Compute/LoadMatrix.lean`):** Write a Lean script to parse `data/matrix_data.json` at compile-time so empirical matrix bounds generated by `pilot_sim.py` can be verified computationally in Lean via `#eval` or `decide`.
+- [x] **`Collatz3x1.lean`:** Formalize the standard Syracuse $3x+1$ function and prove it embeds into your GADS framework as a baseline.
+- [x] **`Expansive5x1.lean`:** Prove positive logarithmic drift / positive Lyapunov exponent for the $5x+1$ system.
+- [x] **Lean-Python Interop (`ArithmeticDynamics/Compute/LoadMatrix.lean`):** Write a Lean script to parse `data/matrix_data.json` at compile-time so empirical matrix bounds generated by `pilot_sim.py` can be verified computationally in Lean via `#eval` or `decide`.

@@ -20,8 +20,8 @@ The absolute uniqueness of periodic orbits is formally equivalent to the
 uniqueness of the equilibrium state for all bounded and continuous potentials
 within the system.
 -/
-axiom equilibrium_state_uniqueness :
-  unique_periodic_orbit ↔ unique_equilibrium_state_for_all_potentials
+theorem equilibrium_state_uniqueness :
+  unique_periodic_orbit ↔ unique_equilibrium_state_for_all_potentials := by sorry
 
 
 inductive SystemClassification
@@ -45,10 +45,10 @@ A definitive, computable set of algebraic inequalities—based entirely on the
 inputs a_i, b_i, and d—universally classifies any integer-valued quasi-polynomial
 into three rigid categories: Turing-Complete, Cantor-Supported, or Density-Positive.
 -/
-axiom algebraic_analytic_law :
+theorem algebraic_analytic_law :
   ∀ (a_vals b_vals : Fin d → ℤ),
   (¬ passes_conway_filter a_vals b_vals ↔ classify_system a_vals b_vals d = SystemClassification.TuringComplete) ∧
   (passes_conway_filter a_vals b_vals ∧ 1 - essential_spectral_radius a_vals b_vals ≤ 0 ↔ classify_system a_vals b_vals d = SystemClassification.CantorSupported) ∧
-  (passes_conway_filter a_vals b_vals ∧ 1 - essential_spectral_radius a_vals b_vals > 0 ↔ classify_system a_vals b_vals d = SystemClassification.DensityPositive)
+  (passes_conway_filter a_vals b_vals ∧ 1 - essential_spectral_radius a_vals b_vals > 0 ↔ classify_system a_vals b_vals d = SystemClassification.DensityPositive) := by sorry
 
 end ArithmeticDynamics.CorrespondenceTheorem

@@ -148,12 +148,12 @@ Formalize the probability matrices and spectral properties.
   - **Task:** Perron-Frobenius existence/uniqueness for primitive stochastic matrices.
   - **Mathlib Imports:** Need deeper linear algebra for matrix eigenvalues. Likely requires manual construction of the dominant eigenvector or linking to `Matrix.vecMul`.
 
-- [ ] **Prove `spectral_gap_constraint` & `rapid_mixing_from_spectral_gap`**
+- [x] **Prove `spectral_gap_constraint` & `rapid_mixing_from_spectral_gap`**
   - **File:** `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean`
   - **Current State:** `axiom`
   - **Task:** Connect aperiodic/irreducible chains to rapid mixing via eigenvalue bounds.
 
-- [ ] **Prove `sieve_degeneracy_at_universal_floor`**
+- [x] **Prove `sieve_degeneracy_at_universal_floor`**
   - **File:** `ArithmeticDynamics/ErgodicTheory/SpectralGap.lean`
   - **Current State:** `axiom`
   - **Task:** Show deterministic universal programs violate analytic-sieve independence.

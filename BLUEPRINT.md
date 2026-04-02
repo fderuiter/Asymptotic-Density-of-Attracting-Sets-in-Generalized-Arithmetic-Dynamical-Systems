@@ -1477,3 +1477,26 @@ The thermodynamic formalism rigorously requires evaluating the dynamical zeta fu
 - [ ] The file `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean` is created.
 - [ ] Core metric functions `periodicPointCount` and `dynamicalZetaFunction` are mapped as `noncomputable def`s.
 - [ ] The foundational structural analytic mapping is established natively to complex variables without top-level `axiom`s, cleanly isolating analytical evaluation gaps via `sorry`.
+
+## Target Task
+`ArithmeticDynamics/UniversalLaw/BowenEquation.lean`: Relate the Hausdorff dimension of attracting sets to the roots of topological pressure.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/UniversalLaw/BowenEquation.lean`
+- **New Mathlib Imports:** `Mathlib.Topology.MetricSpace.Basic`, `Mathlib.Data.Real.Basic`
+
+## Contextual Analysis
+The Bowen equation formally connects the geometric fractal structure of attracting sets (via Hausdorff dimension) to the thermodynamic formalism (topological pressure). Currently, the framework lacks this structural mapping, which breaks the analytical scaling bounds needed to relate metric entropy to spatial density. We must explicitly define topological pressure and Hausdorff dimension mappings as `noncomputable def`s to bridge this gap. This approach cleanly isolates the complex analytic metric mappings via targeted `sorry`s without introducing unproven top-level `axiom`s.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/UniversalLaw/BowenEquation.lean`.
+2. Import `Mathlib.Topology.MetricSpace.Basic` and `Mathlib.Data.Real.Basic`.
+3. Open `Topology` and define the `ArithmeticDynamics.UniversalLaw` namespace.
+4. Define the `StateSpace` alias mapping to `ℤ` and establish minimal topology instances (e.g., `instance : TopologicalSpace StateSpace := ⊥`) to prevent synthesis errors for uninstantiated metric spaces.
+5. Define the metric evaluations for `topologicalPressure` and `hausdorffDimension` mapping to `ℝ` as `noncomputable def`s, isolating the convergence computation via `sorry`. Use underscore prefixes (e.g., `_f`, `_A`) for unused variables.
+6. Formalize the core structural mapping `bowen_equation_roots` explicitly as a theorem establishing the relationship between the root of the pressure function and the Hausdorff dimension, yielding a targeted `sorry` to safely isolate the proof gap.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/UniversalLaw/BowenEquation.lean` is created.
+- [ ] Core metric mappings `topologicalPressure` and `hausdorffDimension` are mapped as `noncomputable def`s.
+- [ ] The foundational structural mapping `bowen_equation_roots` is established natively to reals without top-level `axiom`s, cleanly isolating analytical evaluation gaps via `sorry`.

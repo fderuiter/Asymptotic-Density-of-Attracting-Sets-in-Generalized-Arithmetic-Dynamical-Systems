@@ -176,7 +176,7 @@ The structural Algebraic-Analytic Correspondence theorems.
   - **File:** `ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean`
   - **Current State:** `axiom`, `sorry` for instances.
 
-- [ ] **Prove `spectral_threshold` & `cantor_set_collapse`**
+- [x] **Prove `spectral_threshold` & `cantor_set_collapse`**
   - **File:** `ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean`
   - **Current State:** `axiom`
 

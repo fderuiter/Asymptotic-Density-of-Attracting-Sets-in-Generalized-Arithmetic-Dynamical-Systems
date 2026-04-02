@@ -167,7 +167,7 @@ Formalize the probability matrices and spectral properties.
 
 The structural Algebraic-Analytic Correspondence theorems.
 
-- [ ] **Prove `lyapunov_scaling_duality` & `complex_balancing`**
+- [x] **Prove `lyapunov_scaling_duality` & `complex_balancing`**
   - **File:** `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean`
   - **Current State:** `axiom`, `sorry` for instances.
   - **Task:** Construct the exact topological structure mapping matrix scaling bounds to metric entropy. Need to define the `TopologicalSpace StateSpace` rather than keeping it `opaque`.

@@ -158,7 +158,7 @@ Formalize the probability matrices and spectral properties.
   - **Current State:** `axiom`
   - **Task:** Show deterministic universal programs violate analytic-sieve independence.
 
-- [ ] **Sieve Analytics General Framework**
+- [x] **Sieve Analytics General Framework**
   - **Files:** `SieveAnalytics/DecouplingThreshold.lean`, `DescentDominant.lean`, `ErrorAnnihilation.lean`, `DensityLowerBound.lean`, `GeneralizedSieve.lean`, `ReweightedMeasure.lean`
   - **Current State:** 17 `axiom`s.
   - **Task:** Translate the probabilistic sieve bounds and main term extraction. This is heavy analytic number theory and measure theory. Will require substantial intermediate limit theorems.

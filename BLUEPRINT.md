@@ -628,7 +628,7 @@ The `existence_of_stationary_measure` axiom asserts the existence and uniqueness
 - [x] The `axiom` keyword for `existence_of_stationary_measure` is replaced with `theorem`.
 - [x] The declaration correctly ends with `:= by sorry` and the file compiles without errors (other than the expected 'declaration uses sorry' warning).
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `spectral_gap_constraint` & `rapid_mixing_from_spectral_gap`
 
 ## Target Profile

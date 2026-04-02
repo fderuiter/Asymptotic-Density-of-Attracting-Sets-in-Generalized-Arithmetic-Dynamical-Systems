@@ -172,11 +172,11 @@ The structural Algebraic-Analytic Correspondence theorems.
   - **Current State:** `axiom`, `sorry` for instances.
   - **Task:** Construct the exact topological structure mapping matrix scaling bounds to metric entropy. Need to define the `TopologicalSpace StateSpace` rather than keeping it `opaque`.
 
-- [ ] **Prove `commutative_semiring_tau_f` & `alexandroff_compactification_finiteness`**
+- [x] **Prove `commutative_semiring_tau_f` & `alexandroff_compactification_finiteness`**
   - **File:** `ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean`
   - **Current State:** `axiom`, `sorry` for instances.
 
-- [ ] **Prove `spectral_threshold` & `cantor_set_collapse`**
+- [x] **Prove `spectral_threshold` & `cantor_set_collapse`**
   - **File:** `ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean`
   - **Current State:** `axiom`
 

@@ -731,7 +731,7 @@ The `SieveAnalytics` module currently relies on 17 unverified `axiom` declaratio
 - [ ] Propositional axioms are replaced with `theorem`s ending in `:= by sorry`, and data axioms are replaced with `noncomputable def`s ending in `:= sorry`.
 - [ ] All 6 modified `.lean` files compile successfully without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `lyapunov_scaling_duality` & `complex_balancing`
 
 ## Target Profile
@@ -751,9 +751,9 @@ The foundational limit bounds mapping algebraic scaling parameters to metric ent
 7. Append `:= by sorry` to conclude the theorem's proof block.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declarations for `lyapunov_scaling_duality` and `complex_balancing` are completely removed.
-- [ ] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
-- [ ] The file `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean` compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] The `axiom` declarations for `lyapunov_scaling_duality` and `complex_balancing` are completely removed.
+- [x] The declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [x] The file `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean` compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
 ## Target Task
 Prove `commutative_semiring_tau_f` & `alexandroff_compactification_finiteness`

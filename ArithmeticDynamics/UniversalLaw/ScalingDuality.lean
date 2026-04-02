@@ -38,8 +38,8 @@ Lemma 4.1.1 (The Lyapunov Scaling Duality)
 The algebraic coefficients a_i and d strictly dictate the system's Lyapunov exponent λ(μ),
 which in turn completely defines the system's measure-theoretic entropy.
 -/
-axiom lyapunov_scaling_duality :
-  metric_entropy mu f = max 0 (lyapunov_exponent mu f)
+theorem lyapunov_scaling_duality :
+  metric_entropy mu f = max 0 (lyapunov_exponent mu f) := by sorry
 
 noncomputable opaque analytic_density (f_map : StateSpace → StateSpace) : ℝ
 noncomputable opaque expected_drift (f_map : StateSpace → StateSpace) (n : ℕ) : ℝ
@@ -50,9 +50,9 @@ For a system to achieve high analytic density, its algebraic scaling must be
 "eventually expanding," yet it must simultaneously remain "complex balanced"
 to prevent infinite trajectory divergence.
 -/
-axiom complex_balancing :
+theorem complex_balancing :
   analytic_density f > 0 →
   lyapunov_exponent mu f > 0 ∧
-  (∀ ε > 0, ∃ N, ∀ n ≥ N, expected_drift f n ≤ ε)
+  (∀ ε > 0, ∃ N, ∀ n ≥ N, expected_drift f n ≤ ε) := by sorry
 
 end ArithmeticDynamics.ScalingDuality

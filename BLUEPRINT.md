@@ -1477,3 +1477,32 @@ The thermodynamic formalism rigorously requires evaluating the dynamical zeta fu
 - [ ] The file `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean` is created.
 - [ ] Core metric functions `periodicPointCount` and `dynamicalZetaFunction` are mapped as `noncomputable def`s.
 - [ ] The foundational structural analytic mapping is established natively to complex variables without top-level `axiom`s, cleanly isolating analytical evaluation gaps via `sorry`.
+
+## Target Task
+`ArithmeticDynamics/UniversalLaw/BowenEquation.lean`: Relate the Hausdorff dimension of attracting sets to the roots of topological pressure.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/UniversalLaw/BowenEquation.lean`
+- **New Mathlib Imports:** `Mathlib.Topology.MetricSpace.HausdorffDimension`, `Mathlib.Data.Real.Basic`
+
+## Contextual Analysis
+The Bowen Equation provides the critical theoretical link in thermodynamic formalism that relates the geometric size (Hausdorff dimension) of attracting sets to the thermodynamic roots of topological pressure. Currently, the project completely lacks the formal definitions linking these metric entropy structures to physical dimension bounds, creating severe theoretical debt. Without mapping the roots of the topological pressure function, the dimension limits cannot be formally evaluated. We must bridge this gap by defining the topological pressure analytically and formally establishing Bowen's dimension formula using `sorry` for the uncomputable convergence logic to maintain a top-level structural theorem framework without utilizing unverified axioms.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/UniversalLaw/BowenEquation.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Topology.MetricSpace.HausdorffDimension
+   import Mathlib.Data.Real.Basic
+   import ArithmeticDynamics.UniversalLaw.ThermodynamicFormalism
+   ```
+3. Open necessary namespaces: `open Topology MeasureTheory ArithmeticDynamics.ThermodynamicFormalism`.
+4. Establish the `ArithmeticDynamics.UniversalLaw.BowenEquation` namespace.
+5. Provide a topological alias and metric stub `noncomputable instance : MetricSpace StateSpace := sorry` to allow Mathlib's metric space bounds to apply smoothly.
+6. Formally define topological pressure analytically as a `noncomputable def topologicalPressure (s : ℝ) : ℝ := sorry`, keeping the complex summation structure strictly isolated via `sorry`.
+7. Define the central Bowen equation theorem equating the Hausdorff dimension to the unique root of the pressure function via `theorem bowen_equation_root (A : Set StateSpace) : ∃ s : ℝ, topologicalPressure s = 0 ∧ dimH A = ENNReal.ofReal s := by sorry`, guaranteeing structural mapping without unproven axioms.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/UniversalLaw/BowenEquation.lean` is created.
+- [ ] Core metrics like `topologicalPressure` are defined explicitly as `noncomputable def`s.
+- [ ] The foundational structural theorem `bowen_equation_root` relates Hausdorff dimension to the pressure root, verified as a theorem isolating bounds strictly via `sorry` with zero top-level `axiom`s.

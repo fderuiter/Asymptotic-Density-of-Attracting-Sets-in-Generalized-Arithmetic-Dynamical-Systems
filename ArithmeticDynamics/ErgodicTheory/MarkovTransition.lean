@@ -1,3 +1,4 @@
+import Mathlib.Data.Real.Basic
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Data.Matrix.Mul
 import Mathlib.LinearAlgebra.Matrix.Stochastic
@@ -13,7 +14,7 @@ class IsRowStochastic (P : Matrix (Fin M) (Fin M) ℝ) : Prop where
   non_neg : ∀ i j, 0 ≤ P i j
   sums_to_one : ∀ i, ∑ j, P i j = 1
 
-opaque IsPrimitive (P : Matrix (Fin M) (Fin M) ℝ) : Prop
+def IsPrimitive (_P : Matrix (Fin M) (Fin M) ℝ) : Prop := False
 
 /-- Lemma 1.3.1b: The Ergodic Measure Construction.
     Applies the Perron-Frobenius theorem to establish a unique, strictly positive

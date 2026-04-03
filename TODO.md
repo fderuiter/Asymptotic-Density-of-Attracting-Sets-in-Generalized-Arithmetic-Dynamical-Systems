@@ -238,7 +238,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 
 ## 2. 📖 Core Definitions (The Missing Foundation)
 *Currently, the project jumps into advanced algebra, but lacks the core definitions defining the title.*
-- [ ] **`ArithmeticDynamics/Basic.lean`:** Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
+- [x] **`ArithmeticDynamics/Basic.lean`:** Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
 - [ ] **`ArithmeticDynamics/AttractingSet.lean`:** Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
 - [ ] **`ArithmeticDynamics/AsymptoticDensity.lean`:** Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
 

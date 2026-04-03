@@ -1682,3 +1682,31 @@ Currently, the project jumps into advanced algebra and ergodic theory, but lacks
 - [ ] The file `ArithmeticDynamics/Basic.lean` is created.
 - [ ] The `GADS` structure, `trajectory`, and `IsForwardInvariant` are rigorously defined without `sorry`s.
 - [ ] The file compiles cleanly.
+
+## Target Task
+Finish Existing:** Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/LipschitzCausality.lean`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The project currently requires a strict causal structure for 1-Lipschitz functions over `Z_d`. However, `lipschitz_implies_causality` in `ArithmeticDynamics/Algebra/LipschitzCausality.lean` is unfinished and contains a `sorry`. This technical debt breaks the formal guarantee of prefix-preservation, which is critical for mapping monotonic processing over $p$-adics. Since `HenselLift.lean` and `QuasiPolynomial.lean` are already complete (containing no `sorry`s or unproven `axiom`s), the focus is entirely on rigorously completing the tactic proof for `lipschitz_implies_causality` to enforce zero-defect principles.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/Algebra/LipschitzCausality.lean`.
+2. Locate `theorem lipschitz_implies_causality`.
+3. Eradicate the `sorry` and implement the strict tactic proof.
+4. Specify the exact sequence of tactics:
+   - `intro x y h_eq`
+   - `unfold ModEqZd at *`
+   - `unfold IsOneLipschitz at h`
+   - `specialize h x y`
+   - Use `apply` or `rw` on the metric definitions (`padicNormZd`) to show that `padicNormZd d (f x - f y) ≤ padicNormZd d (x - y)`.
+   - Utilize the congruence `h_eq` to prove the valuation lower bound.
+   - Conclude with `exact` or `omega` to close the goal.
+
+## Definition of Done (DoD)
+- [ ] The `sorry` in `ArithmeticDynamics/Algebra/LipschitzCausality.lean` for `lipschitz_implies_causality` is entirely removed.
+- [ ] The proof is fully implemented using rigorous Mathlib tactics.
+- [ ] The file compiles cleanly without any `declaration uses sorry` errors.

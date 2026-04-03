@@ -1642,7 +1642,7 @@ The expansive 5x+1 map currently asserts its positive logarithmic drift (`collat
 - [ ] The declaration is replaced with a `theorem` containing the exact tactic-level sequence (`unfold`, `rw [Fin.sum_univ_two]`, `dsimp`) for sum expansion.
 - [ ] Zero unproven `axiom`s exist in the file.
 
-## Target Task
+## Target Task [COMPLETED]
 `ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
 
 ## Target Profile

@@ -1642,7 +1642,7 @@ The expansive 5x+1 map currently asserts its positive logarithmic drift (`collat
 - [ ] The declaration is replaced with a `theorem` containing the exact tactic-level sequence (`unfold`, `rw [Fin.sum_univ_two]`, `dsimp`) for sum expansion.
 - [ ] Zero unproven `axiom`s exist in the file.
 
-## Target Task
+## Target Task [COMPLETED]
 `ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
 
 ## Target Profile
@@ -1682,3 +1682,37 @@ Currently, the project jumps into advanced algebra and ergodic theory, but lacks
 - [ ] The file `ArithmeticDynamics/Basic.lean` is created.
 - [ ] The `GADS` structure, `trajectory`, and `IsForwardInvariant` are rigorously defined without `sorry`s.
 - [ ] The file compiles cleanly.
+
+## Target Task
+`ArithmeticDynamics/AttractingSet.lean`: Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
+
+## Target Profile
+- **File:** `ArithmeticDynamics/AttractingSet.lean`
+- **New Mathlib Imports:** `Mathlib.Topology.Basic`, `Mathlib.Topology.MetricSpace.Basic`
+
+## Contextual Analysis
+The overarching mathematical framework evaluates the asymptotic density of subsets that "attract" the dynamics of a quasi-polynomial system. However, the formal definition of an "Attracting Set" is currently missing. Without this foundational topological and metric definition, analytical proofs bounding the capacity of these sets lack a rigorously typed target. We must create `ArithmeticDynamics/AttractingSet.lean` to formally define what it means for a set to be attracting under a dynamical map over both the discrete topology $\mathbb{Z}$ and a general metric space (which encompasses the $p$-adic metric).
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/AttractingSet.lean`.
+2. Add necessary imports:
+   ```lean
+   import Mathlib.Topology.Basic
+   import Mathlib.Topology.MetricSpace.Basic
+   ```
+3. Open necessary namespaces.
+4. Define `IsAttractingSetDiscrete` for a map `f : ℤ → ℤ` and a target set `A : Set ℤ`. In the discrete topology, a set is attracting if there exists a basin of attraction `B ⊇ A` such that for every `x ∈ B`, the trajectory eventually enters and remains in `A`.
+   ```lean
+   def IsAttractingSetDiscrete (f : ℤ → ℤ) (A : Set ℤ) : Prop :=
+     ∃ B : Set ℤ, A ⊆ B ∧ ∀ x ∈ B, ∃ N, ∀ n ≥ N, f^[n] x ∈ A
+   ```
+5. Define `IsAttractingSetMetric` for a map `f : α → α` on a metric space `α`. It requires an open basin `B ⊇ A`.
+   ```lean
+   def IsAttractingSetMetric {α : Type*} [MetricSpace α] (f : α → α) (A : Set α) : Prop :=
+     ∃ B : Set α, A ⊆ B ∧ IsOpen B ∧ ∀ x ∈ B, ∃ N, ∀ n ≥ N, f^[n] x ∈ A
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
+- [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s.
+- [ ] The file `ArithmeticDynamics/AttractingSet.lean` compiles safely without errors.

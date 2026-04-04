@@ -180,7 +180,7 @@ The structural Algebraic-Analytic Correspondence theorems.
   - **File:** `ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean`
   - **Current State:** `axiom`
 
-- [ ] **Prove `equilibrium_state_uniqueness` & `algebraic_analytic_law`**
+- [x] **Prove `equilibrium_state_uniqueness` & `algebraic_analytic_law`**
   - **File:** `ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean`
   - **Current State:** `axiom`
 

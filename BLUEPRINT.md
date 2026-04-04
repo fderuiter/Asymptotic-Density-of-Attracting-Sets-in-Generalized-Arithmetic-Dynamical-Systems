@@ -1682,3 +1682,24 @@ Currently, the project jumps into advanced algebra and ergodic theory, but lacks
 - [x] The file `ArithmeticDynamics/Basic.lean` is created.
 - [x] The `GADS` structure, `trajectory`, and `IsForwardInvariant` are rigorously defined without `sorry`s.
 - [x] The file compiles cleanly.
+
+## Target Task
+Mathlib Alignment: Ensure lakefile.toml points to a specific, stable mathlib4 commit corresponding to your lean-toolchain to avoid breakage.
+
+## Target Profile
+- **File:** `lakefile.toml`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+Currently, `lakefile.toml` references the `mathlib4` repository without a specific commit hash (omitting the `rev` property). This introduces severe foundational instability, as rolling `main` branches can silently break the project's complex topological and ergodic proofs when Mathlib's internal structure updates. To adhere to the zero-defect policy, we must strictly pin the `mathlib4` dependency to a specific commit that is fully compatible with the current `leanprover/lean4:v4.29.0-rc6` toolchain, thereby eliminating infrastructural technical debt.
+
+## Granular Execution Steps
+1. Open `lakefile.toml`.
+2. Locate the `[[require]]` block for `name = "mathlib"`.
+3. Append the strict revision anchor `rev = "v4.29.0-rc6"` (or the exact mathlib4 commit hash tracking this Lean release).
+4. Execute `lake update` to fetch the specific commit and lock it within `lake-manifest.json`.
+
+## Definition of Done (DoD)
+- [ ] The `lakefile.toml` explicitly specifies a `rev` attribute under the `mathlib` require block.
+- [ ] The `lake-manifest.json` correctly reflects the pinned `mathlib` commit.
+- [ ] The repository builds cleanly with `lake build` after the update.

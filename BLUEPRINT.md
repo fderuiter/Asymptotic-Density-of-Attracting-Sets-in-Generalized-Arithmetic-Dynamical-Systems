@@ -947,9 +947,9 @@ Currently, the formalization explores heavy analytic and algorithmic dynamics, y
 8. Ensure all definitions include appropriate docstrings.
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Basic.lean` is created.
-- [ ] The `GADS` structure, `trajectory`, `IsForwardInvariant`, and `IsBackwardInvariant` definitions are accurately formalized.
-- [ ] The file `ArithmeticDynamics/Basic.lean` compiles safely without errors.
+- [x] The file `ArithmeticDynamics/Basic.lean` is created.
+- [x] The `GADS` structure, `trajectory`, `IsForwardInvariant`, and `IsBackwardInvariant` definitions are accurately formalized.
+- [x] The file `ArithmeticDynamics/Basic.lean` compiles safely without errors.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/AttractingSet.lean`: Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
@@ -1642,7 +1642,7 @@ The expansive 5x+1 map currently asserts its positive logarithmic drift (`collat
 - [ ] The declaration is replaced with a `theorem` containing the exact tactic-level sequence (`unfold`, `rw [Fin.sum_univ_two]`, `dsimp`) for sum expansion.
 - [ ] Zero unproven `axiom`s exist in the file.
 
-## Target Task
+## Target Task [COMPLETED]
 `ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
 
 ## Target Profile
@@ -1679,6 +1679,6 @@ Currently, the project jumps into advanced algebra and ergodic theory, but lacks
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Basic.lean` is created.
-- [ ] The `GADS` structure, `trajectory`, and `IsForwardInvariant` are rigorously defined without `sorry`s.
-- [ ] The file compiles cleanly.
+- [x] The file `ArithmeticDynamics/Basic.lean` is created.
+- [x] The `GADS` structure, `trajectory`, and `IsForwardInvariant` are rigorously defined without `sorry`s.
+- [x] The file compiles cleanly.

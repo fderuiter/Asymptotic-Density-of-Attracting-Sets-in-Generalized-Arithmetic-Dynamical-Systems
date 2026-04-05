@@ -847,9 +847,9 @@ The divisibility conditions (`collatz_div_cond`) and logarithmic drift limits (`
 7. Append `:= by sorry` to bridge the uncomputable evaluation of `logarithmicDrift` over real limits.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declarations for `collatz_div_cond` and `collatz_drift_is_contractive` are removed.
-- [ ] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
-- [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] The `axiom` declarations for `collatz_div_cond` and `collatz_drift_is_contractive` are removed.
+- [x] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [x] The file `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
 ## Target Task [COMPLETED]
 Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`
@@ -1534,9 +1534,9 @@ The divisibility conditions (`collatz_div_cond`) and logarithmic drift limits (`
 7. Append `:= by sorry` to bridge the uncomputable evaluation of `logarithmicDrift` over real limits.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declarations for `collatz_div_cond` and `collatz_drift_is_contractive` are removed.
-- [ ] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
-- [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] The `axiom` declarations for `collatz_div_cond` and `collatz_drift_is_contractive` are removed.
+- [x] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [x] The file `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/SpecificModels/Collatz3x1.lean`: Formalize the standard Syracuse $3x+1$ function and prove it embeds into your GADS framework as a baseline.

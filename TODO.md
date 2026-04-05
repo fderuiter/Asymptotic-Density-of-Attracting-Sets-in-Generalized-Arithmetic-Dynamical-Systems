@@ -188,7 +188,7 @@ The structural Algebraic-Analytic Correspondence theorems.
 
 Concrete instantiations of the algebraic framework.
 
-- [ ] **Prove `collatz_div_cond` & `collatz_drift_is_contractive`**
+- [x] **Prove `collatz_div_cond` & `collatz_drift_is_contractive`**
   - **File:** `ArithmeticDynamics/SpecificModels/PilotSystem3x1.lean`
   - **Current State:** `axiom`
   - **Task:** Evaluate $a_i = 1, 3$ mod $d=2$. Compute `(log(1/2) + log(3/2))/2 < 0`. Trivial with `norm_num`.

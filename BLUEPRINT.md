@@ -1684,7 +1684,7 @@ Currently, the project jumps into advanced algebra and ergodic theory, but lacks
 - [x] The file compiles cleanly.
 
 
-## Target Task
+## Target Task [COMPLETED]
 `ArithmeticDynamics/Algebra/MahlerExpansion.lean`: Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
 
 ## Target Profile
@@ -1717,6 +1717,6 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
-- [ ] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
-- [ ] The file compiles cleanly and without warnings.
+- [x] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
+- [x] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
+- [x] The file compiles cleanly and without warnings.

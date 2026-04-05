@@ -27,3 +27,4 @@ import ArithmeticDynamics.UniversalLaw.ScalingDuality
 import ArithmeticDynamics.UniversalLaw.SpectralThreshold
 import ArithmeticDynamics.UniversalLaw.ThermodynamicFormalism
 import ArithmeticDynamics.UniversalLaw.CorrespondenceTheorem
+import ArithmeticDynamics.Algebra.MahlerExpansion

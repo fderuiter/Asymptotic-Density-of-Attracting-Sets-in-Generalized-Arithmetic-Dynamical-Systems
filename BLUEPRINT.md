@@ -140,9 +140,9 @@ The causal prefix-preservation theorem `lipschitz_implies_causality` currently e
 8. Conclude the proof by using `sorry` to bridge this specific gap. This follows the project standard of isolating unprovable base-case metric gaps into targeted `sorry`s while ensuring the top-level structural theorem signature is correctly formalized.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declaration for `lipschitz_implies_causality` is completely removed and replaced with `theorem`.
-- [ ] The top-level logical proof structure (variable and hypothesis introduction) is rigorously formalized.
-- [ ] The file `ArithmeticDynamics/Algebra/LipschitzCausality.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
+- [x] The `axiom` declaration for `lipschitz_implies_causality` is completely removed and replaced with `theorem`.
+- [x] The top-level logical proof structure (variable and hypothesis introduction) is rigorously formalized.
+- [x] The file `ArithmeticDynamics/Algebra/LipschitzCausality.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
 
 ## Target Task [COMPLETED] [COMPLETED]
 Prove `linearization_of_orbits`
@@ -1079,9 +1079,9 @@ To continuously interpolate discrete quasi-polynomial maps modulo $d$ over the $
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
-- [ ] Core definitions for `mahlerBasis` and `mahlerCoefficients` are mapped as `noncomputable def`s.
-- [ ] The foundational structural theorem `mahler_expansion_continuous` is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
+- [x] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
+- [x] Core definitions for `mahlerBasis` and `mahlerCoefficients` are mapped as `noncomputable def`s.
+- [x] The foundational structural theorem `mahler_expansion_continuous` is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/Algebra/HaarMeasure.lean`: Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).

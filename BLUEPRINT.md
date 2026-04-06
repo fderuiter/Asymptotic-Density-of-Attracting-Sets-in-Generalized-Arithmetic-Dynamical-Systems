@@ -1720,3 +1720,29 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
 - [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [ ] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [ ] The file compiles cleanly and without warnings.
+## Target Task
+Mathlib Alignment: Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
+
+## Target Profile
+- **File:** `lakefile.toml`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+Currently, `lakefile.toml` points to the `mathlib` repository without specifying a revision (`rev`). Since the project is pinned to the toolchain `leanprover/lean4:v4.29.0-rc6` via `lean-toolchain`, relying on the default (latest) commit of `mathlib4` creates severe infrastructure debt. Any uncoordinated update to the `mathlib4` master branch can catastrophically break the formalization environment. We must enforce strict dependency alignment by explicitly setting the `rev` property for `mathlib` in `lakefile.toml` to a verified commit known to be stable with the current toolchain.
+
+## Granular Execution Steps
+1. Open `lakefile.toml`.
+2. Locate the `[[require]]` block for `name = "mathlib"`.
+3. Ensure the `git` URL is `"https://github.com/leanprover-community/mathlib4.git"`.
+4. Append the `rev` property to this block, pinning it to a stable mathlib4 commit compatible with `v4.29.0-rc6` (e.g., `"v4.29.0-rc6"` or the exact 40-character commit hash). Example:
+   ```toml
+   [[require]]
+   name = "mathlib"
+   git = "https://github.com/leanprover-community/mathlib4.git"
+   rev = "v4.29.0-rc6"
+   ```
+
+## Definition of Done (DoD)
+- [ ] The `lakefile.toml` explicitly defines a `rev` property under the `mathlib` requirement.
+- [ ] The specified revision corresponds to a stable state compatible with `leanprover/lean4:v4.29.0-rc6`.
+- [ ] The project successfully builds (`lake build`) without fetching a mismatched mathlib toolchain.

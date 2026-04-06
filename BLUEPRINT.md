@@ -1720,3 +1720,33 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
 - [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [ ] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [ ] The file compiles cleanly and without warnings.
+## Target Task
+Mathlib Alignment: Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
+
+## Target Profile
+- **File:** `lakefile.toml`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+Currently, the project lacks a strict alignment between its `lean-toolchain` (`v4.29.0-rc6`) and a specific, stable `mathlib4` commit in `lakefile.toml`. The `mathlib` dependency is pointing directly to the Git repository without a `rev` pin. This breaks the rigorous dependency management required for a zero-defect proof infrastructure, risking upstream breakages as the framework evolves. We must configure `lakefile.toml` to explicitly require a precise commit.
+
+## Granular Execution Steps
+1. Navigate to `lakefile.toml`.
+2. Locate the `mathlib` dependency declaration:
+   ```toml
+   [[require]]
+   name = "mathlib"
+   git = "https://github.com/leanprover-community/mathlib4.git"
+   ```
+3. Update the `mathlib` require block to include the `rev` property pointing to the `v4.29.0-rc6` commit:
+   ```toml
+   [[require]]
+   name = "mathlib"
+   git = "https://github.com/leanprover-community/mathlib4.git"
+   rev = "v4.29.0-rc6"
+   ```
+
+## Definition of Done (DoD)
+- [ ] `lakefile.toml` specifies a precise `rev` commit for the `mathlib` dependency.
+- [ ] The `lean-toolchain` version perfectly matches the target mathlib alignment.
+- [ ] The `lake build` executes successfully without breaking dependencies.

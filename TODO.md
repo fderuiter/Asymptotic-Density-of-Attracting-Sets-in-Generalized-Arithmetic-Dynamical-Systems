@@ -243,7 +243,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 - [ ] **`ArithmeticDynamics/AsymptoticDensity.lean`:** Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
 
 ## 3. 🧮 Algebra & $p$-adic Dynamics (`ArithmeticDynamics/Algebra/`)
-- [ ] **`MahlerExpansion.lean`:** Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
+- [x] **`MahlerExpansion.lean`:** Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
 - [ ] **`HaarMeasure.lean`:** Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).
 - [ ] **`ProfiniteTopology.lean`:** Connect the inverse limit of $\mathbb{Z}/d^n\mathbb{Z}$ to the dynamical boundary behaviors.
 - [ ] **Finish Existing:** Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.

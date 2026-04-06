@@ -1720,3 +1720,25 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
 - [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [ ] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [ ] The file compiles cleanly and without warnings.
+
+## Target Task
+Mathlib Alignment: Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
+
+## Target Profile
+- **File:** `lakefile.toml`, `lean-toolchain`, `lake-manifest.json`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+Currently, the project infrastructure relies on Mathlib4, but ensuring the `lakefile.toml` and `lake-manifest.json` are strictly aligned with the `lean-toolchain` (`leanprover/lean4:v4.29.0-rc6`) is essential to avoid build breakage and API drift. Without a formal alignment verification process, the project is exposed to silent dependency failures. This technical debt must be resolved by creating a strict script that verifies the commit `e8bf9c44369b9151d46c4703f2fd8718f7149643` in the manifest aligns with the toolchain version.
+
+## Granular Execution Steps
+1. Create a validation script `scripts/verify_toolchain.py`.
+2. The script must read `lean-toolchain` to extract the current version (e.g., `v4.29.0-rc6`).
+3. The script must read `lake-manifest.json` to extract the exact `mathlib` revision commit.
+4. The script should verify that the `mathlib` commit in the manifest corresponds to a stable release known to work with the specified Lean toolchain version.
+5. Add instructions to the repository documentation indicating that this script must pass before any dependency upgrades.
+
+## Definition of Done (DoD)
+- [ ] A verification script is created to cross-reference `lean-toolchain` and `lake-manifest.json`.
+- [ ] No arbitrary unversioned mathlib dependencies exist.
+- [ ] The build environment is formally locked and verified to prevent breakage.

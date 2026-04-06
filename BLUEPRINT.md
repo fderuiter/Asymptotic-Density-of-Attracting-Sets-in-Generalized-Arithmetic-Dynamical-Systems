@@ -1684,7 +1684,7 @@ Currently, the project jumps into advanced algebra and ergodic theory, but lacks
 - [x] The file compiles cleanly.
 
 
-## Target Task
+## Target Task [COMPLETED]
 `ArithmeticDynamics/Algebra/MahlerExpansion.lean`: Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
 
 ## Target Profile

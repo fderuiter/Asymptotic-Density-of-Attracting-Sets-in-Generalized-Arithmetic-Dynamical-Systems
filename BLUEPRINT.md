@@ -1720,3 +1720,34 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
 - [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [ ] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [ ] The file compiles cleanly and without warnings.
+## Target Task
+Mathlib Alignment: Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
+
+## Target Profile
+- **File:** `lakefile.toml`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+Currently, the `lakefile.toml` requires mathlib directly from the main branch without specifying a stable commit hash. This creates a severe dependency risk, where upstream changes in Mathlib may suddenly cause our `lean-toolchain` (v4.29.0-rc6) and local codebase to break unexpectedly. To guarantee build determinism and stabilize the project environment for Sieve Analytics and Ergodic Theory formalizations, we must lock the Mathlib dependency to a known, stable commit that aligns with our specific Lean toolchain version.
+
+## Granular Execution Steps
+1. Navigate to `lakefile.toml` in the repository root.
+2. Locate the Mathlib requirement block:
+   ```toml
+   [[require]]
+   name = "mathlib"
+   git = "https://github.com/leanprover-community/mathlib4.git"
+   ```
+3. Append a `rev` attribute targeting a stable commit that corresponds to Lean `v4.29.0-rc6`. Example:
+   ```toml
+   [[require]]
+   name = "mathlib"
+   git = "https://github.com/leanprover-community/mathlib4.git"
+   rev = "d1c0b39c058728d7b3223ecb8e1a53e5e4d2cc73" # (Replace with actual target hash matching v4.29.0-rc6)
+   ```
+4. Run `lake update mathlib` to regenerate the `lake-manifest.json` locking the repository to this specific commit.
+
+## Definition of Done (DoD)
+- [ ] A specific `rev` hash is appended to the `mathlib` dependency in `lakefile.toml`.
+- [ ] The hash matches a known stable mathlib commit compatible with Lean v4.29.0-rc6.
+- [ ] Running `lake build` succeeds without fetching upstream breaking changes.

@@ -9,6 +9,7 @@ Coprime Invertibility Theorem:
 If the branch multiplier `a` is strictly coprime to the modulus `d`,
 the map's action on the residue classes modulo `d` is perfectly bijective.
 -/
+@[nolint unusedArguments]
 theorem coprime_invertibility {d : ℕ} [NeZero d] (a c : ℤ) (h_coprime : IsCoprime a (d : ℤ)) :
     Bijective (fun (k : ZMod d) ↦ (a : ZMod d) * k + (c : ZMod d)) := by
 

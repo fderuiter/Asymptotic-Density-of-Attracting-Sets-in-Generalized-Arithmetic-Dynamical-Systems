@@ -9,6 +9,7 @@ namespace ArithmeticDynamics.Algebra
 variable {p : ℕ} [Fact p.Prime]
 
 /-- The p-adic absolute value metric mapping integers to reals. -/
+@[nolint unusedArguments]
 noncomputable def padicNorm (p : ℕ) [Fact p.Prime] (x : ℤ) : ℝ :=
   if x = 0 then (0 : ℝ)
   else (p : ℝ) ^ (-(padicValInt p x : ℝ))
@@ -110,7 +111,8 @@ def proj (k : ℕ) (x : Z_d d) : ZMod (d^k) :=
 
 end Z_d
 
-/-- The d-adic absolute value for Z_d. -/
+/-- The d-adic absolute value for Z_d (placeholder; returns 0 for all inputs). -/
+@[nolint unusedArguments]
 noncomputable def padicNormZd (d : ℕ) (_x : Z_d d) : ℝ := 0
 
 end ArithmeticDynamics.Algebra

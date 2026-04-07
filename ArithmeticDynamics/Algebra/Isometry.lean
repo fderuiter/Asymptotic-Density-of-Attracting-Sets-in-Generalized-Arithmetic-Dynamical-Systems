@@ -19,6 +19,7 @@ set_option linter.unusedSectionVars false
     Proves that a measure-preserving 1-Lipschitz function acts as a strict isometry.
     This permanently strips the map of its capacity for unbounded memory allocation
     (the prerequisite for FRACTRAN Turing-completeness). -/
+@[nolint unusedArguments]
 theorem measure_preserving_lipschitz_is_isometry
   (_h_lip : IsOneLipschitz f) (_h_meas : IsMeasurePreserving f) :
   ∀ x y : Z_d d, padicNormZd d (f x - f y) = padicNormZd d (x - y) := by

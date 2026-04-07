@@ -16,6 +16,7 @@ Let \mathcal{P} be the Ruelle-Perron-Frobenius transfer operator associated with
 By standard Markov mixing theory, the total variation distance to the uniform invariant measure \pi decays geometrically. We define the quantitative mixing time \tau(\epsilon) required to restrict the dependency deviation below an analytic error threshold \epsilon:
 $$ \tau(\epsilon) = \left\lceil \frac{\log(1/\epsilon)}{-\log(1-\delta)} \right\rceil = \mathcal{O}\left( \frac{1}{\delta} \log \frac{1}{\epsilon} \right) $$
 -/
+@[nolint unusedArguments]
 noncomputable def mixing_time_threshold (δ : ℝ) (_h_delta : δ > 0) (ε : ℝ) : ℝ :=
   Real.log (1 / ε) / -Real.log (1 - δ)
 

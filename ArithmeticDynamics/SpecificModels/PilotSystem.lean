@@ -13,6 +13,8 @@ as the class of piecewise Contractive Affine-Residue Maps where \(d=5\) and
 \(a_i \in \{1, 4, 2, 3, 2\}\).
 -/
 
+/-- The multiplier coefficients `a_i` for the `d=5` Pilot System,
+given by `{1, 4, 2, 3, 2}` for residues `0..4`. -/
 def pilot5_a : Fin 5 → ℤ :=
   fun i => match i.val with
   | 0 => 1
@@ -23,6 +25,8 @@ def pilot5_a : Fin 5 → ℤ :=
   | _ => 0 -- unreachable
 
 -- Placeholder for exact b_i values satisfying a_i * i + b_i ≡ 0 (mod 5)
+/-- The additive offsets `b_i` for the `d=5` Pilot System,
+given by `{0, 1, 1, 1, 2}` for residues `0..4`. -/
 def pilot5_b : Fin 5 → ℤ :=
   fun i => match i.val with
   | 0 => 0
@@ -32,6 +36,8 @@ def pilot5_b : Fin 5 → ℤ :=
   | 4 => 2
   | _ => 0 -- unreachable
 
+/-- Divisibility axiom: for all branches `i : Fin 5` and integers `k`,
+`5 ∣ (pilot5_a i * (5k + i) + pilot5_b i)`, guaranteeing `pilotSystem5` is well-formed. -/
 axiom pilot5_div_cond : ∀ (i : Fin 5) (k : ℤ),
   (5 : ℤ) ∣ (pilot5_a i * (k * 5 + i.val) + pilot5_b i)
 

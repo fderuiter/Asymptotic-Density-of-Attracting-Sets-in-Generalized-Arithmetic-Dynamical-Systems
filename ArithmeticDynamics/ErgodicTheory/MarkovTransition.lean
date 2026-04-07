@@ -14,6 +14,9 @@ class IsRowStochastic (P : Matrix (Fin M) (Fin M) ℝ) : Prop where
   non_neg : ∀ i j, 0 ≤ P i j
   sums_to_one : ∀ i, ∑ j, P i j = 1
 
+/-- Predicate asserting that a stochastic matrix is primitive (positive power exists
+with all strictly positive entries), a prerequisite for Perron-Frobenius. -/
+@[nolint unusedArguments]
 def IsPrimitive (_P : Matrix (Fin M) (Fin M) ℝ) : Prop := False
 
 /-- Lemma 1.3.1b: The Ergodic Measure Construction.

@@ -13,6 +13,8 @@ inductive SystemRegime
 | Neutral     -- ρ = 0: Turing Complete / Conway Filter
 | Expansive   -- ρ > 0: Divergent Infinity (e.g., 5x+1)
 
+/-- Classifies the dynamical regime of a system based on the sign of its logarithmic drift:
+contractive (`ρ < 0`), neutral (`ρ = 0`), or expansive (`ρ > 0`). -/
 noncomputable def classifySystem (d : ℕ) (a : Fin d → ℝ) : SystemRegime :=
   let ρ := logarithmicDrift d a
   if ρ < 0 then SystemRegime.Contractive

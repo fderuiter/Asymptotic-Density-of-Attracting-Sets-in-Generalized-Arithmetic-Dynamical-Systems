@@ -8,8 +8,7 @@ variable {d : ℕ} [NeZero d]
 def IsOneLipschitz (f : Z_d d → Z_d d) : Prop :=
   ∀ x y, padicNormZd d (f x - f y) ≤ padicNormZd d (x - y)
 
--- Let's define the congruence modulo d^n for Z_d.
--- To avoid "unknown identifier 'ModEq'", we can define it.
+/-- Congruence relation on `Z_d d` modulo `d^n`, comparing the `n`-th projections in `ZMod (d^n)`. -/
 def ModEqZd (d n : ℕ) (x y : Z_d d) : Prop :=
   x.val n ≡ y.val n [ZMOD d^n]
 

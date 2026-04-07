@@ -27,6 +27,8 @@ Let \Lambda = 144 be the closed congruence state space (\Lambda = \text{lcm}(12 
 -/
 def Lambda : ℕ := 144
 
+/-- The Markov transfer operator `M` mapping density between congruence states
+modulo `Λ = 144`, encoding the affine branch transition probabilities. -/
 noncomputable def markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ := sorry
 
 theorem principal_left_eigenvector_w :
@@ -37,6 +39,7 @@ theorem principal_left_eigenvector_w :
 The Algebraically Re-weighted Measure \mu_{\log}'(A):
 $$ \mu_{\log}'(A) = \int_{A} \mathbf{w}(x \bmod \Lambda) \frac{dx}{x} $$
 -/
+@[nolint unusedArguments]
 noncomputable def reweighted_measure (_w : Fin Lambda → ℝ) (_A : Set ℕ) : ℝ :=
   0 -- Integration placeholder: \int_{A} w(x \pmod \Lambda) dx / x
 

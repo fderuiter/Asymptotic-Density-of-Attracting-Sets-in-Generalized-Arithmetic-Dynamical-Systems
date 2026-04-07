@@ -11,10 +11,15 @@ universal transfer matrix S, defining the exact spectral boundaries that
 separate dense converging systems from zero-density fractals.
 -/
 
+/-- The modulus `d` parameterizing the transfer matrix dimension. -/
 opaque d : ℕ
+/-- The universal transfer matrix `S` of dimension `d×d`, encoding branch transitions. -/
 opaque S_matrix : Matrix (Fin d) (Fin d) ℝ
+/-- The essential spectral radius of a transfer matrix `S`. -/
 opaque essential_spectral_radius (S : Matrix (Fin d) (Fin d) ℝ) : ℝ
+/-- The asymptotic analytic density of the attracting set. -/
 opaque analytic_density : ℝ
+/-- The Hausdorff dimension of the support of the invariant measure. -/
 opaque support_hausdorff_dimension : ℝ
 
 /--

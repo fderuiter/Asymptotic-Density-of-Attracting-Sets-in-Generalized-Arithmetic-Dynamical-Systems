@@ -12,8 +12,13 @@ variable (P : Matrix (Fin M) (Fin M) ℝ)
 
 /-- Structural predicates used to encode the spectral-gap hypotheses. -/
 opaque IsIrreducible (P : Matrix (Fin M) (Fin M) ℝ) : Prop
+/-- Predicate asserting that a stochastic matrix has period 1 (no periodic states). -/
 opaque IsAperiodic (P : Matrix (Fin M) (Fin M) ℝ) : Prop
+/-- Predicate asserting that the matrix's residual distribution converges to a product measure,
+encoding probabilistic independence of coordinates in the long run. -/
 opaque HasProbabilisticIndependence (P : Matrix (Fin M) (Fin M) ℝ) : Prop
+/-- The absolute value of the second-largest eigenvalue of the transition matrix,
+controlling the rate of convergence to stationarity. -/
 opaque SecondLargestEigenvalueAbs (P : Matrix (Fin M) (Fin M) ℝ) : ℝ
 
 /-- Spectral-gap constraint: irreducible + aperiodic stochastic systems admit a strictly

@@ -8,7 +8,9 @@ namespace ArithmeticDynamics.Algebra
 /-- Represents a degree-1 Quasi-Polynomial (Generalized Affine Map) over modulus d.
     Defined by branches of the form f(n) = (a_i * n + b_i) / d for n ≡ i (mod d). -/
 structure QuasiPolynomial (d : ℕ) [NeZero d] where
+  /-- The multiplier coefficients `a_i` for each residue branch `i : Fin d`. -/
   a : Fin d → ℤ
+  /-- The additive offsets `b_i` for each residue branch `i : Fin d`. -/
   b : Fin d → ℤ
   -- Strict arithmetic divisibility condition ensuring closed maps on ℤ
   div_cond : ∀ (i : Fin d) (k : ℤ), (d : ℤ) ∣ (a i * (k * d + i.val) + b i)

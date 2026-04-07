@@ -11,7 +11,9 @@ def FractranProgram := List ℚ
 def fractranStep (prog : FractranProgram) (N : ℕ) : Option ℕ :=
   prog.findSome? (fun q => if (q * (N : ℚ)).den = 1 then some (q * (N : ℚ)).num.natAbs else none)
 
+/-- Predicate asserting that a FRACTRAN program is Turing-universal. -/
 opaque Universal (prog : FractranProgram) : Prop
+/-- The number of distinct prime factors used as register addresses in a FRACTRAN program. -/
 opaque prime_signature_dimension (prog : FractranProgram) : ℕ
 
 /-- Theorem 1.1.2a: The Prime Register Bound.

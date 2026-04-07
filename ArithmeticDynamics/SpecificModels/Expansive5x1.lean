@@ -4,9 +4,12 @@ import ArithmeticDynamics.ErgodicTheory.MarkovTransition
 
 namespace ArithmeticDynamics.SpecificModels
 
+/-- The Markov transition matrix derived from a quasi-polynomial's branch structure. -/
 opaque TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ
+/-- Predicate asserting that `π` is a stationary (invariant) measure for the matrix `P`. -/
 opaque StationaryMeasure {M : ℕ} (π : Fin M → ℝ) (P : Matrix (Fin M) (Fin M) ℝ) : Prop
 
+/-- Divisibility condition witnessing that `collatz5x1` is a well-formed quasi-polynomial. -/
 axiom collatz5x1_div_cond : ∀ (i : Fin 2) (k : ℤ),
   (2 : ℤ) ∣ ((if i.val = 0 then 1 else 5) * (k * 2 + i.val) + (if i.val = 0 then 0 else 1))
 

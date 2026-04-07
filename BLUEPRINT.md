@@ -1744,7 +1744,7 @@ Currently, `lakefile.toml` imports mathlib directly from the `main` branch. This
 - [x] The assigned revision accurately reflects a stable mathlib commit compatible with the project toolchain.
 - [x] The `lake build` command completes successfully without dependency resolution errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Continuous Integration (CI): Create `.github/workflows/lint.yml` to run `lake exe lint` (catches unused variables, missing docstrings, and naming violations).
 
 ## Target Profile
@@ -1805,9 +1805,9 @@ The project requires a strict zero-defect policy, including no unused variables,
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `.github/workflows/lint.yml` is created.
-- [ ] The workflow uses `leanprover/lean-action` with `lint: true` and `build: false`.
-- [ ] The YAML syntax matches the style of the existing project workflows.
+- [x] The file `.github/workflows/lint.yml` is created.
+- [x] The workflow uses `leanprover/lean-action` with `lint: true` and `build: false`.
+- [x] The YAML syntax matches the style of the existing project workflows.
 
 ## Target Task
 Finish Existing: Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.

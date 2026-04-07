@@ -1720,3 +1720,23 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
 - [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [ ] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [ ] The file compiles cleanly and without warnings.
+## Target Task
+Mathlib Alignment: Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
+
+## Target Profile
+- **File:** `lakefile.toml`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+Currently, `lakefile.toml` imports mathlib directly from the `main` branch. This introduces significant technical debt and instability because Mathlib4 updates continuously, and `main` will frequently break compatibility with our specific `leanprover/lean4:v4.29.0-rc6` toolchain. We must enforce strict reproducibility by pinning it to a stable commit that aligns perfectly with our toolchain to eliminate build instability debt.
+
+## Granular Execution Steps
+1. Open `lakefile.toml`.
+2. Locate the `[[require]]` block for the `mathlib` dependency.
+3. Add the precise mathlib commit revision string extracted from `lake-manifest.json` by adding the following line to the block: `rev = "e8bf9c44369b9151d46c4703f2fd8718f7149643"`.
+4. Save the file and run `lake build` to verify the lockfile stabilizes.
+
+## Definition of Done (DoD)
+- [ ] The `lakefile.toml` explicitly contains `rev = "e8bf9c44369b9151d46c4703f2fd8718f7149643"` for the `mathlib` dependency.
+- [ ] The assigned revision accurately reflects a stable mathlib commit compatible with the project toolchain.
+- [ ] The `lake build` command completes successfully without dependency resolution errors.

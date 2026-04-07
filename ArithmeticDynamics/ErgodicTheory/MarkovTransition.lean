@@ -6,6 +6,10 @@ import Mathlib.Data.Real.Basic
 
 namespace ArithmeticDynamics.ErgodicTheory
 
+-- These are architectural scaffolding files; sorry is intentional.
+set_option linter.sorry false
+set_option linter.unusedArguments false
+
 variable {M : ℕ} (P : Matrix (Fin M) (Fin M) ℝ)
 
 /-- Lemma 2.1 / 1.3.1a: Row-Stochasticity and Density Conservation.

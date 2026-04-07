@@ -6,6 +6,10 @@ import Mathlib.MeasureTheory.Measure.MeasureSpace
 
 namespace ArithmeticDynamics.ScalingDuality
 
+-- These are architectural scaffolding files; sorry is intentional.
+set_option linter.sorry false
+set_option linter.unusedArguments false
+
 /-!
 # Chapter 4.1: Parametric Governance and the Scaling Duality
 

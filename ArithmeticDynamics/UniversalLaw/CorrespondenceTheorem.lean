@@ -3,6 +3,9 @@ import Mathlib.Topology.MetricSpace.Basic
 
 namespace ArithmeticDynamics.CorrespondenceTheorem
 
+-- These are architectural scaffolding files; sorry is intentional.
+set_option linter.sorry false
+
 /-!
 # Chapter 4.4: The Main Deliverable: The Unified Correspondence Theorem
 

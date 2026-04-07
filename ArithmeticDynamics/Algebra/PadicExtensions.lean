@@ -23,6 +23,7 @@ theorem linearization_of_orbits {p k : ℕ} [NeZero (p ^ k)]
 
 /-- Prime-power collapse (architectural starvation): prime-power moduli cannot sustain the
 independent prime channels required by multi-register universal simulation. -/
+@[nolint unusedArguments]
 theorem prime_power_architectural_starvation {p k : ℕ} :
     ¬ SupportsOrthogonalPrimeChannels (p ^ k) := by
   intro h_supports

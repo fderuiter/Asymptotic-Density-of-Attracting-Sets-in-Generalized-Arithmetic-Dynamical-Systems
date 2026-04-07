@@ -2,6 +2,8 @@ import Mathlib
 
 namespace ArithmeticDynamics.Computability
 
+set_option linter.unusedArguments false
+
 open Function
 
 /--

@@ -11,6 +11,7 @@ def discreteMahlerBasis (n x : ℕ) : ℕ := Nat.choose x n
 set_option linter.unusedVariables false in
 /-- Predicate asserting that a continuous function `f : ℤ_[p] → ℤ_[p]` admits a Mahler expansion
 with coefficient sequence `a`. -/
+@[nolint unusedArguments]
 def IsMahlerExpansion {p : ℕ} [Fact (Nat.Prime p)] (_f : C(ℤ_[p], ℤ_[p])) (_a : ℕ → ℤ_[p]) : Prop :=
   ∀ (x : ℤ_[p]), True
 

@@ -14,6 +14,7 @@ def IsMeasurePreserving (f : Z_d d → Z_d d) : Prop :=
 
 set_option linter.unusedVariables false
 set_option linter.unusedSectionVars false
+set_option linter.unusedArguments false
 
 /-- Theorem: The Isometry Confinement Theorem.
     Proves that a measure-preserving 1-Lipschitz function acts as a strict isometry.

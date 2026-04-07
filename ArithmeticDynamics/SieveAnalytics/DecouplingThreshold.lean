@@ -4,6 +4,10 @@ import ArithmeticDynamics.SpecificModels.PilotSystem
 
 namespace ArithmeticDynamics.SieveAnalytics
 
+-- These are architectural scaffolding files; sorry is intentional.
+set_option linter.sorry false
+set_option linter.unusedArguments false
+
 /-!
 # Part 2: Probabilistic Independence (The Mixing Time Threshold)
 

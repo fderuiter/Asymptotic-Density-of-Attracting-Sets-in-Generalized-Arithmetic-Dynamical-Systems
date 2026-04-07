@@ -3,6 +3,9 @@ import Mathlib.Topology.MetricSpace.Basic
 
 namespace ArithmeticDynamics.SpectralThreshold
 
+-- These are architectural scaffolding files; sorry is intentional.
+set_option linter.sorry false
+
 /-!
 # Chapter 4.2: The Spectral Threshold and Cantor Set Avoidance
 

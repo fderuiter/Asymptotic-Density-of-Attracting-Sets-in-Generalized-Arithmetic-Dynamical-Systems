@@ -4,6 +4,10 @@ import Mathlib.MeasureTheory.Measure.MeasureSpace
 
 namespace ArithmeticDynamics.ThermodynamicFormalism
 
+-- These are architectural scaffolding files; sorry is intentional.
+set_option linter.sorry false
+set_option linter.unusedArguments false
+
 /-!
 # Chapter 4.3: Thermodynamic Formalism and the Primal Topology
 

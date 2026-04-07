@@ -1,5 +1,6 @@
 name = "arithmetic_dynamics"
 defaultTargets = ["ArithmeticDynamics"]
+lintDriver = "batteries/runLinter"
 
 [[lean_lib]]
 name = "ArithmeticDynamics"

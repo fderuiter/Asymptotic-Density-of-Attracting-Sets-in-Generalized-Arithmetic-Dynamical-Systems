@@ -1888,3 +1888,30 @@ Currently, foundational formalizations in `ArithmeticDynamics/Computability/Chom
 - [ ] Core `sorry` implementations across `ChomskyBounds.lean` are rigorously eradicated natively.
 - [ ] Lean 4 code is explicitly formalized relying on structurally verified proof tactics (e.g., `use`, `exact trivial`).
 - [ ] Zero unproven `sorry`s exist and files securely compile cleanly.
+
+## Target Task
+`HaarMeasure.lean`: Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).
+
+## Target Profile
+- **File:** `ArithmeticDynamics/Algebra/HaarMeasure.lean`
+- **New Mathlib Imports:** `Mathlib.NumberTheory.Padics.PadicIntegers`, `Mathlib.MeasureTheory.Measure.Haar.Basic`
+
+## Contextual Analysis
+Currently, Ergodic Theory definitions in the project operate without a foundational probability measure over the $p$-adic integers ($\mathbb{Z}_p$). Without an explicitly normalized Haar measure, transition operators and invariant measures (like the absolutely continuous invariant measure) are ungrounded mathematical theories. We must instantiate Mathlib's Haar measure for the compact group $\mathbb{Z}_p$ natively to eradicate the topological ambiguity and provide a concrete measure for `SieveAnalytics` and `ErgodicTheory`.
+
+## Granular Execution Steps
+1. Create the file `ArithmeticDynamics/Algebra/HaarMeasure.lean`.
+2. Import required Mathlib files: `Mathlib.NumberTheory.Padics.PadicIntegers` and `Mathlib.MeasureTheory.Measure.Haar.Basic`.
+3. Define the normalized Haar measure on `ℤ_[p]`. Ensure the declaration is formulated strictly without `sorry`:
+   ```lean
+   open MeasureTheory TopologicalSpace
+
+   noncomputable def padicHaarMeasure {p : ℕ} [Fact (Nat.Prime p)] : MeasureTheory.Measure ℤ_[p] :=
+     MeasureTheory.Measure.haarMeasure (TopologicalSpace.PositiveCompacts.univ)
+   ```
+4. Append `import ArithmeticDynamics.Algebra.HaarMeasure` to `ArithmeticDynamics.lean`.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/Algebra/HaarMeasure.lean` is created.
+- [ ] The exact Lean 4 code instantiates `MeasureTheory.Measure.haarMeasure` for the $p$-adic integers without `sorry` or `admit`.
+- [ ] The file compiles perfectly and is successfully imported into the top-level project file `ArithmeticDynamics.lean`.

@@ -1079,7 +1079,7 @@ To continuously interpolate discrete quasi-polynomial maps modulo $d$ over the $
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
+- [x] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [ ] Core definitions for `mahlerBasis` and `mahlerCoefficients` are mapped as `noncomputable def`s.
 - [ ] The foundational structural theorem `mahler_expansion_continuous` is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
 
@@ -1684,7 +1684,7 @@ Currently, the project jumps into advanced algebra and ergodic theory, but lacks
 - [x] The file compiles cleanly.
 
 
-## Target Task
+## Target Task [COMPLETED]
 `ArithmeticDynamics/Algebra/MahlerExpansion.lean`: Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
 
 ## Target Profile
@@ -1717,6 +1717,9 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
    ```
 
 ## Definition of Done (DoD)
+- [x] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
+- [x] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
+- [x] The file compiles cleanly and without warnings.
 - [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [ ] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [ ] The file compiles cleanly and without warnings.

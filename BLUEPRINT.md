@@ -1743,3 +1743,67 @@ Currently, `lakefile.toml` imports mathlib directly from the `main` branch. This
 - [ ] The `lakefile.toml` explicitly contains `rev = "e8bf9c44369b9151d46c4703f2fd8718f7149643"` for the `mathlib` dependency.
 - [ ] The assigned revision accurately reflects a stable mathlib commit compatible with the project toolchain.
 - [ ] The `lake build` command completes successfully without dependency resolution errors.
+## Target Task
+Continuous Integration (CI): Create `.github/workflows/lint.yml` to run `lake exe lint` (catches unused variables, missing docstrings, and naming violations).
+
+## Target Profile
+- **File:** `.github/workflows/lint.yml`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The project requires a strict zero-defect policy, including no unused variables, missing docstrings, or naming violations. Currently, the main `build.yml` runs `lake build` but explicitly sets `lint: false` for the `leanprover/lean-action`. Leaving code quality to manual review introduces severe technical debt. We must create a dedicated GitHub Actions workflow to run the linters across the entire project on every push and pull request, ensuring continuous code quality.
+
+## Granular Execution Steps
+1. Create the file `.github/workflows/lint.yml`.
+2. Populate the file with standard GitHub Actions syntax utilizing the verified `leanprover/lean-action` from the existing `build.yml`:
+   ```yaml
+   name: Lint Lean project
+
+   on:
+     push:
+       branches:
+         - main
+     pull_request:
+       branches:
+         - main
+     workflow_dispatch:
+
+   concurrency:
+     group: ${{ github.ref }}-lint
+     cancel-in-progress: true
+
+   permissions:
+     contents: read
+
+   jobs:
+     lint:
+       runs-on: ubuntu-latest
+       name: lake exe lint
+       steps:
+         - name: Cleanup to free disk space
+           uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.0
+           with:
+             tool-cache: false
+             android: true
+             dotnet: false
+             haskell: false
+             large-packages: false
+             docker-images: false
+             swap-storage: false
+
+         - name: Checkout project
+           uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+         - name: Lint Lean project
+           uses: leanprover/lean-action@434f25c2f80ded67bba02502ad3a86f25db50709 # 2025-07-02
+           with:
+             build: false
+             lint: true
+             mk_all-check: false
+             use-mathlib-cache: true
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `.github/workflows/lint.yml` is created.
+- [ ] The workflow uses `leanprover/lean-action` with `lint: true` and `build: false`.
+- [ ] The YAML syntax matches the style of the existing project workflows.

@@ -229,7 +229,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 # Comprehensive Project TODO & Implementation Roadmap
 
 ## 1. 🏗️ Core Infrastructure & Metamathematics
-- [ ] **Mathlib Alignment:** Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
+- [x] **Mathlib Alignment:** Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
 - [ ] **Continuous Integration (CI):**
   - [ ] Create `.github/workflows/lint.yml` to run `lake exe lint` (catches unused variables, missing docstrings, and naming violations).
   - [ ] Configure `doc-gen4` in `lakefile.toml` and set up a GitHub Action to deploy Lean documentation to GitHub Pages.

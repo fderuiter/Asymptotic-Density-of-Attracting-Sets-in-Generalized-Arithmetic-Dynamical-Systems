@@ -1723,7 +1723,7 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
 - [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [ ] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [ ] The file compiles cleanly and without warnings.
-## Target Task
+## Target Task [COMPLETED]
 Mathlib Alignment: Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
 
 ## Target Profile
@@ -1740,10 +1740,9 @@ Currently, `lakefile.toml` imports mathlib directly from the `main` branch. This
 4. Save the file and run `lake build` to verify the lockfile stabilizes.
 
 ## Definition of Done (DoD)
-- [ ] The `lakefile.toml` explicitly contains `rev = "e8bf9c44369b9151d46c4703f2fd8718f7149643"` for the `mathlib` dependency.
-- [ ] The assigned revision accurately reflects a stable mathlib commit compatible with the project toolchain.
-- [ ] The `lake build` command completes successfully without dependency resolution errors.
-
+- [x] The `lakefile.toml` explicitly contains `rev = "e8bf9c44369b9151d46c4703f2fd8718f7149643"` for the `mathlib` dependency.
+- [x] The assigned revision accurately reflects a stable mathlib commit compatible with the project toolchain.
+- [x] The `lake build` command completes successfully without dependency resolution errors.
 
 ## Target Task
 Continuous Integration (CI): Create `.github/workflows/lint.yml` to run `lake exe lint` (catches unused variables, missing docstrings, and naming violations).

@@ -1,0 +1,99 @@
+Running linter on specified modules: [ArithmeticDynamics]
+-- Found 61 errors in 222 declarations (plus 108 automatically generated ones) in ArithmeticDynamics with 16 linters
+
+/- The `docBlame` linter reports:
+DEFINITIONS ARE MISSING DOCUMENTATION STRINGS: -/
+-- ArithmeticDynamics.Algebra.LipschitzCausality
+/app/ArithmeticDynamics/Algebra/LipschitzCausality.lean:13:1: error: ArithmeticDynamics.Algebra.ModEqZd definition missing documentation string
+
+-- ArithmeticDynamics.Algebra.MahlerExpansion
+/app/ArithmeticDynamics/Algebra/MahlerExpansion.lean:7:1: error: ArithmeticDynamics.Algebra.discreteMahlerBasis definition missing documentation string
+/app/ArithmeticDynamics/Algebra/MahlerExpansion.lean:10:1: error: @ArithmeticDynamics.Algebra.IsMahlerExpansion definition missing documentation string
+
+-- ArithmeticDynamics.Algebra.PadicExtensions
+/app/ArithmeticDynamics/Algebra/PadicExtensions.lean:7:1: error: @ArithmeticDynamics.Algebra.IsPrimePowerArithmeticMap constant missing documentation string
+
+-- ArithmeticDynamics.Algebra.QuasiPolynomial
+/app/ArithmeticDynamics/Algebra/QuasiPolynomial.lean:11:3: error: @ArithmeticDynamics.Algebra.QuasiPolynomial.a definition missing documentation string
+/app/ArithmeticDynamics/Algebra/QuasiPolynomial.lean:12:3: error: @ArithmeticDynamics.Algebra.QuasiPolynomial.b definition missing documentation string
+
+-- ArithmeticDynamics.Computability.ChomskyBounds
+/app/ArithmeticDynamics/Computability/ChomskyBounds.lean:17:1: error: ArithmeticDynamics.Computability.ChomskyLevel.Le inductive missing documentation string
+/app/ArithmeticDynamics/Computability/ChomskyBounds.lean:29:3: error: @ArithmeticDynamics.Computability.MealyMachine.State definition missing documentation string
+/app/ArithmeticDynamics/Computability/ChomskyBounds.lean:30:3: error: @ArithmeticDynamics.Computability.MealyMachine.transition definition missing documentation string
+/app/ArithmeticDynamics/Computability/ChomskyBounds.lean:31:3: error: @ArithmeticDynamics.Computability.MealyMachine.output definition missing documentation string
+/app/ArithmeticDynamics/Computability/ChomskyBounds.lean:34:1: error: @ArithmeticDynamics.Computability.ObservationalEquivalence constant missing documentation string
+/app/ArithmeticDynamics/Computability/ChomskyBounds.lean:43:1: error: @ArithmeticDynamics.Computability.ComputationalCapacity constant missing documentation string
+
+-- ArithmeticDynamics.Computability.Fractran
+/app/ArithmeticDynamics/Computability/Fractran.lean:14:1: error: ArithmeticDynamics.Computability.Universal constant missing documentation string
+/app/ArithmeticDynamics/Computability/Fractran.lean:15:1: error: ArithmeticDynamics.Computability.prime_signature_dimension constant missing documentation string
+
+-- ArithmeticDynamics.ErgodicTheory.LogarithmicDrift
+/app/ArithmeticDynamics/ErgodicTheory/LogarithmicDrift.lean:16:1: error: ArithmeticDynamics.ErgodicTheory.classifySystem definition missing documentation string
+
+-- ArithmeticDynamics.ErgodicTheory.MarkovTransition
+/app/ArithmeticDynamics/ErgodicTheory/MarkovTransition.lean:17:1: error: @ArithmeticDynamics.ErgodicTheory.IsPrimitive definition missing documentation string
+
+-- ArithmeticDynamics.ErgodicTheory.SpectralGap
+/app/ArithmeticDynamics/ErgodicTheory/SpectralGap.lean:15:1: error: @ArithmeticDynamics.ErgodicTheory.IsAperiodic constant missing documentation string
+/app/ArithmeticDynamics/ErgodicTheory/SpectralGap.lean:16:1: error: @ArithmeticDynamics.ErgodicTheory.HasProbabilisticIndependence constant missing documentation string
+/app/ArithmeticDynamics/ErgodicTheory/SpectralGap.lean:17:1: error: @ArithmeticDynamics.ErgodicTheory.SecondLargestEigenvalueAbs constant missing documentation string
+
+-- ArithmeticDynamics.SieveAnalytics.ReweightedMeasure
+/app/ArithmeticDynamics/SieveAnalytics/ReweightedMeasure.lean:30:1: error: ArithmeticDynamics.SieveAnalytics.markov_transfer_operator_M definition missing documentation string
+
+-- ArithmeticDynamics.SpecificModels.Expansive5x1
+/app/ArithmeticDynamics/SpecificModels/Expansive5x1.lean:7:1: error: @ArithmeticDynamics.SpecificModels.TransitionMatrix constant missing documentation string
+/app/ArithmeticDynamics/SpecificModels/Expansive5x1.lean:8:1: error: @ArithmeticDynamics.SpecificModels.StationaryMeasure constant missing documentation string
+/app/ArithmeticDynamics/SpecificModels/Expansive5x1.lean:10:1: error: ArithmeticDynamics.SpecificModels.collatz5x1_div_cond axiom missing documentation string
+
+-- ArithmeticDynamics.SpecificModels.MinskyReduction
+/app/ArithmeticDynamics/SpecificModels/MinskyReduction.lean:6:1: error: ArithmeticDynamics.SpecificModels.GeneralizedCollatzMap definition missing documentation string
+/app/ArithmeticDynamics/SpecificModels/MinskyReduction.lean:7:1: error: ArithmeticDynamics.SpecificModels.IsTuringComplete definition missing documentation string
+/app/ArithmeticDynamics/SpecificModels/MinskyReduction.lean:8:1: error: ArithmeticDynamics.SpecificModels.branch_count definition missing documentation string
+
+-- ArithmeticDynamics.SpecificModels.PilotSystem
+/app/ArithmeticDynamics/SpecificModels/PilotSystem.lean:16:1: error: ArithmeticDynamics.SpecificModels.pilot5_a definition missing documentation string
+/app/ArithmeticDynamics/SpecificModels/PilotSystem.lean:26:1: error: ArithmeticDynamics.SpecificModels.pilot5_b definition missing documentation string
+/app/ArithmeticDynamics/SpecificModels/PilotSystem.lean:35:1: error: ArithmeticDynamics.SpecificModels.pilot5_div_cond axiom missing documentation string
+
+-- ArithmeticDynamics.UniversalLaw.CorrespondenceTheorem
+/app/ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean:14:1: error: ArithmeticDynamics.CorrespondenceTheorem.unique_periodic_orbit constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean:15:1: error: ArithmeticDynamics.CorrespondenceTheorem.unique_equilibrium_state_for_all_potentials constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean:27:1: error: ArithmeticDynamics.CorrespondenceTheorem.SystemClassification inductive missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean:34:1: error: ArithmeticDynamics.CorrespondenceTheorem.d constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean:35:1: error: ArithmeticDynamics.CorrespondenceTheorem.a constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean:36:1: error: ArithmeticDynamics.CorrespondenceTheorem.b constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean:38:1: error: ArithmeticDynamics.CorrespondenceTheorem.passes_conway_filter constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean:39:1: error: ArithmeticDynamics.CorrespondenceTheorem.essential_spectral_radius constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/CorrespondenceTheorem.lean:40:1: error: ArithmeticDynamics.CorrespondenceTheorem.classify_system constant missing documentation string
+
+-- ArithmeticDynamics.UniversalLaw.ScalingDuality
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:17:1: error: ArithmeticDynamics.ScalingDuality.StateSpace constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:22:1: error: ArithmeticDynamics.ScalingDuality.f constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:23:1: error: ArithmeticDynamics.ScalingDuality.d constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:24:1: error: ArithmeticDynamics.ScalingDuality.d_ge_2 axiom missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:26:1: error: ArithmeticDynamics.ScalingDuality.a constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:27:1: error: ArithmeticDynamics.ScalingDuality.b constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:28:1: error: ArithmeticDynamics.ScalingDuality.C constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:29:1: error: ArithmeticDynamics.ScalingDuality.mu constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:31:1: error: ArithmeticDynamics.ScalingDuality.lyapunov_exponent definition missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:34:1: error: ArithmeticDynamics.ScalingDuality.metric_entropy constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:44:1: error: ArithmeticDynamics.ScalingDuality.analytic_density constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ScalingDuality.lean:45:1: error: ArithmeticDynamics.ScalingDuality.expected_drift constant missing documentation string
+
+-- ArithmeticDynamics.UniversalLaw.SpectralThreshold
+/app/ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean:14:1: error: ArithmeticDynamics.SpectralThreshold.d constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean:15:1: error: ArithmeticDynamics.SpectralThreshold.S_matrix constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean:16:1: error: ArithmeticDynamics.SpectralThreshold.essential_spectral_radius constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean:17:1: error: ArithmeticDynamics.SpectralThreshold.analytic_density constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/SpectralThreshold.lean:18:1: error: ArithmeticDynamics.SpectralThreshold.support_hausdorff_dimension constant missing documentation string
+
+-- ArithmeticDynamics.UniversalLaw.ThermodynamicFormalism
+/app/ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean:14:1: error: ArithmeticDynamics.ThermodynamicFormalism.StateSpace constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean:19:1: error: ArithmeticDynamics.ThermodynamicFormalism.f constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean:20:1: error: ArithmeticDynamics.ThermodynamicFormalism.tau_f constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean:21:1: error: ArithmeticDynamics.ThermodynamicFormalism.metric_entropy_tau_f constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean:33:1: error: ArithmeticDynamics.ThermodynamicFormalism.periodic_orbits_finite constant missing documentation string
+/app/ArithmeticDynamics/UniversalLaw/ThermodynamicFormalism.lean:34:1: error: ArithmeticDynamics.ThermodynamicFormalism.all_continuous_potentials_have_equilibrium constant missing documentation string

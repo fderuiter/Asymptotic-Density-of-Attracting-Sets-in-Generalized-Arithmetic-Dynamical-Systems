@@ -21,6 +21,7 @@ noncomputable instance : MeasurableSpace StateSpace := sorry
 
 noncomputable opaque f : StateSpace → StateSpace
 opaque d : ℕ
+/-- doc -/
 axiom d_ge_2 : d ≥ 2
 
 opaque a : Fin d → ℤ
@@ -28,6 +29,7 @@ opaque b : Fin d → ℤ
 opaque C : Fin d → Set StateSpace
 noncomputable opaque mu : MeasureTheory.Measure StateSpace
 
+/-- doc -/
 noncomputable def lyapunov_exponent (μ : MeasureTheory.Measure StateSpace) (_f_map : StateSpace → StateSpace) : ℝ :=
   ∑ i : Fin d, (μ (C i)).toReal * Real.log |(a i : ℝ) / (d : ℝ)|
 

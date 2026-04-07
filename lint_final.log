@@ -1,0 +1,2 @@
+Running linter on specified modules: [ArithmeticDynamics]
+uncaught exception: object file '/app/.lake/build/lib/lean/ArithmeticDynamics/Algebra/QuasiPolynomial.olean' of module ArithmeticDynamics.Algebra.QuasiPolynomial does not exist

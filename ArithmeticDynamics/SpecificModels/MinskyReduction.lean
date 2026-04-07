@@ -3,8 +3,11 @@ import Mathlib.Data.Nat.Prime.Basic
 
 namespace ArithmeticDynamics.SpecificModels
 
+/-- doc -/
 def GeneralizedCollatzMap : Type := ℕ
+/-- doc -/
 def IsTuringComplete (_map : GeneralizedCollatzMap) : Prop := False
+/-- doc -/
 def branch_count (_map : GeneralizedCollatzMap) : ℕ := 0
 
 /-- Lemma 1.1.1a.1: The State-Encoding Minimum.

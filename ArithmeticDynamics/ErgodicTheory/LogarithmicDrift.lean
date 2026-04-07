@@ -13,6 +13,7 @@ inductive SystemRegime
 | Neutral     -- ρ = 0: Turing Complete / Conway Filter
 | Expansive   -- ρ > 0: Divergent Infinity (e.g., 5x+1)
 
+/-- doc -/
 noncomputable def classifySystem (d : ℕ) (a : Fin d → ℝ) : SystemRegime :=
   let ρ := logarithmicDrift d a
   if ρ < 0 then SystemRegime.Contractive

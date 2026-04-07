@@ -1,6 +1,6 @@
 name = "arithmetic_dynamics"
 defaultTargets = ["ArithmeticDynamics"]
-lintDriver = "runLinter"
+lintDriver = "batteries/runLinter"
 
 [[lean_lib]]
 name = "ArithmeticDynamics"
@@ -19,8 +19,3 @@ rev = "main"
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4.git"
 rev = "e8bf9c44369b9151d46c4703f2fd8718f7149643"
-
-[[lean_exe]]
-name = "runLinter"
-root = "Mathlib.Tactic.Linter.runLinter"
-supportInterpreter = true

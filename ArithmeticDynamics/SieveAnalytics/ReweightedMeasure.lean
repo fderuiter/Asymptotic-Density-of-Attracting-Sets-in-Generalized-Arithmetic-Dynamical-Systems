@@ -27,6 +27,7 @@ Let \Lambda = 144 be the closed congruence state space (\Lambda = \text{lcm}(12 
 -/
 def Lambda : ℕ := 144
 
+/-- doc -/
 noncomputable def markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ := sorry
 
 theorem principal_left_eigenvector_w :

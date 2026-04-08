@@ -7,6 +7,7 @@ namespace ArithmeticDynamics.SpecificModels
 opaque TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ
 opaque StationaryMeasure {M : ℕ} (π : Fin M → ℝ) (P : Matrix (Fin M) (Fin M) ℝ) : Prop
 
+/-- doc -/
 axiom collatz5x1_div_cond : ∀ (i : Fin 2) (k : ℤ),
   (2 : ℤ) ∣ ((if i.val = 0 then 1 else 5) * (k * 2 + i.val) + (if i.val = 0 then 0 else 1))
 

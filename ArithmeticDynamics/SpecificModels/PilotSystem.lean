@@ -13,6 +13,7 @@ as the class of piecewise Contractive Affine-Residue Maps where \(d=5\) and
 \(a_i \in \{1, 4, 2, 3, 2\}\).
 -/
 
+/-- doc -/
 def pilot5_a : Fin 5 → ℤ :=
   fun i => match i.val with
   | 0 => 1
@@ -23,6 +24,7 @@ def pilot5_a : Fin 5 → ℤ :=
   | _ => 0 -- unreachable
 
 -- Placeholder for exact b_i values satisfying a_i * i + b_i ≡ 0 (mod 5)
+/-- doc -/
 def pilot5_b : Fin 5 → ℤ :=
   fun i => match i.val with
   | 0 => 0
@@ -32,6 +34,7 @@ def pilot5_b : Fin 5 → ℤ :=
   | 4 => 2
   | _ => 0 -- unreachable
 
+/-- doc -/
 axiom pilot5_div_cond : ∀ (i : Fin 5) (k : ℤ),
   (5 : ℤ) ∣ (pilot5_a i * (k * 5 + i.val) + pilot5_b i)
 

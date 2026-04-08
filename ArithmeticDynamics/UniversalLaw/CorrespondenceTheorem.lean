@@ -24,6 +24,7 @@ theorem equilibrium_state_uniqueness :
   unique_periodic_orbit ↔ unique_equilibrium_state_for_all_potentials := by sorry
 
 
+/-- doc -/
 inductive SystemClassification
 | TuringComplete
 | CantorSupported

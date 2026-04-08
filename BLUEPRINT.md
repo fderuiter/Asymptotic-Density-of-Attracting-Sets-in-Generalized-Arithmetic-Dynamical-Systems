@@ -2077,3 +2077,70 @@ To contrast against the contractive 3x+1 dynamics, the generalized Expansive `5x
 - [ ] The `axiom` declarations for `collatz5x1_div_cond` and `collatz5x1_drift_is_expansive` are completely removed.
 - [ ] Both declarations are replaced with `theorem` signatures with return type `True` ending in `:= by exact trivial`.
 - [ ] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without errors and contains zero `sorry`s.
+
+## Target Task
+Configure `doc-gen4` in `lakefile.toml` and set up a GitHub Action to deploy Lean documentation to GitHub Pages.
+
+## Target Profile
+- **File:** `lakefile.toml`
+- **File:** `.github/workflows/docs.yml`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+Currently, the project lacks automated, web-accessible documentation for its Lean 4 specifications and theorems. This creates technical debt in communicating the structural framework to external reviewers and violates best practices for formalization projects. We must add `doc-gen4` as a dependency to the build process in `lakefile.toml` and create a dedicated GitHub Action (`docs.yml`) to automatically build and deploy the HTML documentation to GitHub Pages. This sets up the continuous deployment foundation necessary for a robust formalization project.
+
+## Granular Execution Steps
+1. Navigate to `lakefile.toml`.
+2. Add the `doc-gen4` dependency. This usually involves adding a block like:
+   ```toml
+   require «doc-gen4» from git "https://github.com/leanprover/doc-gen4" @ "main"
+   ```
+   (Note: Use the appropriate tag or branch matching the toolchain if known).
+3. Add a new `[[lean_lib]]` property or modify the existing package settings to support documentation generation if necessary.
+4. Create a new file `.github/workflows/docs.yml`.
+5. Populate `.github/workflows/docs.yml` with the standard Lean 4 documentation deployment workflow:
+   ```yaml
+   name: Deploy Documentation
+
+   on:
+     push:
+       branches:
+         - main
+
+   permissions:
+     contents: read
+     pages: write
+     id-token: write
+
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+         - name: Install Elan
+           run: |
+             curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+             echo "$HOME/.elan/bin" >> $GITHUB_PATH
+         - name: Build documentation
+           run: lake build ArithmeticDynamics:docs
+         - name: Upload artifact
+           uses: actions/upload-pages-artifact@v3
+           with:
+             path: '.lake/build/doc'
+
+     deploy:
+       needs: build
+       runs-on: ubuntu-latest
+       environment:
+         name: github-pages
+         url: ${{ steps.deployment.outputs.page_url }}
+       steps:
+         - name: Deploy to GitHub Pages
+           id: deployment
+           uses: actions/deploy-pages@v4
+   ```
+
+## Definition of Done (DoD)
+- [ ] `lakefile.toml` correctly includes the `doc-gen4` dependency.
+- [ ] The file `.github/workflows/docs.yml` is created with a valid GitHub Actions workflow for deploying to GitHub Pages.
+- [ ] The `lakefile.toml` compiles securely without dependency resolution errors under the project's toolchain.

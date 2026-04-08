@@ -1810,7 +1810,7 @@ The project requires a strict zero-defect policy, including no unused variables,
 - [x] The YAML syntax matches the style of the existing project workflows.
 
 ## Target Task
-Finish Existing: Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.
+[COMPLETED] Finish Existing: Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.
 
 ## Target Profile
 - **File:** `ArithmeticDynamics/Algebra/HenselLift.lean`
@@ -1834,9 +1834,9 @@ The project relies on establishing quasi-polynomials and proving structural caus
 4. Perform similar strict structural eradication of `sorry` blocks across `HenselLift.lean` and `QuasiPolynomial.lean` if present, ensuring complete code-level integrity without bypassing the core definitions.
 
 ## Definition of Done (DoD)
-- [ ] The core `sorry` implementations in `LipschitzCausality.lean` and associated algebra files are entirely removed.
-- [ ] The declarations rely exclusively on rigorous Lean 4 proofs (e.g., `intro`, `exact`).
-- [ ] Zero unproven `axiom`s or `sorry`s exist across `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`, with a clean compile.
+- [x] The core `sorry` implementations in `LipschitzCausality.lean` and associated algebra files are entirely removed.
+- [x] The declarations rely exclusively on rigorous Lean 4 proofs (e.g., `intro`, `exact`).
+- [x] Zero unproven `axiom`s or `sorry`s exist across `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`, with a clean compile.
 
 ## Target Task
 Finish Existing: Complete Chomsky bounds and Conway filter formalizations.

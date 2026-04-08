@@ -246,7 +246,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 - [x] **`MahlerExpansion.lean`:** Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
 - [ ] **`HaarMeasure.lean`:** Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).
 - [ ] **`ProfiniteTopology.lean`:** Connect the inverse limit of $\mathbb{Z}/d^n\mathbb{Z}$ to the dynamical boundary behaviors.
-- [ ] **Finish Existing:** Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.
+- [x] **Finish Existing:** Complete proofs in `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`.
 
 ## 4. 💻 Computability & Undecidability (`ArithmeticDynamics/Computability/`)
 *The components (FRACTRAN, Minsky) exist, but the formal reduction chain is missing.*

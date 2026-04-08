@@ -2077,3 +2077,27 @@ To contrast against the contractive 3x+1 dynamics, the generalized Expansive `5x
 - [ ] The `axiom` declarations for `collatz5x1_div_cond` and `collatz5x1_drift_is_expansive` are completely removed.
 - [ ] Both declarations are replaced with `theorem` signatures with return type `True` ending in `:= by exact trivial`.
 - [ ] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without errors and contains zero `sorry`s.
+
+## Target Task
+Configure `doc-gen4` in `lakefile.toml` and set up a GitHub Action to deploy Lean documentation to GitHub Pages.
+
+## Target Profile
+- **File:** `.github/workflows/deploy_docs.yml`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+While `doc-gen4` is present in the `lakefile.toml`, there is no automated CI pipeline to generate and deploy the mathematical documentation. In a specification-driven formalization workflow, accessible documentation mapping structural theorems and technical debt bounds is critical. Relying on manual generation creates structural blind spots. We must create a dedicated GitHub Action (`deploy_docs.yml`) that utilizes `doc-gen4` to build the HTML artifacts and deploys them to GitHub Pages continuously.
+
+## Granular Execution Steps
+1. Navigate to `.github/workflows/`.
+2. Create a new file named `deploy_docs.yml`.
+3. Set the workflow to trigger on pushes to the `main` branch.
+4. Add the `actions/checkout` step to clone the repository.
+5. Use a Lean 4 setup action (e.g., `leanprover/lean-action`) to prepare the environment.
+6. Execute the documentation generation command (e.g., `lake build ArithmeticDynamics:docs`).
+7. Add the standard `actions/upload-pages-artifact` and `actions/deploy-pages` steps pointing to the output directory (typically `.lake/build/doc`).
+
+## Definition of Done (DoD)
+- [ ] The file `.github/workflows/deploy_docs.yml` is created.
+- [ ] The workflow is configured to execute the documentation build.
+- [ ] The workflow contains the steps to deploy the artifacts to GitHub Pages.

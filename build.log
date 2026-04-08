@@ -1,0 +1,4 @@
+✔ [1981/1982] Built ArithmeticDynamics.Algebra.PadicMetric (30s)
+⚠ [1982/1982] Built ArithmeticDynamics.Algebra.LipschitzCausality (3.8s)
+warning: ArithmeticDynamics/Algebra/LipschitzCausality.lean:19:8: declaration uses `sorry`
+Build completed successfully (1982 jobs).

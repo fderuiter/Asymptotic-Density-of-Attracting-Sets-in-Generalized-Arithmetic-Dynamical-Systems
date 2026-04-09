@@ -2196,3 +2196,32 @@ For a formalization project, it is critical to maintain a living, cross-linked m
 - [ ] The `@[blueprint]` attribute is successfully applied to multiple core theorems in the Lean codebase.
 - [ ] `blueprint/src/content.tex` is updated with `\label`, `\uses`, and `\proves` macros linking the LaTeX claims to the Lean formalizations.
 - [ ] The updated `BLUEPRINT.md` accurately scopes the blueprint mapping requirements without overwriting existing entries.
+## Target Task
+Testing Directory: Create a `test/` folder for `#eval` regression tests on quasi-polynomials, Minsky machines, and FRACTRAN states.
+
+## Target Profile
+- **File:** `lakefile.toml`
+- **Directory:** `test/`
+- **New Mathlib Imports:** None
+
+## Contextual Analysis
+The project currently relies solely on formal proofs within the `ArithmeticDynamics/` source directory. However, to maintain the integrity of computational verifications and specific model empirical evaluations (like quasi-polynomials, Minsky register mappings, and FRACTRAN state transitions), we need a suite of regression tests using Lean 4's `#eval` and `decide` commands. These tests act as a continuous verification mechanism for the executability and computational correctness of the formalized structures. We must create a dedicated `test/` directory, configure it in `lakefile.toml`, and set up foundational test files for the key systems.
+
+## Granular Execution Steps
+1. In the repository root, execute `mkdir -p test/ArithmeticDynamics`.
+2. Open `lakefile.toml`.
+3. Add a new `[[lean_lib]]` entry for the test directory to ensure the build system recognizes it:
+   ```toml
+   [[lean_lib]]
+   name = "test"
+   ```
+4. Create a new test file `test/ArithmeticDynamics/QuasiPolynomial_test.lean`.
+5. Import the core algebra dependencies (e.g., `import ArithmeticDynamics.Algebra.QuasiPolynomial`) and add an `#eval` block demonstrating a basic quasi-polynomial evaluation.
+6. Create a new test file `test/ArithmeticDynamics/Computability_test.lean`.
+7. Import the computability dependencies (e.g., `import ArithmeticDynamics.Computability.Fractran`) and add an `#eval` block demonstrating a fundamental state transition.
+8. Ensure that running `lake build test` correctly compiles the tests without errors.
+
+## Definition of Done (DoD)
+- [ ] The `test/` directory structure is successfully created at the repository root.
+- [ ] `lakefile.toml` is updated with a `[[lean_lib]]` entry mapping to `test`.
+- [ ] Foundational regression test files for quasi-polynomials and computability models are created, containing valid `#eval` commands.

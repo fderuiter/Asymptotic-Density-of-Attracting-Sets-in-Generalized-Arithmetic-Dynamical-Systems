@@ -922,9 +922,9 @@ The foundational properties of the $d=5$ Pilot System (`pilot5_div_cond`, `pilot
 13. Append `:= by sorry` to conclude the proof block, isolating the complex bounding of fractional error divergences.
 
 ## Definition of Done (DoD)
-- [ ] The 4 `axiom` declarations for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, and `pilot5_algebraic_error_capping` are completely removed.
-- [ ] All 4 declarations are explicitly replaced with `theorem` signatures ending in `:= by sorry`.
-- [ ] The file `ArithmeticDynamics/SpecificModels/PilotSystem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] The 4 `axiom` declarations for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, and `pilot5_algebraic_error_capping` are completely removed.
+- [x] All 4 declarations are explicitly replaced with `theorem` signatures ending in `:= by sorry`.
+- [x] The file `ArithmeticDynamics/SpecificModels/PilotSystem.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over Z. Define trajectories and forward/backward invariance.

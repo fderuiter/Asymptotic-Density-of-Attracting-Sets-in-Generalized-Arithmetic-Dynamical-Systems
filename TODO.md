@@ -203,7 +203,7 @@ Concrete instantiations of the algebraic framework.
   - **Current State:** `axiom`
   - **Task:** Prove expansive positive drift forces measure dissipation towards infinity.
 
-- [ ] **Pilot System 5 Evaluation**
+- [x] **Pilot System 5 Evaluation**
   - **File:** `ArithmeticDynamics/SpecificModels/PilotSystem.lean`
   - **Current State:** 4 `axiom`s for `pilot5_div_cond`, `pilot5_drift_is_contractive`, `pilot5_contractive_supermartingale`, `pilot5_algebraic_error_capping`.
   - **Task:** Verify specific mathematical derivations for the $d=5$ map.

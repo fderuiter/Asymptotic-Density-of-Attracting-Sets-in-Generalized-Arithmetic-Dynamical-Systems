@@ -253,7 +253,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 - [ ] **`HaltingProblem.lean`:** Import Mathlib's `Computability.Halting` to establish the Halting Problem as the base of uncomputability.
 - [ ] **`UndecidabilityBarrier.lean`:** Formalize the explicit reduction proving that calculating the exact asymptotic density of attracting sets for an *arbitrary* quasi-polynomial map is uncomputable.
 - [ ] **`DiophantineEncoding.lean`:** Formalize the encoding of Minsky register states into integer arithmetic.
-- [ ] **Finish Existing:** Complete Chomsky bounds and Conway filter formalizations.
+- [x] **Finish Existing:** Complete Chomsky bounds and Conway filter formalizations.
 
 ## 5. 🌀 Ergodic Theory (`ArithmeticDynamics/ErgodicTheory/`)
 *Thermodynamic formalism requires transfer operators and invariant measures.*

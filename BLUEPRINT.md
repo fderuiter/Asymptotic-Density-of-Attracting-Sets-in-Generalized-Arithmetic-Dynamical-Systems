@@ -1838,7 +1838,7 @@ The project relies on establishing quasi-polynomials and proving structural caus
 - [x] The declarations rely exclusively on rigorous Lean 4 proofs (e.g., `intro`, `exact`).
 - [x] Zero unproven `axiom`s or `sorry`s exist across `HenselLift.lean`, `QuasiPolynomial.lean`, and `LipschitzCausality.lean`, with a clean compile.
 
-## Target Task
+## Target Task [COMPLETED]
 Finish Existing: Complete Chomsky bounds and Conway filter formalizations.
 
 ## Target Profile
@@ -1885,9 +1885,9 @@ Currently, foundational formalizations in `ArithmeticDynamics/Computability/Chom
    ```
 
 ## Definition of Done (DoD)
-- [ ] Core `sorry` implementations across `ChomskyBounds.lean` are rigorously eradicated natively.
-- [ ] Lean 4 code is explicitly formalized relying on structurally verified proof tactics (e.g., `use`, `exact trivial`).
-- [ ] Zero unproven `sorry`s exist and files securely compile cleanly.
+- [x] Core `sorry` implementations across `ChomskyBounds.lean` are rigorously eradicated natively.
+- [x] Lean 4 code is explicitly formalized relying on structurally verified proof tactics (e.g., `use`, `exact trivial`).
+- [x] Zero unproven `sorry`s exist and files securely compile cleanly.
 
 ## Target Task
 `HaarMeasure.lean`: Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).

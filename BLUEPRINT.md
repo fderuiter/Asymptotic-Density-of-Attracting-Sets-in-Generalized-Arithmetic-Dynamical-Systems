@@ -2172,3 +2172,37 @@ The files `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThr
 - [ ] Core `sorry` implementations across `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThreshold.lean` are rigorously eradicated.
 - [ ] Lean 4 code formally establishes the theorems without altering or reducing their fundamental mathematical return types (i.e., no changing to `True`).
 - [ ] Zero unproven `sorry`s exist and files securely compile cleanly.
+
+## Target Task
+- [ ] **`ArithmeticDynamics/AttractingSet.lean`:** Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
+
+## Target Profile
+- **File:** `ArithmeticDynamics/AttractingSet.lean`
+- **File:** `ArithmeticDynamics.lean`
+- **New Mathlib Imports:** `Mathlib.Topology.Basic`, `Mathlib.Topology.MetricSpace.Basic`, `Mathlib.NumberTheory.Padics.PadicIntegers`
+
+## Contextual Analysis
+Currently, the formalization jumps straight into advanced ergodic theory without defining the core object of study: an Attracting Set. Without a precise definition of attracting sets under both the discrete $\mathbb{Z}$ topology and the metric $\mathbb{Z}_p$ topology, the overarching analytical goals (like measuring asymptotic density) have no formal target. We must establish these foundational structures immediately to ground the subsequent measure-theoretic and topological theorems.
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/AttractingSet.lean`.
+2. Import `ArithmeticDynamics.Basic`, `Mathlib.Topology.Basic`, `Mathlib.Topology.MetricSpace.Basic`, and `Mathlib.NumberTheory.Padics.PadicIntegers`.
+3. Open the `ArithmeticDynamics` namespace.
+4. Define the structure `IsAttractingSetDiscrete` for a subset `S : Set ℤ` under a GADS `sys`. This simply requires that the set is forward invariant:
+   ```lean
+   def IsAttractingSetDiscrete (sys : GADS) (S : Set ℤ) : Prop :=
+     IsForwardInvariant sys S ∧ S.Nonempty
+   ```
+5. Define the structure `IsAttractingSetPadic` for a subset `S : Set (PadicInt p)` under a continuous map `f : PadicInt p → PadicInt p`. Define this rigorously using standard metric space definitions: forward invariance and the existence of an open neighborhood where orbits converge to the set:
+   ```lean
+   def IsAttractingSetPadic {p : ℕ} [Fact (Nat.Prime p)] (f : PadicInt p → PadicInt p) (S : Set (PadicInt p)) : Prop :=
+     (∀ x ∈ S, f x ∈ S) ∧
+     ∃ U : Set (PadicInt p), IsOpen U ∧ S ⊆ U ∧
+       ∀ x ∈ U, ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, ∃ y ∈ S, dist (f^[n] x) y < ε
+   ```
+6. Open `ArithmeticDynamics.lean` and append `import ArithmeticDynamics.AttractingSet` to the top level imports to include it in the build.
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created and defines `IsAttractingSetDiscrete` and `IsAttractingSetPadic` rigorously.
+- [ ] Zero `sorry`s or `axiom`s are used in the new definitions.
+- [ ] The new module is successfully imported in `ArithmeticDynamics.lean` and `lake build` completes without errors.

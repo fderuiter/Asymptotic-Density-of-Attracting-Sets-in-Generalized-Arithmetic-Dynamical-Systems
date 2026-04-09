@@ -1,6 +1,7 @@
 import ArithmeticDynamics.Algebra.QuasiPolynomial
 import ArithmeticDynamics.ErgodicTheory.LogarithmicDrift
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
+
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 
 namespace ArithmeticDynamics.SpecificModels

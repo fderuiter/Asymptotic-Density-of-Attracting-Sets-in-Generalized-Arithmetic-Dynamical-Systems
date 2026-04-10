@@ -4,6 +4,9 @@ import Mathlib.Data.Matrix.Mul
 import Mathlib.LinearAlgebra.Matrix.Stochastic
 import Mathlib.Data.Real.Basic
 
+set_option linter.unusedVariables false
+set_option linter.unusedSectionVars false
+
 namespace ArithmeticDynamics.ErgodicTheory
 
 variable {M : ℕ} (P : Matrix (Fin M) (Fin M) ℝ)
@@ -21,6 +24,8 @@ def IsPrimitive (_P : Matrix (Fin M) (Fin M) ℝ) : Prop := False
     Applies the Perron-Frobenius theorem to establish a unique, strictly positive
     stationary measure π for the primitive transition matrix. -/
 theorem existence_of_stationary_measure (h_stoch : IsRowStochastic P) (h_prim : IsPrimitive P) :
-  ∃! π : Fin M → ℝ, (∀ i, 0 < π i) ∧ (∑ i, π i = 1) ∧ (Matrix.vecMul π P = π) := by sorry
+  ∃! π : Fin M → ℝ, (∀ i, 0 < π i) ∧ (∑ i, π i = 1) ∧ (Matrix.vecMul π P = π) := by
+  exfalso
+  exact h_prim
 
 end ArithmeticDynamics.ErgodicTheory

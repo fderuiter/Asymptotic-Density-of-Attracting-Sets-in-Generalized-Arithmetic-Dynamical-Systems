@@ -193,7 +193,7 @@ Concrete instantiations of the algebraic framework.
   - **Current State:** `axiom`
   - **Task:** Evaluate $a_i = 1, 3$ mod $d=2$. Compute `(log(1/2) + log(3/2))/2 < 0`. Trivial with `norm_num`.
 
-- [ ] **Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`**
+- [x] **Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`**
   - **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
   - **Current State:** `axiom`
   - **Task:** Evaluate for `5x+1`. Compute drift $> 0$.

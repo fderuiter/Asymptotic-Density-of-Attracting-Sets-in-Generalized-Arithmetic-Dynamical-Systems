@@ -260,7 +260,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 - [ ] **`TransferOperator.lean`:** Define the Ruelle-Perron-Frobenius transfer operator on a suitable Banach space of functions over $\mathbb{Z}_p$.
 - [ ] **`InvariantMeasure.lean`:** Prove the existence (and uniqueness, if applicable) of the absolutely continuous invariant measure (ACIM) via Krylov-Bogolyubov.
 - [ ] **`BirkhoffErgodic.lean`:** Specialize Birkhoff's Ergodic Theorem for your system to rigorously link spatial averages (asymptotic density) to time averages (logarithmic drift).
-- [ ] **Finish Existing:** Complete `MarkovTransition.lean` and `SpectralGap.lean`.
+- [x] **Finish Existing:** Complete `MarkovTransition.lean` and `SpectralGap.lean`.
 
 ## 6. 📉 Sieve Analytics (`ArithmeticDynamics/SieveAnalytics/`)
 - [ ] **`ResidueIndependence.lean`:** Formalize the heuristic that branching events (residue class transitions) are statistically quasi-independent using the Chinese Remainder Theorem.

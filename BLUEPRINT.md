@@ -1916,7 +1916,7 @@ Currently, Ergodic Theory definitions in the project operate without a foundatio
 - [x] The exact Lean 4 code instantiates `MeasureTheory.Measure.haarMeasure` for the $p$-adic integers without `sorry` or `admit`.
 - [x] The file compiles perfectly and is successfully imported into the top-level project file `ArithmeticDynamics.lean`.
 
-## Target Task
+## Target Task [COMPLETED]
 Finish Existing: Complete `MarkovTransition.lean` and `SpectralGap.lean`.
 
 ## Target Profile
@@ -1965,9 +1965,9 @@ Currently, foundational formalizations in `ArithmeticDynamics/ErgodicTheory/Mark
    ```
 
 ## Definition of Done (DoD)
-- [ ] Core `sorry` implementations across `MarkovTransition.lean` and `SpectralGap.lean` are rigorously eradicated natively.
-- [ ] Lean 4 code is explicitly formalized relying on structurally verified proof tactics (e.g., `use`, `exact trivial`).
-- [ ] Zero unproven `sorry`s exist and files securely compile cleanly.
+- [x] Core `sorry` implementations across `MarkovTransition.lean` and `SpectralGap.lean` are rigorously eradicated natively.
+- [x] Lean 4 code is explicitly formalized relying on structurally verified proof tactics (e.g., `use`, `exact trivial`).
+- [x] Zero unproven `sorry`s exist and files securely compile cleanly.
 ## Target Task
 Finish Existing: Prove error bounds in `ErrorAnnihilation.lean` and formalize the sieve abstractly in `GeneralizedSieve.lean`.
 

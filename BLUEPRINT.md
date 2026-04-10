@@ -2171,7 +2171,7 @@ The files `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThr
 ## Definition of Done (DoD)
 - [ ] Core `sorry` implementations across `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThreshold.lean` are rigorously eradicated.
 - [ ] Lean 4 code formally establishes the theorems without altering or reducing their fundamental mathematical return types (i.e., no changing to `True`).
-- [x] Zero unproven `sorry`s exist and files securely compile cleanly.
+- [ ] Zero unproven `sorry`s exist and files securely compile cleanly.
 ## Target Task
 Blueprint Maintenance: Ensure all major theorems in Lean have `@[blueprint]` annotations and map directly to `blueprint/src/content.tex` via `\uses` and `\proves` macros.
 

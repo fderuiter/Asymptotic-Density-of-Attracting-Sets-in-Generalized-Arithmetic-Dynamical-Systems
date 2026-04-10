@@ -4,6 +4,8 @@ import Mathlib.Data.Real.Basic
 
 namespace ArithmeticDynamics
 
+set_option linter.unusedVariables false
+
 /-!
 # Chapter 3.2: Deploying the Generalized Sieve Operator
 
@@ -17,7 +19,6 @@ Lemma 3.2.1 (Constructing the Initial Sieve)
 We instantiate the generalized sieve operator over the interval [1, X],
 explicitly accounting for non-homogeneous coefficients.
 -/
-set_option linter.unusedVariables false in
 theorem generalized_sieve_construction :
   ∀ (X : ℝ) (hX : X > 0), ∃ (V : ℕ → Set ℕ),
   V 0 = { n : ℕ | (n : ℝ) ≤ X ∧ n > 0 } := by
@@ -42,7 +43,6 @@ The system pulls back bounding intervals through the inverse branches L_i(y) = \
 $$ \mathcal{N}_k(x) \le \sum_{i=0}^{4} \frac{1}{5} \mathcal{N}_{k-1}\left( \frac{5x}{a_i} \right) + \mathcal{E}_k(x) $$
 where the 1/5 factor represents the topological probability of satisfying n \equiv i \pmod 5, and \mathcal{E}_k(x) isolates the boundary misalignment error of the discrete lattice points mapping into continuous fractional intervals.
 -/
-set_option linter.unusedVariables false in
 theorem difference_inequalities_formulation :
   ∀ (k : ℕ) (X : ℝ),
   fractional_density (k + 1) X ≤
@@ -62,7 +62,6 @@ Theorem 3.2.3 (Main Term Extraction)
 By solving the homogeneous difference inequalities via asymptotic integration,
 we extract the exact "main term" of the density functional governed by a characteristic eigenvalue.
 -/
-set_option linter.unusedVariables false in
 theorem main_term_extraction :
   ∃ (ε : ℝ), ε > 0 ∧ ε < 1 ∧
   ∀ (X : ℝ), ∃ (O : ℝ), O > 0 := by

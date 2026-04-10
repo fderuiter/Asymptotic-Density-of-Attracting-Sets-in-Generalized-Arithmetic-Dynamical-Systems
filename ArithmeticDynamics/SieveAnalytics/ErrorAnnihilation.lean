@@ -4,6 +4,8 @@ import Mathlib.Data.Real.Basic
 
 namespace ArithmeticDynamics
 
+set_option linter.unusedVariables false
+
 /-!
 # Chapter 3.3: Annihilating the Asymptotic Error Terms
 
@@ -19,7 +21,6 @@ We formally apply probabilistic independence of Markovian flows within the Colla
 By relying on the positive spectral gap (δ > 0) verified in Chapter 1, we prove that integer
 trajectories decouple from their initial states fast enough to prevent systemic evasion.
 -/
-set_option linter.unusedVariables false in
 theorem independence_heuristic :
   ∃ (δ : ℝ), δ > 0 ∧
   ∀ (k : ℕ), ∃ (C : ℝ), C > 0 := by
@@ -32,7 +33,6 @@ Using the established spectral gap, the total aggregate error bounds to a geomet
 and evaluates strictly to o(X^{1 - ε}). The sieve error is structurally crushed and mathematically
 annihilated in the asymptotic limit.
 -/
-set_option linter.unusedVariables false in
 theorem negligibility_of_error_term :
   ∃ (θ : ℝ), θ > 0 ∧
   ∀ (X : ℝ), ∃ (E_X : ℝ), E_X < X ^ (1 - θ) := by

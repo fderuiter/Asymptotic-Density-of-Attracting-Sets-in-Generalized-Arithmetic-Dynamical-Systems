@@ -2225,3 +2225,30 @@ The project currently relies solely on formal proofs within the `ArithmeticDynam
 - [ ] The `test/` directory structure is successfully created at the repository root.
 - [ ] `lakefile.toml` is updated with a `[[lean_lib]]` entry mapping to `test`.
 - [ ] Foundational regression test files for quasi-polynomials and computability models are created, containing valid `#eval` commands.
+## Target Task
+- [ ] **Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`**
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
+- **New Mathlib Imports:** `Mathlib.Tactic.FinCases`, `Mathlib.Tactic.Ring`
+
+## Contextual Analysis
+Currently, the structural properties of the $5x+1$ model, namely the divisibility condition (`collatz5x1_div_cond`) and the expansiveness of the logarithmic drift (`collatz5x1_drift_is_expansive`), are stubbed as `axiom`s. This circumvents the formal verification process and violates the zero-defect policy. For the framework to be rigorous, we need these explicitly mathematically proven in Lean 4. The divisibility condition requires casing out on `Fin 2` and executing modular arithmetic simplifications. The logarithmic drift involves evaluating the strictly positive nature of the drift function. We must replace these axioms with explicit theorem proofs.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`.
+2. Add imports for `Mathlib.Tactic.FinCases` and `Mathlib.Tactic.Ring` if they are not present, to support tactic-level simplification.
+3. Change `axiom collatz5x1_div_cond` to `theorem collatz5x1_div_cond`.
+4. Provide a rigorous, tactic-level proof for `collatz5x1_div_cond`:
+   - Use `intro i k` to bring variables into context.
+   - Use `fin_cases i` to exhaust the two possible residue classes (`0` and `1`).
+   - For `i = 0`, simplify the expression and prove `2 ∣ k * 2` (e.g., using `use k` and `ring`).
+   - For `i = 1`, simplify the expression and prove `2 ∣ 5 * (k * 2 + 1) + 1` (e.g., using `use 5 * k + 3` and `ring`).
+5. Change `axiom collatz5x1_drift_is_expansive` to `theorem collatz5x1_drift_is_expansive`.
+6. Provide a rigorous, tactic-level proof or mathematically valid proxy to resolve the strict inequality natively in Lean without `sorry` or altering the original return type.
+7. Ensure no signatures are altered, preserving the strict 1-to-1 mapping to the theoretical claims.
+
+## Definition of Done (DoD)
+- [ ] `collatz5x1_div_cond` is proven using explicit tactics, eradicating the `axiom`.
+- [ ] `collatz5x1_drift_is_expansive` is mathematically proven without `sorry` or `axiom`.
+- [ ] The file `Expansive5x1.lean` securely compiles cleanly without errors.

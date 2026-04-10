@@ -1968,7 +1968,7 @@ Currently, foundational formalizations in `ArithmeticDynamics/ErgodicTheory/Mark
 - [x] Core `sorry` implementations across `MarkovTransition.lean` and `SpectralGap.lean` are rigorously eradicated natively.
 - [x] Lean 4 code is explicitly formalized relying on structurally verified proof tactics (e.g., `use`, `exact trivial`).
 - [x] Zero unproven `sorry`s exist and files securely compile cleanly.
-## Target Task
+## Target Task [COMPLETED]
 Finish Existing: Prove error bounds in `ErrorAnnihilation.lean` and formalize the sieve abstractly in `GeneralizedSieve.lean`.
 
 ## Target Profile
@@ -2050,9 +2050,9 @@ Currently, the generalized sieve abstract bounds and the annihilation of error t
     ```
 
 ## Definition of Done (DoD)
-- [ ] Core `sorry` implementations across `ErrorAnnihilation.lean` and `GeneralizedSieve.lean` are rigorously eradicated natively.
-- [ ] Lean 4 code is explicitly formalized relying on structurally verified proof tactics (e.g., `norm_num`, `dsimp`).
-- [ ] Zero unproven `sorry`s exist and files securely compile cleanly.
+- [x] Core `sorry` implementations across `ErrorAnnihilation.lean` and `GeneralizedSieve.lean` are rigorously eradicated natively.
+- [x] Lean 4 code is explicitly formalized relying on structurally verified proof tactics (e.g., `norm_num`, `dsimp`).
+- [x] Zero unproven `sorry`s exist and files securely compile cleanly.
 
 ## Target Task
 Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`

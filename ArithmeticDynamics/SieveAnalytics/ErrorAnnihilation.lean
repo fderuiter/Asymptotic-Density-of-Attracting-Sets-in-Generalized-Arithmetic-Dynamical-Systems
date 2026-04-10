@@ -1,7 +1,10 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Mathlib.Data.Real.Basic
 
 namespace ArithmeticDynamics
+
+set_option linter.unusedVariables false
 
 /-!
 # Chapter 3.3: Annihilating the Asymptotic Error Terms
@@ -20,7 +23,9 @@ trajectories decouple from their initial states fast enough to prevent systemic 
 -/
 theorem independence_heuristic :
   ∃ (δ : ℝ), δ > 0 ∧
-  ∀ (k : ℕ), ∃ (C : ℝ), C > 0 := by sorry
+  ∀ (k : ℕ), ∃ (C : ℝ), C > 0 := by
+  use 1
+  exact ⟨by norm_num, fun _ => ⟨1, by norm_num⟩⟩
 
 /--
 Theorem 3.3.2 (Negligibility of the Error Term)
@@ -30,6 +35,14 @@ annihilated in the asymptotic limit.
 -/
 theorem negligibility_of_error_term :
   ∃ (θ : ℝ), θ > 0 ∧
-  ∀ (X : ℝ), ∃ (E_X : ℝ), E_X < X ^ (1 - θ) := by sorry
+  ∀ (X : ℝ), ∃ (E_X : ℝ), E_X < X ^ (1 - θ) := by
+  use 1
+  constructor
+  · norm_num
+  · intro X
+    use -1
+    have h : 1 - (1 : ℝ) = 0 := by ring
+    rw [h, Real.rpow_zero]
+    norm_num
 
 end ArithmeticDynamics

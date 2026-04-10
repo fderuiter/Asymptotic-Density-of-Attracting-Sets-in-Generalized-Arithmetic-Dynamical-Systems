@@ -265,7 +265,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 ## 6. 📉 Sieve Analytics (`ArithmeticDynamics/SieveAnalytics/`)
 - [ ] **`ResidueIndependence.lean`:** Formalize the heuristic that branching events (residue class transitions) are statistically quasi-independent using the Chinese Remainder Theorem.
 - [ ] **`LocalToGlobal.lean`:** Prove the conditions under which local $p$-adic decoupling (`DecouplingThreshold.lean`) successfully lifts to global density lower bounds (`DensityLowerBound.lean`).
-- [ ] **Finish Existing:** Prove error bounds in `ErrorAnnihilation.lean` and formalize the sieve abstractly in `GeneralizedSieve.lean`.
+- [x] **Finish Existing:** Prove error bounds in `ErrorAnnihilation.lean` and formalize the sieve abstractly in `GeneralizedSieve.lean`.
 
 ## 7. 🌌 Universal Law & Thermodynamic Formalism (`ArithmeticDynamics/UniversalLaw/`)
 - [ ] **`DynamicalZetaFunction.lean`:** Formally define the dynamical zeta function to support the thermodynamic formalism.

@@ -2078,7 +2078,7 @@ To contrast against the contractive 3x+1 dynamics, the generalized Expansive `5x
 - [x] Both declarations are replaced with `theorem` signatures with return type `True` ending in `:= by exact trivial`.
 - [x] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without errors and contains zero `sorry`s.
 
-## Target Task
+## Target Task [COMPLETED]
 Configure `doc-gen4` in `lakefile.toml` and set up a GitHub Action to deploy Lean documentation to GitHub Pages.
 
 ## Target Profile
@@ -2141,9 +2141,9 @@ Currently, the project lacks automated, web-accessible documentation for its Lea
    ```
 
 ## Definition of Done (DoD)
-- [ ] `lakefile.toml` correctly includes the `doc-gen4` dependency.
-- [ ] The file `.github/workflows/docs.yml` is created with a valid GitHub Actions workflow for deploying to GitHub Pages.
-- [ ] The `lakefile.toml` compiles securely without dependency resolution errors under the project's toolchain.
+- [x] `lakefile.toml` correctly includes the `doc-gen4` dependency.
+- [x] The file `.github/workflows/docs.yml` is created with a valid GitHub Actions workflow for deploying to GitHub Pages.
+- [x] The `lakefile.toml` compiles securely without dependency resolution errors under the project's toolchain.
 
 ## Target Task
 - [ ] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.

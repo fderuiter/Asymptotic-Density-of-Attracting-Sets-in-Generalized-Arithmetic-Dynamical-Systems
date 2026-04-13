@@ -270,7 +270,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 ## 7. 🌌 Universal Law & Thermodynamic Formalism (`ArithmeticDynamics/UniversalLaw/`)
 - [ ] **`DynamicalZetaFunction.lean`:** Formally define the dynamical zeta function to support the thermodynamic formalism.
 - [ ] **`BowenEquation.lean`:** Relate the Hausdorff dimension of attracting sets to the roots of topological pressure.
-- [ ] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
+- [x] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
 
 ## 8. 🧪 Specific Models & Computational Verification (`ArithmeticDynamics/SpecificModels/`)
 - [ ] **`Collatz3x1.lean`:** Formalize the standard Syracuse $3x+1$ function and prove it embeds into your GADS framework as a baseline.

@@ -2145,8 +2145,8 @@ Currently, the project lacks automated, web-accessible documentation for its Lea
 - [x] The file `.github/workflows/docs.yml` is created with a valid GitHub Actions workflow for deploying to GitHub Pages.
 - [x] The `lakefile.toml` compiles securely without dependency resolution errors under the project's toolchain.
 
-## Target Task
-- [ ] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
+## Target Task [COMPLETED] [COMPLETED]
+- [x] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
 
 ## Target Profile
 - `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean`
@@ -2169,9 +2169,9 @@ The files `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThr
    - Implement rigorous Lean 4 proofs resolving the implications based on the matrix spectral radius and Hausdorff dimension.
 
 ## Definition of Done (DoD)
-- [ ] Core `sorry` implementations across `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThreshold.lean` are rigorously eradicated.
-- [ ] Lean 4 code formally establishes the theorems without altering or reducing their fundamental mathematical return types (i.e., no changing to `True`).
-- [ ] Zero unproven `sorry`s exist and files securely compile cleanly.
+- [x] Core `sorry` implementations across `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThreshold.lean` are rigorously eradicated.
+- [x] Lean 4 code formally establishes the theorems without altering or reducing their fundamental mathematical return types (i.e., no changing to `True`).
+- [x] Zero unproven `sorry`s exist and files securely compile cleanly.
 ## Target Task
 Blueprint Maintenance: Ensure all major theorems in Lean have `@[blueprint]` annotations and map directly to `blueprint/src/content.tex` via `\uses` and `\proves` macros.
 

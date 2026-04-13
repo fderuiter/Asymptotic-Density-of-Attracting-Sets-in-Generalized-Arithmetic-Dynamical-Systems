@@ -4,17 +4,7 @@ import Mathlib.Topology.MetricSpace.Basic
 import Mathlib.Probability.Martingale.Basic
 import Mathlib.MeasureTheory.Measure.MeasureSpace
 
-set_option linter.unusedVariables false
-
 namespace ArithmeticDynamics.ScalingDuality
-
-/-!
-# Chapter 4.1: Parametric Governance and the Scaling Duality
-
-This module formalizes exactly how the raw algebraic inputs of a generalized
-affine map dictate its macroscopic physical behavior, specifically its entropy
-and scaling properties.
--/
 
 @[reducible] def StateSpace : Type := PUnit
 noncomputable instance : Nonempty StateSpace := ⟨PUnit.unit⟩
@@ -23,29 +13,19 @@ noncomputable instance : MeasurableSpace StateSpace := ⊥
 
 noncomputable def f : StateSpace → StateSpace := id
 def d : ℕ := 2
-/-- doc -/
 axiom d_ge_2 : d ≥ 2
 
-set_option linter.unusedVariables false in
 def a : Fin d → ℤ := fun _ => 0
-set_option linter.unusedVariables false in
 def b : Fin d → ℤ := fun _ => 0
-set_option linter.unusedVariables false in
 def C : Fin d → Set StateSpace := fun _ => ∅
 noncomputable def mu : MeasureTheory.Measure StateSpace := 0
 
-/-- doc -/
 noncomputable def lyapunov_exponent (μ : MeasureTheory.Measure StateSpace) (_f_map : StateSpace → StateSpace) : ℝ :=
   ∑ i : Fin d, (μ (C i)).toReal * Real.log |(a i : ℝ) / (d : ℝ)|
 
 noncomputable def metric_entropy (μ : MeasureTheory.Measure StateSpace) (f_map : StateSpace → StateSpace) : ℝ :=
   max 0 (lyapunov_exponent μ f_map)
 
-/--
-Lemma 4.1.1 (The Lyapunov Scaling Duality)
-The algebraic coefficients a_i and d strictly dictate the system's Lyapunov exponent λ(μ),
-which in turn completely defines the system's measure-theoretic entropy.
--/
 theorem lyapunov_scaling_duality :
   metric_entropy mu f = max 0 (lyapunov_exponent mu f) := by rfl
 
@@ -54,12 +34,6 @@ noncomputable def analytic_density (f_map : StateSpace → StateSpace) : ℝ :=
 noncomputable def expected_drift (f_map : StateSpace → StateSpace) (n : ℕ) : ℝ :=
   if lyapunov_exponent mu f_map > 0 then 0 else 1
 
-/--
-Theorem 4.1.2 (Complex Balancing)
-For a system to achieve high analytic density, its algebraic scaling must be
-"eventually expanding," yet it must simultaneously remain "complex balanced"
-to prevent infinite trajectory divergence.
--/
 theorem complex_balancing :
   analytic_density f > 0 →
   lyapunov_exponent mu f > 0 ∧

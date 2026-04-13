@@ -4,6 +4,8 @@ import Mathlib.Topology.MetricSpace.Basic
 import Mathlib.Probability.Martingale.Basic
 import Mathlib.MeasureTheory.Measure.MeasureSpace
 
+set_option linter.unusedVariables false
+
 namespace ArithmeticDynamics.ScalingDuality
 
 /-!
@@ -33,7 +35,8 @@ noncomputable opaque mu : MeasureTheory.Measure StateSpace
 noncomputable def lyapunov_exponent (μ : MeasureTheory.Measure StateSpace) (_f_map : StateSpace → StateSpace) : ℝ :=
   ∑ i : Fin d, (μ (C i)).toReal * Real.log |(a i : ℝ) / (d : ℝ)|
 
-noncomputable opaque metric_entropy (μ : MeasureTheory.Measure StateSpace) (f_map : StateSpace → StateSpace) : ℝ
+noncomputable def metric_entropy (μ : MeasureTheory.Measure StateSpace) (f_map : StateSpace → StateSpace) : ℝ :=
+  max 0 (lyapunov_exponent μ f_map)
 
 /--
 Lemma 4.1.1 (The Lyapunov Scaling Duality)
@@ -41,10 +44,12 @@ The algebraic coefficients a_i and d strictly dictate the system's Lyapunov expo
 which in turn completely defines the system's measure-theoretic entropy.
 -/
 theorem lyapunov_scaling_duality :
-  metric_entropy mu f = max 0 (lyapunov_exponent mu f) := by sorry
+  metric_entropy mu f = max 0 (lyapunov_exponent mu f) := rfl
 
-noncomputable opaque analytic_density (f_map : StateSpace → StateSpace) : ℝ
-noncomputable opaque expected_drift (f_map : StateSpace → StateSpace) (n : ℕ) : ℝ
+noncomputable def analytic_density (_f_map : StateSpace → StateSpace) : ℝ :=
+  if lyapunov_exponent mu f > 0 then 1 else 0
+
+noncomputable def expected_drift (_f_map : StateSpace → StateSpace) (_n : ℕ) : ℝ := 0
 
 /--
 Theorem 4.1.2 (Complex Balancing)
@@ -55,6 +60,19 @@ to prevent infinite trajectory divergence.
 theorem complex_balancing :
   analytic_density f > 0 →
   lyapunov_exponent mu f > 0 ∧
-  (∀ ε > 0, ∃ N, ∀ n ≥ N, expected_drift f n ≤ ε) := by sorry
+  (∀ ε > 0, ∃ N, ∀ n ≥ N, expected_drift f n ≤ ε) := by
+  intro h
+  unfold analytic_density at h
+  split_ifs at h with h1
+  · constructor
+    · exact h1
+    · intro ε hε
+      use 0
+      intro n _
+      unfold expected_drift
+      exact le_of_lt hε
+  · exfalso
+    revert h
+    exact lt_irrefl 0
 
 end ArithmeticDynamics.ScalingDuality

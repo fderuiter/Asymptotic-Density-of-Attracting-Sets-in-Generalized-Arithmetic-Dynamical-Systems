@@ -2145,8 +2145,8 @@ Currently, the project lacks automated, web-accessible documentation for its Lea
 - [x] The file `.github/workflows/docs.yml` is created with a valid GitHub Actions workflow for deploying to GitHub Pages.
 - [x] The `lakefile.toml` compiles securely without dependency resolution errors under the project's toolchain.
 
-## Target Task
-- [ ] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
+## Target Task [COMPLETED]
+- [x] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
 
 ## Target Profile
 - `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean`

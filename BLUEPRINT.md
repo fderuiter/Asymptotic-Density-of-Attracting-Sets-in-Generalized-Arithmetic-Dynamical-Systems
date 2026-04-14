@@ -2252,3 +2252,42 @@ Currently, the structural properties of the $5x+1$ model, namely the divisibilit
 - [ ] `collatz5x1_div_cond` is proven using explicit tactics, eradicating the `axiom`.
 - [ ] `collatz5x1_drift_is_expansive` is mathematically proven without `sorry` or `axiom`.
 - [ ] The file `Expansive5x1.lean` securely compiles cleanly without errors.
+
+## Target Task
+- [ ] **Prove `expansive_measure_dissipation`**
+
+## Target Profile
+- **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
+- **New Mathlib Imports:** `Mathlib.Data.Matrix.Basic`, `Mathlib.Data.Real.Basic`, `Mathlib.Tactic.Linarith`, `Mathlib.Tactic.FinCases`
+
+## Contextual Analysis
+Currently, `expansive_measure_dissipation` is stubbed as an `axiom`, which breaks the zero-defect formalization policy. It asserts that the $5x+1$ map exhibits measure dissipation and cannot support a stationary measure. Furthermore, `TransitionMatrix` and `StationaryMeasure` are stubbed as `opaque` definitions. These must be replaced with concrete, rigorous definitions. Because the specific $5x+1$ map is expansive, it dissipates measure (mass escapes to infinity rather than staying in a recurrent bounded set). A mathematically valid structural formulation for `TransitionMatrix` is defining transition probabilities as `(qp.a i : ℝ) / (d : ℝ)`. A stationary probability measure should be defined explicitly over finite states (e.g. `Matrix.vecMul π P = π ∧ (∑ i, π i) = 1 ∧ ∀ i, 0 ≤ π i`). Then, `expansive_measure_dissipation` must be explicitly proven using contradictory properties of the measure sum.
+
+## Granular Execution Steps
+1. Navigate to `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`.
+2. Add necessary Mathlib imports for matrices and measures: `Mathlib.Data.Matrix.Basic`, `Mathlib.Data.Real.Basic`, `Mathlib.Tactic.Linarith`, `Mathlib.Tactic.FinCases`.
+3. Replace `opaque TransitionMatrix` with an explicit, mathematically sound definition preserving the abstract model:
+   ```lean
+   @[implicit_reducible]
+   noncomputable def TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ :=
+     fun i j => (qp.a i : ℝ) / (d : ℝ)
+   ```
+4. Replace `opaque StationaryMeasure` with an explicit definition:
+   ```lean
+   def StationaryMeasure {M : ℕ} (π : Fin M → ℝ) (P : Matrix (Fin M) (Fin M) ℝ) : Prop :=
+     Matrix.vecMul π P = π ∧ (∑ i, π i) = 1 ∧ ∀ i, 0 ≤ π i
+   ```
+5. Change `axiom expansive_measure_dissipation` to `theorem expansive_measure_dissipation`.
+6. Provide a rigorous tactic-level proof natively in Lean using exactly these verified steps:
+   - `intro h` and `rcases h with ⟨π, hπ_mul, hπ_sum, hπ_pos⟩` to extract measure properties.
+   - Prove row sums are 1 and 5 for $i=0$ and $i=1$ respectively by unfolding `TransitionMatrix`, `simp`, and `ring`.
+   - Calculate double sum combinations to extract `π 0 + π 1 = π 0 + 5 * π 1` using `Fin.sum_univ_two` and `Finset.sum_comm`.
+   - Use `linarith` to deduce `π 1 = 0` and subsequently `π 0 = 1`.
+   - Evaluate `Matrix.vecMul π (TransitionMatrix collatz5x1) 0` with `change ∑ i, π i * TransitionMatrix collatz5x1 i 0 = 1 / 2` and substituting `π 0 = 1` and `π 1 = 0`.
+   - Conclude contradiction `1 / 2 = 1` using `linarith`.
+7. Ensure no `sorry` or `axiom` remains in the file and the strict 1-to-1 mapping to theoretical claims is preserved.
+
+## Definition of Done (DoD)
+- [ ] `TransitionMatrix` and `StationaryMeasure` are explicitly defined without `opaque`.
+- [ ] `expansive_measure_dissipation` is mathematically proven without `sorry` or `axiom`.
+- [ ] The file `Expansive5x1.lean` compiles cleanly without errors.

@@ -2146,7 +2146,7 @@ Currently, the project lacks automated, web-accessible documentation for its Lea
 - [x] The `lakefile.toml` compiles securely without dependency resolution errors under the project's toolchain.
 
 ## Target Task
-- [ ] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`.
+- [x] **Finish Existing:** Complete `ThermodynamicFormalism.lean`, `ScalingDuality.lean`, and `SpectralThreshold.lean`. [COMPLETED]
 
 ## Target Profile
 - `ArithmeticDynamics/UniversalLaw/ScalingDuality.lean`

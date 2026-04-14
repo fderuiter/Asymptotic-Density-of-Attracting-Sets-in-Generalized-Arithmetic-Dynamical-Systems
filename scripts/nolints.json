@@ -103,4 +103,6 @@
  ["unusedArguments",
   "ArithmeticDynamics.SpecificModels.pilot5_contractive_supermartingale"],
  ["unusedArguments",
+  "ArithmeticDynamics.ThermodynamicFormalism.metric_entropy_tau_f"],
+ ["unusedArguments",
   "ArithmeticDynamics.Computability.MinskyBounds.inc_upper_bound"]]

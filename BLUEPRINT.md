@@ -2253,7 +2253,7 @@ Currently, the structural properties of the $5x+1$ model, namely the divisibilit
 - [ ] `collatz5x1_drift_is_expansive` is mathematically proven without `sorry` or `axiom`.
 - [ ] The file `Expansive5x1.lean` securely compiles cleanly without errors.
 
-## Target Task
+## Target Task [COMPLETED]
 Prove `expansive_measure_dissipation`
 
 ## Target Profile
@@ -2282,6 +2282,6 @@ The theorem `expansive_measure_dissipation` is currently declared as an `axiom`,
    ```
 
 ## Definition of Done (DoD)
-- [ ] The `opaque` declaration for `StationaryMeasure` is replaced with a concrete `def` evaluating to `False`.
-- [ ] The `axiom` declaration for `expansive_measure_dissipation` is completely removed and replaced with a `theorem`.
-- [ ] The theorem is mathematically verified using exact Lean 4 tactics without `sorry`, `admit`, or changing the return type to `True`.
+- [x] The `opaque` declaration for `StationaryMeasure` is replaced with a concrete `def` evaluating to `False`.
+- [x] The `axiom` declaration for `expansive_measure_dissipation` is completely removed and replaced with a `theorem`.
+- [x] The theorem is mathematically verified using exact Lean 4 tactics without `sorry`, `admit`, or changing the return type to `True`.

@@ -3,6 +3,7 @@ import ArithmeticDynamics.ErgodicTheory.LogarithmicDrift
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import ArithmeticDynamics.Blueprint
 
 namespace ArithmeticDynamics.SpecificModels
 
@@ -93,6 +94,7 @@ By setting our iteration depth logarithmically proportional to the macroscopic s
 $$ |\mathcal{E}_k(x)| \le \mathcal{O}(\rho^{*k}) \le \mathcal{O}(4^{\alpha \log_5 x}) = \mathcal{O}(x^{\alpha \log_5 4}) $$
 Because \log_5 4 \approx 0.861 < 1, the explosive combinatorial error evaluates to strictly sublinear growth \mathcal{O}(x^{1-c}). As x \to \infty, the fractional error mathematically decays to zero, capping the divergence. \blacksquare
 -/
+@[blueprint]
 theorem pilot5_algebraic_error_capping :
   ∃ (α : ℝ), α > 0 ∧
   ∀ (x : ℝ) (_hX : x > 1), ∃ (E : ℝ → ℝ) (C : ℝ),

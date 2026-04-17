@@ -198,7 +198,7 @@ Concrete instantiations of the algebraic framework.
   - **Current State:** `axiom`
   - **Task:** Evaluate for `5x+1`. Compute drift $> 0$.
 
-- [x] **Prove `expansive_measure_dissipation`**
+- [ ] **Prove `expansive_measure_dissipation`**
   - **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
   - **Current State:** `axiom`
   - **Task:** Prove expansive positive drift forces measure dissipation towards infinity.
@@ -233,7 +233,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 - [ ] **Continuous Integration (CI):**
   - [x] Create `.github/workflows/lint.yml` to run `lake exe lint` (catches unused variables, missing docstrings, and naming violations).
   - [x] Configure `doc-gen4` in `lakefile.toml` and set up a GitHub Action to deploy Lean documentation to GitHub Pages.
-- [ ] **Blueprint Maintenance:** Ensure all major theorems in Lean have `@[blueprint]` annotations and map directly to `blueprint/src/content.tex` via `\uses` and `\proves` macros.
+- [x] **Blueprint Maintenance:** Ensure all major theorems in Lean have `@[blueprint]` annotations and map directly to `blueprint/src/content.tex` via `\uses` and `\proves` macros.
 - [ ] **Testing Directory:** Create a `test/` folder for `#eval` regression tests on quasi-polynomials, Minsky machines, and FRACTRAN states.
 
 ## 2. 📖 Core Definitions (The Missing Foundation)

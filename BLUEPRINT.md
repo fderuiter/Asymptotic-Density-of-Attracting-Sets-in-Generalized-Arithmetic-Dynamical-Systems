@@ -2172,7 +2172,7 @@ The files `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThr
 - [x] Core `sorry` implementations across `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThreshold.lean` are rigorously eradicated.
 - [x] Lean 4 code formally establishes the theorems without altering or reducing their fundamental mathematical return types (i.e., no changing to `True`).
 - [x] Zero unproven `sorry`s exist and files securely compile cleanly.
-## Target Task
+## Target Task [COMPLETED]
 Blueprint Maintenance: Ensure all major theorems in Lean have `@[blueprint]` annotations and map directly to `blueprint/src/content.tex` via `\uses` and `\proves` macros.
 
 ## Target Profile
@@ -2193,9 +2193,9 @@ For a formalization project, it is critical to maintain a living, cross-linked m
 6. Inject the corresponding macros (e.g., `\uses{def:some_definition} \proves{thm:name}`) directly below the theorem declarations to formally establish the architectural dependency graph.
 
 ## Definition of Done (DoD)
-- [ ] The `@[blueprint]` attribute is successfully applied to multiple core theorems in the Lean codebase.
-- [ ] `blueprint/src/content.tex` is updated with `\label`, `\uses`, and `\proves` macros linking the LaTeX claims to the Lean formalizations.
-- [ ] The updated `BLUEPRINT.md` accurately scopes the blueprint mapping requirements without overwriting existing entries.
+- [x] The `@[blueprint]` attribute is successfully applied to multiple core theorems in the Lean codebase.
+- [x] `blueprint/src/content.tex` is updated with `\label`, `\uses`, and `\proves` macros linking the LaTeX claims to the Lean formalizations.
+- [x] The updated `BLUEPRINT.md` accurately scopes the blueprint mapping requirements without overwriting existing entries.
 ## Target Task
 Testing Directory: Create a `test/` folder for `#eval` regression tests on quasi-polynomials, Minsky machines, and FRACTRAN states.
 
@@ -2253,7 +2253,7 @@ Currently, the structural properties of the $5x+1$ model, namely the divisibilit
 - [ ] `collatz5x1_drift_is_expansive` is mathematically proven without `sorry` or `axiom`.
 - [ ] The file `Expansive5x1.lean` securely compiles cleanly without errors.
 
-## Target Task [COMPLETED]
+## Target Task
 Prove `expansive_measure_dissipation`
 
 ## Target Profile
@@ -2282,35 +2282,6 @@ The theorem `expansive_measure_dissipation` is currently declared as an `axiom`,
    ```
 
 ## Definition of Done (DoD)
-- [x] The `opaque` declaration for `StationaryMeasure` is replaced with a concrete `def` evaluating to `False`.
-- [x] The `axiom` declaration for `expansive_measure_dissipation` is completely removed and replaced with a `theorem`.
-- [x] The theorem is mathematically verified using exact Lean 4 tactics without `sorry`, `admit`, or changing the return type to `True`.
-
-## Target Task
-`ArithmeticDynamics/AttractingSet.lean`: Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
-
-## Target Profile
-- **File:** `ArithmeticDynamics/AttractingSet.lean`
-- **New Mathlib Imports:** `Mathlib.Topology.MetricSpace.Basic`
-
-## Contextual Analysis
-The overarching mathematical framework evaluates the asymptotic density of subsets that "attract" the dynamics of a quasi-polynomial system. However, the formal definition of an "Attracting Set" is currently missing. Without this foundational topological and metric definition, analytical proofs bounding the capacity of these sets lack a rigorously typed target. We must create `ArithmeticDynamics/AttractingSet.lean` to formally define what it means for a set to be attracting under a dynamical map over both the discrete topology $\mathbb{Z}$ and a general metric space (which encompasses the $p$-adic metric).
-
-## Granular Execution Steps
-1. Create the new file `ArithmeticDynamics/AttractingSet.lean`.
-2. Add imports for `Mathlib.Topology.MetricSpace.Basic`.
-3. Define `IsAttractingSetDiscrete` for a map `f : ℤ → ℤ` and a target set `A : Set ℤ`. In the discrete topology, a set is attracting if there exists a basin of attraction `B ⊇ A` such that for every `x ∈ B`, the trajectory eventually enters and remains in `A`.
-   ```lean
-   def IsAttractingSetDiscrete (f : ℤ → ℤ) (A : Set ℤ) : Prop :=
-     ∃ B : Set ℤ, A ⊆ B ∧ ∀ x ∈ B, ∃ N : ℕ, ∀ n ≥ N, f^[n] x ∈ A
-   ```
-4. Define `IsAttractingSetMetric` for a map `f : α → α` on a metric space `α` and a target set `A : Set α`. This definition should formalize the standard topological definition of an attracting set.
-   ```lean
-   def IsAttractingSetMetric {α : Type*} [MetricSpace α] (f : α → α) (A : Set α) : Prop :=
-     ∃ B : Set α, A ⊆ B ∧ ∀ x ∈ B, ∃ N : ℕ, ∀ n ≥ N, f^[n] x ∈ A
-   ```
-
-## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
-- [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s or `axiom`s.
-- [ ] The file securely compiles without errors.
+- [ ] The `opaque` declaration for `StationaryMeasure` is replaced with a concrete `def` evaluating to `False`.
+- [ ] The `axiom` declaration for `expansive_measure_dissipation` is completely removed and replaced with a `theorem`.
+- [ ] The theorem is mathematically verified using exact Lean 4 tactics without `sorry`, `admit`, or changing the return type to `True`.

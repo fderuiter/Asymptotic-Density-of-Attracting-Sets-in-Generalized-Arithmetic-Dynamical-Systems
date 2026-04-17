@@ -1,6 +1,7 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import ArithmeticDynamics.SpecificModels.PilotSystem
+import ArithmeticDynamics.Blueprint
 
 namespace ArithmeticDynamics.SieveAnalytics
 
@@ -27,6 +28,7 @@ Proof: Because \gcd(a_i, 5) = 1 for all branches, the affine map T induces a loc
 $$ d_{TV}\left( T^k(N) \pmod{5^m}, \text{Unif}(\mathbb{Z}/5^m\mathbb{Z}) \right) \le \frac{1}{X} $$
 The probability of an integer occupying a specific residue class modulo 5^m becomes uniformly distributed and strictly independent of the starting value N, formally satisfying the foundational prerequisites for Tao's analytic framework. \blacksquare
 -/
+@[blueprint]
 theorem decoupling_threshold :
   ∀ (X : ℝ) (_hX : X > 1) (δ : ℝ) (h_delta : δ > 0),
   ∃ (τ : ℝ), τ = mixing_time_threshold δ h_delta (1 / X) ∧
@@ -40,6 +42,7 @@ To validate the random walk model, we evaluate the covariance between any zero-m
 $$ \big| \text{Cov}\big(\chi(X_n), \chi(X_{n+k})\big) \big| \le |\chi|^2 C e^{-\gamma k} $$
 where the strict decay rate is \gamma = -\log(1-\delta) > 0. As k \to \infty, the memory collapses, completely validating the use of independent and identically distributed (i.i.d.) Central Limit Theorems.
 -/
+@[blueprint]
 theorem decay_of_correlations (δ : ℝ) (h_delta : δ > 0) :
   ∃ (γ : ℝ), γ = -Real.log (1 - δ) ∧ γ > 0 ∧
   ∀ (χ : ℕ → ℝ) (χ_norm : ℝ) (k : ℕ) (_h_zero_mean : True),

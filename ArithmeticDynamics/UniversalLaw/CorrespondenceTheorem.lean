@@ -1,5 +1,6 @@
 import Mathlib.Topology.Basic
 import Mathlib.Topology.MetricSpace.Basic
+import ArithmeticDynamics.Blueprint
 
 namespace ArithmeticDynamics.CorrespondenceTheorem
 
@@ -20,6 +21,7 @@ The absolute uniqueness of periodic orbits is formally equivalent to the
 uniqueness of the equilibrium state for all bounded and continuous potentials
 within the system.
 -/
+@[blueprint]
 theorem equilibrium_state_uniqueness :
   unique_periodic_orbit ↔ unique_equilibrium_state_for_all_potentials := by sorry
 
@@ -46,6 +48,7 @@ A definitive, computable set of algebraic inequalities—based entirely on the
 inputs a_i, b_i, and d—universally classifies any integer-valued quasi-polynomial
 into three rigid categories: Turing-Complete, Cantor-Supported, or Density-Positive.
 -/
+@[blueprint]
 theorem algebraic_analytic_law :
   ∀ (a_vals b_vals : Fin d → ℤ),
   (¬ passes_conway_filter a_vals b_vals ↔ classify_system a_vals b_vals d = SystemClassification.TuringComplete) ∧

@@ -1,7 +1,7 @@
 import ArithmeticDynamics.Algebra.Isometry
 import Mathlib.Computability.Language
-set_option linter.unusedVariables false
-set_option linter.unusedSectionVars false
+
+
 
 
 
@@ -35,24 +35,26 @@ structure MealyMachine (Sigma : Type) where
   output : State → Sigma → Sigma
 
 -- To define ObservationalEquivalence without it failing, let's opaque it
-def ObservationalEquivalence {d : ℕ} {Sigma : Type} (_f : Z_d d → Z_d d) (_M : MealyMachine Sigma) : Prop := True
+/-- Predicate asserting that a d-adic function and a Mealy Machine are observationally equivalent. -/
+opaque ObservationalEquivalence {d : ℕ} {Sigma : Type} (f : Z_d d → Z_d d) (M : MealyMachine Sigma) : Prop
 
+section
 variable {d : ℕ} [NeZero d]
 
 /-- Theorem: Anashin's Automata Isomorphism.
     Every 1-Lipschitz function on Z_d evaluates identically to a Mealy Machine. -/
-theorem lipschitz_is_mealy_machine (_f : Z_d d → Z_d d) (_h : IsOneLipschitz _f) :
-  ∃ M : MealyMachine (Fin d), ObservationalEquivalence _f M := by
-  use { State := Unit, transition := fun _ _ => (), output := fun _ s => s }
-  exact trivial
+theorem lipschitz_is_mealy_machine (f : Z_d d → Z_d d) (h : IsOneLipschitz f) :
+  ∃ M : MealyMachine (Fin d), ObservationalEquivalence f M := by
+  sorry
 
-def ComputationalCapacity {d : ℕ} (_f : Z_d d → Z_d d) : ChomskyLevel := ChomskyLevel.Type3_Regular
+/-- The computational capacity of a d-adic function in terms of the Chomsky Hierarchy. -/
+opaque ComputationalCapacity {d : ℕ} (f : Z_d d → Z_d d) : ChomskyLevel
 
 /-- Brauer-style finite automata used for first-order arithmetization of trajectories. -/
 def BrauerAutomaton : Type := PUnit
 
 /-- Transition encoding of a `d`-adic map into a finite automaton model. -/
-def EncodesTrajectory {d : ℕ} [NeZero d] (_f : Z_d d → Z_d d) (_A : BrauerAutomaton) : Prop := True
+opaque EncodesTrajectory {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (A : BrauerAutomaton) : Prop
 
 /-- Syntax carrier for Presburger sentences produced from automaton encodings. -/
 def PresburgerSentence : Type := PUnit
@@ -62,7 +64,7 @@ instance : Nonempty PresburgerSentence := ⟨PUnit.unit⟩
 noncomputable opaque TranslateToPresburger : BrauerAutomaton → PresburgerSentence
 
 /-- Predicate asserting formal derivability/decidability in Presburger arithmetic. -/
-def PresburgerProvable : PresburgerSentence → Prop := fun _ => True
+opaque PresburgerProvable : PresburgerSentence → Prop
 
 /-- Reachability predicate used for termination queries in the translated system. -/
 opaque TerminatesAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) (n : ℕ) : Prop
@@ -73,27 +75,27 @@ opaque IsPeriodicAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) : Pro
 /-- First-order translation theorem: 1-Lipschitz `d`-adic dynamics can be encoded as a
 Brauer automaton and translated to Presburger-compatible formulas. -/
 theorem first_order_translation
-    {d : ℕ} [NeZero d] (_f : Z_d d → Z_d d) (_h_lip : IsOneLipschitz _f) :
+    {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) :
     ∃ A : BrauerAutomaton,
-      EncodesTrajectory _f A ∧ PresburgerProvable (TranslateToPresburger A) := by
-    use PUnit.unit
-    exact ⟨trivial, trivial⟩
+      EncodesTrajectory f A ∧ PresburgerProvable (TranslateToPresburger A) := by
+    sorry
 
 /-- Deliverable decidability corollary: termination and periodicity queries become finite
 decidable propositions after the Presburger translation. -/
 theorem termination_and_periodicity_decidable
-    {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (_h_lip : IsOneLipschitz f)
-    (_A : BrauerAutomaton) (_h_enc : EncodesTrajectory f _A) :
+    {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f)
+    (A : BrauerAutomaton) (h_enc : EncodesTrajectory f A) :
     Nonempty ((∀ x : Z_d d, Decidable (∃ n : ℕ, TerminatesAt f x n)) ×
     (∀ x : Z_d d, Decidable (IsPeriodicAt f x))) := by
-    exact ⟨⟨fun _ => Classical.propDecidable _, fun _ => Classical.propDecidable _⟩⟩
+    sorry
 
 /-- The Deliverable Theorem of Phase 1: The Chomsky Preclusion.
     Proves that any measure-preserving 1-Lipschitz generalized Collatz function
     is structurally incapable of Universal Computation (Type 0). -/
 theorem lipschitz_measure_preserving_bounds_chomsky
-  (f : Z_d d → Z_d d) (_h_lip : IsOneLipschitz f) (_h_meas : IsMeasurePreserving f) :
+  (f : Z_d d → Z_d d) (h_lip : IsOneLipschitz f) (h_meas : IsMeasurePreserving f) :
   ComputationalCapacity f ≤ ChomskyLevel.Type2_ContextFree := by
-  exact ChomskyLevel.Le.Type3_le_Type2
+  sorry
 
+end
 end ArithmeticDynamics.Computability

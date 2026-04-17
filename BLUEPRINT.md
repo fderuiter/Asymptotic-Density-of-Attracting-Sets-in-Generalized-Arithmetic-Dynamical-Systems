@@ -2172,7 +2172,7 @@ The files `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThr
 - [x] Core `sorry` implementations across `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThreshold.lean` are rigorously eradicated.
 - [x] Lean 4 code formally establishes the theorems without altering or reducing their fundamental mathematical return types (i.e., no changing to `True`).
 - [x] Zero unproven `sorry`s exist and files securely compile cleanly.
-## Target Task
+## Target Task [COMPLETED]
 Blueprint Maintenance: Ensure all major theorems in Lean have `@[blueprint]` annotations and map directly to `blueprint/src/content.tex` via `\uses` and `\proves` macros.
 
 ## Target Profile

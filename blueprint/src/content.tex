@@ -1,8 +1,10 @@
 \chapter{Structural Prerequisites}
 
 \begin{theorem}[Coprime Invertibility]
-\lean{ArithmeticDynamics.coprime_implies_bijective_mod_d}
+\lean{ArithmeticDynamics.Computability.coprime_invertibility}
 \leanok
+\label{thm:coprime_invertibility}
+\proves{thm:coprime_invertibility}
 If the multipliers are coprime to the modulus $d$, the map's action on the residue classes modulo $d$ is perfectly bijective.
 \end{theorem}
 
@@ -184,14 +186,18 @@ for all sufficiently large $x$.
 \chapter{The Grand Synthesis: The Algebraic-Analytic Correspondence (The Law)}
 
 \begin{lemma}[The Lyapunov Scaling Duality]
-\lean{ArithmeticDynamics.lyapunov_scaling_duality}
+\lean{ArithmeticDynamics.ScalingDuality.lyapunov_scaling_duality}
 \leanok
+\label{thm:lyapunov_scaling_duality}
+\proves{thm:lyapunov_scaling_duality}
 The algebraic coefficients $a_i$ and $d$ strictly dictate the system's Lyapunov exponent $\lambda(\mu)$, which in turn completely defines the system's measure-theoretic entropy.
 \end{lemma}
 
 \begin{theorem}[Complex Balancing]
-\lean{ArithmeticDynamics.complex_balancing}
+\lean{ArithmeticDynamics.ScalingDuality.complex_balancing}
 \leanok
+\label{thm:complex_balancing}
+\proves{thm:complex_balancing}
 For a system to achieve high analytic density, its algebraic scaling must be "eventually expanding," yet it must simultaneously remain "complex balanced" to prevent infinite trajectory divergence.
 \end{theorem}
 

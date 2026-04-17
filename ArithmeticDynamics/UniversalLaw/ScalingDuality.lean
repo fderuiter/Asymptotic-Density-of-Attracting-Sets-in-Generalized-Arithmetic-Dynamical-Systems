@@ -1,3 +1,4 @@
+import ArithmeticDynamics.Blueprint
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Topology.MetricSpace.Basic
@@ -44,6 +45,7 @@ Lemma 4.1.1 (The Lyapunov Scaling Duality)
 The algebraic coefficients a_i and d strictly dictate the system's Lyapunov exponent λ(μ),
 which in turn completely defines the system's measure-theoretic entropy.
 -/
+@[blueprint]
 theorem lyapunov_scaling_duality :
   metric_entropy mu f = max 0 (lyapunov_exponent mu f) := rfl
 
@@ -58,6 +60,7 @@ For a system to achieve high analytic density, its algebraic scaling must be
 "eventually expanding," yet it must simultaneously remain "complex balanced"
 to prevent infinite trajectory divergence.
 -/
+@[blueprint]
 theorem complex_balancing :
   analytic_density f > 0 →
   lyapunov_exponent mu f > 0 ∧

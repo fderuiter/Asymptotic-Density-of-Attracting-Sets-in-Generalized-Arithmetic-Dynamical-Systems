@@ -2285,3 +2285,32 @@ The theorem `expansive_measure_dissipation` is currently declared as an `axiom`,
 - [x] The `opaque` declaration for `StationaryMeasure` is replaced with a concrete `def` evaluating to `False`.
 - [x] The `axiom` declaration for `expansive_measure_dissipation` is completely removed and replaced with a `theorem`.
 - [x] The theorem is mathematically verified using exact Lean 4 tactics without `sorry`, `admit`, or changing the return type to `True`.
+
+## Target Task
+`ArithmeticDynamics/AttractingSet.lean`: Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
+
+## Target Profile
+- **File:** `ArithmeticDynamics/AttractingSet.lean`
+- **New Mathlib Imports:** `Mathlib.Topology.MetricSpace.Basic`
+
+## Contextual Analysis
+The overarching mathematical framework evaluates the asymptotic density of subsets that "attract" the dynamics of a quasi-polynomial system. However, the formal definition of an "Attracting Set" is currently missing. Without this foundational topological and metric definition, analytical proofs bounding the capacity of these sets lack a rigorously typed target. We must create `ArithmeticDynamics/AttractingSet.lean` to formally define what it means for a set to be attracting under a dynamical map over both the discrete topology $\mathbb{Z}$ and a general metric space (which encompasses the $p$-adic metric).
+
+## Granular Execution Steps
+1. Create the new file `ArithmeticDynamics/AttractingSet.lean`.
+2. Add imports for `Mathlib.Topology.MetricSpace.Basic`.
+3. Define `IsAttractingSetDiscrete` for a map `f : ℤ → ℤ` and a target set `A : Set ℤ`. In the discrete topology, a set is attracting if there exists a basin of attraction `B ⊇ A` such that for every `x ∈ B`, the trajectory eventually enters and remains in `A`.
+   ```lean
+   def IsAttractingSetDiscrete (f : ℤ → ℤ) (A : Set ℤ) : Prop :=
+     ∃ B : Set ℤ, A ⊆ B ∧ ∀ x ∈ B, ∃ N : ℕ, ∀ n ≥ N, f^[n] x ∈ A
+   ```
+4. Define `IsAttractingSetMetric` for a map `f : α → α` on a metric space `α` and a target set `A : Set α`. This definition should formalize the standard topological definition of an attracting set.
+   ```lean
+   def IsAttractingSetMetric {α : Type*} [MetricSpace α] (f : α → α) (A : Set α) : Prop :=
+     ∃ B : Set α, A ⊆ B ∧ ∀ x ∈ B, ∃ N : ℕ, ∀ n ≥ N, f^[n] x ∈ A
+   ```
+
+## Definition of Done (DoD)
+- [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
+- [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s or `axiom`s.
+- [ ] The file securely compiles without errors.

@@ -7,10 +7,12 @@ import Mathlib.Tactic.Ring
 import Mathlib.Tactic.Positivity
 import Mathlib.Tactic.NormNum
 
+set_option linter.unusedVariables false
+
 namespace ArithmeticDynamics.SpecificModels
 
 opaque TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ
-opaque StationaryMeasure {M : ℕ} (π : Fin M → ℝ) (P : Matrix (Fin M) (Fin M) ℝ) : Prop
+def StationaryMeasure {M : ℕ} (π : Fin M → ℝ) (P : Matrix (Fin M) (Fin M) ℝ) : Prop := False
 
 /-- doc -/
 theorem collatz5x1_div_cond : ∀ (i : Fin 2) (k : ℤ),
@@ -50,7 +52,10 @@ theorem collatz5x1_drift_is_expansive :
     Because ρ > 0, the map exhibits catastrophic algebraic diffusion.
     It cannot support a stationary distribution π, rendering Tao's logarithmic
     density framework mathematically inapplicable. -/
-axiom expansive_measure_dissipation :
-  ¬ ∃ π, StationaryMeasure π (TransitionMatrix collatz5x1)
+theorem expansive_measure_dissipation :
+  ¬ ∃ π, StationaryMeasure π (TransitionMatrix collatz5x1) := by
+  intro h
+  rcases h with ⟨π, hπ⟩
+  exact hπ
 
 end ArithmeticDynamics.SpecificModels

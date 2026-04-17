@@ -1,6 +1,7 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import ArithmeticDynamics.SpecificModels.PilotSystem
+import ArithmeticDynamics.Blueprint
 
 namespace ArithmeticDynamics.SieveAnalytics
 
@@ -55,6 +56,7 @@ Substituting this algebraic collapse back into the differential yields:
 $$ (T_* \mu_{\log}')(y) = \frac{\mathbf{w}(y \bmod \Lambda)}{y} $$
 Integrating this differential perfectly recovers \mu_{\log}'(A). By formally embedding the Markov transition weights, we mathematically prove that applying the affine map to any set of integers yields a new set with the exact same invariant density. \blacksquare
 -/
+@[blueprint]
 theorem perfect_forward_invariance :
   ∀ (A : Set ℕ) (T : ℕ → ℕ) (w : Fin Lambda → ℝ) (_hw : ∀ j, (∑' i, markov_transfer_operator_M j i * w i) = w j),
   reweighted_measure w (T '' A) = reweighted_measure w A := by sorry

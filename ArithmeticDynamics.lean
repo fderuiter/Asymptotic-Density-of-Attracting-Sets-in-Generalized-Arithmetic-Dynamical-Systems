@@ -1,3 +1,4 @@
+import ArithmeticDynamics.Blueprint
 import ArithmeticDynamics.Algebra.QuasiPolynomial
 import ArithmeticDynamics.Algebra.ResidueAction
 import ArithmeticDynamics.Algebra.PadicExtensions

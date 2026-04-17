@@ -1,4 +1,5 @@
 import Mathlib
+import ArithmeticDynamics.Blueprint
 
 open Polynomial
 
@@ -80,6 +81,7 @@ theorem eval_modEq (P : ℤ[X]) {d x y : ℤ} (h : Int.ModEq d x y) : Int.ModEq 
   for every `k : ℕ`.  The indexing starts at `k+1` (rather than `k`) to keep
   Lean's zero-based `induction` syntax aligned with the mathematical statement.
 -/
+@[blueprint]
 theorem dynamical_hensel_lift
     (G : ℤ[X])
     (d : ℤ) (hd : 1 < d)

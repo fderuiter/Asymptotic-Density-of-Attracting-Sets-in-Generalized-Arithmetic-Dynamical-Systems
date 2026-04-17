@@ -2172,7 +2172,7 @@ The files `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThr
 - [x] Core `sorry` implementations across `ScalingDuality.lean`, `ThermodynamicFormalism.lean`, and `SpectralThreshold.lean` are rigorously eradicated.
 - [x] Lean 4 code formally establishes the theorems without altering or reducing their fundamental mathematical return types (i.e., no changing to `True`).
 - [x] Zero unproven `sorry`s exist and files securely compile cleanly.
-## Target Task
+## Target Task [COMPLETED]
 Blueprint Maintenance: Ensure all major theorems in Lean have `@[blueprint]` annotations and map directly to `blueprint/src/content.tex` via `\uses` and `\proves` macros.
 
 ## Target Profile
@@ -2193,9 +2193,9 @@ For a formalization project, it is critical to maintain a living, cross-linked m
 6. Inject the corresponding macros (e.g., `\uses{def:some_definition} \proves{thm:name}`) directly below the theorem declarations to formally establish the architectural dependency graph.
 
 ## Definition of Done (DoD)
-- [ ] The `@[blueprint]` attribute is successfully applied to multiple core theorems in the Lean codebase.
-- [ ] `blueprint/src/content.tex` is updated with `\label`, `\uses`, and `\proves` macros linking the LaTeX claims to the Lean formalizations.
-- [ ] The updated `BLUEPRINT.md` accurately scopes the blueprint mapping requirements without overwriting existing entries.
+- [x] The `@[blueprint]` attribute is successfully applied to multiple core theorems in the Lean codebase.
+- [x] `blueprint/src/content.tex` is updated with `\label`, `\uses`, and `\proves` macros linking the LaTeX claims to the Lean formalizations.
+- [x] The updated `BLUEPRINT.md` accurately scopes the blueprint mapping requirements without overwriting existing entries.
 ## Target Task
 Testing Directory: Create a `test/` folder for `#eval` regression tests on quasi-polynomials, Minsky machines, and FRACTRAN states.
 

@@ -34,9 +34,8 @@ structure MealyMachine (Sigma : Type) where
   transition : State → Sigma → State
   output : State → Sigma → Sigma
 
--- To define ObservationalEquivalence without it failing, let's opaque it
 /-- Predicate asserting that a d-adic function and a Mealy Machine are observationally equivalent. -/
-opaque ObservationalEquivalence {d : ℕ} {Sigma : Type} (f : Z_d d → Z_d d) (M : MealyMachine Sigma) : Prop
+opaque ObservationalEquivalence {d : ℕ} {Sigma : Type} : (Z_d d → Z_d d) → MealyMachine Sigma → Prop
 
 section
 variable {d : ℕ} [NeZero d]
@@ -48,13 +47,13 @@ theorem lipschitz_is_mealy_machine (f : Z_d d → Z_d d) (h : IsOneLipschitz f) 
   sorry
 
 /-- The computational capacity of a d-adic function in terms of the Chomsky Hierarchy. -/
-opaque ComputationalCapacity {d : ℕ} (f : Z_d d → Z_d d) : ChomskyLevel
+opaque ComputationalCapacity {d : ℕ} : (Z_d d → Z_d d) → ChomskyLevel
 
 /-- Brauer-style finite automata used for first-order arithmetization of trajectories. -/
 def BrauerAutomaton : Type := PUnit
 
 /-- Transition encoding of a `d`-adic map into a finite automaton model. -/
-opaque EncodesTrajectory {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (A : BrauerAutomaton) : Prop
+opaque EncodesTrajectory {d : ℕ} [NeZero d] : (Z_d d → Z_d d) → BrauerAutomaton → Prop
 
 /-- Syntax carrier for Presburger sentences produced from automaton encodings. -/
 def PresburgerSentence : Type := PUnit

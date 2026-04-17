@@ -17,10 +17,6 @@
   ],
   [
     "docBlame",
-    "ArithmeticDynamics.Computability.ComputationalCapacity"
-  ],
-  [
-    "docBlame",
     "ArithmeticDynamics.Computability.Universal"
   ],
   [
@@ -234,18 +230,6 @@
   [
     "unusedArguments",
     "ArithmeticDynamics.Algebra.prime_power_architectural_starvation"
-  ],
-  [
-    "unusedArguments",
-    "ArithmeticDynamics.Computability.ComputationalCapacity"
-  ],
-  [
-    "unusedArguments",
-    "ArithmeticDynamics.Computability.EncodesTrajectory"
-  ],
-  [
-    "unusedArguments",
-    "ArithmeticDynamics.Computability.PresburgerProvable"
   ],
   [
     "unusedArguments",

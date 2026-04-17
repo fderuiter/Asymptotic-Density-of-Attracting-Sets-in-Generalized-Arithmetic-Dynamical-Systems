@@ -198,7 +198,7 @@ Concrete instantiations of the algebraic framework.
   - **Current State:** `axiom`
   - **Task:** Evaluate for `5x+1`. Compute drift $> 0$.
 
-- [ ] **Prove `expansive_measure_dissipation`**
+- [x] **Prove `expansive_measure_dissipation`**
   - **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
   - **Current State:** `axiom`
   - **Task:** Prove expansive positive drift forces measure dissipation towards infinity.

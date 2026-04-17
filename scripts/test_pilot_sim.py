@@ -4,7 +4,20 @@ import json
 import numpy as np
 import sys
 from io import StringIO
-from scripts.pilot_sim import load_system
+from scripts.pilot_sim import load_system, simulate_transitions
+
+class TestPilotSim(unittest.TestCase):
+    def test_simulate_transitions(self):
+        d = 2
+        a = np.array([1, 1], dtype=np.int64)
+        b = np.array([0, 1], dtype=np.int64)
+        N = 1000
+
+        P = simulate_transitions(d, a, b, N)
+
+        self.assertEqual(P.shape, (2, 2))
+        self.assertTrue(np.allclose(P.sum(axis=1), 1.0))
+        self.assertTrue(np.all(P >= 0))
 
 class TestLoadSystem(unittest.TestCase):
     def test_load_system_success(self):

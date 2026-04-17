@@ -60,20 +60,19 @@ def simulate_transitions(d, a, b, N):
     x = np.random.randint(0, 2**62, size=N, dtype=np.int64)
 
     # Calculate starting residue class
-    i_vals = x % d
+    i_vals = (x % d).astype(np.int32)
 
     # Apply the corresponding map branch: f(x) = (a[i]*x + b[i]) // d
     # Since numpy arrays can be indexed by another array, we can vectorize this
     fx = (a[i_vals] * x + b[i_vals]) // d
 
     # Calculate destination residue class
-    j_vals = fx % d
+    j_vals = (fx % d).astype(np.int32)
 
     # Build the transition matrix P_empirical
-    P_empirical = np.zeros((d, d), dtype=np.float64)
-
-    # Use np.add.at for unbuffered in-place addition
-    np.add.at(P_empirical, (i_vals, j_vals), 1.0)
+    # Use np.bincount for faster 2D histogram (optimized in C)
+    counts = np.bincount(i_vals * d + j_vals, minlength=d * d)
+    P_empirical = counts.reshape((d, d)).astype(np.float64)
 
     print("\nRaw Transition Counts:")
     print(P_empirical)

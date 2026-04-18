@@ -2196,7 +2196,7 @@ For a formalization project, it is critical to maintain a living, cross-linked m
 - [x] The `@[blueprint]` attribute is successfully applied to multiple core theorems in the Lean codebase.
 - [x] `blueprint/src/content.tex` is updated with `\label`, `\uses`, and `\proves` macros linking the LaTeX claims to the Lean formalizations.
 - [x] The updated `BLUEPRINT.md` accurately scopes the blueprint mapping requirements without overwriting existing entries.
-## Target Task
+## Target Task [COMPLETED]
 Testing Directory: Create a `test/` folder for `#eval` regression tests on quasi-polynomials, Minsky machines, and FRACTRAN states.
 
 ## Target Profile

@@ -1,374 +1,115 @@
-[
- [
-  "docBlame",
-  "blueprintAttr"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Algebra.IsMahlerExpansion"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Algebra.IsPrimePowerArithmeticMap"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Algebra.ModEqZd"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Algebra.discreteMahlerBasis"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Computability.ComputationalCapacity"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Computability.ObservationalEquivalence"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Computability.Universal"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Computability.prime_signature_dimension"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.CorrespondenceTheorem.a"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.CorrespondenceTheorem.b"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.CorrespondenceTheorem.classify_system"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.CorrespondenceTheorem.d"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.CorrespondenceTheorem.essential_spectral_radius"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.CorrespondenceTheorem.passes_conway_filter"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.CorrespondenceTheorem.unique_equilibrium_state_for_all_potentials"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.CorrespondenceTheorem.unique_periodic_orbit"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ErgodicTheory.HasProbabilisticIndependence"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ErgodicTheory.IsAperiodic"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ErgodicTheory.SecondLargestEigenvalueAbs"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.C"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.StateSpace"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.a"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.analytic_density"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.b"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.d"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.expected_drift"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.f"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.metric_entropy"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ScalingDuality.mu"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.SpecificModels.StationaryMeasure"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.SpecificModels.TransitionMatrix"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.SpectralThreshold.S_matrix"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.SpectralThreshold.analytic_density"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.SpectralThreshold.d"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.SpectralThreshold.essential_spectral_radius"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.SpectralThreshold.support_hausdorff_dimension"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ThermodynamicFormalism.StateSpace"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ThermodynamicFormalism.all_continuous_potentials_have_equilibrium"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ThermodynamicFormalism.f"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ThermodynamicFormalism.metric_entropy_tau_f"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ThermodynamicFormalism.periodic_orbits_finite"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.ThermodynamicFormalism.tau_f"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Algebra.QuasiPolynomial.a"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Algebra.QuasiPolynomial.b"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Computability.ChomskyLevel.Le"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Computability.MealyMachine.State"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Computability.MealyMachine.output"
- ],
- [
-  "docBlame",
-  "ArithmeticDynamics.Computability.MealyMachine.transition"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.boundary_error"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.fractional_density"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.generalized_sieve_construction"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Algebra.IsMahlerExpansion"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Algebra.ModEqZd"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Algebra.SupportsOrthogonalPrimeChannels"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Algebra.linearization_of_orbits"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Algebra.lipschitz_implies_causality"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Algebra.measure_preserving_lipschitz_is_isometry"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Algebra.padicNorm"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Algebra.padicNormZd"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Algebra.prime_power_architectural_starvation"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.ComputationalCapacity"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.EncodesTrajectory"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.ObservationalEquivalence"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.PresburgerProvable"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.coprime_invertibility"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.first_order_translation"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.lipschitz_is_mealy_machine"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.lipschitz_measure_preserving_bounds_chomsky"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.termination_and_periodicity_decidable"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ErgodicTheory.HasProbabilisticIndependence"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ErgodicTheory.IsPrimitive"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ErgodicTheory.SecondLargestEigenvalueAbs"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ErgodicTheory.SupportsAnalyticSieve"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ErgodicTheory.existence_of_stationary_measure"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ErgodicTheory.rapid_mixing_from_spectral_gap"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ErgodicTheory.sieve_degeneracy_at_universal_floor"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ErgodicTheory.spectral_gap_constraint"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ScalingDuality.C"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ScalingDuality.a"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ScalingDuality.b"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ScalingDuality.expected_drift"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ScalingDuality.lyapunov_exponent"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.SieveAnalytics.mixing_time_threshold"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.SieveAnalytics.reweighted_measure"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.SpecificModels.IsTuringComplete"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.SpecificModels.branch_count"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.SpecificModels.minskyEncode"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.SpecificModels.pilot5_contractive_supermartingale"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.SpectralThreshold.essential_spectral_radius"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.ThermodynamicFormalism.metric_entropy_tau_f"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.Computability.MinskyBounds.inc_upper_bound"
- ],
- [
-  "unusedArguments",
-  "ArithmeticDynamics.SpecificModels.StationaryMeasure"
- ]
-]
+[["docBlame", "ArithmeticDynamics.Algebra.IsMahlerExpansion"],
+ ["docBlame", "ArithmeticDynamics.Algebra.IsPrimePowerArithmeticMap"],
+ ["docBlame", "ArithmeticDynamics.Algebra.ModEqZd"],
+ ["docBlame", "ArithmeticDynamics.Algebra.discreteMahlerBasis"],
+ ["docBlame", "ArithmeticDynamics.Computability.ComputationalCapacity"],
+ ["docBlame", "ArithmeticDynamics.Computability.ObservationalEquivalence"],
+ ["docBlame", "ArithmeticDynamics.Computability.Universal"],
+ ["docBlame", "ArithmeticDynamics.Computability.prime_signature_dimension"],
+ ["docBlame", "ArithmeticDynamics.CorrespondenceTheorem.a"],
+ ["docBlame", "ArithmeticDynamics.CorrespondenceTheorem.b"],
+ ["docBlame", "ArithmeticDynamics.CorrespondenceTheorem.classify_system"],
+ ["docBlame", "ArithmeticDynamics.CorrespondenceTheorem.d"],
+ ["docBlame",
+  "ArithmeticDynamics.CorrespondenceTheorem.essential_spectral_radius"],
+ ["docBlame", "ArithmeticDynamics.CorrespondenceTheorem.passes_conway_filter"],
+ ["docBlame",
+  "ArithmeticDynamics.CorrespondenceTheorem.unique_equilibrium_state_for_all_potentials"],
+ ["docBlame", "ArithmeticDynamics.CorrespondenceTheorem.unique_periodic_orbit"],
+ ["docBlame", "ArithmeticDynamics.ErgodicTheory.HasProbabilisticIndependence"],
+ ["docBlame", "ArithmeticDynamics.ErgodicTheory.IsAperiodic"],
+ ["docBlame", "ArithmeticDynamics.ErgodicTheory.SecondLargestEigenvalueAbs"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.C"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.StateSpace"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.a"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.analytic_density"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.b"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.d"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.expected_drift"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.f"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.metric_entropy"],
+ ["docBlame", "ArithmeticDynamics.ScalingDuality.mu"],
+ ["docBlame", "ArithmeticDynamics.SpecificModels.StationaryMeasure"],
+ ["docBlame", "ArithmeticDynamics.SpecificModels.TransitionMatrix"],
+ ["docBlame", "ArithmeticDynamics.SpectralThreshold.S_matrix"],
+ ["docBlame", "ArithmeticDynamics.SpectralThreshold.analytic_density"],
+ ["docBlame", "ArithmeticDynamics.SpectralThreshold.d"],
+ ["docBlame", "ArithmeticDynamics.SpectralThreshold.essential_spectral_radius"],
+ ["docBlame",
+  "ArithmeticDynamics.SpectralThreshold.support_hausdorff_dimension"],
+ ["docBlame", "ArithmeticDynamics.ThermodynamicFormalism.StateSpace"],
+ ["docBlame",
+  "ArithmeticDynamics.ThermodynamicFormalism.all_continuous_potentials_have_equilibrium"],
+ ["docBlame", "ArithmeticDynamics.ThermodynamicFormalism.f"],
+ ["docBlame", "ArithmeticDynamics.ThermodynamicFormalism.metric_entropy_tau_f"],
+ ["docBlame",
+  "ArithmeticDynamics.ThermodynamicFormalism.periodic_orbits_finite"],
+ ["docBlame", "ArithmeticDynamics.ThermodynamicFormalism.tau_f"],
+ ["docBlame", "ArithmeticDynamics.Algebra.QuasiPolynomial.a"],
+ ["docBlame", "ArithmeticDynamics.Algebra.QuasiPolynomial.b"],
+ ["docBlame", "ArithmeticDynamics.Computability.ChomskyLevel.Le"],
+ ["docBlame", "ArithmeticDynamics.Computability.MealyMachine.State"],
+ ["docBlame", "ArithmeticDynamics.Computability.MealyMachine.output"],
+ ["docBlame", "ArithmeticDynamics.Computability.MealyMachine.transition"],
+ ["unusedArguments", "ArithmeticDynamics.boundary_error"],
+ ["unusedArguments", "ArithmeticDynamics.fractional_density"],
+ ["unusedArguments", "ArithmeticDynamics.generalized_sieve_construction"],
+ ["unusedArguments", "ArithmeticDynamics.Algebra.IsMahlerExpansion"],
+ ["unusedArguments", "ArithmeticDynamics.Algebra.ModEqZd"],
+ ["unusedArguments",
+  "ArithmeticDynamics.Algebra.SupportsOrthogonalPrimeChannels"],
+ ["unusedArguments", "ArithmeticDynamics.Algebra.linearization_of_orbits"],
+ ["unusedArguments", "ArithmeticDynamics.Algebra.lipschitz_implies_causality"],
+ ["unusedArguments",
+  "ArithmeticDynamics.Algebra.measure_preserving_lipschitz_is_isometry"],
+ ["unusedArguments", "ArithmeticDynamics.Algebra.padicNorm"],
+ ["unusedArguments", "ArithmeticDynamics.Algebra.padicNormZd"],
+ ["unusedArguments",
+  "ArithmeticDynamics.Algebra.prime_power_architectural_starvation"],
+ ["unusedArguments", "ArithmeticDynamics.Computability.ComputationalCapacity"],
+ ["unusedArguments", "ArithmeticDynamics.Computability.EncodesTrajectory"],
+ ["unusedArguments",
+  "ArithmeticDynamics.Computability.ObservationalEquivalence"],
+ ["unusedArguments", "ArithmeticDynamics.Computability.PresburgerProvable"],
+ ["unusedArguments", "ArithmeticDynamics.Computability.coprime_invertibility"],
+ ["unusedArguments",
+  "ArithmeticDynamics.Computability.first_order_translation"],
+ ["unusedArguments",
+  "ArithmeticDynamics.Computability.lipschitz_is_mealy_machine"],
+ ["unusedArguments",
+  "ArithmeticDynamics.Computability.lipschitz_measure_preserving_bounds_chomsky"],
+ ["unusedArguments",
+  "ArithmeticDynamics.Computability.termination_and_periodicity_decidable"],
+ ["unusedArguments",
+  "ArithmeticDynamics.ErgodicTheory.HasProbabilisticIndependence"],
+ ["unusedArguments", "ArithmeticDynamics.ErgodicTheory.IsPrimitive"],
+ ["unusedArguments",
+  "ArithmeticDynamics.ErgodicTheory.SecondLargestEigenvalueAbs"],
+ ["unusedArguments", "ArithmeticDynamics.ErgodicTheory.SupportsAnalyticSieve"],
+ ["unusedArguments",
+  "ArithmeticDynamics.ErgodicTheory.existence_of_stationary_measure"],
+ ["unusedArguments",
+  "ArithmeticDynamics.ErgodicTheory.rapid_mixing_from_spectral_gap"],
+ ["unusedArguments",
+  "ArithmeticDynamics.ErgodicTheory.sieve_degeneracy_at_universal_floor"],
+ ["unusedArguments",
+  "ArithmeticDynamics.ErgodicTheory.spectral_gap_constraint"],
+ ["unusedArguments", "ArithmeticDynamics.ScalingDuality.C"],
+ ["unusedArguments", "ArithmeticDynamics.ScalingDuality.a"],
+ ["unusedArguments", "ArithmeticDynamics.ScalingDuality.b"],
+ ["unusedArguments", "ArithmeticDynamics.ScalingDuality.expected_drift"],
+ ["unusedArguments", "ArithmeticDynamics.ScalingDuality.lyapunov_exponent"],
+ ["unusedArguments", "ArithmeticDynamics.SieveAnalytics.mixing_time_threshold"],
+ ["unusedArguments", "ArithmeticDynamics.SieveAnalytics.reweighted_measure"],
+ ["unusedArguments", "ArithmeticDynamics.SpecificModels.IsTuringComplete"],
+ ["unusedArguments", "ArithmeticDynamics.SpecificModels.StationaryMeasure"],
+ ["unusedArguments", "ArithmeticDynamics.SpecificModels.branch_count"],
+ ["unusedArguments", "ArithmeticDynamics.SpecificModels.minskyEncode"],
+ ["unusedArguments",
+  "ArithmeticDynamics.SpecificModels.pilot5_contractive_supermartingale"],
+ ["unusedArguments",
+  "ArithmeticDynamics.SpectralThreshold.essential_spectral_radius"],
+ ["unusedArguments",
+  "ArithmeticDynamics.ThermodynamicFormalism.metric_entropy_tau_f"],
+ ["unusedArguments",
+  "ArithmeticDynamics.Computability.MinskyBounds.inc_upper_bound"]]

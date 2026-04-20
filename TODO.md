@@ -234,7 +234,7 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
   - [x] Create `.github/workflows/lint.yml` to run `lake exe lint` (catches unused variables, missing docstrings, and naming violations).
   - [x] Configure `doc-gen4` in `lakefile.toml` and set up a GitHub Action to deploy Lean documentation to GitHub Pages.
 - [x] **Blueprint Maintenance:** Ensure all major theorems in Lean have `@[blueprint]` annotations and map directly to `blueprint/src/content.tex` via `\uses` and `\proves` macros.
-- [ ] **Testing Directory:** Create a `test/` folder for `#eval` regression tests on quasi-polynomials, Minsky machines, and FRACTRAN states.
+- [x] **Testing Directory:** Create a `test/` folder for `#eval` regression tests on quasi-polynomials, Minsky machines, and FRACTRAN states.
 
 ## 2. 📖 Core Definitions (The Missing Foundation)
 *Currently, the project jumps into advanced algebra, but lacks the core definitions defining the title.*

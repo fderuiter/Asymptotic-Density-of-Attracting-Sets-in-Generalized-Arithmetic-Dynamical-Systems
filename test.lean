@@ -1,0 +1,2 @@
+import test.ArithmeticDynamics.QuasiPolynomial_test
+import test.ArithmeticDynamics.Computability_test

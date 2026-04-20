@@ -2196,7 +2196,7 @@ For a formalization project, it is critical to maintain a living, cross-linked m
 - [x] The `@[blueprint]` attribute is successfully applied to multiple core theorems in the Lean codebase.
 - [x] `blueprint/src/content.tex` is updated with `\label`, `\uses`, and `\proves` macros linking the LaTeX claims to the Lean formalizations.
 - [x] The updated `BLUEPRINT.md` accurately scopes the blueprint mapping requirements without overwriting existing entries.
-## Target Task
+## Target Task [COMPLETED]
 Testing Directory: Create a `test/` folder for `#eval` regression tests on quasi-polynomials, Minsky machines, and FRACTRAN states.
 
 ## Target Profile
@@ -2222,9 +2222,9 @@ The project currently relies solely on formal proofs within the `ArithmeticDynam
 8. Ensure that running `lake build test` correctly compiles the tests without errors.
 
 ## Definition of Done (DoD)
-- [ ] The `test/` directory structure is successfully created at the repository root.
-- [ ] `lakefile.toml` is updated with a `[[lean_lib]]` entry mapping to `test`.
-- [ ] Foundational regression test files for quasi-polynomials and computability models are created, containing valid `#eval` commands.
+- [x] The `test/` directory structure is successfully created at the repository root.
+- [x] `lakefile.toml` is updated with a `[[lean_lib]]` entry mapping to `test`.
+- [x] Foundational regression test files for quasi-polynomials and computability models are created, containing valid `#eval` commands.
 ## Target Task
 - [ ] **Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`**
 

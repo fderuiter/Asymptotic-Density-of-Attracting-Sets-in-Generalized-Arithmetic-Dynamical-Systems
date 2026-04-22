@@ -2225,8 +2225,8 @@ The project currently relies solely on formal proofs within the `ArithmeticDynam
 - [x] The `test/` directory structure is successfully created at the repository root.
 - [x] `lakefile.toml` is updated with a `[[lean_lib]]` entry mapping to `test`.
 - [x] Foundational regression test files for quasi-polynomials and computability models are created, containing valid `#eval` commands.
-## Target Task
-- [ ] **Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`**
+## Target Task [COMPLETED]
+- [x] **Prove `collatz5x1_div_cond` & `collatz5x1_drift_is_expansive`**
 
 ## Target Profile
 - **File:** `ArithmeticDynamics/SpecificModels/Expansive5x1.lean`
@@ -2249,9 +2249,9 @@ Currently, the structural properties of the $5x+1$ model, namely the divisibilit
 7. Ensure no signatures are altered, preserving the strict 1-to-1 mapping to the theoretical claims.
 
 ## Definition of Done (DoD)
-- [ ] `collatz5x1_div_cond` is proven using explicit tactics, eradicating the `axiom`.
-- [ ] `collatz5x1_drift_is_expansive` is mathematically proven without `sorry` or `axiom`.
-- [ ] The file `Expansive5x1.lean` securely compiles cleanly without errors.
+- [x] `collatz5x1_div_cond` is proven using explicit tactics, eradicating the `axiom`.
+- [x] `collatz5x1_drift_is_expansive` is mathematically proven without `sorry` or `axiom`.
+- [x] The file `Expansive5x1.lean` securely compiles cleanly without errors.
 
 ## Target Task [COMPLETED]
 Prove `expansive_measure_dissipation`

@@ -64,7 +64,7 @@ to encode an INC operation is exactly 1.
 
 -- UPPER BOUND (≤ 1): 1 piecewise affine branch cleanly compiles INC.
 theorem inc_upper_bound
-    (q_curr q_next : State) (hp₁ : p₁ > 0) (hS : S q_curr > 0) :
+    (q_curr q_next : State) (_hp₁ : p₁ > 0) (hS : S q_curr > 0) :
     ∃ N D, D > 0 ∧ ∀ r₁ r₂, Applies N D (E S p₁ p₂ q_curr r₁ r₂) (E S p₁ p₂ q_next (r₁ + 1) r₂) := by
   -- The required fraction is f = (S(q_next) * p₁) / S(q_curr)
   use (S q_next * p₁), S q_curr

@@ -93,7 +93,7 @@ to encode a JZDEC operation is exactly 2.
 
 -- UPPER BOUND (≤ 2): 2 individual branches correctly compile JZDEC.
 theorem jzdec_upper_bound_pos
-    (q_curr q_pos : State) (_hp₁ : p₁ > 0) (hS : S q_curr > 0) :
+    (q_curr q_pos : State) (hp₁ : p₁ > 0) (hS : S q_curr > 0) :
     ∃ N D, D > 0 ∧ ∀ r r₂, Applies N D (E S p₁ p₂ q_curr (r + 1) r₂) (E S p₁ p₂ q_pos r r₂) := by
   -- The "If Positive" decrementing branch
   use S q_pos, (S q_curr * p₁)
@@ -178,7 +178,7 @@ unconditionally trigger even when r₁ = 0.
 -/
 theorem pure_jz_lower_bound
     (q_curr q_pos : State) (N D : ℕ)
-    (_hp₁ : p₁ > 0)
+    (hp₁ : p₁ > 0)
     -- The single branch tests for positive AND preserves r₁ cleanly (maps r+1 to r+1)
     (h_pos : ∀ r r₂, Applies N D (E S p₁ p₂ q_curr (r + 1) r₂) (E S p₁ p₂ q_pos (r + 1) r₂)) :
     -- Result: It must apply unconditionally to configurations where r₁ = 0

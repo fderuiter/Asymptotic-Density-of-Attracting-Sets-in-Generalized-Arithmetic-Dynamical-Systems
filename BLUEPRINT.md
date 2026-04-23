@@ -1720,9 +1720,7 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
 - [x] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [x] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [x] The file compiles cleanly and without warnings.
-- [x] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
-- [x] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
-- [x] The file compiles cleanly and without warnings.
+
 ## Target Task [COMPLETED]
 Mathlib Alignment: Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
 

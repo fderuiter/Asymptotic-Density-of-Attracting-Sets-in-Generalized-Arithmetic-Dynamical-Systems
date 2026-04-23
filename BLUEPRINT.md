@@ -983,9 +983,9 @@ The overarching mathematical framework evaluates the asymptotic density of subse
 6. Add comprehensive docstrings to both definitions detailing their specific mathematical intent.
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/AttractingSet.lean` is created.
-- [ ] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s.
-- [ ] The file compiles cleanly and imports dependencies correctly.
+- [x] The file `ArithmeticDynamics/AttractingSet.lean` is created.
+- [x] The definitions `IsAttractingSetDiscrete` and `IsAttractingSetMetric` are rigorously formalized without `sorry`s.
+- [x] The file compiles cleanly and imports dependencies correctly.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/AsymptoticDensity.lean`: Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
@@ -1720,9 +1720,6 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
 - [x] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [x] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [x] The file compiles cleanly and without warnings.
-- [ ] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
-- [ ] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
-- [ ] The file compiles cleanly and without warnings.
 ## Target Task [COMPLETED]
 Mathlib Alignment: Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
 

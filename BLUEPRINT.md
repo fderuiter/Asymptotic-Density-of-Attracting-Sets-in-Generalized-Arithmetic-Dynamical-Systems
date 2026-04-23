@@ -696,9 +696,9 @@ The `lipschitz_implies_causality` axiom asserts that 1-Lipschitz continuity over
 6. Verify that the file compiles successfully after making the changes.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declaration for `lipschitz_implies_causality` is completely removed and replaced with a `theorem` declaration.
+- [x] The `axiom` declaration for `lipschitz_implies_causality` is completely removed and replaced with a `theorem` declaration.
 - [x] The top-level logical structure is formalized with `:= by sorry`.
-- [ ] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] The `ArithmeticDynamics/Algebra/LipschitzCausality.lean` file compiles cleanly without top-level \'declaration uses sorry\' errors for the theorem signatures themselves.
 
 ## Target Task [COMPLETED] [COMPLETED]
 Sieve Analytics General Framework
@@ -727,9 +727,9 @@ The `SieveAnalytics` module currently relies on 17 unverified `axiom` declaratio
 14. Change the data axiom `markov_transfer_operator_M` to `noncomputable def` and append `:= sorry`.
 
 ## Definition of Done (DoD)
-- [ ] All 17 `axiom` declarations across the 6 `SieveAnalytics` files are completely removed.
-- [ ] Propositional axioms are replaced with `theorem`s ending in `:= by sorry`, and data axioms are replaced with `noncomputable def`s ending in `:= sorry`.
-- [ ] All 6 modified `.lean` files compile successfully without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] All 17 `axiom` declarations across the 6 `SieveAnalytics` files are completely removed.
+- [x] Propositional axioms are replaced with `theorem`s ending in `:= by sorry`, and data axioms are replaced with `noncomputable def`s ending in `:= sorry`.
+- [x] All 6 modified `.lean` files compile successfully without top-level \'declaration uses sorry\' errors for the theorem signatures themselves.
 
 ## Target Task [COMPLETED] [COMPLETED]
 Prove `lyapunov_scaling_duality` & `complex_balancing`
@@ -872,8 +872,8 @@ To contrast against the contractive 3x+1 dynamics, the generalized Expansive `5x
 
 ## Definition of Done (DoD)
 - [x] The `axiom` declarations for `collatz5x1_div_cond` and `collatz5x1_drift_is_expansive` are completely removed.
-- [ ] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
-- [ ] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signatures themselves.
+- [x] Both declarations are replaced with `theorem` signatures ending in `:= by sorry`.
+- [x] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without top-level \'declaration uses sorry\' errors for the theorem signatures themselves.
 
 ## Target Task [COMPLETED]
 Prove `expansive_measure_dissipation`
@@ -892,9 +892,9 @@ Because `ρ > 0` for `5x+1`, the map demonstrates catastrophic algebraic diffusi
 4. Append `:= by sorry` to conclude the proof block, isolating the uncomputable measure theory logic.
 
 ## Definition of Done (DoD)
-- [ ] The `axiom` declaration for `expansive_measure_dissipation` is completely removed.
-- [ ] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
-- [ ] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without top-level 'declaration uses sorry' errors for the theorem signature itself.
+- [x] The `axiom` declaration for `expansive_measure_dissipation` is completely removed.
+- [x] The declaration is replaced with a `theorem` signature ending in `:= by sorry`.
+- [x] The file `ArithmeticDynamics/SpecificModels/Expansive5x1.lean` compiles without top-level \'declaration uses sorry\' errors for the theorem signature itself.
 
 ## Target Task [COMPLETED]
 Pilot System 5 Evaluation
@@ -1032,9 +1032,9 @@ The central goal of the Sieve Analytics is to bound the asymptotic capacity of a
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/AsymptoticDensity.lean` is created.
-- [ ] All four natural and logarithmic density definitions are accurately formalized as `noncomputable def`s.
-- [ ] The file compiles safely without errors.
+- [x] The file `ArithmeticDynamics/AsymptoticDensity.lean` is created.
+- [x] All four natural and logarithmic density definitions are accurately formalized as `noncomputable def`s.
+- [x] The file compiles safely without errors.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/Algebra/MahlerExpansion.lean`: Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.
@@ -1080,8 +1080,8 @@ To continuously interpolate discrete quasi-polynomial maps modulo $d$ over the $
 
 ## Definition of Done (DoD)
 - [x] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
-- [ ] Core definitions for `mahlerBasis` and `mahlerCoefficients` are mapped as `noncomputable def`s.
-- [ ] The foundational structural theorem `mahler_expansion_continuous` is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
+- [x] Core definitions for `mahlerBasis` and `mahlerCoefficients` are mapped as `noncomputable def`s.
+- [x] The foundational structural theorem `mahler_expansion_continuous` is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/Algebra/HaarMeasure.lean`: Instantiate Mathlib's Haar measure for the $p$-adic integers $\mathbb{Z}_p$ (an absolute prerequisite for Ergodic Theory).
@@ -1154,9 +1154,9 @@ Currently, the algebraic properties of `Z_d d` defined via inverse limits lack t
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Algebra/ProfiniteTopology.lean` is created.
-- [ ] Core definition for `zdProfinite` is mapped as a `noncomputable def`.
-- [ ] The structural mapping is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
+- [x] The file `ArithmeticDynamics/Algebra/ProfiniteTopology.lean` is created.
+- [x] Core definition for `zdProfinite` is mapped as a `noncomputable def`.
+- [x] The structural mapping is established without top-level `axiom`s, cleanly isolating analytical bounds via `sorry`.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/Computability/HaltingProblem.lean`: Import Mathlib's `Computability.Halting` to establish the Halting Problem as the base of uncomputability.
@@ -1191,9 +1191,9 @@ To strictly establish that density limits for arbitrary quasi-polynomials are un
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Computability/HaltingProblem.lean` is created.
-- [ ] Core definition for `haltingProblemReference` is mapped as a concrete `def`.
-- [ ] The foundational structural theorem `halting_problem_base` is rigorously established without top-level `axiom`s and contains exactly zero `sorry`s.
+- [x] The file `ArithmeticDynamics/Computability/HaltingProblem.lean` is created.
+- [x] Core definition for `haltingProblemReference` is mapped as a concrete `def`.
+- [x] The foundational structural theorem `halting_problem_base` is rigorously established without top-level `axiom`s and contains exactly zero `sorry`s.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/Computability/UndecidabilityBarrier.lean`: Formalize the explicit reduction proving that calculating the exact asymptotic density of attracting sets for an *arbitrary* quasi-polynomial map is uncomputable.
@@ -1228,9 +1228,9 @@ Currently, the project claims that evaluating the asymptotic density for general
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Computability/UndecidabilityBarrier.lean` is created.
-- [ ] Core definition for `AsymptoticDensityComputable` is mapped as a concrete `def`.
-- [ ] The foundational structural theorem `undecidability_barrier` is rigorously established without top-level `axiom`s and contains exactly zero `sorry`s.
+- [x] The file `ArithmeticDynamics/Computability/UndecidabilityBarrier.lean` is created.
+- [x] Core definition for `AsymptoticDensityComputable` is mapped as a concrete `def`.
+- [x] The foundational structural theorem `undecidability_barrier` is rigorously established without top-level `axiom`s and contains exactly zero `sorry`s.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/Computability/DiophantineEncoding.lean`: Formalize the encoding of Minsky register states into integer arithmetic.
@@ -1261,9 +1261,9 @@ To complete the formal reduction from the Halting Problem to the density functio
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Computability/DiophantineEncoding.lean` is created.
-- [ ] Core definition for `MinskyStateToDiophantine` is mapped as a concrete `def`.
-- [ ] The foundational structural theorem `diophantine_encoding_base` is rigorously established without top-level `axiom`s and contains exactly zero `sorry`s.
+- [x] The file `ArithmeticDynamics/Computability/DiophantineEncoding.lean` is created.
+- [x] Core definition for `MinskyStateToDiophantine` is mapped as a concrete `def`.
+- [x] The foundational structural theorem `diophantine_encoding_base` is rigorously established without top-level `axiom`s and contains exactly zero `sorry`s.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/ErgodicTheory/TransferOperator.lean`: Define the Ruelle-Perron-Frobenius transfer operator on a suitable Banach space of functions over $\mathbb{Z}_p$.
@@ -1292,9 +1292,9 @@ The thermodynamic formalism relies fundamentally on Transfer Operators (the Ruel
 8. Define a core spectral bounding proxy theorem (e.g. `transfer_operator_spectral_radius_bound`) ending in `:= by sorry` without utilizing top-level axioms.
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/ErgodicTheory/TransferOperator.lean` is created.
-- [ ] Core topological aliases and the `transferOperator` mapping are formally defined as `noncomputable def`s.
-- [ ] The structural proof placeholder for the spectral bound is established without top-level `axiom`s, cleanly isolating analytical gaps via `sorry`.
+- [x] The file `ArithmeticDynamics/ErgodicTheory/TransferOperator.lean` is created.
+- [x] Core topological aliases and the `transferOperator` mapping are formally defined as `noncomputable def`s.
+- [x] The structural proof placeholder for the spectral bound is established without top-level `axiom`s, cleanly isolating analytical gaps via `sorry`.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/ErgodicTheory/InvariantMeasure.lean`: Prove the existence (and uniqueness, if applicable) of the absolutely continuous invariant measure (ACIM) via Krylov-Bogolyubov.
@@ -1333,9 +1333,9 @@ Following the definition of the transfer operator, we must formally establish th
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/ErgodicTheory/InvariantMeasure.lean` is created.
-- [ ] Core definitions `StateSpace` and `IsInvariantMeasure` are rigorously formalized without `sorry`s.
-- [ ] The structural proof placeholder `exists_invariant_measure` is established without top-level `axiom`s, cleanly isolating analytical gaps via `sorry`.
+- [x] The file `ArithmeticDynamics/ErgodicTheory/InvariantMeasure.lean` is created.
+- [x] Core definitions `StateSpace` and `IsInvariantMeasure` are rigorously formalized without `sorry`s.
+- [x] The structural proof placeholder `exists_invariant_measure` is established without top-level `axiom`s, cleanly isolating analytical gaps via `sorry`.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/ErgodicTheory/BirkhoffErgodic.lean`: Specialize Birkhoff's Ergodic Theorem for your system to rigorously link spatial averages (asymptotic density) to time averages (logarithmic drift).
@@ -1377,9 +1377,9 @@ Currently, the theoretical framework assumes a direct equivalence between the sp
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/ErgodicTheory/BirkhoffErgodic.lean` is created.
-- [ ] Core metric mappings for `timeAverage` and `spatialAverage` are explicitly defined as `noncomputable def`s.
-- [ ] The structural proof placeholder `birkhoff_ergodic_specialization` is rigorously established without top-level `axiom`s, safely isolating integral convergence gaps via `sorry`.
+- [x] The file `ArithmeticDynamics/ErgodicTheory/BirkhoffErgodic.lean` is created.
+- [x] Core metric mappings for `timeAverage` and `spatialAverage` are explicitly defined as `noncomputable def`s.
+- [x] The structural proof placeholder `birkhoff_ergodic_specialization` is rigorously established without top-level `axiom`s, safely isolating integral convergence gaps via `sorry`.
 
 ## Target Task [COMPLETED]
 `LocalToGlobal.lean`: Prove the conditions under which local $p$-adic decoupling (`DecouplingThreshold.lean`) successfully lifts to global density lower bounds (`DensityLowerBound.lean`).
@@ -1413,9 +1413,9 @@ The generalized sieve fundamentally relies on lifting local $p$-adic decoupling 
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/SieveAnalytics/LocalToGlobal.lean` is created and imports correct dependencies.
-- [ ] The structural mapping `LocalToGlobalLifts` is defined as a concrete `def` yielding `False`.
-- [ ] The core bridging theorem `local_to_global_principle` is established structurally without top-level `axiom`s and contains exactly zero `sorry`s.
+- [x] The file `ArithmeticDynamics/SieveAnalytics/LocalToGlobal.lean` is created and imports correct dependencies.
+- [x] The structural mapping `LocalToGlobalLifts` is defined as a concrete `def` yielding `False`.
+- [x] The core bridging theorem `local_to_global_principle` is established structurally without top-level `axiom`s and contains exactly zero `sorry`s.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/SieveAnalytics/ResidueIndependence.lean`: Formalize the heuristic that branching events (residue class transitions) are statistically quasi-independent using the Chinese Remainder Theorem.
@@ -1446,9 +1446,9 @@ The Sieve Analytics generalized framework bounds fractional density by relying o
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/SieveAnalytics/ResidueIndependence.lean` is created and imports correct dependencies.
-- [ ] The structural mapping `ResidueIndependenceHeuristic` is defined as a concrete `def` yielding `False`.
-- [ ] The core bridging theorem `residue_independence_base` is established structurally without top-level `axiom`s and contains exactly zero `sorry`s.
+- [x] The file `ArithmeticDynamics/SieveAnalytics/ResidueIndependence.lean` is created and imports correct dependencies.
+- [x] The structural mapping `ResidueIndependenceHeuristic` is defined as a concrete `def` yielding `False`.
+- [x] The core bridging theorem `residue_independence_base` is established structurally without top-level `axiom`s and contains exactly zero `sorry`s.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean`: Formally define the dynamical zeta function to support the thermodynamic formalism.
@@ -1474,9 +1474,9 @@ The thermodynamic formalism rigorously requires evaluating the dynamical zeta fu
 7. Formalize the main zeta function bounding the series expansion `exp(sum z^n / n * |Fix(f^n)|)` via `noncomputable def dynamicalZetaFunction (f : StateSpace → StateSpace) (z : ℂ) : ℂ := sorry`, yielding a targeted uncomputable analytic gap.
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean` is created.
-- [ ] Core metric functions `periodicPointCount` and `dynamicalZetaFunction` are mapped as `noncomputable def`s.
-- [ ] The foundational structural analytic mapping is established natively to complex variables without top-level `axiom`s, cleanly isolating analytical evaluation gaps via `sorry`.
+- [x] The file `ArithmeticDynamics/UniversalLaw/DynamicalZetaFunction.lean` is created.
+- [x] Core metric functions `periodicPointCount` and `dynamicalZetaFunction` are mapped as `noncomputable def`s.
+- [x] The foundational structural analytic mapping is established natively to complex variables without top-level `axiom`s, cleanly isolating analytical evaluation gaps via `sorry`.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/UniversalLaw/BowenEquation.lean`: Relate the Hausdorff dimension of attracting sets to the roots of topological pressure.
@@ -1510,9 +1510,9 @@ Thermodynamic formalism rigorously bounds the fractal complexity of attracting s
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/UniversalLaw/BowenEquation.lean` is created.
-- [ ] Core metric mappings `metricHausdorffDimension` and `topologicalPressure` are explicitly defined as `noncomputable def`s.
-- [ ] The structural proof placeholder `bowens_equation` is rigorously established without top-level `axiom`s, safely isolating analytic convergence gaps via `sorry`.
+- [x] The file `ArithmeticDynamics/UniversalLaw/BowenEquation.lean` is created.
+- [x] Core metric mappings `metricHausdorffDimension` and `topologicalPressure` are explicitly defined as `noncomputable def`s.
+- [x] The structural proof placeholder `bowens_equation` is rigorously established without top-level `axiom`s, safely isolating analytic convergence gaps via `sorry`.
 
 ## Target Task [COMPLETED]
 Prove `collatz_div_cond` & `collatz_drift_is_contractive`
@@ -1573,9 +1573,9 @@ The project currently requires a concrete foundational baseline model mapped to 
    ```
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/SpecificModels/Collatz3x1.lean` is created.
-- [ ] The Syracuse map and baseline embedding proxy are rigorously formalized without `sorry`s.
-- [ ] The file compiles safely without errors.
+- [x] The file `ArithmeticDynamics/SpecificModels/Collatz3x1.lean` is created.
+- [x] The Syracuse map and baseline embedding proxy are rigorously formalized without `sorry`s.
+- [x] The file compiles safely without errors.
 
 ## Target Task [COMPLETED]
 Lean-Python Interop (`ArithmeticDynamics/Compute/LoadMatrix.lean`): Write a Lean script to parse `data/matrix_data.json` at compile-time so empirical matrix bounds generated by `pilot_sim.py` can be verified computationally in Lean via `#eval` or `decide`.
@@ -1607,9 +1607,9 @@ The repository relies on empirical matrix bounds from a Python simulation (`pilo
 6. Define a structural boundary theorem or evaluation placeholder safely using a `sorry` within a `def` if necessary, ensuring no top-level axioms are required.
 
 ## Definition of Done (DoD)
-- [ ] The file `ArithmeticDynamics/Compute/LoadMatrix.lean` is created.
-- [ ] A compile-time IO ingestion macro for `data/matrix_data.json` is implemented natively using `Lean.Data.Json`.
-- [ ] The file correctly connects external Python bounds to the formal system without any unproven top-level `axiom`s.
+- [x] The file `ArithmeticDynamics/Compute/LoadMatrix.lean` is created.
+- [x] A compile-time IO ingestion macro for `data/matrix_data.json` is implemented natively using `Lean.Data.Json`.
+- [x] The file correctly connects external Python bounds to the formal system without any unproven top-level `axiom`s.
 
 
 
@@ -1638,9 +1638,9 @@ The expansive 5x+1 map currently asserts its positive logarithmic drift (`collat
    ```
 
 ## Definition of Done (DoD)
-- [ ] The `axiom collatz5x1_drift_is_expansive` is entirely removed.
-- [ ] The declaration is replaced with a `theorem` containing the exact tactic-level sequence (`unfold`, `rw [Fin.sum_univ_two]`, `dsimp`) for sum expansion.
-- [ ] Zero unproven `axiom`s exist in the file.
+- [x] The `axiom collatz5x1_drift_is_expansive` is entirely removed.
+- [x] The declaration is replaced with a `theorem` containing the exact tactic-level sequence (`unfold`, `rw [Fin.sum_univ_two]`, `dsimp`) for sum expansion.
+- [x] Zero unproven `axiom`s exist in the file.
 
 ## Target Task [COMPLETED]
 `ArithmeticDynamics/Basic.lean`: Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
@@ -1720,6 +1720,7 @@ The current algebra phase establishes quasi-polynomial mappings, but it lacks th
 - [x] The file `ArithmeticDynamics/Algebra/MahlerExpansion.lean` is created.
 - [x] `discreteMahlerBasis` and the `mahler_expansion_exists` theorem are fully formalized with exact Lean 4 proofs (`use`, `intro`, `exact trivial`), containing zero `sorry`s.
 - [x] The file compiles cleanly and without warnings.
+
 ## Target Task [COMPLETED]
 Mathlib Alignment: Ensure `lakefile.toml` points to a specific, stable `mathlib4` commit corresponding to your `lean-toolchain` to avoid breakage.
 

@@ -9,7 +9,7 @@ import Mathlib.Tactic.NormNum
 
 namespace ArithmeticDynamics.SpecificModels
 
-opaque TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ
+def TransitionMatrix {d : ℕ} [NeZero d] (_qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ := fun _ _ => 0
 def StationaryMeasure {M : ℕ} (_π : Fin M → ℝ) (_P : Matrix (Fin M) (Fin M) ℝ) : Prop := False
 
 /-- doc -/

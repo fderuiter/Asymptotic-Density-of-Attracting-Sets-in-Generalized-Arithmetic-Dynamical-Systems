@@ -30,7 +30,15 @@ theorem collatz_drift_is_contractive :
   unfold ErgodicTheory.logarithmicDrift
   rw [Fin.sum_univ_two]
   dsimp
-  sorry
+  have h1 : Real.log (1/2) < 0 := Real.log_neg (by norm_num) (by norm_num)
+  have h2 : Real.log (3/2) > 0 := Real.log_pos (by norm_num)
+  -- wait, (log 0.5 + log 1.5)/2 = log 0.75 / 2 < 0
+  have h3 : Real.log (1/2) + Real.log (3/2) = Real.log (3/4) := by
+    rw [←Real.log_mul (by norm_num) (by norm_num)]
+    norm_num
+  have h4 : Real.log (3/4) < 0 := Real.log_neg (by norm_num) (by norm_num)
+  rw [h3]
+  exact mul_neg_of_pos_of_neg (by norm_num) h4
 
 /-- Lemma 1.4.1C.2: The Coprime Safe-Harbor Protocol.
     Proves that gcd(multiplier, modulus) = 1 prevents the map from fracturing into

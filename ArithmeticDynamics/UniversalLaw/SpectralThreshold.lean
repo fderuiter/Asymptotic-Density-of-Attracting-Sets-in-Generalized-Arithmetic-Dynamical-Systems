@@ -1,6 +1,7 @@
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Topology.MetricSpace.Basic
 import ArithmeticDynamics.Blueprint
+import ArithmeticDynamics.AsymptoticDensity
 
 set_option linter.unusedVariables false
 open Classical
@@ -20,7 +21,7 @@ def S_matrix : Matrix (Fin d) (Fin d) ℝ := 0
 noncomputable def essential_spectral_radius (S : Matrix (Fin d) (Fin d) ℝ) : ℝ := 0
 
 noncomputable def analytic_density : ℝ :=
-  if 1 - essential_spectral_radius S_matrix > 0 then 1 else 0
+  if 1 - essential_spectral_radius S_matrix > 0 then AsymptoticDensity Set.univ else 0
 
 noncomputable def support_hausdorff_dimension : ℝ :=
   if 1 - essential_spectral_radius S_matrix ≤ 0 then 0 else 1

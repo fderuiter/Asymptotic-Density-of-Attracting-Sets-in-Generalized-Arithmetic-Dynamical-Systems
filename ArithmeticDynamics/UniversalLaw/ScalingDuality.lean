@@ -4,6 +4,7 @@ import Mathlib.Topology.MetricSpace.Basic
 import Mathlib.Probability.Martingale.Basic
 import Mathlib.MeasureTheory.Measure.MeasureSpace
 import ArithmeticDynamics.Blueprint
+import ArithmeticDynamics.AsymptoticDensity
 
 set_option linter.unusedVariables false
 open Classical
@@ -26,7 +27,7 @@ instance : MeasurableSpace StateSpace := ⊥
 noncomputable def f : StateSpace → StateSpace := id
 def d : ℕ := 2
 /-- doc -/
-axiom d_ge_2 : d ≥ 2
+theorem d_ge_2 : d ≥ 2 := by rfl
 
 def a : Fin d → ℤ := fun _ => 0
 def b : Fin d → ℤ := fun _ => 0
@@ -52,7 +53,7 @@ theorem lyapunov_scaling_duality :
 noncomputable def expected_drift (f_map : StateSpace → StateSpace) (n : ℕ) : ℝ := 0
 
 noncomputable def analytic_density (f_map : StateSpace → StateSpace) : ℝ :=
-  if lyapunov_exponent mu f_map > 0 ∧ (∀ ε > 0, ∃ N, ∀ n ≥ N, expected_drift f_map n ≤ ε) then 1 else 0
+  if lyapunov_exponent mu f_map > 0 ∧ (∀ ε > 0, ∃ N, ∀ n ≥ N, expected_drift f_map n ≤ ε) then AsymptoticDensity Set.univ else 0
 
 /--
 Theorem 4.1.2 (Complex Balancing)

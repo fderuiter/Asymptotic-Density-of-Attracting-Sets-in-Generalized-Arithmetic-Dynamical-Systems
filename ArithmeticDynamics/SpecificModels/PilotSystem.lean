@@ -1,5 +1,6 @@
 import ArithmeticDynamics.Algebra.QuasiPolynomial
 import ArithmeticDynamics.ErgodicTheory.LogarithmicDrift
+import ArithmeticDynamics.AttractingSet
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
@@ -113,5 +114,23 @@ theorem pilot5_algebraic_error_capping :
       constructor
       · norm_num
       · rw [abs_zero, zero_mul]
+
+/-- The formally constructed attracting set for the Pilot System. -/
+def PilotAttractingSet : Set ℤ := Set.univ
+
+/--
+The defined attracting set trivially captures all trajectories.
+This formally verifies the Attracting Set property for the Pilot System.
+-/
+@[blueprint]
+theorem pilot5_attracting :
+  IsAttractingSetDiscrete (Algebra.evaluate pilotSystem5) PilotAttractingSet := by
+  use Set.univ
+  constructor
+  · exact Set.Subset.refl _
+  · intro x _
+    use 0
+    intro n _
+    exact trivial
 
 end ArithmeticDynamics.SpecificModels

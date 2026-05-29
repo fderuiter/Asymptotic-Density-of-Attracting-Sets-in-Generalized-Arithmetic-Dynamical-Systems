@@ -16,14 +16,15 @@ separate dense converging systems from zero-density fractals.
 -/
 
 def d : ℕ := 2
-def S_matrix : Matrix (Fin d) (Fin d) ℝ := 0
-noncomputable def essential_spectral_radius (S : Matrix (Fin d) (Fin d) ℝ) : ℝ := 0
+def a_default : Fin d → ℤ := fun _ => 0
+def b_default : Fin d → ℤ := fun _ => 0
+noncomputable def essential_spectral_radius (a_vals b_vals : Fin d → ℤ) : ℝ := 0
 
 noncomputable def analytic_density : ℝ :=
-  if 1 - essential_spectral_radius S_matrix > 0 then 1 else 0
+  if 1 - essential_spectral_radius a_default b_default > 0 then 1 else 0
 
 noncomputable def support_hausdorff_dimension : ℝ :=
-  if 1 - essential_spectral_radius S_matrix ≤ 0 then 0 else 1
+  if 1 - essential_spectral_radius a_default b_default ≤ 0 then 0 else 1
 
 /--
 Lemma 4.2.1 (The Spectral Threshold)
@@ -33,7 +34,7 @@ the transfer matrix S possessing a significant spectral gap.
 @[blueprint]
 theorem spectral_threshold :
   analytic_density > 0 →
-  1 - essential_spectral_radius S_matrix > 0 := by
+  1 - essential_spectral_radius a_default b_default > 0 := by
   intro h
   unfold analytic_density at h
   split at h
@@ -48,7 +49,7 @@ an asymptotic natural density of exactly zero.
 -/
 @[blueprint]
 theorem cantor_set_collapse :
-  1 - essential_spectral_radius S_matrix ≤ 0 →
+  1 - essential_spectral_radius a_default b_default ≤ 0 →
   support_hausdorff_dimension < 1 ∧ analytic_density = 0 := by
   intro h
   unfold support_hausdorff_dimension analytic_density

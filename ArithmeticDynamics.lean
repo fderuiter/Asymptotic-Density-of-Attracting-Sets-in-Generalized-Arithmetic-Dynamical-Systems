@@ -1,4 +1,7 @@
 import ArithmeticDynamics.Blueprint
+import ArithmeticDynamics.Basic
+import ArithmeticDynamics.AttractingSet
+import ArithmeticDynamics.AsymptoticDensity
 import ArithmeticDynamics.Algebra.QuasiPolynomial
 import ArithmeticDynamics.Algebra.ResidueAction
 import ArithmeticDynamics.Algebra.PadicExtensions

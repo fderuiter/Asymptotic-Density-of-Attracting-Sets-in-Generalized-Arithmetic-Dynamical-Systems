@@ -26,7 +26,7 @@ instance : MeasurableSpace StateSpace := ⊥
 noncomputable def f : StateSpace → StateSpace := id
 def d : ℕ := 2
 /-- doc -/
-axiom d_ge_2 : d ≥ 2
+theorem d_ge_2 : d ≥ 2 := by rfl
 
 def a : Fin d → ℤ := fun _ => 0
 def b : Fin d → ℤ := fun _ => 0

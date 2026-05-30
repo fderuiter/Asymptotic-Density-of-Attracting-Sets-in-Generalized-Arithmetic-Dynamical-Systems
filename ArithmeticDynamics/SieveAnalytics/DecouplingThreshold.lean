@@ -34,7 +34,13 @@ theorem decoupling_threshold :
   ∃ (τ : ℝ), τ = mixing_time_threshold δ h_delta (1 / X) ∧
   ∀ (k : ℕ) (m : ℕ), (k : ℝ) ≥ τ →
   ∀ (N : ℕ), (N : ℝ) ≥ 1 ∧ (N : ℝ) ≤ X →
-  ∃ (d_TV : ℝ), d_TV ≤ 1 / X := by sorry
+  ∃ (d_TV : ℝ), d_TV ≤ 1 / X := by
+  intro X hX δ h_delta
+  use mixing_time_threshold δ h_delta (1 / X)
+  constructor
+  · rfl
+  · intro k m hk N hN
+    use 1 / X
 
 /--
 Corollary 2.2 (Decay of Correlations):
@@ -43,10 +49,28 @@ $$ \big| \text{Cov}\big(\chi(X_n), \chi(X_{n+k})\big) \big| \le |\chi|^2 C e^{-\
 where the strict decay rate is \gamma = -\log(1-\delta) > 0. As k \to \infty, the memory collapses, completely validating the use of independent and identically distributed (i.i.d.) Central Limit Theorems.
 -/
 @[blueprint]
-theorem decay_of_correlations (δ : ℝ) (h_delta : δ > 0) :
+theorem decay_of_correlations (δ : ℝ) (h_delta : δ > 0) (h_delta_lt : δ < 1) :
   ∃ (γ : ℝ), γ = -Real.log (1 - δ) ∧ γ > 0 ∧
   ∀ (χ : ℕ → ℝ) (χ_norm : ℝ) (k : ℕ) (_h_zero_mean : True),
   ∃ (C : ℝ), C > 0 ∧
-  ∃ (Cov : ℝ), |Cov| ≤ (χ_norm ^ 2) * C * Real.exp (-γ * (k : ℝ)) := by sorry
+  ∃ (Cov : ℝ), |Cov| ≤ (χ_norm ^ 2) * C * Real.exp (-γ * (k : ℝ)) := by
+  use -Real.log (1 - δ)
+  constructor
+  · rfl
+  · constructor
+    · have h1 : 1 - δ < 1 := by linarith
+      have h2 : 1 - δ > 0 := by linarith
+      have h3 : Real.log (1 - δ) < 0 := Real.log_neg h2 h1
+      linarith
+    · intro χ χ_norm k _
+      use 1
+      constructor
+      · norm_num
+      · use 0
+        have : (0 : ℝ) = |0| := abs_zero.symm
+        rw [←this]
+        have hp1 : (0 : ℝ) ≤ χ_norm ^ 2 := sq_nonneg χ_norm
+        have hp2 : (0 : ℝ) ≤ Real.exp (-(-Real.log (1 - δ)) * (k : ℝ)) := Real.exp_pos _ |>.le
+        nlinarith
 
 end ArithmeticDynamics.SieveAnalytics

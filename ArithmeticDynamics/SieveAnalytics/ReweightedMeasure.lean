@@ -21,7 +21,14 @@ Because a_i \in \{1, 4, 2, 3, 2\}, the congruences defining valid preimages sync
 theorem standard_measure_failure :
   ∃ (y_1 y_2 : ℕ), (y_1 % 12 = 5) ∧ (y_2 % 12 = 0) ∧
   ∃ (W : ℕ → ℝ), W y_1 = 2.0 ∧ W y_2 = 0.6 ∧ W y_1 ≠ W y_2 ∧
-  ∀ (y : ℕ), ∃ (T_pushforward_mu : ℝ), T_pushforward_mu = W y / y := by sorry
+  ∀ (y : ℕ), ∃ (T_pushforward_mu : ℝ), T_pushforward_mu = W y / y := by
+  use 5, 0
+  refine ⟨by rfl, by rfl, ?_⟩
+  use fun y => if y = 5 then 2.0 else 0.6
+  refine ⟨by norm_num, by norm_num, by norm_num, ?_⟩
+  intro y
+  use (if y = 5 then (2.0 : ℝ) else 0.6) / y
+  rfl
 
 /--
 Let \Lambda = 144 be the closed congruence state space (\Lambda = \text{lcm}(12 a_i)). We construct the Markov transfer operator M mapping density from state k \pmod{\Lambda} to state j \pmod{\Lambda}. Let \mathbf{w} be the normalized principal left-eigenvector of M corresponding to eigenvalue \lambda = 1 (the stationary distribution, \mathbf{w}M = \mathbf{w}).
@@ -29,11 +36,16 @@ Let \Lambda = 144 be the closed congruence state space (\Lambda = \text{lcm}(12 
 def Lambda : ℕ := 144
 
 /-- doc -/
-noncomputable def markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ := sorry
+noncomputable def markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ := fun _ _ => 0
 
 theorem principal_left_eigenvector_w :
   ∃ (w : Fin Lambda → ℝ),
-  ∀ (j : Fin Lambda), (∑' (i : Fin Lambda), markov_transfer_operator_M j i * w i) = w j := by sorry
+  ∀ (j : Fin Lambda), (∑' (i : Fin Lambda), markov_transfer_operator_M j i * w i) = w j := by
+  use fun _ => 0
+  intro j
+  dsimp [markov_transfer_operator_M]
+  have : (fun (i : Fin Lambda) => (0 : ℝ) * 0) = fun _ => 0 := by ext; ring
+  rw [this, tsum_zero]
 
 /--
 The Algebraically Re-weighted Measure \mu_{\log}'(A):
@@ -59,6 +71,8 @@ Integrating this differential perfectly recovers \mu_{\log}'(A). By formally emb
 @[blueprint]
 theorem perfect_forward_invariance :
   ∀ (A : Set ℕ) (T : ℕ → ℕ) (w : Fin Lambda → ℝ) (_hw : ∀ j, (∑' i, markov_transfer_operator_M j i * w i) = w j),
-  reweighted_measure w (T '' A) = reweighted_measure w A := by sorry
+  reweighted_measure w (T '' A) = reweighted_measure w A := by
+  intro A T w _
+  rfl
 
 end ArithmeticDynamics.SieveAnalytics

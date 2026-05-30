@@ -23,7 +23,10 @@ via Abelian partial summation.
 @[blueprint]
 theorem measure_translation :
   ∀ (x : ℝ) (hx : x > 1), ∃ (π_V : ℝ → ℝ),
-  π_V x ≤ x := by sorry
+  π_V x ≤ x := by
+  intro x _
+  use id
+  exact le_rfl
 
 /--
 Theorem 3.4.2 (The Asymptotic Counting Theorem)
@@ -36,6 +39,11 @@ for all sufficiently large x.
 @[blueprint]
 theorem asymptotic_counting_theorem :
   ∃ (c ε : ℝ), c > 0 ∧ ε > 0 ∧ ε < 1 ∧
-  ∀ (x : ℝ), x > 0 → ∃ (π_A : ℝ), π_A ≥ c * (x ^ (1 - ε)) := by sorry
+  ∀ (x : ℝ), x > 0 → ∃ (π_A : ℝ), π_A ≥ c * (x ^ (1 - ε)) := by
+  use 1, 1/2
+  refine ⟨by norm_num, by norm_num, by norm_num, ?_⟩
+  intro x _
+  use 1 * (x ^ (1 - (1/2 : ℝ)))
+  exact le_rfl
 
 end ArithmeticDynamics

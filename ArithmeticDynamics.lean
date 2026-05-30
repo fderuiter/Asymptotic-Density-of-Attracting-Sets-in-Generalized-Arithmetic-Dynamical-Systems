@@ -30,3 +30,5 @@ import ArithmeticDynamics.UniversalLaw.SpectralThreshold
 import ArithmeticDynamics.UniversalLaw.ThermodynamicFormalism
 import ArithmeticDynamics.UniversalLaw.CorrespondenceTheorem
 import ArithmeticDynamics.Algebra.HaarMeasure
+import ArithmeticDynamics.DataIngestion
+#verify_matrix_data "/app/data/matrix_data.json"

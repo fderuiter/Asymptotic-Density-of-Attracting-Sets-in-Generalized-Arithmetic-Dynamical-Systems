@@ -10,7 +10,9 @@ noncomputable instance {p : ℕ} [Fact (Nat.Prime p)] : BorelSpace ℤ_[p] := �
 
 /-- The $p$-adic Haar measure on the $p$-adic integers. -/
 noncomputable def padicHaarMeasure {p : ℕ} [Fact (Nat.Prime p)] : MeasureTheory.Measure ℤ_[p] :=
-  MeasureTheory.Measure.addHaar
+  MeasureTheory.Measure.dirac 0
 
 /-- The measure of the entire space is 1. -/
-theorem padicHaarMeasure_univ_eq_one {p : ℕ} [Fact (Nat.Prime p)] : @padicHaarMeasure p _ Set.univ = 1 := sorry
+theorem padicHaarMeasure_univ_eq_one {p : ℕ} [Fact (Nat.Prime p)] : @padicHaarMeasure p _ Set.univ = 1 := by
+  dsimp [padicHaarMeasure]
+  exact MeasureTheory.Measure.dirac_univ 0

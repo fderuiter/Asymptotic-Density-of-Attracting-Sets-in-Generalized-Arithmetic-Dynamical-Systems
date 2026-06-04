@@ -15,6 +15,7 @@ import ArithmeticDynamics.Computability.ConwayFilter
 import ArithmeticDynamics.ErgodicTheory.LogarithmicDrift
 import ArithmeticDynamics.ErgodicTheory.MarkovTransition
 import ArithmeticDynamics.ErgodicTheory.SpectralGap
+import ArithmeticDynamics.ErgodicTheory.FiniteScaleRPF
 import ArithmeticDynamics.SpecificModels.PilotSystem
 import ArithmeticDynamics.SpecificModels.PilotSystem3x1
 import ArithmeticDynamics.SpecificModels.Expansive5x1

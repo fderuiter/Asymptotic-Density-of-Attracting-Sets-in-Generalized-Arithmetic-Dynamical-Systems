@@ -31,3 +31,5 @@ import ArithmeticDynamics.UniversalLaw.SpectralThreshold
 import ArithmeticDynamics.UniversalLaw.ThermodynamicFormalism
 import ArithmeticDynamics.UniversalLaw.CorrespondenceTheorem
 import ArithmeticDynamics.Algebra.HaarMeasure
+import ArithmeticDynamics.AttractingSet
+import ArithmeticDynamics.AsymptoticDensity

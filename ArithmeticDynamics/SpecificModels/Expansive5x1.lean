@@ -11,12 +11,17 @@ namespace ArithmeticDynamics.SpecificModels
 
 open Classical
 
-noncomputable def TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ :=
+noncomputable def transitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ :=
   fun (i j : Fin d) =>
-    -- For source state i, compute probability of transitioning to target state j
-    -- The transition occurs if (qp.a i * k + qp.b i) / d ≡ j (mod d) for some integer k
-    -- In the quasi-polynomial model, we have uniform distribution over residue classes
-    if ∃ (k : ℤ), ((qp.a i : ℤ) * k + qp.b i) / d % d = j.val then 1 / d else 0
+    let hits : Finset (Fin d) :=
+      Finset.univ.filter (fun j' =>
+        ∃ (k : ℤ), ((qp.a i : ℤ) * k + qp.b i) / d % d = j'.val)
+    if h0 : hits.card = 0 then
+      0
+    else if j ∈ hits then
+      (1 : ℝ) / hits.card
+    else
+      0
 def StationaryMeasure {M : ℕ} (_ : Fin M → ℝ) (_ : Matrix (Fin M) (Fin M) ℝ) : Prop := False
 
 /-- doc -/
@@ -58,7 +63,7 @@ theorem collatz5x1_drift_is_expansive :
     It cannot support a stationary distribution π, rendering Tao's logarithmic
     density framework mathematically inapplicable. -/
 theorem expansive_measure_dissipation :
-  ¬ ∃ π, StationaryMeasure π (TransitionMatrix collatz5x1) := by
+  ¬ ∃ π, StationaryMeasure π (transitionMatrix collatz5x1) := by
   intro h
   rcases h with ⟨π, hπ⟩
   exact hπ

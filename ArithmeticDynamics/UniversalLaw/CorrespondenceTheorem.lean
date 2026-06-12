@@ -47,12 +47,12 @@ def a : Fin d → ℤ := ArithmeticDynamics.SpectralThreshold.a_default
 def b : Fin d → ℤ := ArithmeticDynamics.SpectralThreshold.b_default
 
 /-- Placeholder predicate for the Conway-style admissibility filter on parameters. -/
-def passes_conway_filter (_ : Fin d → ℤ) (_ : Fin d → ℤ) : Prop := True
+def passesConwayFilter (_ : Fin d → ℤ) (_ : Fin d → ℤ) : Prop := True
 -- Removed opaque essential_spectral_radius
 
 /-- Classifies a parameter pair into one of the three system regimes. -/
 noncomputable def classify_system (a_vals b_vals : Fin d → ℤ) (_ : ℕ) : SystemClassification :=
-  if ¬ passes_conway_filter a_vals b_vals then SystemClassification.TuringComplete
+  if ¬ passesConwayFilter a_vals b_vals then SystemClassification.TuringComplete
   else if 1 - ArithmeticDynamics.SpectralThreshold.essential_spectral_radius a_vals b_vals ≤ 0 then SystemClassification.CantorSupported
   else SystemClassification.DensityPositive
 
@@ -65,12 +65,12 @@ into three rigid categories: Turing-Complete, Cantor-Supported, or Density-Posit
 @[blueprint]
 theorem algebraic_analytic_law :
   ∀ (a_vals b_vals : Fin d → ℤ),
-  (¬ passes_conway_filter a_vals b_vals ↔ classify_system a_vals b_vals d = SystemClassification.TuringComplete) ∧
-  (passes_conway_filter a_vals b_vals ∧ 1 - ArithmeticDynamics.SpectralThreshold.essential_spectral_radius a_vals b_vals ≤ 0 ↔ classify_system a_vals b_vals d = SystemClassification.CantorSupported) ∧
-  (passes_conway_filter a_vals b_vals ∧ 1 - ArithmeticDynamics.SpectralThreshold.essential_spectral_radius a_vals b_vals > 0 ↔ classify_system a_vals b_vals d = SystemClassification.DensityPositive) := by
+  (¬ passesConwayFilter a_vals b_vals ↔ classify_system a_vals b_vals d = SystemClassification.TuringComplete) ∧
+  (passesConwayFilter a_vals b_vals ∧ 1 - ArithmeticDynamics.SpectralThreshold.essential_spectral_radius a_vals b_vals ≤ 0 ↔ classify_system a_vals b_vals d = SystemClassification.CantorSupported) ∧
+  (passesConwayFilter a_vals b_vals ∧ 1 - ArithmeticDynamics.SpectralThreshold.essential_spectral_radius a_vals b_vals > 0 ↔ classify_system a_vals b_vals d = SystemClassification.DensityPositive) := by
   intro a_vals b_vals
   unfold classify_system
-  by_cases h1 : ¬ passes_conway_filter a_vals b_vals
+  by_cases h1 : ¬ passesConwayFilter a_vals b_vals
   · rw [if_pos h1]
     refine ⟨?_, ?_, ?_⟩
     · exact iff_of_true h1 rfl
@@ -85,7 +85,7 @@ theorem algebraic_analytic_law :
       · intro hc
         exact SystemClassification.noConfusion hc
   · rw [if_neg h1]
-    have h_pass : passes_conway_filter a_vals b_vals := of_not_not h1
+    have h_pass : passesConwayFilter a_vals b_vals := of_not_not h1
     by_cases h2 : 1 - ArithmeticDynamics.SpectralThreshold.essential_spectral_radius a_vals b_vals ≤ 0
     · rw [if_pos h2]
       refine ⟨?_, ?_, ?_⟩

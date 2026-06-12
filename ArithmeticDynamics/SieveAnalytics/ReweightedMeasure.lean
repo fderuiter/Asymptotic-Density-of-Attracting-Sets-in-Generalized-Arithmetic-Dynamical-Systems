@@ -22,7 +22,7 @@ theorem standard_measure_failure :
   ∃ (y_1 y_2 : ℕ), (y_1 % 12 = 5) ∧ (y_2 % 12 = 0) ∧
   ∃ (W : ℕ → ℝ), W y_1 = 2.0 ∧ W y_2 = 0.6 ∧ W y_1 ≠ W y_2 ∧
   ∀ (y : ℕ), ∃ (T_pushforward_mu : ℝ), T_pushforward_mu = W y / y := by
-  use 5, 0
+  use 5, 12
   refine ⟨by decide, by decide, ?_⟩
   use fun y => if y = 5 then 2.0 else 0.6
   refine ⟨if_pos rfl, if_neg (by norm_num), by norm_num, ?_⟩

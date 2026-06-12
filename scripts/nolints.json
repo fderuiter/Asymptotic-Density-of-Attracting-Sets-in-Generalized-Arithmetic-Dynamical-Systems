@@ -53,7 +53,7 @@
   ],
   [
     "docBlame",
-    "ArithmeticDynamics.CorrespondenceTheorem.passes_conway_filter"
+    "ArithmeticDynamics.CorrespondenceTheorem.passesConwayFilter"
   ],
   [
     "docBlame",
@@ -121,7 +121,7 @@
   ],
   [
     "docBlame",
-    "ArithmeticDynamics.SpecificModels.TransitionMatrix"
+    "ArithmeticDynamics.SpecificModels.transitionMatrix"
   ],
   [
     "docBlame",

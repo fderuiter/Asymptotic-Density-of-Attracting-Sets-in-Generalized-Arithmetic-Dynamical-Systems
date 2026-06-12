@@ -33,7 +33,7 @@ theorem equilibrium_state_uniqueness :
   unique_periodic_orbit ↔ unique_equilibrium_state_for_all_potentials := by
   exact Iff.rfl
 
-/-- doc -/
+/-- Classification of dynamical systems into three macroscopic behavioral regimes. -/
 inductive SystemClassification
 | TuringComplete
 | CantorSupported
@@ -46,9 +46,11 @@ def d : ℕ := ArithmeticDynamics.SpectralThreshold.d
 def a : Fin d → ℤ := ArithmeticDynamics.SpectralThreshold.a_default
 def b : Fin d → ℤ := ArithmeticDynamics.SpectralThreshold.b_default
 
+/-- Placeholder predicate for the Conway-style admissibility filter on parameters. -/
 def passes_conway_filter (_a_vals _b_vals : Fin d → ℤ) : Prop := True
 -- Removed opaque essential_spectral_radius
 
+/-- Classifies a parameter pair into one of the three system regimes. -/
 noncomputable def classify_system (a_vals b_vals : Fin d → ℤ) (_d_val : ℕ) : SystemClassification :=
   if ¬ passes_conway_filter a_vals b_vals then SystemClassification.TuringComplete
   else if 1 - ArithmeticDynamics.SpectralThreshold.essential_spectral_radius a_vals b_vals ≤ 0 then SystemClassification.CantorSupported

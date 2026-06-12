@@ -3,40 +3,44 @@ import ArithmeticDynamics.Computability.ChomskyBounds
 import ArithmeticDynamics.ErgodicTheory.SpectralGap
 import ArithmeticDynamics.Algebra.Isometry
 
-set_option linter.unusedVariables false
-
 namespace ArithmeticDynamics.ErgodicTheory
 
 open ArithmeticDynamics.Computability
 open ArithmeticDynamics.Algebra
 
--- Requirement 3: User-defined complexity clamps
+/-- User-defined bounds controlling finite exploration depth and tape space. -/
 structure ComplexityClamp where
+  /-- Maximum search depth permitted by the analysis. -/
   max_depth : ℕ
+  /-- Maximum tape space permitted by the analysis. -/
   max_tape_space : ℕ
 
--- Requirement 4: Partial density certificate
+/-- A certificate recording finite-scale bounds on density estimates. -/
 structure PartialDensityCertificate where
+  /-- The exploration depth actually reached. -/
   depth_explored : ℕ
+  /-- A certified lower bound on the density. -/
   lower_bound : ℝ
+  /-- A certified upper bound on the density. -/
   upper_bound : ℝ
+  /-- Whether the computation was truncated by the clamp. -/
   is_clamped : Bool
 
--- Requirement 2: Finite-Scale RPF operator
+/-- A mock finite-scale Ruelle-Perron-Frobenius operator used for testing. -/
 noncomputable def finite_scale_rpf (depth : ℕ) (system_state : ℕ) : ℝ :=
   -- mock implementation
   (1.0 : ℝ) / ((depth : ℝ) + 1.0)
 
--- Requirement 4: Deterministic pruning mechanism
+/-- Deterministically prunes the search and returns a finite certificate. -/
 noncomputable def prune_and_certify (clamp : ComplexityClamp) (system_state : ℕ) : PartialDensityCertificate :=
   { depth_explored := clamp.max_depth,
     lower_bound := finite_scale_rpf clamp.max_depth system_state,
     upper_bound := 1.0,
     is_clamped := true }
 
--- Requirement 5: Bifurcated axiomatic logic
+/-- Performs density analysis according to the Chomsky level and finite clamp. -/
 noncomputable def bifurcated_density_analysis
-  {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (level : ChomskyLevel) (clamp : ComplexityClamp)
+  {d : ℕ} [NeZero d] (_f : Z_d d → Z_d d) (level : ChomskyLevel) (clamp : ComplexityClamp)
   : Option PartialDensityCertificate :=
   match level with
   | ChomskyLevel.Type1_ContextSensitive =>

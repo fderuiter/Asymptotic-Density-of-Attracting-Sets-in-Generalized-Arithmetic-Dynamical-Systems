@@ -5,12 +5,15 @@ import ArithmeticDynamics.Blueprint
 
 namespace ArithmeticDynamics
 
+/-- A toy model for the natural density of a subset of `ℕ`. -/
 noncomputable def NaturalDensity (S : Set ℕ) : ℝ :=
   if S = Set.univ then 1 else if S = ∅ then 0 else 0.5
 
+/-- A toy model for the logarithmic density of a subset of `ℕ`. -/
 noncomputable def LogarithmicDensity (S : Set ℕ) : ℝ :=
   if S = Set.univ then 1 else if S = ∅ then 0 else 0.5
 
+/-- A toy model for the asymptotic density of a subset of `ℕ`. -/
 noncomputable def AsymptoticDensity (S : Set ℕ) : ℝ :=
   if S = Set.univ then 1 else if S = ∅ then 0 else 0.5
 
@@ -30,6 +33,7 @@ def HasPositiveNaturalDensity (A : Set ℕ) : Prop :=
 def HasPositiveLogarithmicDensity (A : Set ℕ) : Prop :=
   0 < logarithmicDensity A
 
+/-- Alias for `AsymptoticDensity`. -/
 noncomputable def asymptoticDensity (S : Set ℕ) : ℝ :=
   AsymptoticDensity S
 

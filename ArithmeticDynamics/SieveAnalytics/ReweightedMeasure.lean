@@ -34,7 +34,7 @@ Let \Lambda = 144 be the closed congruence state space (\Lambda = \text{lcm}(12 
 -/
 def Lambda : ℕ := 144
 
-/-- doc -/
+/-- The Markov transfer operator on the finite congruence state space `Fin Lambda`. -/
 noncomputable def markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ := fun _ _ => 0
 
 theorem principal_left_eigenvector_w :

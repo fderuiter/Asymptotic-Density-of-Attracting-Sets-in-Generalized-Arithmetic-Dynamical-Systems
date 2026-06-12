@@ -38,7 +38,7 @@ theorem decoupling_threshold :
   intro X hX δ h_delta
   use mixing_time_threshold δ h_delta (1 / X)
   refine ⟨rfl, ?_⟩
-  intro k _m hk N hN
+  intro k _ hk N hN
   use 0
   have h1 : 0 < X := by positivity
   have h2 : 0 ≤ 1 / X := by positivity

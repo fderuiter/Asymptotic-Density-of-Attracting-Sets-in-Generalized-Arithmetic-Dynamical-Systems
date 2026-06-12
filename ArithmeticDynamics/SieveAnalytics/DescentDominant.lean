@@ -27,7 +27,6 @@ theorem hailstone_variance_bound :
   use 0
   intro _ _
   use 0
-  exact le_refl 0
 
 /--
 Theorem 3.1.2 (Descent-Dominant Classification)

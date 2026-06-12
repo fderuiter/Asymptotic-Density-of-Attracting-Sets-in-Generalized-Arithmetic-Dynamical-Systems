@@ -11,7 +11,7 @@ namespace ArithmeticDynamics.SpecificModels
 
 open Classical
 
-def TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ :=
+noncomputable def TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ :=
   fun (i j : Fin d) =>
     -- For source state i, compute probability of transitioning to target state j
     -- The transition occurs if (qp.a i * k + qp.b i) / d ≡ j (mod d) for some integer k

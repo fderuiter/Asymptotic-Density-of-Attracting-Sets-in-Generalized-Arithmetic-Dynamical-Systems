@@ -43,6 +43,6 @@ theorem asymptotic_counting_theorem :
   refine ⟨1, 1/2, by norm_num, by norm_num, by norm_num, ?_⟩
   intro x _
   refine ⟨1 * x ^ (1 - (1/2 : ℝ)), ?_⟩
-  rfl.le
+  exact le_rfl
 
 end ArithmeticDynamics

@@ -2,6 +2,7 @@ import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Topology.MetricSpace.Basic
 import Mathlib.Probability.Martingale.Basic
+import Mathlib.Tactic.NormNum
 import ArithmeticDynamics.Blueprint
 
 namespace ArithmeticDynamics
@@ -24,7 +25,7 @@ theorem hailstone_variance_bound :
   ∃ (V_max : ℝ),
   ∀ (n : ℕ) (_h : n > 0), ∃ (v : ℝ), v ≤ V_max := by
   use 0
-  intro n _
+  intro _ _
   use 0
   exact le_refl 0
 
@@ -38,9 +39,9 @@ theorem descent_dominant_classification :
   ∃ (K : ℕ), K > 0 ∧
   ∀ (n : ℕ) (_h : n > 0), ∃ (μ : ℝ), μ < 0 := by
   use 1
-  refine ⟨by decide, ?_⟩
-  intro n _
+  refine ⟨by norm_num, ?_⟩
+  intro _ _
   use -1
-  exact by decide
+  norm_num
 
 end ArithmeticDynamics

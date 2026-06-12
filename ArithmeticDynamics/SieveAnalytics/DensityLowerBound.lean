@@ -24,7 +24,7 @@ via Abelian partial summation.
 theorem measure_translation :
   ∀ (x : ℝ) (hx : x > 1), ∃ (π_V : ℝ → ℝ),
   π_V x ≤ x := by
-  intro x hx
+  intro x _
   use fun _ => 0
   linarith
 
@@ -40,10 +40,9 @@ for all sufficiently large x.
 theorem asymptotic_counting_theorem :
   ∃ (c ε : ℝ), c > 0 ∧ ε > 0 ∧ ε < 1 ∧
   ∀ (x : ℝ), x > 0 → ∃ (π_A : ℝ), π_A ≥ c * (x ^ (1 - ε)) := by
-  use 1, 1/2
-  refine ⟨by norm_num, by norm_num, by norm_num, ?_⟩
+  refine ⟨1, 1/2, by norm_num, by norm_num, by norm_num, ?_⟩
   intro x _
-  use 1 * x ^ (1 - (1/2:ℝ))
-  exact le_rfl
+  refine ⟨1 * x ^ (1 - (1/2 : ℝ)), ?_⟩
+  rfl.le
 
 end ArithmeticDynamics

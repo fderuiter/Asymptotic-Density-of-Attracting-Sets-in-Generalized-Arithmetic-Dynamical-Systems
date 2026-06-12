@@ -9,6 +9,8 @@ import Mathlib.Tactic.NormNum
 
 namespace ArithmeticDynamics.SpecificModels
 
+open Classical
+
 def TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ :=
   fun (i j : Fin d) =>
     -- For source state i, compute probability of transitioning to target state j

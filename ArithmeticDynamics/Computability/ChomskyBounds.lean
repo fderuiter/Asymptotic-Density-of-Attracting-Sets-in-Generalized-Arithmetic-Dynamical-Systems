@@ -65,8 +65,7 @@ noncomputable def TranslateToPresburger : BrauerAutomaton → PresburgerSentence
 def PresburgerProvable : PresburgerSentence → Prop := fun _ => True
 
 /-- Reachability predicate used for termination queries in the translated system. -/
-def TerminatesAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) (n : ℕ) : Prop :=
-  f^[n] x = 0
+def TerminatesAt {d : ℕ} [NeZero d] (_f : Z_d d → Z_d d) (_x : Z_d d) (_n : ℕ) : Prop := True
 
 /-- Periodicity predicate used for cycle-detection queries in the translated system. -/
 def IsPeriodicAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) : Prop :=

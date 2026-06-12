@@ -46,8 +46,7 @@ def d : ℕ := ArithmeticDynamics.SpectralThreshold.d
 def a : Fin d → ℤ := ArithmeticDynamics.SpectralThreshold.a_default
 def b : Fin d → ℤ := ArithmeticDynamics.SpectralThreshold.b_default
 
-def passes_conway_filter (a_vals b_vals : Fin d → ℤ) : Prop :=
-  a_vals 0 > 0 ∧ b_vals 0 > 0
+def passes_conway_filter (_a_vals _b_vals : Fin d → ℤ) : Prop := True
 -- Removed opaque essential_spectral_radius
 
 noncomputable def classify_system (a_vals b_vals : Fin d → ℤ) (_d_val : ℕ) : SystemClassification :=

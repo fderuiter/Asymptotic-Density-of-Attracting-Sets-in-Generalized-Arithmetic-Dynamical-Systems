@@ -32,13 +32,13 @@ The probability of an integer occupying a specific residue class modulo 5^m beco
 theorem decoupling_threshold :
   ∀ (X : ℝ) (_hX : X > 1) (δ : ℝ) (h_delta : δ > 0),
   ∃ (τ : ℝ), τ = mixing_time_threshold δ h_delta (1 / X) ∧
-  ∀ (k : ℕ) (m : ℕ), (k : ℝ) ≥ τ →
+  ∀ (k : ℕ) (_m : ℕ), (k : ℝ) ≥ τ →
   ∀ (N : ℕ), (N : ℝ) ≥ 1 ∧ (N : ℝ) ≤ X →
   ∃ (d_TV : ℝ), d_TV ≤ 1 / X := by
   intro X hX δ h_delta
   use mixing_time_threshold δ h_delta (1 / X)
   refine ⟨rfl, ?_⟩
-  intro k m hk N hN
+  intro k _m hk N hN
   use 0
   have h1 : 0 < X := by positivity
   have h2 : 0 ≤ 1 / X := by positivity
@@ -65,7 +65,7 @@ theorem decay_of_correlations (δ : ℝ) (h_delta : δ > 0) (h_delta2 : δ < 1) 
   refine ⟨by norm_num, ?_⟩
   use 0
   rw [abs_zero]
-  have h_exp : 0 ≤ Real.exp (-(-Real.log (1 - δ)) * ↑k) := Real.exp_pos _.le
+  have h_exp : 0 ≤ Real.exp (-(-Real.log (1 - δ)) * ↑k) := le_of_lt (Real.exp_pos _)
   have h_sq : 0 ≤ χ_norm ^ 2 := sq_nonneg χ_norm
   nlinarith
 

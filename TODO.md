@@ -210,11 +210,12 @@ Concrete instantiations of the algebraic framework.
 
 ---
 
-Gap 1: (RESOLVED) The Core Definitional Foundation. You jump straight into advanced algebra and ergodic theory, but you lack the foundational definitions that tie the title of your project together. Where is the formal Lean definition of an "Attracting Set"? Where is the definition of "Asymptotic Density" (Natural vs. Logarithmic)? Your Sieve Analytics need a concrete target to bound.
+Gap 1: The Core Definitional Foundation. You jump straight into advanced algebra and ergodic theory, but you lack the foundational definitions that tie the title of your project together. Where is the formal Lean definition of an "Attracting Set"? Where is the definition of "Asymptotic Density" (Natural vs. Logarithmic)? Your Sieve Analytics need a concrete target to bound.
+Compile failures remain in DecouplingThreshold.lean, DensityLowerBound.lean, ReweightedMeasure.lean, and CorrespondenceTheorem.lean. Consult BLUEPRINT.md before finishing proofs to respect the dependency order.
 
-Gap 2: Operator Theory. You have ThermodynamicFormalism.lean and SpectralGap.lean, but thermodynamic formalism fundamentally relies on Transfer Operators (the Ruelle-Perron-Frobenius operator). Without defining this operator on a Banach space (like the Lipschitz functions you started in LipschitzCausality.lean), you cannot rigorously prove the spectral gap.
+Gap 2: Operator Theory. You have ThermodynamicFormalism.lean and SpectralGap.lean, but thermodynamic formalism fundamentally relies on Transfer Operators (the Ruelle-Perron-Frobenius operator). Without defining this operator on a Banach space (like the Lipschitz functions you started in LipschitzCausality.lean), you cannot rigorously prove the spectral gap. (Note: ThermodynamicFormalism.lean and SpectralGap.lean still require a Ruelle-Perron-Frobenius/transfer operator definition).
 
-Gap 3: (RESOLVED) Measure Theory Foundations. Ergodic theory requires probability measures. While you have ReweightedMeasure.lean, you must explicitly bridge Lean's measure theory to $\mathbb{Z}_p$ by defining the normalized $p$-adic Haar Measure.
+Gap 3: Measure Theory Foundations. Ergodic theory requires probability measures. While you have ReweightedMeasure.lean, you must explicitly bridge Lean's measure theory to $\mathbb{Z}_p$ by defining the normalized $p$-adic Haar Measure.
 
 
 Gap 4: The Undecidability Chain. You have the components (FRACTRAN, Minsky), but you are missing the explicit mathematical reduction proving why the Turing-completeness of these generalized maps prevents a universal density bound (i.e., tying them to the Halting Problem).

@@ -25,7 +25,7 @@ theorem standard_measure_failure :
   use 5, 0
   refine ⟨by decide, by decide, ?_⟩
   use fun y => if y = 5 then 2.0 else 0.6
-  refine ⟨if_pos rfl, if_neg (by decide), by decide, ?_⟩
+  refine ⟨if_pos rfl, if_neg (by norm_num), by norm_num, ?_⟩
   intro y
   use (if y = 5 then 2.0 else 0.6) / y
 
@@ -48,8 +48,8 @@ theorem principal_left_eigenvector_w :
 The Algebraically Re-weighted Measure \mu_{\log}'(A):
 $$ \mu_{\log}'(A) = \int_{A} \mathbf{w}(x \bmod \Lambda) \frac{dx}{x} $$
 -/
-noncomputable def reweighted_measure (_w : Fin Lambda → ℝ) (_A : Set ℕ) : ℝ :=
-  0 -- Integration placeholder: \int_{A} w(x \pmod \Lambda) dx / x
+noncomputable def reweighted_measure (w : Fin Lambda → ℝ) (A : Set ℕ) : ℝ :=
+  ∑' (x : A), w ⟨(x : ℕ) % Lambda, by admit⟩ * (1 / (x : ℝ))
 
 /--
 Theorem 3.1 (Perfect Forward Invariance):
@@ -60,7 +60,6 @@ theorem perfect_forward_invariance :
   ∀ (A : Set ℕ) (T : ℕ → ℕ) (w : Fin Lambda → ℝ) (_hw : ∀ j, (∑' i, markov_transfer_operator_M j i * w i) = w j),
   reweighted_measure w (T '' A) = reweighted_measure w A := by
   intro A T w hw
-  dsimp [reweighted_measure]
-  rfl
+  admit
 
 end ArithmeticDynamics.SieveAnalytics

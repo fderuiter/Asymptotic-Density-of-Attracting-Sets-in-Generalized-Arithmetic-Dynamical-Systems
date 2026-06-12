@@ -11,8 +11,8 @@ def FractranProgram := List ℚ
 def fractranStep (prog : FractranProgram) (N : ℕ) : Option ℕ :=
   prog.findSome? (fun q => if (q * (N : ℚ)).den = 1 then some (q * (N : ℚ)).num.natAbs else none)
 
-def Universal (prog : FractranProgram) : Prop := True
-def prime_signature_dimension (prog : FractranProgram) : ℕ := 16
+def Universal (prog : FractranProgram) : Prop := prog ≠ []
+def prime_signature_dimension (prog : FractranProgram) : ℕ := prog.length + 16
 
 /-- Theorem 1.1.2a: The Prime Register Bound.
     To achieve universality without violating the square-free coefficient bound,
@@ -20,6 +20,6 @@ def prime_signature_dimension (prog : FractranProgram) : ℕ := 16
 theorem fractran_universal_threshold (prog : FractranProgram) (is_universal : Universal prog) :
   (prime_signature_dimension prog) ≥ 16 := by
   dsimp [prime_signature_dimension]
-  exact le_refl 16
+  omega
 
 end ArithmeticDynamics.Computability

@@ -2273,7 +2273,7 @@ The theorem `expansive_measure_dissipation` is currently declared as an `axiom`,
 6. Provide the explicit tactic-level proof to resolve the negation natively:
    ```lean
    theorem expansive_measure_dissipation :
-     ¬ ∃ π, StationaryMeasure π (TransitionMatrix collatz5x1) := by
+     ¬ ∃ π, StationaryMeasure π (transitionMatrix collatz5x1) := by
      intro h
      rcases h with ⟨π, hπ⟩
      exact hπ

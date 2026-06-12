@@ -6,7 +6,7 @@ namespace ArithmeticDynamics.SpecificModels
 /-- doc -/
 def GeneralizedCollatzMap : Type := ℕ
 /-- doc -/
-def branch_count (_map : GeneralizedCollatzMap) : ℕ := 0
+def branch_count (_ : GeneralizedCollatzMap) : ℕ := 0
 /-- doc -/
 def IsTuringComplete (map : GeneralizedCollatzMap) : Prop :=
   ArithmeticDynamics.Computability.IsTuringComplete (branch_count map)

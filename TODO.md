@@ -211,9 +211,9 @@ Concrete instantiations of the algebraic framework.
 ---
 
 Gap 1: The Core Definitional Foundation. You jump straight into advanced algebra and ergodic theory, but you lack the foundational definitions that tie the title of your project together. Where is the formal Lean definition of an "Attracting Set"? Where is the definition of "Asymptotic Density" (Natural vs. Logarithmic)? Your Sieve Analytics need a concrete target to bound.
+Compile failures remain in DecouplingThreshold.lean, DensityLowerBound.lean, ReweightedMeasure.lean, and CorrespondenceTheorem.lean. Consult BLUEPRINT.md before finishing proofs to respect the dependency order.
 
-
-Gap 2: Operator Theory. You have ThermodynamicFormalism.lean and SpectralGap.lean, but thermodynamic formalism fundamentally relies on Transfer Operators (the Ruelle-Perron-Frobenius operator). Without defining this operator on a Banach space (like the Lipschitz functions you started in LipschitzCausality.lean), you cannot rigorously prove the spectral gap.
+Gap 2: Operator Theory. You have ThermodynamicFormalism.lean and SpectralGap.lean, but thermodynamic formalism fundamentally relies on Transfer Operators (the Ruelle-Perron-Frobenius operator). Without defining this operator on a Banach space (like the Lipschitz functions you started in LipschitzCausality.lean), you cannot rigorously prove the spectral gap. (Note: ThermodynamicFormalism.lean and SpectralGap.lean still require a Ruelle-Perron-Frobenius/transfer operator definition).
 
 Gap 3: Measure Theory Foundations. Ergodic theory requires probability measures. While you have ReweightedMeasure.lean, you must explicitly bridge Lean's measure theory to $\mathbb{Z}_p$ by defining the normalized $p$-adic Haar Measure.
 
@@ -239,8 +239,8 @@ Gap 6: Python-Lean Verification. You have scripts/pilot_sim.py and data/matrix_d
 ## 2. 📖 Core Definitions (The Missing Foundation)
 *Currently, the project jumps into advanced algebra, but lacks the core definitions defining the title.*
 - [x] **`ArithmeticDynamics/Basic.lean`:** Define the base structure for a Generalized Arithmetic Dynamical System (GADS) over $\mathbb{Z}$. Define trajectories and forward/backward invariance.
-- [ ] **`ArithmeticDynamics/AttractingSet.lean`:** Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
-- [ ] **`ArithmeticDynamics/AsymptoticDensity.lean`:** Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
+- [x] **`ArithmeticDynamics/AttractingSet.lean`:** Rigorously define an "Attracting Set" in the context of both the discrete topology ($\mathbb{Z}$) and the $p$-adic metric ($\mathbb{Z}_p$).
+- [x] **`ArithmeticDynamics/AsymptoticDensity.lean`:** Formalize natural density, logarithmic density, and upper/lower densities for subsets of $\mathbb{N}$ so `SieveAnalytics` has a target to bound.
 
 ## 3. 🧮 Algebra & $p$-adic Dynamics (`ArithmeticDynamics/Algebra/`)
 - [x] **`MahlerExpansion.lean`:** Implement Mahler's theorem to express quasi-polynomials as continuous functions on $\mathbb{Z}_p$.

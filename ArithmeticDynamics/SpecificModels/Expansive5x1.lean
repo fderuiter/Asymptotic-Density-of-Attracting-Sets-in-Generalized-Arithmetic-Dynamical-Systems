@@ -9,8 +9,20 @@ import Mathlib.Tactic.NormNum
 
 namespace ArithmeticDynamics.SpecificModels
 
-opaque TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ
-def StationaryMeasure {M : ℕ} (_π : Fin M → ℝ) (_P : Matrix (Fin M) (Fin M) ℝ) : Prop := False
+open Classical
+
+noncomputable def transitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ :=
+  fun (i j : Fin d) =>
+    let hits : Finset (Fin d) :=
+      Finset.univ.filter (fun j' =>
+        ∃ (k : ℤ), ((qp.a i : ℤ) * k + qp.b i) / d % d = j'.val)
+    if h0 : hits.card = 0 then
+      0
+    else if j ∈ hits then
+      (1 : ℝ) / hits.card
+    else
+      0
+def StationaryMeasure {M : ℕ} (_ : Fin M → ℝ) (_ : Matrix (Fin M) (Fin M) ℝ) : Prop := False
 
 /-- doc -/
 theorem collatz5x1_div_cond : ∀ (i : Fin 2) (k : ℤ),
@@ -51,7 +63,7 @@ theorem collatz5x1_drift_is_expansive :
     It cannot support a stationary distribution π, rendering Tao's logarithmic
     density framework mathematically inapplicable. -/
 theorem expansive_measure_dissipation :
-  ¬ ∃ π, StationaryMeasure π (TransitionMatrix collatz5x1) := by
+  ¬ ∃ π, StationaryMeasure π (transitionMatrix collatz5x1) := by
   intro h
   rcases h with ⟨π, hπ⟩
   exact hπ

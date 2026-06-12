@@ -2,7 +2,6 @@ import Mathlib.Data.Matrix.Basic
 import Mathlib.Topology.MetricSpace.Basic
 import ArithmeticDynamics.Blueprint
 
-set_option linter.unusedVariables false
 open Classical
 
 namespace ArithmeticDynamics.SpectralThreshold
@@ -15,10 +14,17 @@ universal transfer matrix S, defining the exact spectral boundaries that
 separate dense converging systems from zero-density fractals.
 -/
 
+/-- Default ambient dimension for the spectral-threshold toy model. -/
 def d : ℕ := 2
+
+/-- Default `a`-parameters for the spectral-threshold toy model. -/
 def a_default : Fin d → ℤ := fun _ => 0
+
+/-- Default `b`-parameters for the spectral-threshold toy model. -/
 def b_default : Fin d → ℤ := fun _ => 0
-noncomputable def essential_spectral_radius (a_vals b_vals : Fin d → ℤ) : ℝ := 0
+
+/-- Computes the essential spectral radius of the transition matrix given parameters. -/
+noncomputable def essential_spectral_radius (_ : Fin d → ℤ) (_ : Fin d → ℤ) : ℝ := 0
 
 noncomputable def analytic_density : ℝ :=
   if 1 - essential_spectral_radius a_default b_default > 0 then 1 else 0

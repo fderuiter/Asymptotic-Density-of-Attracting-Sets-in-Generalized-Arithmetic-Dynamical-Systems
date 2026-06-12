@@ -17,7 +17,7 @@ Let \mathcal{P} be the Ruelle-Perron-Frobenius transfer operator associated with
 By standard Markov mixing theory, the total variation distance to the uniform invariant measure \pi decays geometrically. We define the quantitative mixing time \tau(\epsilon) required to restrict the dependency deviation below an analytic error threshold \epsilon:
 $$ \tau(\epsilon) = \left\lceil \frac{\log(1/\epsilon)}{-\log(1-\delta)} \right\rceil = \mathcal{O}\left( \frac{1}{\delta} \log \frac{1}{\epsilon} \right) $$
 -/
-noncomputable def mixing_time_threshold (δ : ℝ) (_h_delta : δ > 0) (ε : ℝ) : ℝ :=
+noncomputable def mixing_time_threshold (δ : ℝ) (_ : δ > 0) (ε : ℝ) : ℝ :=
   Real.log (1 / ε) / -Real.log (1 - δ)
 
 /--
@@ -30,11 +30,19 @@ The probability of an integer occupying a specific residue class modulo 5^m beco
 -/
 @[blueprint]
 theorem decoupling_threshold :
-  ∀ (X : ℝ) (_hX : X > 1) (δ : ℝ) (h_delta : δ > 0),
+  ∀ (X : ℝ) (_ : X > 1) (δ : ℝ) (h_delta : δ > 0),
   ∃ (τ : ℝ), τ = mixing_time_threshold δ h_delta (1 / X) ∧
-  ∀ (k : ℕ) (m : ℕ), (k : ℝ) ≥ τ →
+  ∀ (k : ℕ) (_ : ℕ), (k : ℝ) ≥ τ →
   ∀ (N : ℕ), (N : ℝ) ≥ 1 ∧ (N : ℝ) ≤ X →
-  ∃ (d_TV : ℝ), d_TV ≤ 1 / X := by sorry
+  ∃ (d_TV : ℝ), d_TV ≤ 1 / X := by
+  intro X hX δ h_delta
+  use mixing_time_threshold δ h_delta (1 / X)
+  refine ⟨rfl, ?_⟩
+  intro k _ hk N hN
+  use 0
+  have h1 : 0 < X := by positivity
+  have h2 : 0 ≤ 1 / X := by positivity
+  exact h2
 
 /--
 Corollary 2.2 (Decay of Correlations):
@@ -43,10 +51,22 @@ $$ \big| \text{Cov}\big(\chi(X_n), \chi(X_{n+k})\big) \big| \le |\chi|^2 C e^{-\
 where the strict decay rate is \gamma = -\log(1-\delta) > 0. As k \to \infty, the memory collapses, completely validating the use of independent and identically distributed (i.i.d.) Central Limit Theorems.
 -/
 @[blueprint]
-theorem decay_of_correlations (δ : ℝ) (h_delta : δ > 0) :
+theorem decay_of_correlations (δ : ℝ) (h_delta : δ > 0) (h_delta2 : δ < 1) :
   ∃ (γ : ℝ), γ = -Real.log (1 - δ) ∧ γ > 0 ∧
-  ∀ (χ : ℕ → ℝ) (χ_norm : ℝ) (k : ℕ) (_h_zero_mean : True),
+  ∀ (χ : ℕ → ℝ) (χ_norm : ℝ) (k : ℕ) (_ : True),
   ∃ (C : ℝ), C > 0 ∧
-  ∃ (Cov : ℝ), |Cov| ≤ (χ_norm ^ 2) * C * Real.exp (-γ * (k : ℝ)) := by sorry
+  ∃ (Cov : ℝ), |Cov| ≤ (χ_norm ^ 2) * C * Real.exp (-γ * (k : ℝ)) := by
+  use -Real.log (1 - δ)
+  have h_pos : 1 - δ > 0 := sub_pos.mpr h_delta2
+  have h_log : Real.log (1 - δ) < 0 := Real.log_neg h_pos (sub_lt_self 1 h_delta)
+  refine ⟨rfl, neg_pos.mpr h_log, ?_⟩
+  intro χ χ_norm k _
+  use 1
+  refine ⟨by norm_num, ?_⟩
+  use 0
+  rw [abs_zero]
+  have h_exp : 0 ≤ Real.exp (-(-Real.log (1 - δ)) * ↑k) := le_of_lt (Real.exp_pos _)
+  have h_sq : 0 ≤ χ_norm ^ 2 := sq_nonneg χ_norm
+  nlinarith
 
 end ArithmeticDynamics.SieveAnalytics

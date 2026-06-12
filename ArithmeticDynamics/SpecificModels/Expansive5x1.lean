@@ -9,7 +9,12 @@ import Mathlib.Tactic.NormNum
 
 namespace ArithmeticDynamics.SpecificModels
 
-def TransitionMatrix {d : ℕ} [NeZero d] (_qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ := fun _ _ => 0
+def TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolynomial d) : Matrix (Fin d) (Fin d) ℝ :=
+  fun (i j : Fin d) =>
+    -- For source state i, compute probability of transitioning to target state j
+    -- The transition occurs if (qp.a i * k + qp.b i) / d ≡ j (mod d) for some integer k
+    -- In the quasi-polynomial model, we have uniform distribution over residue classes
+    if ∃ (k : ℤ), ((qp.a i : ℤ) * k + qp.b i) / d % d = j.val then 1 / d else 0
 def StationaryMeasure {M : ℕ} (_π : Fin M → ℝ) (_P : Matrix (Fin M) (Fin M) ℝ) : Prop := False
 
 /-- doc -/

@@ -4,7 +4,8 @@ namespace ArithmeticDynamics.Algebra
 
 /-- Predicate encoding whether a modulus supports independent orthogonal prime channels. -/
 def SupportsOrthogonalPrimeChannels (_d : ℕ) : Prop := False
-def IsPrimePowerArithmeticMap {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) : Prop := f = f
+def IsPrimePowerArithmeticMap {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) : Prop :=
+  ∀ (x y : Z_d d), padicNormZd (f x - f y) ≤ padicNormZd (x - y)
 
 /-- Linearization of orbits: restricting to a strict prime-power modulus enforces a
 1-Lipschitz causal dynamics over the associated `p`-adic space. -/

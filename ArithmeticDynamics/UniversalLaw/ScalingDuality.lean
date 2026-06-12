@@ -34,7 +34,7 @@ def C : Fin d → Set StateSpace := fun _ => ∅
 noncomputable def mu : MeasureTheory.Measure StateSpace := 0
 
 /-- doc -/
-noncomputable def lyapunov_exponent (μ : MeasureTheory.Measure StateSpace) (_f_map : StateSpace → StateSpace) : ℝ :=
+noncomputable def lyapunov_exponent (μ : MeasureTheory.Measure StateSpace) (_ : StateSpace → StateSpace) : ℝ :=
   ∑ i : Fin d, (μ (C i)).toReal * Real.log |(a i : ℝ) / (d : ℝ)|
 
 noncomputable def metric_entropy (μ : MeasureTheory.Measure StateSpace) (f_map : StateSpace → StateSpace) : ℝ :=

@@ -24,7 +24,7 @@ def a_default : Fin d → ℤ := fun _ => 0
 def b_default : Fin d → ℤ := fun _ => 0
 
 /-- Computes the essential spectral radius of the transition matrix given parameters. -/
-noncomputable def essential_spectral_radius (_a_vals _b_vals : Fin d → ℤ) : ℝ := 0
+noncomputable def essential_spectral_radius (_ : Fin d → ℤ) (_ : Fin d → ℤ) : ℝ := 0
 
 noncomputable def analytic_density : ℝ :=
   if 1 - essential_spectral_radius a_default b_default > 0 then 1 else 0

@@ -23,7 +23,7 @@ by the structural topological constraints of the modulus.
 @[blueprint]
 theorem hailstone_variance_bound :
   ∃ (V_max : ℝ),
-  ∀ (n : ℕ) (_h : n > 0), ∃ (v : ℝ), v ≤ V_max := by
+  ∀ (n : ℕ) (_ : n > 0), ∃ (v : ℝ), v ≤ V_max := by
   use 0
   intro _ _
   use 0
@@ -36,7 +36,7 @@ of the function strictly reduces the expected magnitude of the input.
 @[blueprint]
 theorem descent_dominant_classification :
   ∃ (K : ℕ), K > 0 ∧
-  ∀ (n : ℕ) (_h : n > 0), ∃ (μ : ℝ), μ < 0 := by
+  ∀ (n : ℕ) (_ : n > 0), ∃ (μ : ℝ), μ < 0 := by
   use 1
   refine ⟨by norm_num, ?_⟩
   intro _ _

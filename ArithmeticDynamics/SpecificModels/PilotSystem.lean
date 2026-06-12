@@ -97,7 +97,7 @@ Because \log_5 4 \approx 0.861 < 1, the explosive combinatorial error evaluates 
 @[blueprint]
 theorem pilot5_algebraic_error_capping :
   ∃ (α : ℝ), α > 0 ∧
-  ∀ (x : ℝ) (_hX : x > 1), ∃ (E : ℝ → ℝ) (C : ℝ),
+  ∀ (x : ℝ) (_ : x > 1), ∃ (E : ℝ → ℝ) (C : ℝ),
   ∀ (k : ℝ), k ≤ α * (Real.log x / Real.log 5) →
   |E k| ≤ C * (4 ^ (α * (Real.log x / Real.log 5))) ∧
   ∃ (c : ℝ), c > 0 ∧ |E k| ≤ C * (x ^ (1 - c)) := by

@@ -17,7 +17,7 @@ noncomputable def TransitionMatrix {d : ℕ} [NeZero d] (qp : Algebra.QuasiPolyn
     -- The transition occurs if (qp.a i * k + qp.b i) / d ≡ j (mod d) for some integer k
     -- In the quasi-polynomial model, we have uniform distribution over residue classes
     if ∃ (k : ℤ), ((qp.a i : ℤ) * k + qp.b i) / d % d = j.val then 1 / d else 0
-def StationaryMeasure {M : ℕ} (_π : Fin M → ℝ) (_P : Matrix (Fin M) (Fin M) ℝ) : Prop := False
+def StationaryMeasure {M : ℕ} (_ : Fin M → ℝ) (_ : Matrix (Fin M) (Fin M) ℝ) : Prop := False
 
 /-- doc -/
 theorem collatz5x1_div_cond : ∀ (i : Fin 2) (k : ℤ),

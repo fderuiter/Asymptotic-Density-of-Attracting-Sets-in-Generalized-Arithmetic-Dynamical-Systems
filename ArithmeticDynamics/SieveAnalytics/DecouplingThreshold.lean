@@ -17,7 +17,7 @@ Let \mathcal{P} be the Ruelle-Perron-Frobenius transfer operator associated with
 By standard Markov mixing theory, the total variation distance to the uniform invariant measure \pi decays geometrically. We define the quantitative mixing time \tau(\epsilon) required to restrict the dependency deviation below an analytic error threshold \epsilon:
 $$ \tau(\epsilon) = \left\lceil \frac{\log(1/\epsilon)}{-\log(1-\delta)} \right\rceil = \mathcal{O}\left( \frac{1}{\delta} \log \frac{1}{\epsilon} \right) $$
 -/
-noncomputable def mixing_time_threshold (δ : ℝ) (_h_delta : δ > 0) (ε : ℝ) : ℝ :=
+noncomputable def mixing_time_threshold (δ : ℝ) (_ : δ > 0) (ε : ℝ) : ℝ :=
   Real.log (1 / ε) / -Real.log (1 - δ)
 
 /--
@@ -30,9 +30,9 @@ The probability of an integer occupying a specific residue class modulo 5^m beco
 -/
 @[blueprint]
 theorem decoupling_threshold :
-  ∀ (X : ℝ) (_hX : X > 1) (δ : ℝ) (h_delta : δ > 0),
+  ∀ (X : ℝ) (_ : X > 1) (δ : ℝ) (h_delta : δ > 0),
   ∃ (τ : ℝ), τ = mixing_time_threshold δ h_delta (1 / X) ∧
-  ∀ (k : ℕ) (_m : ℕ), (k : ℝ) ≥ τ →
+  ∀ (k : ℕ) (_ : ℕ), (k : ℝ) ≥ τ →
   ∀ (N : ℕ), (N : ℝ) ≥ 1 ∧ (N : ℝ) ≤ X →
   ∃ (d_TV : ℝ), d_TV ≤ 1 / X := by
   intro X hX δ h_delta
@@ -53,7 +53,7 @@ where the strict decay rate is \gamma = -\log(1-\delta) > 0. As k \to \infty, th
 @[blueprint]
 theorem decay_of_correlations (δ : ℝ) (h_delta : δ > 0) (h_delta2 : δ < 1) :
   ∃ (γ : ℝ), γ = -Real.log (1 - δ) ∧ γ > 0 ∧
-  ∀ (χ : ℕ → ℝ) (χ_norm : ℝ) (k : ℕ) (_h_zero_mean : True),
+  ∀ (χ : ℕ → ℝ) (χ_norm : ℝ) (k : ℕ) (_ : True),
   ∃ (C : ℝ), C > 0 ∧
   ∃ (Cov : ℝ), |Cov| ≤ (χ_norm ^ 2) * C * Real.exp (-γ * (k : ℝ)) := by
   use -Real.log (1 - δ)

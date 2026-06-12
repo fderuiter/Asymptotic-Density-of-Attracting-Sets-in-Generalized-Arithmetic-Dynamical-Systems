@@ -47,11 +47,11 @@ def a : Fin d → ℤ := ArithmeticDynamics.SpectralThreshold.a_default
 def b : Fin d → ℤ := ArithmeticDynamics.SpectralThreshold.b_default
 
 /-- Placeholder predicate for the Conway-style admissibility filter on parameters. -/
-def passes_conway_filter (_a_vals _b_vals : Fin d → ℤ) : Prop := True
+def passes_conway_filter (_ : Fin d → ℤ) (_ : Fin d → ℤ) : Prop := True
 -- Removed opaque essential_spectral_radius
 
 /-- Classifies a parameter pair into one of the three system regimes. -/
-noncomputable def classify_system (a_vals b_vals : Fin d → ℤ) (_d_val : ℕ) : SystemClassification :=
+noncomputable def classify_system (a_vals b_vals : Fin d → ℤ) (_ : ℕ) : SystemClassification :=
   if ¬ passes_conway_filter a_vals b_vals then SystemClassification.TuringComplete
   else if 1 - ArithmeticDynamics.SpectralThreshold.essential_spectral_radius a_vals b_vals ≤ 0 then SystemClassification.CantorSupported
   else SystemClassification.DensityPositive

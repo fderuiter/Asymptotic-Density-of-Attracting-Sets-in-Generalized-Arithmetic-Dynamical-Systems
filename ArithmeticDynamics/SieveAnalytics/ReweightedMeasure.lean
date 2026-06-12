@@ -35,7 +35,7 @@ Let \Lambda = 144 be the closed congruence state space (\Lambda = \text{lcm}(12 
 def Lambda : ℕ := 144
 
 /-- The Markov transfer operator on the finite congruence state space `Fin Lambda`. -/
-noncomputable def markov_transfer_operator_M : Fin Lambda → Fin Lambda → ℝ := fun _ _ => 0
+noncomputable def markov_transfer_operator_M (_ : Fin Lambda) (_ : Fin Lambda) : ℝ := 0
 
 theorem principal_left_eigenvector_w :
   ∃ (w : Fin Lambda → ℝ),
@@ -57,9 +57,9 @@ The algebraically re-weighted measure is strictly preserved by the forward itera
 -/
 @[blueprint]
 theorem perfect_forward_invariance :
-  ∀ (A : Set ℕ) (T : ℕ → ℕ) (w : Fin Lambda → ℝ) (_hw : ∀ j, (∑' i, markov_transfer_operator_M j i * w i) = w j),
+  ∀ (A : Set ℕ) (T : ℕ → ℕ) (w : Fin Lambda → ℝ) (_ : ∀ j, (∑' i, markov_transfer_operator_M j i * w i) = w j),
   reweighted_measure w (T '' A) = reweighted_measure w A := by
-  intro A T w hw
+  intro A T w _
   admit
 
 end ArithmeticDynamics.SieveAnalytics

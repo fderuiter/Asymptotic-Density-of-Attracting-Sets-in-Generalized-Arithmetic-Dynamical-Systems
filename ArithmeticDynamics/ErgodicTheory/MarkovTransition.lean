@@ -18,7 +18,7 @@ class IsRowStochastic (P : Matrix (Fin M) (Fin M) ℝ) : Prop where
   sums_to_one : ∀ i, ∑ j, P i j = 1
 
 /-- doc -/
-def IsPrimitive (_P : Matrix (Fin M) (Fin M) ℝ) : Prop := False
+def IsPrimitive (_ : Matrix (Fin M) (Fin M) ℝ) : Prop := False
 
 /-- Lemma 1.3.1b: The Ergodic Measure Construction.
     Applies the Perron-Frobenius theorem to establish a unique, strictly positive

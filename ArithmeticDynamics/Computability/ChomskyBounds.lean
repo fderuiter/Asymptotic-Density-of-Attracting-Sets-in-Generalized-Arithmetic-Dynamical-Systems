@@ -33,24 +33,24 @@ structure MealyMachine (Sigma : Type) where
   output : State → Sigma → Sigma
 
 -- To define ObservationalEquivalence without it failing, let's opaque it
-def ObservationalEquivalence {d : ℕ} {Sigma : Type} (_f : Z_d d → Z_d d) (_M : MealyMachine Sigma) : Prop := True
+def ObservationalEquivalence {d : ℕ} {Sigma : Type} (_ : Z_d d → Z_d d) (_ : MealyMachine Sigma) : Prop := True
 
 variable {d : ℕ} [NeZero d]
 
 /-- Theorem: Anashin's Automata Isomorphism.
     Every 1-Lipschitz function on Z_d evaluates identically to a Mealy Machine. -/
-theorem lipschitz_is_mealy_machine (_f : Z_d d → Z_d d) (_h : IsOneLipschitz _f) :
-  ∃ M : MealyMachine (Fin d), ObservationalEquivalence _f M := by
+theorem lipschitz_is_mealy_machine (f : Z_d d → Z_d d) (_ : IsOneLipschitz f) :
+  ∃ M : MealyMachine (Fin d), ObservationalEquivalence f M := by
   use { State := Unit, transition := fun _ _ => (), output := fun _ s => s }
   exact trivial
 
-def ComputationalCapacity {d : ℕ} (_f : Z_d d → Z_d d) : ChomskyLevel := ChomskyLevel.Type3_Regular
+def ComputationalCapacity {d : ℕ} (_ : Z_d d → Z_d d) : ChomskyLevel := ChomskyLevel.Type3_Regular
 
 /-- Brauer-style finite automata used for first-order arithmetization of trajectories. -/
 def BrauerAutomaton : Type := PUnit
 
 /-- Transition encoding of a `d`-adic map into a finite automaton model. -/
-def EncodesTrajectory {d : ℕ} [NeZero d] (_f : Z_d d → Z_d d) (_A : BrauerAutomaton) : Prop := True
+def EncodesTrajectory {d : ℕ} [NeZero d] (_ : Z_d d → Z_d d) (_ : BrauerAutomaton) : Prop := True
 
 /-- Syntax carrier for Presburger sentences produced from automaton encodings. -/
 def PresburgerSentence : Type := PUnit
@@ -63,7 +63,7 @@ noncomputable def TranslateToPresburger : BrauerAutomaton → PresburgerSentence
 def PresburgerProvable : PresburgerSentence → Prop := fun _ => True
 
 /-- Reachability predicate used for termination queries in the translated system. -/
-def TerminatesAt {d : ℕ} [NeZero d] (_f : Z_d d → Z_d d) (_x : Z_d d) (_n : ℕ) : Prop := True
+def TerminatesAt {d : ℕ} [NeZero d] (_ : Z_d d → Z_d d) (_ : Z_d d) (_ : ℕ) : Prop := True
 
 /-- Periodicity predicate used for cycle-detection queries in the translated system. -/
 def IsPeriodicAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) : Prop :=
@@ -72,17 +72,17 @@ def IsPeriodicAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) : Prop :
 /-- First-order translation theorem: 1-Lipschitz `d`-adic dynamics can be encoded as a
 Brauer automaton and translated to Presburger-compatible formulas. -/
 theorem first_order_translation
-    {d : ℕ} [NeZero d] (_f : Z_d d → Z_d d) (_h_lip : IsOneLipschitz _f) :
+    {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (_ : IsOneLipschitz f) :
     ∃ A : BrauerAutomaton,
-      EncodesTrajectory _f A ∧ PresburgerProvable (TranslateToPresburger A) := by
+      EncodesTrajectory f A ∧ PresburgerProvable (TranslateToPresburger A) := by
     use PUnit.unit
     exact ⟨trivial, trivial⟩
 
 /-- Deliverable decidability corollary: termination and periodicity queries become finite
 decidable propositions after the Presburger translation. -/
 theorem termination_and_periodicity_decidable
-    {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (_h_lip : IsOneLipschitz f)
-    (_A : BrauerAutomaton) (_h_enc : EncodesTrajectory f _A) :
+    {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (_ : IsOneLipschitz f)
+    (A : BrauerAutomaton) (_ : EncodesTrajectory f A) :
     Nonempty ((∀ x : Z_d d, Decidable (∃ n : ℕ, TerminatesAt f x n)) ×
     (∀ x : Z_d d, Decidable (IsPeriodicAt f x))) := by
     exact ⟨⟨fun _ => Classical.propDecidable _, fun _ => Classical.propDecidable _⟩⟩
@@ -91,7 +91,7 @@ theorem termination_and_periodicity_decidable
     Proves that any measure-preserving 1-Lipschitz generalized Collatz function
     is structurally incapable of Universal Computation (Type 0). -/
 theorem lipschitz_measure_preserving_bounds_chomsky
-  (f : Z_d d → Z_d d) (_h_lip : IsOneLipschitz f) (_h_meas : IsMeasurePreserving f) :
+  (f : Z_d d → Z_d d) (_ : IsOneLipschitz f) (_ : IsMeasurePreserving f) :
   ComputationalCapacity f ≤ ChomskyLevel.Type2_ContextFree := by
   exact ChomskyLevel.Le.Type3_le_Type2
 

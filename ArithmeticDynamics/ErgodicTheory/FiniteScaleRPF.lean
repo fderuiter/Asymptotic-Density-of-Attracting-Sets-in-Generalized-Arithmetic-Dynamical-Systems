@@ -27,7 +27,7 @@ structure PartialDensityCertificate where
   is_clamped : Bool
 
 /-- A mock finite-scale Ruelle-Perron-Frobenius operator used for testing. -/
-noncomputable def finite_scale_rpf (depth : ℕ) (system_state : ℕ) : ℝ :=
+noncomputable def finite_scale_rpf (depth : ℕ) (_ : ℕ) : ℝ :=
   -- mock implementation
   (1.0 : ℝ) / ((depth : ℝ) + 1.0)
 
@@ -40,7 +40,7 @@ noncomputable def prune_and_certify (clamp : ComplexityClamp) (system_state : �
 
 /-- Performs density analysis according to the Chomsky level and finite clamp. -/
 noncomputable def bifurcated_density_analysis
-  {d : ℕ} [NeZero d] (_f : Z_d d → Z_d d) (level : ChomskyLevel) (clamp : ComplexityClamp)
+  {d : ℕ} [NeZero d] (_ : Z_d d → Z_d d) (level : ChomskyLevel) (clamp : ComplexityClamp)
   : Option PartialDensityCertificate :=
   match level with
   | ChomskyLevel.Type1_ContextSensitive =>

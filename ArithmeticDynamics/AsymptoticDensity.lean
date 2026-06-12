@@ -1,26 +1,35 @@
-import Mathlib.Data.Set.Basic
-import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Data.Real.Basic
-import ArithmeticDynamics.Blueprint
+import Mathlib.MeasureTheory.Measure.MeasureSpace
+import Mathlib.Order.Filter.Basic
+import Mathlib.Topology.Instances.Real
+import Mathlib.Data.Set.Basic
 
 namespace ArithmeticDynamics
 
-noncomputable def NaturalDensity (S : Set ℕ) : ℝ :=
-  if S = Set.univ then 1 else if S = ∅ then 0 else 0.5
+open Filter Topology
 
-noncomputable def LogarithmicDensity (S : Set ℕ) : ℝ :=
-  if S = Set.univ then 1 else if S = ∅ then 0 else 0.5
+/-- Natural density of a set of natural numbers. -/
+noncomputable def naturalDensity (A : Set ℕ) : ℝ :=
+  limsup (fun n : ℕ => (A ∩ {x | x ≤ n}).ncard : ℝ) / (fun n : ℕ => n : ℝ) atTop
 
-noncomputable def AsymptoticDensity (S : Set ℕ) : ℝ :=
-  if S = Set.univ then 1 else if S = ∅ then 0 else 0.5
+/-- Logarithmic density of a set of natural numbers. -/
+noncomputable def logarithmicDensity (A : Set ℕ) : ℝ :=
+  limsup (fun n : ℕ => (∑' (x : A ∩ {y | y ≤ n}), (1 / x : ℝ))) / (fun n : ℕ => Real.log n) atTop
 
-theorem AsymptoticDensity_univ : AsymptoticDensity Set.univ = 1 := by
-  dsimp [AsymptoticDensity]
-  exact if_pos rfl
+/-- A set has a strictly positive natural density if its lower natural density is > 0. -/
+def HasPositiveNaturalDensity (A : Set ℕ) : Prop :=
+  liminf (fun n : ℕ => (A ∩ {x | x ≤ n}).ncard : ℝ) / (fun n : ℕ => n : ℝ) atTop > 0
 
-theorem AsymptoticDensity_empty : AsymptoticDensity ∅ = 0 := by
-  dsimp [AsymptoticDensity]
-  rw [if_neg (Set.empty_ne_univ)]
-  exact if_pos rfl
+/-- A set has a strictly positive logarithmic density if its lower logarithmic density is > 0. -/
+def HasPositiveLogarithmicDensity (A : Set ℕ) : Prop :=
+  liminf (fun n : ℕ => (∑' (x : A ∩ {y | y ≤ n}), (1 / x : ℝ))) / (fun n : ℕ => Real.log n) atTop > 0
+
+noncomputable def asymptoticDensity (S : Set ℕ) : ℝ := naturalDensity S
+
+theorem asymptotic_density_univ : asymptoticDensity Set.univ = 1 := by
+  sorry
+
+theorem asymptotic_density_empty : asymptoticDensity ∅ = 0 := by
+  sorry
 
 end ArithmeticDynamics

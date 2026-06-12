@@ -15,4 +15,4 @@ noncomputable def padicHaarMeasure {p : ℕ} [Fact (Nat.Prime p)] : MeasureTheor
 /-- The measure of the entire space is 1. -/
 theorem padicHaarMeasure_univ_eq_one {p : ℕ} [Fact (Nat.Prime p)] : @padicHaarMeasure p _ Set.univ = 1 := by
   dsimp [padicHaarMeasure]
-  exact MeasureTheory.Measure.dirac_univ
+  exact MeasureTheory.Measure.dirac_apply_of_mem (Set.mem_univ 0)

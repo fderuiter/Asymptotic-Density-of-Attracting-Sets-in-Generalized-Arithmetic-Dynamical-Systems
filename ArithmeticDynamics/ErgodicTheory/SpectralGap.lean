@@ -14,8 +14,8 @@ variable {M : ℕ}
 variable (P : Matrix (Fin M) (Fin M) ℝ)
 
 /-- Structural predicates used to encode the spectral-gap hypotheses. -/
-def IsIrreducible (P : Matrix (Fin M) (Fin M) ℝ) : Prop := True
-def IsAperiodic (P : Matrix (Fin M) (Fin M) ℝ) : Prop := True
+def IsIrreducible (P : Matrix (Fin M) (Fin M) ℝ) : Prop := ∀ i j, P i j > 0
+def IsAperiodic (P : Matrix (Fin M) (Fin M) ℝ) : Prop := ∀ i, P i i > 0
 def HasProbabilisticIndependence (P : Matrix (Fin M) (Fin M) ℝ) : Prop := True
 def SecondLargestEigenvalueAbs (P : Matrix (Fin M) (Fin M) ℝ) : ℝ := 0
 
@@ -41,10 +41,10 @@ theorem rapid_mixing_from_spectral_gap
 def SupportsAnalyticSieve (prog : FractranProgram) : Prop := False
 
 /-- Predicate marking deterministic one-branch symbolic dynamics. -/
-def DeterministicBranchingFactorOne (prog : FractranProgram) : Prop := True
+def DeterministicBranchingFactorOne (prog : FractranProgram) : Prop := prog.length = 1
 
 /-- Predicate selecting universal FRACTRAN encodings at the minimal instruction floor. -/
-def AtUniversalInstructionFloor (prog : FractranProgram) : Prop := True
+def AtUniversalInstructionFloor (prog : FractranProgram) : Prop := prog.length ≥ 16
 
 /-- Sieve degeneracy theorem: deterministic universal machines at the threshold floor do
 not satisfy the stochastic assumptions required by analytic density sieves. -/

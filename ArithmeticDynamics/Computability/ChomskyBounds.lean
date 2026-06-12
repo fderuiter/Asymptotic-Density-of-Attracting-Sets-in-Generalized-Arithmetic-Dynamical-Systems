@@ -59,16 +59,18 @@ def PresburgerSentence : Type := PUnit
 instance : Nonempty PresburgerSentence := ⟨PUnit.unit⟩
 
 /-- First-order translation from Brauer automata to existential linear congruences. -/
-noncomputable def TranslateToPresburger : BrauerAutomaton → PresburgerSentence := fun _ => PUnit.unit
+noncomputable def TranslateToPresburger : BrauerAutomaton → PresburgerSentence := fun _ => by sorry
 
 /-- Predicate asserting formal derivability/decidability in Presburger arithmetic. -/
 def PresburgerProvable : PresburgerSentence → Prop := fun _ => True
 
 /-- Reachability predicate used for termination queries in the translated system. -/
-def TerminatesAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) (n : ℕ) : Prop := True
+def TerminatesAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) (n : ℕ) : Prop :=
+  f^[n] x = 0
 
 /-- Periodicity predicate used for cycle-detection queries in the translated system. -/
-def IsPeriodicAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) : Prop := True
+def IsPeriodicAt {d : ℕ} [NeZero d] (f : Z_d d → Z_d d) (x : Z_d d) : Prop :=
+  ∃ k > 0, f^[k] x = x
 
 /-- First-order translation theorem: 1-Lipschitz `d`-adic dynamics can be encoded as a
 Brauer automaton and translated to Presburger-compatible formulas. -/
